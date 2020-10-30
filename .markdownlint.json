@@ -1,0 +1,6 @@
+{
+    "default": true,
+    "no-hard-tabs": false,
+    "line-length": false,
+    "first-line-heading": false
+}
