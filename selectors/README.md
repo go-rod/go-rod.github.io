@@ -115,12 +115,12 @@ func main() {
 	page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
 
 	// It will keep polling until one selector has found a match
-	page.Race().MustElement(".nav-user-icon-base", func(el *rod.Element) {
+	page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
 		// print the username after successful login
-		fmt.Println(*el.MustAttribute("title"))
-	}).MustElement("[data-cy=sign-in-error]", func(el *rod.Element) {
+		fmt.Println(*e.MustAttribute("title"))
+	}).Element("[data-cy=sign-in-error]").MustHandle(func(e *rod.Element) {
 		// when wrong username or password
-		fmt.Println(el.MustText())
+		panic(elm.MustText())
 	}).MustDo()
 }
 ```
