@@ -21,11 +21,9 @@ func main() {
 }
 ```
 
-The `rod.New()` creates a browser object, then we use the `MustConnect` to
-launch and connect to a browser. We call the `MustPage` to
-create a page object, it's like a page tab on Chrome. We use `MustWaitLoad` to
-wait for the resource to be downloaded, such as images.
-Then we use `MustScreenshot` to take a screenshot of the page.
+The `rod.New()` creates a browser object, the `MustConnect` launches and connects to a browser.
+The `MustPage` creates a page object, it represents a page tab on the browser. We use `MustWaitLoad` to
+wait for the resource to be downloaded, such as images. Then we use `MustScreenshot` to take a screenshot of the page.
 
 Let's run the code:
 
@@ -42,7 +40,7 @@ The it will output a screenshot "a.png":
 
 By default, Rod will disable the browser's UI to maximize the performance.
 But when developing an automation task we usually care more about the ease of debugging.
-Rod provides a lot of ways to help you debugging your code.
+Rod provides a lot of solutions to help you debug the code.
 
 Let's create a ".rod" config file under the current working directory. The content is:
 
@@ -50,9 +48,9 @@ Let's create a ".rod" config file under the current working directory. The conte
 show
 ```
 
-It means "show the browser on the foreground".
-Before we run the "main.go" again, let's add `time.Sleep(time.Hour)`
-at the end so that it won't be too fast for our eyes to catch it,
+It means "show the browser UI on foreground".
+Before we run the "main.go" again, let's append `time.Sleep(time.Hour)`
+to the end the code so that it's not too fast for our eyes to catch it,
 the code of "main.go" now becomes:
 
 ```go
@@ -75,15 +73,15 @@ If you run the "main.go" again, you should see a browser like this:
 
 ![show](show.png)
 
-Use "CTRL-C" to stop.
+Press [CTRL + C](https://en.wikipedia.org/wiki/Control-C) on the keyboard to kill the program.
 
 ## Input and click
 
-Let's automate the website to search the keyword "earth" for us.
-A website can have many inputs or buttons, we need a way to tell the program which input
-or button to manipulate. We will use [Devtools](https://developers.google.com/web/tools/chrome-devtools/)
+Let's automate the website to search the keyword "earth".
+A website can have many inputs or buttons, we need to tell the program which input
+or button to manipulate. Usually, we use [Devtools](https://developers.google.com/web/tools/chrome-devtools/)
 to help us locate the elements we want to control.
-Add a new config to the ".rod" file to enable the Devtools, now it becomes:
+let's add a new config to the ".rod" file to enable the Devtools, now it becomes:
 
 ```txt
 show
@@ -126,13 +124,13 @@ As you can see we only added one line before the screenshot.
 We use `MustElement` and the selector we copied from the Devtools panel
 to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears,
 so we don't need to use `MustWaitLoad` before it.
-Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see
-it's working:
+Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go",
+you should see the result looks like below:
 
 ![after-input](after-input.png)
 
 Similar to the input field let's right-click the search
-button to copy the selector of it:
+button to copy the selector for it:
 
 ![search-btn](search-btn.png)
 
