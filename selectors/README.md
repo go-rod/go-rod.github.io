@@ -13,7 +13,7 @@ If you hover the cursor over the method, you will see the doc of it like below:
 Usually, you only need some basic knowledge of [CSS Selector](css-selector) to achieve the automation task you want to do.
 In the rest of the documentation we will only use CSS Selector to get elements from the page.
 
-## Match text
+## By text content
 
 Use `ElementR` to match elements with specific text content, such as select the search input in the screenshot below:
 
@@ -24,6 +24,28 @@ page.MustElementR("input", "Search or jump")
 ```
 
 Since we use regex, we don't have to match the whole text context.
+
+## By XPath
+
+CSS selector is the recommended way to selector elements, such as you cannot use XPath to select [rendered text](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454).
+But sometimes XPath may be more handy programmers come from other languages.
+Use the `ElementX` for XPath:
+
+```go
+page.MustElementX("//h2")
+```
+
+## By Javascript
+
+If you have a complex query or you want to use a high-level query engine, such as [jQuery](https://jquery.com/):
+
+```go
+page.MustElementByJS(`jQuery('option:selected')[0]`)
+```
+
+Actually, if you check the source code of other selectors, such as `Element` or `ElementR`, they are all based on `ElementByJS`,
+and `ElementByJS` is based on `Page.Evaluate`, for more details about how to evaluate js, check the [Javascript Runtime](/javascript-runtime.md).
+Usually, you use `ElementByJS` to create your own selector to extend Rod.
 
 ## Select list of elements
 
