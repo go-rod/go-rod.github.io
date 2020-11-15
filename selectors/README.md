@@ -13,6 +13,18 @@ If you hover the cursor over the method, you will see the doc of it like below:
 Usually, you only need some basic knowledge of [CSS Selector](css-selector) to achieve the automation task you want to do.
 In the rest of the documentation we will only use CSS Selector to get elements from the page.
 
+## Match text
+
+Use `ElementR` to match elements with specific text content, such as select the search input in the screenshot below:
+
+![match-text](match-text.png)
+
+```go
+page.MustElementR("input", "Search or jump")
+```
+
+Since we use regex, we don't have to match the whole text context.
+
 ## Select list of elements
 
 The names of the methods to get multiple elements are all prefixed with `MustElements` or `Elements`.
