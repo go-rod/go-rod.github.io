@@ -10,7 +10,7 @@ If you want to code for jobs with lots of uncertainty, such as web scraping,
 the non-prefixed version will be a better choice.
 
 The prefixed version is just the non-prefixed version wrapped with an error checker.
-Here's the source code of the `MustElement`, as you can see it's just calling the `Element`:
+Here's the source code of the `MustElement`, as you can see it's just the `Element` with several extra lines of code:
 
 ```go
 func (p *Page) MustElement(selectors ...string) *Element {
@@ -37,9 +37,9 @@ err := rod.Try(func() {
 handleError(err)
 ```
 
-We use the `rod.Try` function to catch the error from the prefixed methods.
+We use `rod.Try` to catch the error from the `Must` prefixed methods `MustElement` and `MustHTML`.
 
-The style below is the standard way to handle errors. Usually, it's more consistent and precise:
+The style below is the Go's standard way to handle errors. Usually, it's more consistent and precise:
 
 ```go
 page := rod.New().MustConnect().MustPage("https://example.com")
