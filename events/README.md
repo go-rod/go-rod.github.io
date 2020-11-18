@@ -81,4 +81,11 @@ wait()
 If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever.
 This is actually the code of how `page.WaitEvent` works.
 
+## Available events
+
+Usually, we use the IDE to list all the available events. Such as we want to see all the events under the Page domain,
+we can create an empty page object and use the `WaitEvent` to list and filter all the event types:
+
+![event-list](event-list.png)
+
 [Next Chapter](/input.md)

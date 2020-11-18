@@ -8,7 +8,7 @@
 - Guides
 
   - [Selectors](selectors/README.md)
-  - [Events](events.md)
+  - [Events](events/README.md)
   - [Input](input.md)
   - [Network](network.md)
   - [Emulation](emulation.md)

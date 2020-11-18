@@ -159,4 +159,4 @@ func main() {
 }
 ```
 
-[Next Chapter](/events.md)
+[Next Chapter](/events/README.md)
