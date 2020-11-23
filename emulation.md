@@ -1,5 +1,95 @@
 # Emulation
 
-Check the [test](https://github.com/go-rod/rod/blob/5e2a019449e9703c2b5227ef9821811c8e88cb33/page_test.go#L191)
+Rod provides various ways to emulate the environment for pages.
 
-[Next Chapter](/page-resources.md)
+## Devices
+
+To set the viewport, user-agent, orientation, etc at the same time for a page, you can use the predefined devices:
+
+```go
+page.MustEmulate(devices.IPhone6or7or8Plus)
+```
+
+Or define your own device:
+
+```go
+page.MustEmulate(devices.New(`{
+  "capabilities": [
+    "touch",
+    "mobile"
+  ],
+  "screen": {
+    "device-pixel-ratio": 2,
+    "horizontal": {
+      "height": 320,
+      "width": 480
+    },
+    "vertical": {
+      "height": 480,
+      "width": 320
+    }
+  },
+  "show-by-default": false,
+  "title": "iPhone 4",
+  "type": "phone",
+  "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X)"
+}`))
+```
+
+Check the source code of the predefined devices, the fields should self explain themselves.
+
+You can also set the default device for all pages by using [Browser.DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice).
+
+## User agent
+
+If you want to specify a user-agent for a specific page, use [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent).
+
+## Viewport
+
+If you want to specify the viewport for a specific page, use [Page.SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport).
+
+## Locale and timezone
+
+You can use the launch env to set for all pages:
+
+```go
+u := launcher.New().Env("TZ=America/New_York").MustConnect()
+browser := rod.New().ControlURL(u).MustConnect()
+```
+
+Or you can use [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetTimezoneOverride)
+or [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetLocaleOverride)
+to set for a specific page:
+
+```go
+proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
+```
+
+## Permissions
+
+Use [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#BrowserGrantPermissions)
+
+## Geolocation
+
+Use [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetGeolocationOverride)
+
+## Color scheme and media
+
+Use [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetEmulatedMedia)
+
+```go
+proto.EmulationSetEmulatedMedia{
+    Media: "screen",
+    Features: []*proto.EmulationMediaFeature{
+        {"prefers-color-scheme", "dark"},
+    },
+}.Call(page)
+```
+
+## Bypass bot detection
+
+When we control a page we hope it's completely transparent for the page so that the page cannot tell if it's under
+control or not. Sure you can handcraft one, but here's one tested solution that might help:
+[code example](https://github.com/go-rod/bypass/blob/master/examples_test.go)
+
+[Next Chapter](/network.md)

@@ -1,4 +1,4 @@
-# Custom Launch
+# Customize Launch
 
 ## Docker
 

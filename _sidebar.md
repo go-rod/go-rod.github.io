@@ -10,13 +10,13 @@
   - [Selectors](selectors/README.md)
   - [Events](events/README.md)
   - [Input](input.md)
-  - [Network](network.md)
   - [Emulation](emulation.md)
+  - [Network](network.md)
   - [Page Resources](page-resources.md)
   - [Javascript Runtime](javascript-runtime.md)
   - [Page Pool](page-pool.md)
-  - [Customize Launch](custom-launch.md)
-  - [Customize WebSocket](customize-websocket.md)
+  - [Custom Launch](custom-launch.md)
+  - [Custom WebSocket](custom-websocket.md)
   - [CSS Selector](css-selector.md)
 
 - Resources
