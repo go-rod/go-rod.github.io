@@ -8,7 +8,7 @@ If you have never used Golang, [install](https://golang.org/doc/install) it and 
 
 ## First program
 
-Let's use Rod to open a page and take a screenshot of it, first, create a "main.go" file under an empty folder:
+Let's use Rod to open a page and take a screenshot of it, first, create a "main.go" file with the content below:
 
 ```go
 package main
@@ -25,14 +25,19 @@ The `rod.New()` creates a browser object, the `MustConnect` launches and connect
 The `MustPage` creates a page object, it represents a page tab on the browser. We use `MustWaitLoad` to
 wait for the resource to be downloaded, such as images. Then we use `MustScreenshot` to take a screenshot of the page.
 
-Let's run the code:
+Download Rod package:
 
 ```bash
-go mod init learn-rod
-go run .
+go get github.com/go-rod/rod
 ```
 
-The it will output a screenshot "a.png":
+Run the "main.go" file we just created:
+
+```bash
+go run main.go
+```
+
+The program will output a screenshot "a.png" like the one below:
 
 ![first-program](first-program.png)
 
@@ -50,7 +55,7 @@ show
 
 It means "show the browser UI on foreground".
 Before we run the "main.go" again, let's append `time.Sleep(time.Hour)`
-to the end the code so that it's not too fast for our eyes to catch it,
+to the end the code so that won't be too fast for our eyes to catch it,
 the code of "main.go" now becomes:
 
 ```go

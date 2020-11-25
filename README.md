@@ -7,5 +7,7 @@ It's widely used for web automation and scraping. Rod can automate most things i
 - Scrape client-side rendered pages
 - Auto-fill forms
 - End-to-end testing
+- Hijack requests
+- And more
 
 [Next Chapter](get-started/README.md)
