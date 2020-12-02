@@ -6,11 +6,11 @@ they handle errors. It's not special for Rod, you can find it in the standard li
 
 The methods like `MustNavigate` and `MustElement` are commonly used in example code or quick scripting.
 They are useful for jobs like smoke testing, site monitoring, end-to-end test, etc.
-If you want to code for jobs with lots of uncertainty, such as web scraping,
-the non-prefixed version will be a better choice.
+Jobs with lots of uncertainty, such as web scraping, the non-prefixed version will be a better choice.
 
 The prefixed version is just the non-prefixed version wrapped with an error checker.
-Here's the source code of the `MustElement`, as you can see it's just the `Element` with several extra lines of code:
+Here's the source code of the `MustElement`, as you can see it just calls the `Element` with
+several extra lines to panic if err is not `nil`:
 
 ```go
 func (p *Page) MustElement(selectors ...string) *Element {
@@ -24,7 +24,7 @@ func (p *Page) MustElement(selectors ...string) *Element {
 
 ## Get the error value
 
-For example, the two code blocks below are basically doing the same thing in two styles.
+The two code blocks below are almost doing the same thing in two styles.
 
 The style below will usually end up in less code, but it may also catch extra errors:
 

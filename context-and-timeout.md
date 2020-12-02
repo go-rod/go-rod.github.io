@@ -1,12 +1,12 @@
 # Context and Timeout
 
 In Golang, we usually use [context](https://golang.org/pkg/context/) to cancel IO blocking tasks.
-Because Rod uses WebSocket to talk to the browser, literally all control signals Rod send to the browser
-are an IO blocking. The use of context is not special for Rod, it follows the standard way.
+Because Rod uses WebSocket to talk to the browser, literally all control signals Rod sends to the browser
+are IO blocking. The use of context is not special for Rod, it follows the standard way.
 
 ## Cancellation
 
-For example, we have a sample code like below, it simply creates a blank page and navigates it to the "github.com":
+For example, the code below creates a blank page and navigates it to the "github.com":
 
 ```go
 page := rod.New().MustConnect().MustPage("")
@@ -14,7 +14,7 @@ page.MustNavigate("http://github.com")
 ```
 
 Now, suppose we want to cancel the `MustNavigate` if it takes more than 2 seconds.
-In Rod we can do something like this to achieve it:
+In Rod we can do something like this:
 
 ```go
 page := rod.New().MustConnect().MustPage("")
@@ -27,21 +27,18 @@ go func() {
     cancel()
 }()
 
-pageWithCancel.MustNavigate("http://github.com")
+pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
 ```
 
-We use the `page.Context` to create a shallow copy of the `page`. Whenever we call the `cancel`, the operations
-on the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`.
+We use the `page.Context` to create a shallow clone of the `page`. Whenever we call the `cancel`, the operations
+triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`.
 
-It's not special for Rod, you can find similar APIs like [this one](https://golang.org/pkg/net/http/#Request.WithContext) in the standard library.
+This style not special for Rod, you can find similar APIs like [this one](https://golang.org/pkg/net/http/#Request.WithContext) in the standard library.
 
-Because `pageWithCancel` is not `page`, operations on `page` will not be affected by the cancellation:
+Because `pageWithCancel` and `page` are independent to each other, operations triggered by `page` will not be affected by the cancellation:
 
 ```go
-...
-
-pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
-page.MustNavigate("http://github.com")           // won't be canceled after 2 seconds
+page.MustNavigate("http://github.com") // won't be canceled after 2 seconds
 ```
 
 ## Timeout
@@ -55,7 +52,7 @@ page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 ```
 
 The `page.Timeout(2 * time.Second)` is the previous `pageWithCancel`.
-Not just `Page`, `Browser` and `Element` also support the same context APIs.
+Not just `Page`, `Browser` and `Element` also have the same context helpers.
 
 ## Detect timeout
 
