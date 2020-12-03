@@ -54,5 +54,3 @@ func (ws *MyWebSocket) Read() ([]byte, error) {
 	return data, err
 }
 ```
-
-[Next Chapter](/css-selector.md)
