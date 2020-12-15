@@ -154,7 +154,7 @@ func main() {
 		fmt.Println(*e.MustAttribute("title"))
 	}).Element("[data-cy=sign-in-error]").MustHandle(func(e *rod.Element) {
 		// when wrong username or password
-		panic(elm.MustText())
+		panic(e.MustText())
 	}).MustDo()
 }
 ```
