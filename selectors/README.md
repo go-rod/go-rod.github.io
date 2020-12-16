@@ -24,7 +24,7 @@ page.MustElementR("input", "Search or jump")
 ```
 
 Since we use regex, we don't have to match the whole text context.
-
+Note: the JsRegex ("Search or jump" in this case) is what you actually see on the website, not what is shown via inspect element.
 ## By XPath
 
 CSS selector is the recommended way to selector elements, such as you cannot use XPath to select [rendered text](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454).
