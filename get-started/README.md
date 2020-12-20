@@ -43,6 +43,8 @@ The program will output a screenshot "a.png" like the one below:
 
 ## See what's under the hood
 
+For senior developers, you can skip all and read this file: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
+
 By default, Rod will disable the browser's UI to maximize the performance.
 But when developing an automation task we usually care more about the ease of debugging.
 Rod provides a lot of solutions to help you debug the code.
@@ -198,8 +200,6 @@ On console you will see the trace log like below:
 The ".rod" file is just a shortcut for some commonly used API, you can also manually set them in code,
 such as the "slow", the code to set it is like `rod.New().SlowMotion(2 * time.Second)`. You can also use an
 environment variable to set it, such as on Mac or Linux: `rod=show go main.go`.
-
-Read the doc of [defaults](https://pkg.go.dev/github.com/go-rod/rod/lib/defaults) for more details.
 
 ## Get text content
 
