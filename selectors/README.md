@@ -21,10 +21,13 @@ Use `ElementR` to match elements with specific text content, such as select the 
 
 ```go
 page.MustElementR("input", "Search or jump")
+page.MustElementR("input", "/click/i") // use the case-insensitive flag "i"
 ```
 
-Since we use regex, we don't have to match the whole text context.
-Note: the JsRegex ("Search or jump" in this case) is what you actually see on the website, not what is shown via inspect element.
+Since we use [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), we don't have to match the whole text context.
+The text to match is what you actually see on the website, not the source code, compare 1 and 2 in the screenshot below. You can use the `copy` helper in Devtools to copy the text to your clipboard (look at the 4):
+
+![copy-text](copy-text.png)
 
 ## By XPath
 
