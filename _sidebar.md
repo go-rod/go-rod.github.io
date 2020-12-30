@@ -12,7 +12,7 @@
   - [Input](input.md)
   - [Emulation](emulation.md)
   - [Network](network.md)
-  - [Page Resources](page-resources.md)
+  - [Page Resources](page-resources/README.md)
   - [Javascript Runtime](javascript-runtime.md)
   - [Page Pool](page-pool.md)
   - [Custom Launch](custom-launch.md)
