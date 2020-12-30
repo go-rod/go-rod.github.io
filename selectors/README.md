@@ -32,7 +32,7 @@ The text to match is what you actually see on the website, not the source code, 
 ## By XPath
 
 CSS selector is the recommended way to selector elements, such as you cannot use XPath to select [rendered text](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454).
-But sometimes XPath may be more handy programmers come from other languages.
+But sometimes XPath may be handier for programmers coming from other languages.
 Use the `ElementX` for XPath:
 
 ```go
@@ -54,8 +54,8 @@ Usually, you use `ElementByJS` to create your own selector to extend Rod.
 ## Select list of elements
 
 The names of the methods to get multiple elements are all prefixed with `MustElements` or `Elements`.
-One key difference between single-selector and multi-selector is only the single-selector waits for the
-element to appear. If a multi-selector doesn't find anything, it will just return an empty list.
+One key difference between a single-selector and a multi-selector is the single-selector will wait for the
+element to appear. If a multi-selector doesn't find anything, it will immediately return an empty list.
 
 ## Traverse through the element tree
 
