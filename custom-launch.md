@@ -19,12 +19,14 @@ func main() {
 	u := launcher.New().
         Set("user-data-dir", "path").
         Set("headless").
-		Delete("headless").
+		Delete("--headless").
 		MustLaunch()
 
 	rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
+
+The `--` prefix is optional, such as `headless` and `--headless` are the same.
 
 Because options like `user-data-dir`, `proxy-server`, `headless` are so often used, we added some helpers for them, so the above code can become
 like this:
@@ -41,7 +43,9 @@ func main() {
 }
 ```
 
-Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher)
+Here are the available flags: [link](https://peter.sh/experiments/chromium-command-line-switches).
+
+Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
 ## Disable auto-download browser
 
