@@ -53,7 +53,16 @@ Check [here](https://github.com/go-rod/rod/blob/4bbf086d8a10e098c47f8ac1ce095ab7
 
 ## Docker
 
-Check [here](https://github.com/go-rod/rod#q-how-to-use-rod-with-docker-so-that-i-dont-have-to-install-a-browser)
+Here's an example to remote control browsers inside the container so that we don't have to install browsers locally:
+
+1. Run the rod image `docker run -p 9222:9222 rodorg/rod`
+
+2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/remote-launch/main.go)
+
+The [rod image](https://hub.docker.com/repository/docker/rodorg/rod)
+can dynamically launch a browser for each remote driver with customizable browser flags.
+It's [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages.
+You can easily load balance requests to the cluster of this image, each container can create multiple browser instances at the same time.
 
 ## Custom executable runner
 

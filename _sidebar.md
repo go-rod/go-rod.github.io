@@ -23,7 +23,8 @@
 
   - [API Reference](https://pkg.go.dev/github.com/go-rod/rod)
   - [Code Examples](https://github.com/go-rod/rod/#examples)
-  - [FAQ](https://github.com/go-rod/rod#faq)
+  - [Why Rod](why-rod.md)
+  - [Compatibility](compatibility.md)
   - [Chat Room](https://discord.gg/CpevuvY)
   - [Join Development](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
   - [Source Code](https://github.com/go-rod/rod)
