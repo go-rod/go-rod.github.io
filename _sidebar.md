@@ -17,7 +17,7 @@
   - [Page Pool](page-pool.md)
   - [Custom Launch](custom-launch.md)
   - [Custom WebSocket](custom-websocket.md)
-  - [End-to-end test](end-to-end-test.md)
+  - [End-to-end testing](end-to-end-testing.md)
 
 - Resources
 
