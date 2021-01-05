@@ -1,6 +1,6 @@
 
 - [API](https://pkg.go.dev/github.com/go-rod/rod)
-- [Examples](https://github.com/go-rod/rod/#examples)
+- [Examples](examples.md)
 - [Chat](https://discord.gg/CpevuvY)
 
 - :earth_americas: Translations

@@ -22,7 +22,7 @@
 - Resources
 
   - [API Reference](https://pkg.go.dev/github.com/go-rod/rod)
-  - [Code Examples](https://github.com/go-rod/rod/#examples)
+  - [Examples](examples.md)
   - [Why Rod](why-rod.md)
   - [Compatibility](compatibility.md)
   - [Chat Room](https://discord.gg/CpevuvY)
