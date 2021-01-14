@@ -15,7 +15,9 @@ We can use a js function to pass value as json arguments:
 ```go
 key := "a"
 data := map[string]string{"name": "jack"}
-page.MustEval(`(k, val) => window[k] = val`, key, data)
+page.MustEval(`(k, val) => {
+    window[k] = val
+}`, key, data)
 ```
 
 To get the returned value from Eval:
