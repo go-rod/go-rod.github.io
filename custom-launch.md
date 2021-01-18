@@ -69,4 +69,4 @@ You can easily load balance requests to the cluster of this image, each containe
 If you want to control every step of the launch process,
 check this [example](https://github.com/go-rod/rod/blob/5e2a019449e9703c2b5227ef9821811c8e88cb33/lib/launcher/example_test.go#L11)
 
-[Next Chapter](/customize-websocket.md)
+[Next Chapter](/custom-websocket.md)
