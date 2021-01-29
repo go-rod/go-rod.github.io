@@ -4,6 +4,40 @@ In Golang, we usually use [context](https://golang.org/pkg/context/) to cancel I
 Because Rod uses WebSocket to talk to the browser, literally all control signals Rod sends to the browser
 are IO blocking. The use of context is not special for Rod, it follows the standard way.
 
+## Context
+
+Before understanding Context, make sure you have learned goroutine and channel. 
+Context is mainly used to transfer context information between goroutines, including: cancellation signal, timeout, deadline, k-v, etc. 
+
+A simple timeout example:
+
+```go
+func run(ctx context.Context, duration time.Duration) {
+    select {
+    case <- ctx.Done():
+        // timeout
+        fmt.Println(ctx.Err())
+    case <- time.After(duration):
+        fmt.Println("run out")
+    }
+}
+
+func main() {
+    ctx, cancel := context.WithTimeout(context.Background(), 2 * time.Second)
+    defer cancel()
+    go run(ctx, 1 * time.Second)
+    time.Sleep(5 * time.Second)
+}
+```
+
+In this example, you can get the result of `run out`. 
+When you set the parameter value of duration to `3 * time.Second`, you will get a context timeout error message `context deadline exceeded`. 
+Because this time has exceeded the timeout duration set by the context.
+
+Rod use context to handle cancelations for IO blocking operations, most times it's timeout. 
+You need to pay special attention to them.
+
+
 ## Cancellation
 
 For example, the code below creates a blank page and navigates it to the "github.com":
