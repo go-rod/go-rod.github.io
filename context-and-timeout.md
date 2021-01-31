@@ -1,42 +1,93 @@
 # Context and Timeout
 
-In Golang, we usually use [context](https://golang.org/pkg/context/) to cancel IO blocking tasks.
-Because Rod uses WebSocket to talk to the browser, literally all control signals Rod sends to the browser
-are IO blocking. The use of context is not special for Rod, it follows the standard way.
+In Golang, we usually use [Context](https://golang.org/pkg/context/) to abort long-running tasks.
+Rod uses Context to handle cancellations for IO blocking operations, most times it's timeout.
+You need to pay special attention to them.
 
-## Context
+## Understand Context
 
-Before understanding Context, make sure you have learned goroutine and channel. 
-Context is mainly used to transfer context information between goroutines, including: cancellation signal, timeout, deadline, k-v, etc. 
+Before understanding Context, make sure you have learned [Goroutines](https://tour.golang.org/concurrency/1) and [Channels](https://tour.golang.org/concurrency/2).
+Context is mainly used to transfer context information between Goroutines, including: cancellation signal, timeout, deadline, k-v, etc.
 
-A simple timeout example:
+For example, we have a long-running function `heartbeat` that prints `beat` every second:
 
 ```go
-func run(ctx context.Context, duration time.Duration) {
-    select {
-    case <- ctx.Done():
-        // timeout
-        fmt.Println(ctx.Err())
-    case <- time.After(duration):
-        fmt.Println("run out")
-    }
-}
+package main
+
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-    ctx, cancel := context.WithTimeout(context.Background(), 2 * time.Second)
-    defer cancel()
-    go run(ctx, 1 * time.Second)
-    time.Sleep(5 * time.Second)
+	heartbeat()
+}
+
+func heartbeat() {
+	tick := time.Tick(time.Second)
+
+	for {
+		<-tick
+		fmt.Println("beat")
+	}
 }
 ```
 
-In this example, you can get the result of `run out`. 
-When you set the parameter value of duration to `3 * time.Second`, you will get a context timeout error message `context deadline exceeded`. 
-Because this time has exceeded the timeout duration set by the context.
+If we want to abort the heartbeat whenever we press the enter key, we may code like this:
 
-Rod use context to handle cancelations for IO blocking operations, most times it's timeout. 
-You need to pay special attention to them.
+```go
+func main() {
+	stop := make(chan struct{})
+	go func() {
+		fmt.Scanln()
+		close(stop)
+	}()
 
+	heartbeat(stop)
+}
+
+func heartbeat(stop chan struct{}) {
+	tick := time.Tick(time.Second)
+
+	for {
+		select {
+		case <-tick:
+		case <-stop:
+			return
+		}
+		fmt.Println("beat")
+	}
+}
+```
+
+Because this kind of code is so often used, Golang abstracted a helper package to handle it,
+it's called [Context](https://golang.org/pkg/context/).
+If we use Context, the code above will become something like this:
+
+```go
+func main() {
+	ctx, stop := context.WithCancel(context.Background())
+	go func() {
+		fmt.Scanln()
+		stop()
+	}()
+
+	heartbeat(ctx)
+}
+
+func heartbeat(ctx context.Context) {
+	tick := time.Tick(time.Second)
+
+	for {
+		select {
+		case <-tick:
+		case <-ctx.Done():
+			return
+		}
+		fmt.Println("beat")
+	}
+}
+```
 
 ## Cancellation
 
