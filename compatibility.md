@@ -35,6 +35,8 @@ Rod should work with any browser that supports [DevTools Protocol](https://chrom
 The cdp protocol is always the same as [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision).
 If Rod can't find your local browser, it will download the browser version of the `launcher.DefaultRevision`.
 
+Each version of Rod only guarantees to work with its `launcher.DefaultRevision` of the browser.
+
 ## API Versioning
 
 [Semver](https://semver.org/) is used.
