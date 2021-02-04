@@ -5,4 +5,4 @@
 
 - :earth_americas: Translations
   - [:uk: English](/)
-  - [:cn: 中文](/zh-cn/)
+  - [:cn: 中文](https://go-rod.github.io/rod-docs-zh/)
