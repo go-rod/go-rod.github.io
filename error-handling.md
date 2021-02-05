@@ -2,7 +2,7 @@
 
 In the previous chapters, we have seen a lot of `Must` prefixed methods like `MustNavigate`, `MustElement`, etc.
 They all have non-prefixed versions like `Navigate`, `Element`, etc. The main difference between them is how
-they handle errors. It's not special for Rod, you can find it in the standard library like [this one](https://golang.org/pkg/regexp/#MustCompile).
+they handle errors. It's not special for Rod, you can find it in the standard library like [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
 
 The methods like `MustNavigate` and `MustElement` are commonly used in example code or quick scripting.
 They are useful for jobs like smoke testing, site monitoring, end-to-end test, etc.
