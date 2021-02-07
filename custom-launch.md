@@ -47,10 +47,6 @@ Here are the available flags: [link](https://peter.sh/experiments/chromium-comma
 
 Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
-## Disable auto-download browser
-
-Check [here](https://github.com/go-rod/rod/blob/4bbf086d8a10e098c47f8ac1ce095ab7799bf49b/lib/launcher/example_test.go#L29-L36)
-
 ## Docker
 
 Here's an example to remote control browsers inside the container so that we don't have to install browsers locally:
@@ -64,9 +60,9 @@ can dynamically launch a browser for each remote driver with customizable browse
 It's [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages.
 You can easily load balance requests to the cluster of this image, each container can create multiple browser instances at the same time.
 
-## Custom executable runner
+## Control every step
 
-If you want to control every step of the launch process,
-check this [example](https://github.com/go-rod/rod/blob/5e2a019449e9703c2b5227ef9821811c8e88cb33/lib/launcher/example_test.go#L11)
+If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser,
+check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
 
 [Next Chapter](/custom-websocket.md)

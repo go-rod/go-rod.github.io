@@ -8,6 +8,8 @@ There are a lot of great projects, but no one is perfect, choose the best one th
 
 Theoretically, Rod should perform faster and consume less memory than Chromedp.
 
+[Chromedp][chromedp] uses the system's browser by default, it can cause issues if you accidentally upgrade the browser.
+
 [Chromedp][chromedp] uses a [fix-sized buffer](https://github.com/chromedp/chromedp/blob/b56cd66/target.go#L69-L73) for events, it can cause dead-lock on high concurrency. Because Chromedp uses a single event-loop, the slow event handlers will block each other. Rod doesn't have these issues because it's based on [goob](https://github.com/ysmood/goob).
 
 Chromedp will JSON decode every message from the browser, rod is decode-on-demand, so Rod performs better, especially for heavy network events.
