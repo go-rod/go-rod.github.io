@@ -25,6 +25,7 @@
   - [Examples](examples.md)
   - [Why Rod](why-rod.md)
   - [Compatibility](compatibility.md)
+  - [Understand Context](understand-context.md)
   - [Chat Room](https://discord.gg/CpevuvY)
   - [Join Development](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
   - [Source Code](https://github.com/go-rod/rod)
