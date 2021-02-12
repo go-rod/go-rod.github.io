@@ -49,7 +49,8 @@ Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/
 
 ## Docker
 
-Here's an example to remote control browsers inside the container so that we don't have to install browsers locally:
+Here's an example to remote control browsers inside the container so that we don't have to install browsers locally,
+because on some linux distributions it's very hard to install chromium correctly:
 
 1. Run the rod image `docker run -p 9222:9222 rodorg/rod`
 
