@@ -11,3 +11,5 @@ It's widely used for web automation and scraping. Rod can automate most things i
 - And more
 
 [Next Chapter](get-started/README.md)
+
+To contribute doc, [check here](contribute-doc.md).

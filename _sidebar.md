@@ -28,4 +28,5 @@
   - [Understand Context](understand-context.md)
   - [Chat Room](https://discord.gg/CpevuvY)
   - [Join Development](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+  - [Contribute Doc](contribute-doc.md)
   - [Source Code](https://github.com/go-rod/rod)
