@@ -26,20 +26,7 @@ func (p *Page) MustElement(selectors ...string) *Element {
 
 The two code blocks below are almost doing the same thing in two styles.
 
-The style below will usually end up in less code, but it may also catch extra errors:
-
-```go
-page := rod.New().MustConnect().MustPage("https://example.com")
-
-err := rod.Try(func() {
-    fmt.Println(page.MustElement("a").MustHTML())
-})
-handleError(err)
-```
-
-We use `rod.Try` to catch the error from the `Must` prefixed methods `MustElement` and `MustHTML`.
-
-The style below is the Go's standard way to handle errors. Usually, it's more consistent and precise:
+The style below is the Go's standard way to handle errors:
 
 ```go
 page := rod.New().MustConnect().MustPage("https://example.com")
@@ -55,6 +42,18 @@ if err != nil {
     return
 }
 fmt.Println(html)
+```
+
+We can use `rod.Try` to catch the error from the `Must` prefixed methods `MustElement` and `MustHTML`.
+The style below will usually end up in less code, but it may also catch extra errors:
+
+```go
+page := rod.New().MustConnect().MustPage("https://example.com")
+
+err := rod.Try(func() {
+    fmt.Println(page.MustElement("a").MustHTML())
+})
+handleError(err)
 ```
 
 ## Check the error type
