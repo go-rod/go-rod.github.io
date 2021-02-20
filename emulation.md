@@ -13,27 +13,23 @@ page.MustEmulate(devices.IPhone6or7or8Plus)
 Or define your own device:
 
 ```go
-page.MustEmulate(devices.New(`{
-  "capabilities": [
-    "touch",
-    "mobile"
-  ],
-  "screen": {
-    "device-pixel-ratio": 2,
-    "horizontal": {
-      "height": 320,
-      "width": 480
+page.MustEmulate(devices.Device{
+  Title:          "iPhone 4",
+  Capabilities:   []string{"touch", "mobile"},
+  UserAgent:      "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X)",
+  AcceptLanguage: "en",
+  Screen: devices.Screen{
+    DevicePixelRatio: 2,
+    Horizontal: devices.ScreenSize{
+      Width:  480,
+      Height: 320,
     },
-    "vertical": {
-      "height": 480,
-      "width": 320
-    }
+    Vertical: devices.ScreenSize{
+      Width:  320,
+      Height: 480,
+    },
   },
-  "show-by-default": false,
-  "title": "iPhone 4",
-  "type": "phone",
-  "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X)"
-}`))
+})
 ```
 
 Check the source code of the predefined devices, the fields should self explain themselves.
