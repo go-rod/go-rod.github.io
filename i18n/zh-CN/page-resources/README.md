@@ -1,21 +1,21 @@
-# Page Resources
+# 页面资源
 
-You can use the `Page.GetResource` method to get files from here:
+可以使用 `Page.GetResource` 来从这里获取文件：
 
 ![page-resources](page-resources.png)
 
-Such as get an image:
+比如说获取图片：
 
 ```go
 bin, err := page.GetResource("https://test.com/a.png")
 ```
 
-## Element resource
+## 元素资源
 
-You can also use the `Element.Resource` method to get the file of the `src` attribute. Such as for element `<img src="a.jpg">`, you can use code like this to get the `a.jpg`:
+也可以使用 `Element.Resource` 方法来获取 `src` 属性中的文件。 比如说对于元素 `<img src="a.jpg">`，可以使用如下代码获取 `a.jpg`：
 
 ```go
 bin := page.MustElement("img").MustResource()
 ```
 
-[Next Chapter](/javascript-runtime.md)
+[下一章](/javascript-runtime.md)
