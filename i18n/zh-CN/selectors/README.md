@@ -1,67 +1,67 @@
-# Selectors
+# 选择器
 
-Rod provides lots of methods to get elements. Their names are all prefixed with `MustElement` or `Element`. If you use an IDE after you type `Element`, you will see all the available selectors like below:
+Rod 提供了很多获取元素的方法。 它们的名称都以 `MustElement` 或 `Element` 作为前缀。 如果你在 IDE 中键入 `Element`，你会看到如下所有可用的选择器：
 
 ![ide-selectors](ide-selectors.png)
 
-If you hover the cursor over the method, you will see the doc of it like below:
+如果你将光标停留在方法上，你会看到如下的文档：
 
 ![ide-doc](ide-doc.png)
 
-Usually, you only need some basic knowledge of [CSS Selector](css-selector) to achieve the automation task you want to do. In the rest of the documentation we will only use CSS Selector to get elements from the page.
+通常来说你只需要一些 [CSS 选择器](css-selector) 的基础知识就可以完成你想要完成的自动化任务。 在本文档中，我们将只使用 CSS 选择器从页面中获取元素。
 
-## By text content
+## 根据文本内容
 
-Use `ElementR` to match elements with specific text content, such as select the search input in the screenshot below:
+使用 `ElementR` ，通过文本内容来匹配元素。例如选择下图中的搜索输入框：
 
 ![match-text](match-text.png)
 
 ```go
 page.MustElementR("input", "Search or jump")
-page.MustElementR("input", "/click/i") // use the case-insensitive flag "i"
+page.MustElementR("input", "/click/i") // 使用大小写不敏感标志 "i"
 ```
 
-Since we use [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), we don't have to match the whole text context. The text to match is what you actually see on the website, not the source code, compare 1 and 2 in the screenshot below. You can use the `copy` helper in Devtools to copy the text to your clipboard (look at the 4):
+因为使用了 [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), 所以我们不需要匹配文本的整个上下文。 要匹配的文本是在网站上实际看到的，而不是源代码。试比较下图中的 1 和 2。 你可以使用 Devtools 的 `copy` helper function 将文本复制到剪贴板（见 4）:
 
 ![copy-text](copy-text.png)
 
-## By XPath
+## 根据 XPath
 
-CSS selector is the recommended way to selector elements, such as you cannot use XPath to select [rendered text](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454). But sometimes XPath may be handier for programmers coming from other languages. Use the `ElementX` for XPath:
+我们推荐使用 CSS 选择器来选择元素（比如你不能用 XPath 来选择[渲染的文本](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454)）。 但对于使用其他语言的程序员来说，可能有时 XPath 来得更方便。 使用 `ElementX` 来根据 XPath 匹配：
 
 ```go
 page.MustElementX("//h2")
 ```
 
-## By Javascript
+## 根据 JavaScript
 
-If you have a complex query or you want to use a high-level query engine, such as [jQuery](https://jquery.com/):
+如果你的查询很复杂，或者如果你想使用一个类似于 [jQuery](https://jquery.com/) 的高级查询引擎：
 
 ```go
 page.MustElementByJS(`jQuery('option:selected')[0]`)
 ```
 
-Actually, if you check the source code of other selectors, such as `Element` or `ElementR`, they are all based on `ElementByJS`, and `ElementByJS` is based on `Page.Evaluate`, for more details about how to evaluate js, check the [Javascript Runtime](/javascript-runtime.md). Usually, you use `ElementByJS` to create your own selector to extend Rod.
+如果你看一下其他选择器（比如 `Element` 和 `ElementR`）的源码，你会发现他们实际上都基于 `ElementByJS`，而 `ElementByJS` 则基于 `Page.Evaluate`。有关如何运行 js 代码，见 [JavaScript 运行时](/javascript-runtime.md)。 通常会使用 `ElementByJS` 自行创建选择器来扩展 Rod。
 
-## Select list of elements
+## 选择多个元素
 
-The names of the methods to get multiple elements are all prefixed with `MustElements` or `Elements`. One key difference between a single-selector and a multi-selector is the single-selector will wait for the element to appear. If a multi-selector doesn't find anything, it will immediately return an empty list.
+获取多个元素的方法的名称都以 `MustElements` 或 `Elements` 作为前缀。 单元素选择器和多元素选择器之间的一个关键区别是，单元素选择器会等待元素出现。 如果一个多元素选择器没有找到任何东西，他会立即返回一个空列表。
 
-## Traverse through the element tree
+## 遍历元素树
 
-There are also some handy selectors to select elements inside or around an element, such as `MustParent`, `MustNext`, `MustPrevious`, etc.
+还有一些方便的选择器用于选择元素内部或周围的元素，如 `MustParent`、`MustNext`、`MustPrevious`等。
 
-Here's an example of how we use various selectors to retrieve contents from a page:
+下面是一个使用多个选择器从页面中获取内容的例子：
 
 ```go
-// On awesome-go page, finding the specified section sect,
-// and retrieving the associated projects from the page.
+// 在 awesome-go 页面上，找出指定的区域 sect，
+// 并从页面获取相关项目。
 func main() {
     page := rod.New().MustConnect().MustPage("https://github.com/avelino/awesome-go")
 
     section := page.MustElementR("p", "Selenium and browser control tools").MustNext()
 
-    // get children elements of an element
+    // 获取一个元素的子元素
     projects := section.MustElements("li")
 
     for _, project := range projects {
@@ -76,13 +76,13 @@ func main() {
 }
 ```
 
-## Get elements from iframes
+## 从 iframe 中获取元素
 
-For example we have want to get the button from the nested iframes:
+例如，我们需要选择如下的嵌套 iframe 中的按钮：
 
 ![iframes](iframes.png)
 
-The code will look like:
+代码看起来是这样的：
 
 ```go
 frame01 := page.MustElement("iframe").MustFrame()
@@ -90,23 +90,23 @@ iframe02 := iframe01.MustElement("iframe").MustFrame()
 frame02.MustElement("button")
 ```
 
-## Search elements
+## 搜索元素
 
-There's another powerful helper to get elements, the `MustSearch`. It's less precise than the selectors mentioned above, but it's handy if you want to get elements from deep nested iframes or shadow-doms.
+还有另一个强大的 helper 可以获取元素，那就是 `MustSearch`。 这不如上面提到的选择器精确，但是如果你想从深层嵌套的 iframe 或 shadow DOM 中获取元素，使用它就会来得很方便。
 
-The functionality is the same as the [Devtools' Search for nodes](https://developers.google.com/web/tools/chrome-devtools/dom#search), you can use it to find out what keyword to use to select the element you want, like the screenshot below:
+这一功能和 [Devtools 中的 Search for nodes](https://developers.google.com/web/tools/chrome-devtools/dom#search) 是一样的。你可以使用 Devtools 的这一功能来找出应用什么关键字来选择你想要的元素，如下图所示：
 
 ![search](search.png)
 
-To get the same element from the [Get elements from iframes](#get-elements-from-iframes), we can simply code like this:
+要选择和 [从 iframe 中获取元素](#get-elements-from-iframes) 中一样的元素，我们可以这样：
 
 ```go
 page.MustSearch("button")
 ```
 
-## Race selectors
+## 竞争选择器
 
-Rod encourage sleep-free automation to reduce flakiness. When an action has multiple results, we don't use sleep to wait for the page to settle down. For example, when we login a page, the password maybe incorrect, we want to handle the success and failure separately. We should avoid code like below:
+Rod 鼓励无 sleep 的自动化任务，这样可以增加任务的可靠性。 当一个操作有多种可能的结果时，我们不使用 sleep 来等待页面加载完毕。 例如，登录网页时密码可能会不正确，这时我们希望分别处理成功和失败的情况。 我们应该避免这样的代码：
 
 ```go
 func main() {
@@ -115,19 +115,19 @@ func main() {
     page.MustElement("#id_login").MustInput("username")
     page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
 
-    time.Sleep(10 * time.Second) // Please avoid the use of time.Sleep!
+    time.Sleep(10 * time.Second) // 请避免使用 time.Sleep！
 
     if page.MustHas(".nav-user-icon-base") {
-        // print the username after successful login
+        // 成功登录后打印用户名
         fmt.Println(*el.MustAttribute("title"))
     } else if page.MustHas("[data-cy=sign-in-error]") {
-        // when wrong username or password
+        // 当用户名或密码错误时
         fmt.Println(el.MustText())
     }
 }
 ```
 
-Instead we should code like this:
+相反，我们应该这样：
 
 ```go
 func main() {
@@ -136,15 +136,15 @@ func main() {
     page.MustElement("#id_login").MustInput("username")
     page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
 
-    // It will keep polling until one selector has found a match
+    // 轮询，直到一个选择器有匹配
     page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
-        // print the username after successful login
+        // 成功登录后打印用户名
         fmt.Println(*e.MustAttribute("title"))
     }).Element("[data-cy=sign-in-error]").MustHandle(func(e *rod.Element) {
-        // when wrong username or password
+        // 当用户名或密码错误时
         panic(e.MustText())
     }).MustDo()
 }
 ```
 
-[Next Chapter](/events/README.md)
+[下一章](/events/README.md)
