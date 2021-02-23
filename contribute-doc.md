@@ -22,3 +22,5 @@ To get started:
 2. Click the target language icon
 3. Click the file you want to translate
 4. Follow the UI, translate the file on the website
+
+The [website](https://go-rod.github.io) will synchronize your translation in an hour.

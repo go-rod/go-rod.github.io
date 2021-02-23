@@ -67,8 +67,7 @@
       plugins: [
         function(hook, vm) {
           hook.beforeEach(function(html) {
-            var url = `https://github.com/go-rod/go-rod.github.io/blob/master/${vm.route.file}`
-            return `[📝 Improve Document](${url})\n${html}`
+            return `[📝 修订文档](https://crowdin.com/project/go-rod/zh-CN#/master)\n${html}`
           });
         }
       ]
