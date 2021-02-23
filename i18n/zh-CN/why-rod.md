@@ -1,30 +1,30 @@
-# Why Rod
+# 为什么使用 Rod
 
-There are a lot of great projects, but no one is perfect, choose the best one that fits your needs is important.
+有许多不错的项目，但其中没有一个是完美的。重要的是选择其中最适合你需求的那一个。
 
-## Compared with other libs
+## 与其他库对比
 
 ### Chromedp
 
-Theoretically, Rod should perform faster and consume less memory than Chromedp.
+理论上来说，Rod 会比 Chromedp 运行得更快，并消耗更少的内存。
 
-[Chromedp][chromedp] uses the system's browser by default, it can cause issues if you accidentally upgrade the browser.
+[Chromedp][chromedp] 默认使用系统浏览器，如果意外升级了浏览器，这可能会导致问题。
 
-[Chromedp][chromedp] uses a [fix-sized buffer](https://github.com/chromedp/chromedp/blob/b56cd66/target.go#L69-L73) for events, it can cause dead-lock on high concurrency. Because Chromedp uses a single event-loop, the slow event handlers will block each other. Rod doesn't have these issues because it's based on [goob](https://github.com/ysmood/goob).
+[Chromedp][chromedp] 为事件使用[固定大小的缓冲](https://github.com/chromedp/chromedp/blob/b56cd66/target.go#L69-L73)，这可能会在高并发情况下导致死锁。 由于 Chromedp 只使用一个事件循环，缓慢的事件处理程序可能会互相阻塞。 Rod 没有这些问题，因为它基于 [goob](https://github.com/ysmood/goob)。
 
-Chromedp will JSON decode every message from the browser, rod is decode-on-demand, so Rod performs better, especially for heavy network events.
+Chromedp 会对浏览器传回的每条消息进行 JSON 解码，而 rod 则按需解码，因此 Rod 性能更好，尤其是对于大量用到网络的事件来说。
 
-Chromedp uses third part WebSocket lib which has [1MB overhead](https://github.com/chromedp/chromedp/blob/b56cd66f9cebd6a1fa1283847bbf507409d48225/conn.go#L43-L54) for each cdp client, if you want to control thousands of remote browsers it can become a problem. Because of this limitation, if you evaluate a js script larger than 1MB, Chromedp will crash, here's an example of how easy you can crash Chromedp: [gist](https://gist.github.com/ysmood/0d5b2c878ecbdb598776af7d3d305b79).
+Chromedp 使用一个第三方 WebSocket 库，而每有一个 cdp 客户端，这个库都会有 [1MB 开销](https://github.com/chromedp/chromedp/blob/b56cd66f9cebd6a1fa1283847bbf507409d48225/conn.go#L43-L54)。如果你想要控制成千上万的远程浏览器，这会带来一些问题。 由于这一限制，如果执行大于 1MB 的 js 脚本 Chromedp 就会崩溃。有关 Chromedp 会多么容易崩溃，这里有一个例子：[gist](https://gist.github.com/ysmood/0d5b2c878ecbdb598776af7d3d305b79)。
 
-When a crash happens, Chromedp will leave the zombie browser process on Windows and Mac.
+在 Windows 和 Mac 上，Chromedp 会在崩溃时留下浏览器僵尸进程。
 
-Rod is more configurable, such as you can even replace the WebSocket lib with the lib you like.
+Rod 可配置程度更高，比如甚至可以把 WebSocket 库替换成一个你喜欢的库。
 
-For direct code comparison you can check [here](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp). If you compare the example called `logic` between [rod](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp/logic/main.go) and [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go), you will find out how simpler rod is.
+对于直接的代码比较，见[此](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp)。 比较 [rod](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp/logic/main.go) 和 [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go) 名为 `logic` 的示例后可以发现 rod 是多么的简单。
 
-With Chromedp, you have to use their verbose DSL like tasks to handle the main logic, because Chromedp uses several wrappers to handle execution with context and options which makes it very hard to understand their code when bugs happen. The heavily used interfaces make the static types useless when tracking issues. In contrast, Rod uses as few interfaces as possible.
+使用 Chromedp 时，必须要使用他们那冗长的、类似于 DSL 的任务来处理主要逻辑，因为 Chromedp 使用了好几个封装来处理上下文和选项的执行，而这会导致出现 bug 时很难理解代码。 大量使用的接口使得静态类型在追踪问题时毫无用处。 对比之下，Rod 使用尽可能少的接口。
 
-Rod has less dependencies, a simpler code structure and better test automation, you should find it's easier to contribute code to Rod. Therefore compared with Chromedp, Rod has the potential to have more nice functions from the community in the future.
+Rod 的依赖更少，代码结构更简单，自动化测试更好。你会发现为 Rod 贡献代码更简单。 Therefore compared with Chromedp, Rod has the potential to have more nice functions from the community in the future.
 
 Another problem of Chromedp is their architecture is based on [DOM node id](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId), puppeteer and rod are based on [remote object id](https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId). In consequence, it will prevent Chromedp's maintainers from adding high-level functions that are coupled with runtime. For example, this [ticket](https://github.com/chromedp/chromedp/issues/72) had opened for 3 years. Even after it's closed, you still can't evaluate js express on the element inside an iframe.
 
