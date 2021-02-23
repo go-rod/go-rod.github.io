@@ -16,13 +16,13 @@ func main() {
 }
 ```
 
-我们使用 `MustWaitNavigation` 来订阅网络空闲事件。 在导航之前订阅而不是在导航之后，是因为触发导航的代码需要时间来执行，在此期间事件可能已经发生。 After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+我们使用 `MustWaitNavigation` 来订阅网络空闲事件。 在导航之前订阅而不是在导航之后，是因为触发导航的代码需要时间来执行，在此期间事件可能已经发生。 在 `MustNavigate` 之后，我们调用 `wait` 函数来阻塞代码，直到下一个网络空闲事件发生。
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+Rod 提供了许多其他事件 helper，函数名都以 `MustWait` 或 `Wait` 作为前缀。
 
-## Get the event details
+## 获取事件细节
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+有些事件类型包含有关事件本身的详细信息。 例如，我们可以导航到一个 url 并使用事件来获取导航请求的响应状态代码：
 
 ```go
 func main() {
@@ -37,9 +37,9 @@ func main() {
 }
 ```
 
-## Handle multiple events
+## 处理多个事件
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+如果想要处理一个类型的所有事件，比如监听页面控制台输出的所有事件，我们可以这样做：
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
@@ -47,7 +47,7 @@ go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+要同时订阅多种事件类型，比如订阅 `RuntimeConsoleAPICalled` 和 `PageLoadEventFired`，则可以这样做：
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
@@ -57,9 +57,9 @@ go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
 })()
 ```
 
-## Stop the subscription
+## 停止订阅
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+Rod 中的任何阻塞函数都可以通过 [context](context-and-timeout.md) 取消，对于事件来说并不特殊。 此外，还可以通过从事件处理程序返回 true 来停止事件，例如：
 
 ```go
 wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
@@ -69,14 +69,14 @@ page.MustNavigate("https://example.com")
 wait()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+如果不返回 true，那么 wait 会一直等待 `PageLoadEventFired` 事件，并永远阻塞程序。 这其实就是 `page.WaitEvent` 的代码。
 
-## Available events
+## 可用事件
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+所有事件类型都实现 `proto.Event` 接口，你可以使用它查找所有事件。 通常，IDE 会根据接口自动进行过滤。 例如，要查看 Page 域下的所有事件，我们可以创建一个空的 page 对象并使用 `WaitEvent(proto.Event)` 列出并过滤所有事件类型，如下图所示：
 
 ![event-list](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+你也可以使用这个[网站](https://chromedevtools.github.io/devtools-protocol/tot/Page)来浏览所有事件。
 
-[Next Chapter](/input.md)
+[下一章](/input.md)
