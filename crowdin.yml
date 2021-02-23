@@ -1,3 +1,7 @@
 files:
-  - source: '**/*.md'
+  - source: '**/*'
+    ignore:
+      - .*
+      - .*/
+      - '*.html'
     translation: '%original_path%/%original_file_name%'
