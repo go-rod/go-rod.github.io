@@ -1,4 +1,4 @@
-## Debug and preview the doc locally
+## 在本地调试与预览文档
 
 安装 [docsify-cli](https://docsify.js.org/#/quickstart)。
 
@@ -12,13 +12,15 @@ docsify serve -o
 
 每当你修改文档时，页面都会自动刷新。
 
-## Contribute translations
+## 贡献翻译
 
-We use [crowdin](https://crowdin.com/) to manage the localization.
+我们使用 [crowdin](https://crowdin.com/) 管理本地化。
 
-To get started:
+首先：
 
-1. Go to the [project page](https://crowdin.com/project/go-rod)
-2. Click the target language icon
-3. Click the file you want to translate
-4. Follow the UI, translate the file on the website
+1. 到[项目页面](https://crowdin.com/project/go-rod)
+2. 点击目标语言的图标
+3. 点击你想要翻译的文件
+4. 跟随 UI，在网站上翻译文件
+
+[网站](https://go-rod.github.io)会在一个小时内同步你的翻译。
