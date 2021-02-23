@@ -4,4 +4,5 @@ files:
       - .*
       - .*/
       - '*.html'
-    translation: '%original_path%/%original_file_name%'
+      - i18n/
+    translation: /i18n/%locale%/%original_path%/%original_file_name%
