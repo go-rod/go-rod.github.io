@@ -1,5 +1,3 @@
 files:
   - source: '**/*.md'
-    ignore:
-      - i18n
-    translation: /i18n/%locale%/%original_path%/%original_file_name%
+    translation: '%original_path%/%original_file_name%'
