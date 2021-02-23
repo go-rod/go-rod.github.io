@@ -1,6 +1,6 @@
-# Customize the WebSocket
+# 自定义 WebSocket
 
-Useful when you want to proxy the transport layer or tune the performance. Here we use the `github.com/gorilla/websocket` as an example, you can wrap any lib you like.
+如果你想要代理传输层或调整性能的话这会很有用。 这里我们使用 `github.com/gorilla/websocket` 作为示范，你可以包装任何喜欢的库。
 
 ```go
 package main
@@ -19,7 +19,7 @@ import (
 func main() {
     u := launcher.New().MustLaunch()
 
-    // Use a custom websocket lib as the transport layer for JSON-RPC
+    // 使用自定义 websocket 库作为 JSON-RPC 的传输层
     client := cdp.New(u).Websocket(&MyWebSocket{})
 
     p := rod.New().Client(client).MustConnect().MustPage("http://example.com")
@@ -27,7 +27,7 @@ func main() {
     fmt.Println(p.MustInfo().Title)
 }
 
-// MyWebSocket implements the cdp.WebSocketable interface
+// MyWebSocket 实现了 cdp.WebSocketable 接口
 var _ cdp.WebSocketable = &MyWebSocket{}
 
 type MyWebSocket struct {
@@ -54,4 +54,4 @@ func (ws *MyWebSocket) Read() ([]byte, error) {
 }
 ```
 
-[Next Chapter](/end-to-end-testing.md)
+[下一章](/end-to-end-testing.md)
