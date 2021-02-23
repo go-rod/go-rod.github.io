@@ -1,90 +1,90 @@
-# Input
+# 输入
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod 提供了很多方法来模拟人工输入，比如鼠标点击或者键盘按键。
 
-## Mouse click
+## 鼠标点击
 
-To simulate the mouse click an element:
+模拟鼠标点击一个元素：
 
 ```go
-// left click
+// 左击
 page.MustElement("button").MustClick()
 
-// right click
+// 右击
 page.MustElement("button").Click(proto.InputMouseButtonRight)
 ```
 
-## Text input
+## 文本输入
 
-To simulate the input:
+模拟输入：
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // 使用 MustText 来获取文本
 ```
 
-## Remove text from an input
+## 从输入中删除文本
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+模拟人的行为即可。选中所有文本，用一个空字符串替换：
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+可以使用 `SelectText` 替换部分文本。
 
-## Time input
+## 时间输入
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+支持的输入类型有 [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)、[datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local)、[month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month) 和 [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time)。
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## 复选框
 
-Just click it like a human:
+像真人一样点击即可：
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
+// 如果未选中，则选中
 if !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## 选择选项
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+选择 [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) 中的选项。
 
-The code below will select options that contains text "B" or "C":
+下面的代码会选择包含文本 "B" 或 "C" 的选项：
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+也可以使用正则表达式或 CSS 选择器来选择选项：
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
+// 设置为 false 来取消选择
 page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## 设置文件
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+使用 `SetFiles` 为[文件输入元素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)设置文件：
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## 鼠标、键盘和触摸
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+也可以使用 `page.Mouse`、`page.Keyboard` 或 `page.Touch` 模拟底层输入。 例如，可以在 Rod 的单元测试中搜索 drag 来了解如何模拟拖动。
 
-[Next Chapter](/emulation.md)
+[下一章](/emulation.md)
