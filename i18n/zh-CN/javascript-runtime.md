@@ -1,10 +1,10 @@
-# Javascript Runtime
+# JavaScript 运行时
 
-We can use Rod to evaluate random javascript code on the page.
+我们可以使用 Rod 在页面上执行任意 JavaScript 代码。
 
-## Eval on the page
+## 在页面上 eval
 
-For example use `Page.Eval` to set global value:
+例如，使用 `Page.Eval` 设置全局变量：
 
 ```go
 page.MustEval(`window.a = {name: 'jack'}`)
