@@ -1,4 +1,4 @@
-# Events
+# 事件
 
 Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
 
