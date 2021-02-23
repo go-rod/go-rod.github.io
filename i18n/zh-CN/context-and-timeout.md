@@ -1,19 +1,19 @@
-# Context and Timeout
+# 上下文（Context）和超时（Timeout）
 
-In Golang, we usually use [Context](https://golang.org/pkg/context/) to abort long-running tasks. Rod uses Context to handle cancellations for IO blocking operations, most times it's timeout. You need to pay special attention to them.
+在 Golang 中，我们通常使用 [Context](https://golang.org/pkg/context/) 来终止长时间运行的任务。 Rod 使用 Context 来处理 IO 阻塞操作的取消（通常是因为超时）。 你需要特别注意这一问题。
 
-If you are not familiar with Context, please read [Understand Context](understand-context.md) first.
+如果你对 Context 不熟悉，请先阅读 [了解 Context](understand-context.md)。
 
-## Cancellation
+## 取消
 
-For example, the code below creates a blank page and navigates it to the "github.com":
+例如下面的代码会创建一个空白页面并访问“github.com”：
 
 ```go
 page := rod.New().MustConnect().MustPage("")
 page.MustNavigate("http://github.com")
 ```
 
-Now, suppose we want to cancel the `MustNavigate` if it takes more than 2 seconds. In Rod we can do something like this:
+现在假设我们想要在 `MustNavigate` 花费多于 2 秒时中断它。 在 Rod 中我们可以这样实现：
 
 ```go
 page := rod.New().MustConnect().MustPage("")
@@ -26,33 +26,33 @@ go func() {
     cancel()
 }()
 
-pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
+pageWithCancel.MustNavigate("http://github.com") // 会在 2 秒钟后取消
 ```
 
-We use the `page.Context` to create a shallow clone of the `page`. Whenever we call the `cancel`, the operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`.
+我们使用 `page.Context` 创建了 `page` 的一个浅克隆。 当我们调用 `cancel` 时，由 `pageWithCancel` 发起的所有操作（不仅仅是 `MustNavigate`）都会被取消。
 
-This style is not special for Rod, you can find similar APIs like [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) in the standard library.
+Rod 的此种风格和 Golang 标准库中的 [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) 很类似。
 
-Because `pageWithCancel` and `page` are independent to each other, operations triggered by `page` will not be affected by the cancellation:
+同时由于 `pageWithCancel` 和 `page` 是相互独立的，所以 `cancel` 只会影响到 <0>pageWithCancel</0> 发起的操作而不会影响到 <0>page</0> 发起的操作。
 
 ```go
-page.MustNavigate("http://github.com") // won't be canceled after 2 seconds
+page.MustNavigate("http://github.com") // 不会在 2 秒钟后取消
 ```
 
-## Timeout
+## 超时
 
-The code above is just a way to timeout an operation. In Golang, timeout is usually just a special case of cancellation. Because it's so useful, we created a helper to do the same thing above, it's called `Timeout`, so the code above can be reduced like below:
+上面的示例只是给操作设置超时的一种方式。 在 Golang 中，超时通常只是取消的一种特例。 鉴于它十分实用，所以我们提供了一个简单的方法来实现它，也就是 `Timeout`。上面的代码可以简化为：
 
 ```go
 page := rod.New().MustConnect().MustPage("")
 page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 ```
 
-The `page.Timeout(2 * time.Second)` is the previous `pageWithCancel`. Not just `Page`, `Browser` and `Element` also have the same context helpers.
+`page.Timeout(2 * time.Second)` 相当于之前的 `pageWithCancel`。 同时，对 `Context` 的操作并不是 `Page` 独有。在 Rod 中，`Browser` 和 <0>Element</0> 也都有相同的 API。
 
-## Detect timeout
+## 判断超时
 
-How do I know if an operation is timed out or not? In Golang, timeout is usually a type of error. It's not special for Rod. For the code above we can do this to detect timeout:
+那么我们如何知晓一个失败的操作是否是因为超时了呢？ 在 Golang 中超时通常是一种异常。 这并不是 Rod 特有的。 对于先前的代码，我们可以像这样判断超时：
 
 ```go
 page := rod.New().MustConnect().MustPage("")
@@ -61,14 +61,14 @@ err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
 if errors.Is(err, context.DeadlineExceeded) {
-    // code for timeout error
+    // 对于超时异常的代码
 } else if err != nil {
-    // code for other types of error
+    // 对于其他异常的代码
 }
 ```
 
-Here we use `rod.Try` to wrap the function that may throw a timeout error.
+这里我们使用了 `rod.Try` 来包裹可能抛出超时异常的函数。
 
-We will talk more about error handing at [Error Handling](error-handling.md).
+我们在[异常处理](error-handling.md)里有更多这方面的讲解。
 
-[Next Chapter](error-handling.md)
+[下一章](error-handling.md)
