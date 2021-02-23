@@ -4,5 +4,5 @@
 - [Chat](https://discord.gg/CpevuvY)
 
 - :earth_americas: Translations
-  - [:uk: English](/)
-  - [:cn: 中文](https://go-rod.github.io/rod-docs-zh/)
+  - [:uk: English](/ ':ignore')
+  - [:cn: 中文](/i18n/zh-CN ':ignore')
