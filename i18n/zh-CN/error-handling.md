@@ -1,10 +1,10 @@
-# Error Handling
+# 异常处理
 
-In the previous chapters, we have seen a lot of `Must` prefixed methods like `MustNavigate`, `MustElement`, etc. They all have non-prefixed versions like `Navigate`, `Element`, etc. The main difference between them is how they handle errors. It's not special for Rod, you can find it in the standard library like [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
+在前面的章节中，我们看到了很多带 `Must` 前缀的方法，如 `MustNavigate`、`MustElement` 等。 它们都有不带前缀的版本，比如 `Navigate`、`Element` 等。 它们之间的主要区别在于如何处理异常。 这不是 Rod 特有的，你可以在标准库中找到类似设计，如 [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile)。
 
-The methods like `MustNavigate` and `MustElement` are commonly used in example code or quick scripting. They are useful for jobs like smoke testing, site monitoring, end-to-end test, etc. Jobs with lots of uncertainty, such as web scraping, the non-prefixed version will be a better choice.
+形如 `MustNavigate` 与 `MustElement` 的方法通常在示例代码或快速脚本中使用。 它们适用于烟雾测试、站点监控、端到端测试等任务。 对于有很多不确定性的任务，比如网络抓取，无前缀版本将是一个更好的选择。
 
-The prefixed version is just the non-prefixed version wrapped with an error checker. Here's the source code of the `MustElement`, as you can see it just calls the `Element` with several extra lines to panic if err is not `nil`:
+带前缀的版本只是无前缀版本加上异常检查。 下面是 `MustElement` 的源代码。可以看到，它只是调用了 `Element`，并多加了几行代码，在 `err` 不是 <0>nil</0> 时 panic。
 
 ```go
 func (p *Page) MustElement(selectors ...string) *Element {
@@ -16,11 +16,11 @@ func (p *Page) MustElement(selectors ...string) *Element {
 }
 ```
 
-## Get the error value
+## 获取错误值
 
-The two code blocks below are almost doing the same thing in two styles.
+下面两段代码虽风格不同，但做的事情几乎一致。
 
-The style below is the Go's standard way to handle errors:
+这种风格是 Go 处理异常的标准方法：
 
 ```go
 page := rod.New().MustConnect().MustPage("https://example.com")
@@ -38,7 +38,7 @@ if err != nil {
 fmt.Println(html)
 ```
 
-We can use `rod.Try` to catch the error from the `Must` prefixed methods `MustElement` and `MustHTML`. The style below will usually end up in less code, but it may also catch extra errors:
+我们可以使用 `rod.Try` 捕获带有 `Must` 前缀的方法——`MustElement` 和 `MustHTML`——抛出的异常。 这种风格通常需要更少的代码，但可能会捕获到额外的异常：
 
 ```go
 page := rod.New().MustConnect().MustPage("https://example.com")
@@ -49,18 +49,18 @@ err := rod.Try(func() {
 handleError(err)
 ```
 
-## Check the error type
+## 检查异常类型
 
-We use Go's standard way to check error types, no magic.
+我们使用 Go 的标准方法来检查异常类型（没有魔法）。
 
-The `handleError` in the above code may look like:
+上面代码中的 `handleError` 可以是这样：
 
 ```go
 func handleError(err error) {
     var evalErr *rod.ErrEval
-    if errors.Is(err, context.DeadlineExceeded) { // timeout error
+    if errors.Is(err, context.DeadlineExceeded) { // 超时异常
         fmt.Println("timeout err")
-    } else if errors.As(err, &evalErr) { // eval error
+    } else if errors.As(err, &evalErr) { // eval 异常
         fmt.Println(evalErr.LineNumber)
     } else if err != nil {
         fmt.Println("can't handle", err)
@@ -68,4 +68,4 @@ func handleError(err error) {
 }
 ```
 
-[Next Chapter](selectors/README.md)
+[下一章](selectors/README.md)
