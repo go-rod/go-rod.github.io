@@ -10,7 +10,7 @@
 page.MustEval(`window.a = {name: 'jack'}`)
 ```
 
-We can use a js function to pass value as json arguments:
+我们可以使用 js 函数来把值作为 json 参数传递：
 
 ```go
 key := "a"
@@ -20,25 +20,25 @@ page.MustEval(`(k, val) => {
 }`, key, data)
 ```
 
-To get the returned value from Eval:
+从 Eval 获取返回值：
 
 ```go
 val := page.MustEval(`window.a`).Get("name").Str()
-fmt.Println(val) // output: jack
+fmt.Println(val) // 输出：jack
 ```
 
-## Eval on an element
+## 在元素上 eval
 
-`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page:
+`Element.Eval` 和 `Page.Eval` 类似，但是对于前者来说，`this` 对象代表当前元素。 例如，页面上有一个 `<button>提交</button>`：
 
 ```go
 txt := page.MustElement("button").MustEval(`this.innerText`).Str()
-fmt.Println(txt) // output: Submit
+fmt.Println(txt) // 输出：提交
 ```
 
-## Expose Go functions to the page
+## 将 Go 函数暴露给页面
 
-We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
+我们使用 `Page.Expose` 来把回调函数暴露给页面。 例如，我们可以像这样暴露函数，来帮助页面计算 md5：
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
@@ -46,10 +46,10 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 })
 ```
 
-Now the page can invoke this method on the window object:
+现在页面可以在 window 对象上调用这个方法：
 
 ```go
 hash := page.MustEval(`window.md5("test")`).Str()
 ```
 
-[Next Chapter](/page-pool.md)
+[下一章](/page-pool.md)
