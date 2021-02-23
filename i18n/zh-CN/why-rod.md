@@ -66,9 +66,9 @@ If you want to cooperate with us to create a testing focused framework base on R
 
 ## What does Rod mean
 
-Rod is the name of the control device for puppetry, such as the brown stick in the image below:
+Rod is the name of a control device for puppetry, such as this:
 
-![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png)
+![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png).
 
 The meaning is we are the puppeteer, the browser is the puppet, we use the rod to control the puppet.
 
