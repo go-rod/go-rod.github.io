@@ -73,7 +73,7 @@ wait()
 
 ## 可用事件
 
-所有事件类型都实现 `proto.Event` 接口，你可以使用它查找所有事件。 通常，IDE 会根据接口自动进行过滤。 例如，要查看 Page 域下的所有事件，我们可以创建一个空的 page 对象并使用 `WaitEvent(proto.Event)` 列出并过滤所有事件类型，如下图所示：
+所有事件类型都实现了 `proto.Event` 接口，你可以使用它查找所有事件。 通常，IDE 会根据接口自动进行过滤。 例如，要查看 Page 域下的所有事件，我们可以创建一个空的 page 对象并使用 `WaitEvent(proto.Event)` 列出并过滤所有事件类型，如下图所示：
 
 ![event-list](event-list.png)
 
