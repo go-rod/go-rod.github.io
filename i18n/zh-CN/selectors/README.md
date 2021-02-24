@@ -10,7 +10,7 @@ Rod 提供了很多获取元素的方法。 它们的名称都以 `MustElement` 
 
 通常来说你只需要一些 [CSS 选择器](css-selector) 的基础知识就可以完成你想要完成的自动化任务。 在本文档中，我们将只使用 CSS 选择器从页面中获取元素。
 
-## 根据文本内容
+## 通过文本内容
 
 使用 `ElementR` ，通过文本内容来匹配元素。例如选择下图中的搜索输入框：
 
@@ -21,11 +21,11 @@ page.MustElementR("input", "Search or jump")
 page.MustElementR("input", "/click/i") // 使用大小写不敏感标志 "i"
 ```
 
-因为使用了 [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), 所以我们不需要匹配文本的整个上下文。 要匹配的文本是在网站上实际看到的，而不是源代码。试比较下图中的 1 和 2。 你可以使用 Devtools 的 `copy` helper function 将文本复制到剪贴板（见 4）:
+因为使用了 [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), 所以我们不需要匹配文本的整个上下文。 要匹配的文本是在网站上实际看到的，而不是源代码。试比较下图中的 1 和 2。 你可以使用 Devtools 的 `copy` 帮助函数将文本复制到剪贴板（见 4）:
 
 ![copy-text](copy-text.png)
 
-## 根据 XPath
+## 通过 XPath
 
 我们推荐使用 CSS 选择器来选择元素（比如你不能用 XPath 来选择[渲染的文本](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454)）。 但对于使用其他语言的程序员来说，可能有时 XPath 来得更方便。 使用 `ElementX` 来根据 XPath 匹配：
 
@@ -33,7 +33,7 @@ page.MustElementR("input", "/click/i") // 使用大小写不敏感标志 "i"
 page.MustElementX("//h2")
 ```
 
-## 根据 JavaScript
+## 通过 JavaScript
 
 如果你的查询很复杂，或者如果你想使用一个类似于 [jQuery](https://jquery.com/) 的高级查询引擎：
 
@@ -78,7 +78,7 @@ func main() {
 
 ## 从 iframe 中获取元素
 
-例如，我们需要选择如下的嵌套 iframe 中的按钮：
+例如，我们需要选择如下的多层嵌套的 iframe 中的按钮：
 
 ![iframes](iframes.png)
 
@@ -92,9 +92,9 @@ frame02.MustElement("button")
 
 ## 搜索元素
 
-还有另一个强大的 helper 可以获取元素，那就是 `MustSearch`。 这不如上面提到的选择器精确，但是如果你想从深层嵌套的 iframe 或 shadow DOM 中获取元素，使用它就会来得很方便。
+还有另一个强大的帮助函数可以获取元素，那就是 `MustSearch`。 它不如上面提到的选择器精确，但是如果你想从深层嵌套的 iframe 或 shadow dom 中获取元素，使用它就会很方便。
 
-这一功能和 [Devtools 中的 Search for nodes](https://developers.google.com/web/tools/chrome-devtools/dom#search) 是一样的。你可以使用 Devtools 的这一功能来找出应用什么关键字来选择你想要的元素，如下图所示：
+这一功能和 [Devtools 中的 Search for nodes](https://developers.google.com/web/tools/chrome-devtools/dom#search) 是一样的。你可以使用 Devtools 的这一功能来调试出用什么关键字来选择你想要的元素，如下图所示：
 
 ![search](search.png)
 
@@ -106,7 +106,7 @@ page.MustSearch("button")
 
 ## 竞争选择器
 
-Rod 鼓励无 sleep 的自动化任务，这样可以增加任务的可靠性。 当一个操作有多种可能的结果时，我们不使用 sleep 来等待页面加载完毕。 例如，登录网页时密码可能会不正确，这时我们希望分别处理成功和失败的情况。 我们应该避免这样的代码：
+Rod 鼓励无 sleep 的自动化任务，这样可以增加任务的可靠性。 当一个操作有多种可能的结果时，我们不使用 sleep 来等待页面加载完毕。 例如，登录网页时密码可能错误，这时我们希望分别处理成功和失败的情况。 我们应该避免这样的代码：
 
 ```go
 func main() {
@@ -136,7 +136,7 @@ func main() {
     page.MustElement("#id_login").MustInput("username")
     page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
 
-    // 轮询，直到一个选择器有匹配
+    // 轮询，直到匹配到一个选择器
     page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
         // 成功登录后打印用户名
         fmt.Println(*e.MustAttribute("title"))
