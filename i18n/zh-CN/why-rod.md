@@ -1,4 +1,4 @@
-# 为什么使用 Rod
+# 为什么选择 Rod
 
 有许多不错的项目，但其中没有一个是完美的。重要的是选择其中最适合你需求的那一个。
 
@@ -42,35 +42,35 @@ Rod 支持取消，超时行为更好。如果想要处理成千上万的页面�
 
 ### Playwright
 
-Rod and [Playwright](https://github.com/microsoft/playwright) were first published almost at the same time. It's a great step forward for the Puppeteer team. Most comparisons between Rod and Puppeteer remain true to Playwright.
+Rod 和 [Playwright](https://github.com/microsoft/playwright) 几乎是同时发布的。 对于 Puppeteer 团队来说这是一次很大的进步。 Rod 和 Puppeteer 的比较大多也适用于 Playwright。
 
-One of Rod's architectural goal is to make it easier for everyone to contribute and make it a pure community project, that's one big reason why I chose Golang and the MIT license. Typescript is a nice choice but if you check Playwright's design choices, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) and [union types](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types) are everywhere, if you try to jump to the source code of [page.click](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options), `d.ts` files will let you understand the reality of typescript. Golang is definitely not good enough, but it usually introduces less tech debt than node.js typescript, if you want me to choose which one to use for QA or Infra who's not familiar with coding to automate end-to-end test or site-monitoring, I would pick Golang.
+Rod 的架构目标之一是让每个人都能更简单地共享，让 Rod 成为一个纯粹的社区项目，而这也是我选择 Golang 与 MIT 许可的一大原因。 TypeScript 也是一个不错的选择，不过如果你了解过 Playwright 的设计选择的话，你会发现 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) 和 [union 类型](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types)到处都是。如果你尝试跳转到 [page.click](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options) 的源码，那些 `d.ts` 文件会让你明白 TypeScript 的现状。 当然 Golang 也还不够好，但它通常会比 Node.js TypeScript 带来很少的技术债。如果我是一个不熟悉如何用代码来自动化端对端测试或网站监测的人，而你想让我选择用 Golang 还是 TypeScript 来做 QA 或 Infra 的话，我会选择 Golang 的。
 
-Their effort for cross-browser support is fabulous. But nowadays, HTML5 is well adopted by main brands, it's hard to say the complexity it brings can weight the benefits. Will the cross-browser [patches](https://github.com/microsoft/playwright/tree/master/browser_patches) become a burden in the future? Security issues for patched browsers is another concern. It also makes it tricky to test old versions of Firefox or Safari. Hope it's not over-engineering.
+他们为跨浏览器支持所做的努力是巨大的。 但如今主要厂商大都采用 HTML5，很难说它带来的复杂度大于好处。 跨浏览器[补丁](https://github.com/microsoft/playwright/tree/master/browser_patches)将来会变成一个负担吗？ Patch 过的浏览器的安全性又是一个问题。 要测试旧版本的 Firefox 或 Safari 也因此变得很困难。 但愿这不是过度设计。
 
 ### Selenium
 
-[Selenium](https://www.selenium.dev/) is based on [webdriver protocol](https://www.w3.org/TR/webdriver/) which has much less functions compare to [devtools protocol](https://chromedevtools.github.io/devtools-protocol). Such as it can't handle [closed shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460). No way to save pages as PDF. No support for tools like [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) or [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/), etc.
+[Selenium](https://www.selenium.dev/) 基于 [webdriver 协议](https://www.w3.org/TR/webdriver/) ，这一协议的功能比 [devtools 协议](https://chromedevtools.github.io/devtools-protocol)少得多。 比如说它不能处理[关闭了的 shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460)， 不能把页面另存为 PDF， 不支持 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/) 之类的工具，等等等等。
 
-Harder to set up and maintain because of extra dependencies like a browser driver.
+由于像浏览器驱动之类的额外依赖，Selenium 更难配置与维护。
 
-Though selenium sells itself for better cross-browser support, it's usually very hard to make it work for all major browsers.
+尽管 Selenium 宣传自己有更好的跨浏览器支持，通常来说很难将其用于所有主流浏览器。
 
-There are plenty of articles about "selenium vs puppeteer", you can treat rod as the Golang version of Puppeteer.
+关于“selenium vs puppeteer”的文章有很多，你可以把 rod 当作 Golang 版的 Puppeteer。
 
 ### Cypress
 
-[Cypress](https://www.cypress.io/) is very limited, for closed shadow dom or cross-domain iframes it's almost unusable. Read their [limitation doc](https://docs.cypress.io/guides/references/trade-offs.html) for more details.
+[Cypress](https://www.cypress.io/) 的功能很有限，几乎不可用于关闭的 shadow DOM 和跨域 iframe。 要了解更多详情，请阅读他们的[有关局限性的文档](https://docs.cypress.io/guides/references/trade-offs.html)。
 
-If you want to cooperate with us to create a testing focused framework base on Rod to overcome the limitation of cypress, please contact us.
+如果你想要和我们合作，基于 Rod 创建一个以测试为重点的框架，从而克服 cypress 的局限性，请联系我们。
 
-## What does Rod mean
+## Rod 是什么意思
 
-Rod is the name of the control device for puppetry, such as the brown stick in the image below:
+Rod 是用于控制木偶的装置，比如说下图中褐色棍子：
 
 ![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png)
 
-The meaning is we are the puppeteer, the browser is the puppet, we use the rod to control the puppet.
+意思是说，我们是操控木偶的人，而浏览器则是木偶。我们使用“木偶棍（rod）”来控制木偶。
 
 [chromedp]: https://github.com/chromedp/chromedp
 [puppeteer]: https://github.com/puppeteer/puppeteer
