@@ -37,6 +37,6 @@ cdp 协议总是与 [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-
 
 采用 [Semver](https://semver.org/)。
 
-在 `v1.0.0` 之前，如果版本号的第二个部分改变了，比如说由 `v0.1.0` 变为了 `v0.2.0`，那么肯定有公共 API 发生了改变，比如说函数名或参数类型发生了变更。 如果仅仅是版本号的最后一部分改变了，则公共 API 不会变更。
+在 `v1.0.0` 之前，如果版本号的第二个部分改变了，比如说由 `v0.1.0` 变为了 `v0.2.0`，那么肯定有公有 API 发生了改变，比如说函数名或参数类型发生了变更。 如果仅仅是版本号的最后一部分改变了，则公有 API 不会变更。
 
-你可以使用 Github 的版本比较来查看自动生成的 changelog，例如，[比较 v0.75.2 与 v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0)。
+你可以使用 Github 的版本比较来查看自动生成的更新日志，例如，[比较 v0.75.2 与 v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0)。
