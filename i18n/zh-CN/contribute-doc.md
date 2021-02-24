@@ -14,13 +14,13 @@ docsify serve -o
 
 ## 贡献翻译
 
-我们使用 [crowdin](https://crowdin.com/) 管理本地化。
+我们使用 [crowdin](https://crowdin.com/) 管理翻译。
 
 首先：
 
 1. 到[项目页面](https://crowdin.com/project/go-rod)
 2. 点击目标语言的图标
 3. 点击你想要翻译的文件
-4. 跟随 UI，在网站上翻译文件
+4. 按照 UI 的指引，在网站上翻译文件
 
 [网站](https://go-rod.github.io)会在一个小时内同步你的翻译。
