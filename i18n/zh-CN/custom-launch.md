@@ -47,7 +47,7 @@ func main() {
 
 ## Docker
 
-这里有一个远程控制容器内的浏览器的例子；这样我们就不用在本地安装浏览器了（一些 linux 发行版中很难正确安装 chromium）：
+这里有一个远程控制 container 内的浏览器的例子；这样我们就不用在本地安装浏览器了（一些 linux 发行版中很难正确安装 chromium）：
 
 1. 运行 rod 镜像 `docker run -p 9222:9222 rodorg/rod`
 
@@ -57,6 +57,6 @@ func main() {
 
 ## 控制每一步
 
-如果你想要控制启动过程中的每一步，比如说禁用自动下载、使用系统默认浏览器，见此[示例文件](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go)。
+如果你想要控制启动过程中的每个步骤，比如说禁用自动下载、使用系统默认浏览器，见此[示例文件](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go)。
 
 [下一章](/custom-websocket.md)
