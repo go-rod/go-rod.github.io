@@ -1,8 +1,8 @@
-# Understand Context
+# 理解 Context
 
-Before understanding Context, make sure you have learned [Goroutines](https://tour.golang.org/concurrency/1) and [Channels](https://tour.golang.org/concurrency/2). Context is mainly used to transfer context information between Goroutines, including: cancellation signal, timeout, deadline, k-v, etc.
+在此之前，先确保你已经学会了 [Goroutines](https://tour.golang.org/concurrency/1) 和 [Channels](https://tour.golang.org/concurrency/2)。 Context 主要用于在 Goroutines 之间传递上下文信息，包括：取消信号，超时，截止时间，键值对等等。
 
-For example, we have a long-running function `heartbeat` that prints `beat` every second:
+例如，我们现在有一个长时间运行的函数 `heartbeat`，它每秒会打印一次 `beat`：
 
 ```go
 package main
@@ -26,7 +26,7 @@ func heartbeat() {
 }
 ```
 
-If we want to abort the heartbeat whenever we press the enter key, we may code like this:
+假如我们想在按下回车键的时候中断 heartbeat，我们可以这样修改代码：
 
 ```go
 func main() {
@@ -53,7 +53,7 @@ func heartbeat(stop chan struct{}) {
 }
 ```
 
-Because this kind of code is so often used, Golang abstracted a helper package to handle it, it's called [Context](https://golang.org/pkg/context/). If we use Context, the code above will become something like this:
+由于这种代码很常见，Golang 把它抽象为了一个 helper 包来处理这种情况，并称之为 [Context](https://golang.org/pkg/context/)。 现在用 Context 重新实现上面的代码：
 
 ```go
 func main() {
