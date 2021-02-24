@@ -25,7 +25,7 @@ el.MustInput("Jack")
 fmt.Println(el.MustText()) // 使用 MustText 来获取文本
 ```
 
-## 从输入中删除文本
+## 删除输入框中的文本
 
 模拟人的行为即可。选中所有文本，用一个空字符串替换：
 
