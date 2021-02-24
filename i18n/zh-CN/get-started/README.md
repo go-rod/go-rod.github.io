@@ -43,7 +43,7 @@ go run .
 
 ![first-program](first-program.png)
 
-## 深入理解
+## 了解发生了什么
 
 对于有经验的开发者，可以跳过这里的所有内容、阅读[这个文件](https://github.com/go-rod/rod/blob/master/examples_test.go)。
 
@@ -92,7 +92,7 @@ devtools
 
 ![inspect](inspect.png)
 
-你会看到如下的 `<input id="searchInput>`。
+你会看到如下的 `<input id="searchInput`。
 
 ![input](input.png)
 
@@ -117,7 +117,7 @@ func main() {
 }
 ```
 
-`MustWindowFullscreen` 会调整浏览器窗口的大小，以便调试。 我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitLoad`。 然后我们调用 `MustInput` 来输入关键词“earth”。 再次运行“main.go”后你会看到如下的结果：
+`MustWindowFullscreen` 用于调整浏览器窗口的大小，以便调试。 我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitLoad`。 然后我们调用 `MustInput` 来输入关键词“earth”。 再次运行“main.go”后你会看到如下的结果：
 
 ![after-input](after-input.png)
 
@@ -158,11 +158,11 @@ slow=1s
 trace
 ```
 
-然后重新运行。现在每次操作都会在执行前等待 1 秒。 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
+然后重新运行模块。现在每次操作都会在执行前等待 1 秒。 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
 
 ![trace](trace.png)
 
-如图所示，Rod 会在搜索按钮上创建一个模拟鼠标光标。
+如图所示，Rod 会在搜索按钮上创建一个虚拟的鼠标光标。
 
 在控制台中，你会看到如下的跟踪日志：
 
@@ -224,7 +224,7 @@ Earth is the third planet from the Sun and the only astronomical object known to
 
 ![get-image](get-image.png)
 
-修改 `main.go` 如下：
+完整的代码如下：
 
 ```go
 package main
