@@ -33,7 +33,7 @@ fmt.Println(val) // 输出：jack
 
 ```go
 txt := page.MustElement("button").MustEval(`this.innerText`).Str()
-fmt.Println(txt) // 输出：提交
+fmt.Println(txt) // 输出：Submit
 ```
 
 ## 将 Go 函数暴露给页面
