@@ -26,41 +26,41 @@ Rod 可配置程度更高，比如甚至可以把 WebSocket 库替换成一个�
 
 Rod 的依赖更少，代码结构更简单，自动化测试更好。你会发现为 Rod 贡献代码更简单。 因此，与 Chromedp 相比，Rod 有潜力在未来从社区中获得更多好功能。
 
-Chromedp 的另一个问题时，他们的架构基于 [DOM 节点 id](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId)，而 puppeteer 和 rod 基于 [远程对象 id](https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId)。 因此，Chromedp 的开发者无法添加与运行时相耦合的高层级功能。 例如，这个 [ticket](https://github.com/chromedp/chromedp/issues/72) 开了整整三年。 即便它现在已经关闭了，你还是不能在 iframe 内的元素上执行 js 表达式。
+Chromedp 的另一个问题时，他们的架构基于 [DOM 节点 id](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId)，而 puppeteer 和 rod 基于 [远程对象 id](https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId)。 因此，Chromedp 的开发者很难添加与运行时强耦合的高级级功能。 例如，这个 [ticket](https://github.com/chromedp/chromedp/issues/72) 开了整整三年。 即便它现在已经关闭了，你还是不能在 iframe 内的元素上执行 js 表达式。
 
 ### Puppeteer
 
-[Puppeteer][puppeteer] 会对浏览器传回的每条消息进行 JSON 解码，而 Rod 则按需解码，因此理论上 Rod 性能更好，尤其是对于大量用到网络的事件来说。
+[Puppeteer][puppeteer] 会对浏览器传回的每条消息进行 JSON 解码，而 Rod 则按需解码，因此理论上 Rod 性能更好，尤其是大量用到网络的事件时。
 
-使用 puppeteer 时必须大量处理 promise/async/await，而这使优雅的[流式接口](https://en.wikipedia.org/wiki/Fluent_interface)设计变得很难。 端对端测试需要用到许多同步操作来模拟真人输入。由于 Puppeteer 基于 Nodejs，所有 IO 操作都是异步的，所以通常人们会不得不打成堆的 async/await。 忘记写一个 `await` 的话，等待你的将是调试泄露 Promise 的痛苦过程。 你的项目越大，这种开销就越大。
+使用 puppeteer 时必须大量处理 promise/async/await，而这让设计优雅的[流式接口](https://en.wikipedia.org/wiki/Fluent_interface)变得非常困难。 端对端测试需要用到许多同步操作来模拟真人输入。由于 Puppeteer 基于 Nodejs，所有 IO 操作都是异步的，所以通常人们会不得不输入成堆的 async/await。 忘记写 `await` 的话，调试 Promise 泄露通常会非常痛苦。 你的项目越大，这种开销就越大。
 
 Rod 默认类型安全，且有更好的注释。 它对于 Devtools 协议中的所有 endpoint 都有类型绑定。
 
-Rod 会尽可能禁用域事件，而 puppeteer 则总是启用所有域事件。 驱动远程浏览器时这会消耗大量资源。
+Rod 会尽可能禁用 domain 事件，而 puppeteer 则总是启用所有 domain 事件。 远程驱动浏览器时这会消耗大量资源。
 
-Rod 支持取消，超时行为更好。如果想要处理成千上万的页面，这至关重要。 例如，要模拟 `click` 我们需要发送数个 cdp 请求。使用 [Promise](https://stackoverflow.com/questions/29478751/cancel-a-vanilla-ecmascript-6-promise-chain) 时不可能实现“只发送一半的 cdp 请求”，但使用 [context](https://golang.org/pkg/context/) 时则可以。
+Rod 对取消，超时支持的更好。如果想要处理成千上万的页面，这至关重要。 例如，要模拟 `click` 我们需要发送数个 cdp 请求。使用 [Promise](https://stackoverflow.com/questions/29478751/cancel-a-vanilla-ecmascript-6-promise-chain) 时不可能实现“只发送一半的 cdp 请求”，但使用 [context](https://golang.org/pkg/context/) 时则可以。
 
 ### Playwright
 
 Rod 和 [Playwright](https://github.com/microsoft/playwright) 几乎是同时发布的。 对于 Puppeteer 团队来说这是一次很大的进步。 Rod 和 Puppeteer 的比较大多也适用于 Playwright。
 
-Rod 的架构目标之一是让每个人都能更简单地共享，让 Rod 成为一个纯粹的社区项目，而这也是我选择 Golang 与 MIT 许可的一大原因。 TypeScript 也是一个不错的选择，不过如果你了解过 Playwright 的设计选择的话，你会发现 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) 和 [union 类型](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types)到处都是。如果你尝试跳转到 [page.click](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options) 的源码，那些 `d.ts` 文件会让你明白 TypeScript 的现状。 当然 Golang 也还不够好，但它通常会比 Node.js TypeScript 带来很少的技术债。如果我是一个不熟悉如何用代码来自动化端对端测试或网站监测的人，而你想让我选择用 Golang 还是 TypeScript 来做 QA 或 Infra 的话，我会选择 Golang 的。
+Rod 的架构目标之一是让每个人都能更轻松的为社区贡献力量，让 Rod 成为一个纯粹的社区项目，而这也是我选择 Golang 与 MIT 许可的一大原因。 TypeScript 也是一个不错的选择，不过如果你了解过 Playwright 的设计选择的话，你会发现 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) 和 [union 类型](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types)随处可见。如果你尝试跳转到 [page.click](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options) 的源码，那些 `d.ts` 文件会让你明白 TypeScript 的现实问题。 当然 Golang 也还不够好，但它通常会比 Node.js TypeScript 带来很少的技术债。如果我是一个不熟悉如何用代码来自动化端对端测试或网站监测的人，而你想让我选择用 Golang 还是 TypeScript 来做 QA 或 Infra 的话，我会选择 Golang。
 
-他们为跨浏览器支持所做的努力是巨大的。 但如今主要厂商大都采用 HTML5，很难说它带来的复杂度大于好处。 跨浏览器[补丁](https://github.com/microsoft/playwright/tree/master/browser_patches)将来会变成一个负担吗？ Patch 过的浏览器的安全性又是一个问题。 要测试旧版本的 Firefox 或 Safari 也因此变得很困难。 但愿这不是过度设计。
+他们为跨浏览器支持所做的努力令人敬畏。 但如今主要厂商大都采用 HTML5，很难说它带来的复杂度大于好处。 跨浏览器[补丁](https://github.com/microsoft/playwright/tree/master/browser_patches)将来会变成一个负担吗？ Patch 过的浏览器的安全性也是个问题。 这使得测试旧版本的 Firefox 或 Safari 也因此变得非常棘手。 但愿这不是过度设计。
 
 ### Selenium
 
-[Selenium](https://www.selenium.dev/) 基于 [webdriver 协议](https://www.w3.org/TR/webdriver/) ，这一协议的功能比 [devtools 协议](https://chromedevtools.github.io/devtools-protocol)少得多。 比如说它不能处理[关闭了的 shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460)， 不能把页面另存为 PDF， 不支持 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/) 之类的工具，等等等等。
+[Selenium](https://www.selenium.dev/) 基于 [webdriver 协议](https://www.w3.org/TR/webdriver/) ，这一协议的功能比 [devtools 协议](https://chromedevtools.github.io/devtools-protocol)少得多。 比如说它不能处理[闭合的 shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460)， 不能把页面另存为 PDF， 不支持 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/) 之类的工具，等等。
 
 由于像浏览器驱动之类的额外依赖，Selenium 更难配置与维护。
 
-尽管 Selenium 宣传自己有更好的跨浏览器支持，通常来说很难将其用于所有主流浏览器。
+尽管 Selenium 宣传自己有更好的跨浏览器支持，但通常很难让测试支持所有主流浏览器。
 
 关于“selenium vs puppeteer”的文章有很多，你可以把 rod 当作 Golang 版的 Puppeteer。
 
 ### Cypress
 
-[Cypress](https://www.cypress.io/) 的功能很有限，几乎不可用于关闭的 shadow DOM 和跨域 iframe。 要了解更多详情，请阅读他们的[有关局限性的文档](https://docs.cypress.io/guides/references/trade-offs.html)。
+[Cypress](https://www.cypress.io/) 的功能很有限，对于闭合的 shadow dom 或跨域 iframe 它就无可奈何了。 要了解更多详情，请阅读他们的[有关局限性的文档](https://docs.cypress.io/guides/references/trade-offs.html)。
 
 如果你想要和我们合作，基于 Rod 创建一个以测试为重点的框架，从而克服 cypress 的局限性，请联系我们。
 
