@@ -1,6 +1,6 @@
 # 自定义 WebSocket
 
-如果你想要代理传输层或调整性能的话这会很有用。 这里我们使用 `github.com/gorilla/websocket` 作为示范，你可以包装任何喜欢的库。
+如果你想要代理传输层或调优性能的话这会很有用。 这里我们使用 `github.com/gorilla/websocket` 作为示范，你可以包装任何喜欢的库。
 
 ```go
 package main
