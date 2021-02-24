@@ -1,16 +1,16 @@
 
-- Introduction
+- 入门
 
-  - [Get Started](get-started/README.md)
-  - [Context & Timeout](context-and-timeout.md)
-  - [Error Handling](error-handling.md)
+  - [入门指南](get-started/README.md)
+  - [上下文（Context）和超时（Timeout）](context-and-timeout.md)
+  - [异常处理](error-handling.md)
 
-- Guides
+- 使用手册
 
-  - [Selectors](selectors/README.md)
-  - [Events](events/README.md)
-  - [Input](input.md)
-  - [Emulation](emulation.md)
+  - [选择器 / Selectors](selectors/README.md)
+  - [事件 / Events](events/README.md)
+  - [输入 / Input](input.md)
+  - [模拟 / Emulation](emulation.md)
   - [Network](network.md)
   - [Page Resources](page-resources/README.md)
   - [Javascript Runtime](javascript-runtime.md)
