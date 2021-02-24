@@ -53,7 +53,7 @@ u := launcher.New().Env("TZ=America/New_York").MustConnect()
 browser := rod.New().ControlURL(u).MustConnect()
 ```
 
-或者可以使用 [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetTimezoneOverride) 或 or [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetLocaleOverride) 为特定页面设置：
+或者可以使用 [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetTimezoneOverride) 或 [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetLocaleOverride) 为特定页面设置：
 
 ```go
 proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
