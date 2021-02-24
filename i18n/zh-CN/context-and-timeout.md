@@ -6,7 +6,7 @@
 
 ## 取消
 
-例如下面的代码会创建一个空白页面并访问“github.com”：
+例如下面的代码会创建一个空白页面并访问 “github.com”：
 
 ```go
 page := rod.New().MustConnect().MustPage("")
