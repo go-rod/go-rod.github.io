@@ -1,8 +1,8 @@
 
 - [API](https://pkg.go.dev/github.com/go-rod/rod)
-- [Examples](examples.md)
-- [Chat](https://discord.gg/CpevuvY)
+- [示例](examples.md)
+- [聊天室](https://discord.gg/CpevuvY)
 
-- :earth_americas: Translations
+- :earth_americas: 文档翻译
   - [:uk: English](/ ":ignore")
   - [:cn: 中文](/i18n/zh-CN ":ignore")
