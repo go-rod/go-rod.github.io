@@ -1,42 +1,42 @@
-# Compatibility
+# 兼容性
 
 ## OS
 
-You should be able to compile and run Rod seamlessly on all main platforms that Golang supports. On some platforms, you might need to install the browser manually, Rod can't guarantee the auto-downloaded browser will always work, If you want Rod to support a platform, please raise an issue for it.
+一般来说你可以在 Golang 支持的所有主要平台上无感知地编译和运行 Rod。 在某些平台上，你可能需要手动安装浏览器。Rod 无法保证总是能成功自动下载浏览器。如果想要 Rod 支持某一平台，请发起一个 issue。
 
-It's very easy to google how to install the browser on your system, for example, on Ubuntu or Debian you will find something like this to install the browser:
+在网上可以很轻松地搜索到如何在你的系统中安装浏览器。比如说，对于 Ubuntu 或 Debian，可以搜索到这种安装浏览器的方法：
 
 ```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 apt install ./google-chrome-stable_current_amd64.deb
 ```
 
-On CentOS:
+对于 CentOS：
 
 ```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 yum localinstall -y google-chrome-stable_current_x86_64.rpm
 ```
 
-## Supported browsers
+## 支持的浏览器
 
-Rod should work with any browser that supports [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/).
+Rod 支持任何使用 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/)的浏览器。
 
-- Microsoft Edge is supported.
-- Firefox is [supporting](https://wiki.mozilla.org/Remote) this protocol.
-- Safari doesn't have any plan to support it yet.
-- IE won't support it.
+- 支持 Microsoft Edge。
+- Firefox 目前正在[支持](https://wiki.mozilla.org/Remote)这一协议。
+- Safari 目前还没有支持它的计划。
+- IE 不会支持它的。
 
-## Browser and cdp protocol versioning
+## 浏览器和 cdp 协议版本号
 
-The cdp protocol is always the same as [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision). If Rod can't find your local browser, it will download the browser version of the `launcher.DefaultRevision`.
+cdp 协议总是与 [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision) 相同。 如果 Rod 找不到本地浏览器，它会下载 `launcher.DefaultRevision` 版本的浏览器。
 
-Each version of Rod only guarantees to work with its `launcher.DefaultRevision` of the browser.
+每个版本的 Rod 指保证支持它的 `launcher.DefaultRevision` 版本的浏览器。
 
-## API Versioning
+## API 版本号
 
-[Semver](https://semver.org/) is used.
+采用 [Semver](https://semver.org/)。
 
-Before `v1.0.0` whenever the second section changed, such as `v0.1.0` to `v0.2.0`, there must be some public API changes, such as changes of function names or parameter types. If only the last section changed, no public API will be changed.
+在 `v1.0.0` 之前，如果版本号的第二个部分改变了，比如说由 `v0.1.0` 变为了 `v0.2.0`，那么肯定有公共 API 发生了改变，比如说函数名或参数类型发生了变更。 如果仅仅是版本号的最后一部分改变了，则公共 API 不会变更。
 
-You can use Github's release comparison to see the automated changelog, for example, [compare v0.75.2 with v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0).
+你可以使用 Github 的版本比较来查看自动生成的 changelog，例如，[比较 v0.75.2 与 v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0)。
