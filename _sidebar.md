@@ -23,6 +23,7 @@
 
   - [API Reference](https://pkg.go.dev/github.com/go-rod/rod)
   - [Examples](examples.md)
+  - [FAQ](faq/README.md)
   - [Why Rod](why-rod.md)
   - [Compatibility](compatibility.md)
   - [Understand Context](understand-context.md)
