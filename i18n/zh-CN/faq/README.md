@@ -1,13 +1,13 @@
-# FAQ
+# 常见问题
 
-## How to search symbols in the comments or doc?
+## 如何在注释或文档中搜索符号？
 
-Such as the symbol `Page.Element` shown in the screenshot:
+比如截图中显示的符号 `Page.Element`
 
 ![symbol-in-doc](symbol-in-doc.png)
 
-You can jump to it by searching it from here (keyboard shortcut is `F`):
+可以通过从这里搜索跳转到它(键盘快捷键是 `F`):
 
 ![search-symbol-in-doc](search-symbol-in-doc.png)
 
-For experienced developers please check [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
+对于经验丰富的开发人员，请查看 [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology)。
