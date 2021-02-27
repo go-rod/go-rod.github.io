@@ -23,6 +23,7 @@
 
   - [API 文档](https://pkg.go.dev/github.com/go-rod/rod)
   - [示例](examples.md)
+  - [常见问题](faq/README.md)
   - [为什么选择 Rod](why-rod.md)
   - [兼容性](compatibility.md)
   - [理解 Context](understand-context.md)
