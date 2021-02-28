@@ -1,6 +1,6 @@
 # Javascript Runtime
 
-We can use Rod to evaluate random javascript code on the page.
+We can use Rod to evaluate random javascript code on the page. Such as use it to read or modify the HTML content of the page.
 
 ## Eval on the page
 
@@ -30,11 +30,13 @@ fmt.Println(val) // output: jack
 ## Eval on an element
 
 `Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element.
-For example, we have a `<button>Submit</button>` on the page:
+For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
 
 ```go
-txt := page.MustElement("button").MustEval(`this.innerText`).Str()
-fmt.Println(txt) // output: Submit
+el := page.MustElement("button")
+el.MustEval(`this.innerText = "Apply"`) // Modify the content
+txt := el.MustEval(`this.innerText`).Str()
+fmt.Println(txt) // output: Apply
 ```
 
 ## Expose Go functions to the page
