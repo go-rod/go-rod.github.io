@@ -1,6 +1,6 @@
 # JavaScript 运行时
 
-我们可以使用 Rod 在页面上执行任意 JavaScript 代码。
+We can use Rod to evaluate random javascript code on the page. Such as use it to read or modify the HTML content of the page.
 
 ## 在页面上 eval
 
@@ -29,11 +29,13 @@ fmt.Println(val) // 输出：jack
 
 ## 在元素上 eval
 
-`Element.Eval` 和 `Page.Eval` 类似，但是对于前者来说，`this` 对象代表当前元素。 例如，页面上有一个 `<button>提交</button>`：
+`Element.Eval` 和 `Page.Eval` 类似，但是对于前者来说，`this` 对象代表当前元素。 For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
 
 ```go
-txt := page.MustElement("button").MustEval(`this.innerText`).Str()
-fmt.Println(txt) // 输出：Submit
+el := page.MustElement("button")
+el.MustEval(`this.innerText = "Apply"`) // Modify the content
+txt := el.MustEval(`this.innerText`).Str()
+fmt.Println(txt) // output: Apply
 ```
 
 ## 将 Go 函数暴露给页面
