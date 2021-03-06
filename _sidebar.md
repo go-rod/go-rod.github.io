@@ -7,6 +7,7 @@
 
 - Guides
 
+  - [Custom Browser Launch](custom-launch.md)
   - [Selectors](selectors/README.md)
   - [Events](events/README.md)
   - [Input](input.md)
@@ -15,7 +16,6 @@
   - [Page Resources](page-resources/README.md)
   - [Javascript Runtime](javascript-runtime.md)
   - [Page Pool](page-pool.md)
-  - [Custom Launch](custom-launch.md)
   - [Custom WebSocket](custom-websocket.md)
   - [End-to-end testing](end-to-end-testing.md)
 

@@ -1,4 +1,4 @@
-# Customize Launch
+# Custom Browser Launch
 
 You can use `launcher` lib to custom the launch of browsers, such as add or delete the browser executable command-line arguments,
 custom the auto-download-browser mirrors.
