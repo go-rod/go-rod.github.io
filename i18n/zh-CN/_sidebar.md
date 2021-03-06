@@ -7,15 +7,15 @@
 
 - 使用手册
 
-  - [选择器 / Selectors](selectors/README.md)
-  - [事件 / Events](events/README.md)
-  - [输入 / Input](input.md)
-  - [模拟 / Emulation](emulation.md)
-  - [网络 / Network](network.md)
-  - [页面资源](page-resources/README.md)
-  - [JavaScript 运行时](javascript-runtime.md)
-  - [页面池 / Page Pool](page-pool.md)
-  - [自定义启动](custom-launch.md)
+  - [Custom Browser Launch](custom-launch.md)
+  - [Selectors](selectors/README.md)
+  - [Events](events/README.md)
+  - [Input](input.md)
+  - [Emulation](emulation.md)
+  - [Network](network.md)
+  - [Page Resources](page-resources/README.md)
+  - [Javascript Runtime](javascript-runtime.md)
+  - [Page Pool](page-pool.md)
   - [自定义 WebSocket](custom-websocket.md)
   - [端到端测试](end-to-end-testing.md)
 
