@@ -22,11 +22,12 @@ Rod is more configurable, such as you can even replace the WebSocket lib with th
 
 For direct code comparison you can check [here](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp). If you compare the example called `logic` between [rod](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp/logic/main.go) and [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go), you will find out how simpler rod is.
 
-With Chromedp, you have to use their verbose DSL like tasks to handle the main logic, because Chromedp uses several wrappers to handle execution with context and options which makes it very hard to understand their code when bugs happen. The heavily used interfaces make the static types useless when tracking issues. In contrast, Rod uses as few interfaces as possible.
+With Chromedp, you have to use their verbose DSL-like tasks to handle code logic. Chromedp uses several wrappers to handle execution with context and options, which makes it very hard to understand their code when bugs happen. The heavily used interfaces make the static types useless when tracking issues. In contrast, Rod uses as few interfaces as possible.
 
-Rod has less dependencies, a simpler code structure and better test automation, you should find it's easier to contribute code to Rod. Therefore compared with Chromedp, Rod has the potential to have more nice functions from the community in the future.
+Rod has fewer dependencies, a simpler code structure, and better test automation. You should find it's easier to contribute code to Rod. Therefore compared with Chromedp, Rod has the potential to have more nice functions from the community in the future.
 
 Another problem of Chromedp is their architecture is based on [DOM node id](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId), puppeteer and rod are based on [remote object id](https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId). In consequence, it will prevent Chromedp's maintainers from adding high-level functions that are coupled with runtime. For example, this [ticket](https://github.com/chromedp/chromedp/issues/72) had opened for 3 years. Even after it's closed, you still can't evaluate js express on the element inside an iframe.
+Also, Chromedp maintains a [copy](https://github.com/chromedp/chromedp/blob/e2970556e3d05f3259c464faeed1ec0e862f0560/target.go#L375-L376) of all the nodes in memory. It will cause race condition between local NodeID list and [DOM.documentUpdated](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated), which can cause confusing issues like [#762](https://github.com/chromedp/chromedp/issues/762).
 
 ### Puppeteer
 
