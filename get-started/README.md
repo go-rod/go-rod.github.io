@@ -6,10 +6,6 @@
 
 If you have never used Golang, [install](https://golang.org/doc/install) it and you can master it in hours: [A tour of Go](https://tour.golang.org/welcome).
 
-We will use [Visual Studio Code](https://code.visualstudio.com/) to edit code in this documentation, if you use it don't forget to enable the language server after you install the [Go extension](https://marketplace.visualstudio.com/items?itemName=golang.go):
-
-[video](vscode-setup.mp4 ':include')
-
 ## First program
 
 Let's use Rod to open a page and take a screenshot of it, first, create a "main.go" file with the content below:

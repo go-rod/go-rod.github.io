@@ -6,10 +6,6 @@
 
 如果你从未使用过 Golang，可以依照[这篇文档](https://golang.org/doc/install)安装 Golang，并通过[这个网站](https://tour.golang.org/welcome)在几个小时内掌握它。
 
-在这篇文档中，我们使用 [Visual Studio Code](https://code.visualstudio.com/) 编辑代码。如果你也使用 VSC，不要忘记在安装完 [Go 扩展](https://marketplace.visualstudio.com/items?itemName=golang.go) 后启用 Language Server。
-
-[视频](vscode-setup.mp4 ":include")
-
 ## 第一个程序
 
 让我们使用 Rod 来打开一个网页并获取它的截图。首先创建 "main.go"，并在其中输入以下内容：
