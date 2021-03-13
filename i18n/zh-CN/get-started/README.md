@@ -8,7 +8,7 @@
 
 ## 第一个程序
 
-让我们使用 Rod 来打开一个网页并获取它的截图。首先创建 "main.go"，并在其中输入以下内容：
+Let's use Rod to open a page and take a screenshot of it, first, create a "main.go" file with the content below:
 
 ```go
 package main
@@ -21,37 +21,37 @@ func main() {
 }
 ```
 
-`rod.New` 用于创建浏览器对象，而 `MustConnect` 则会启动并连接到浏览器。 `MustPage` 会创建一个页面对象（类似于浏览器中的一个标签页）。 `MustWaitLoad` 表示会一直等待直到页面加载完毕。 `MustScreenshot` 会获取页面的截图。
+The `rod.New` creates a browser object, the `MustConnect` launches and connects to a browser. The `MustPage` creates a page object, it's like a page tab in the browser. The `MustWaitLoad` waits for the page is fully loaded. The `MustScreenshot` takes a screenshot of the page.
 
-创建一个 module：
+Create a module:
 
 ```bash
 go mod init learn-rod
 ```
 
-运行这个 module：
+Run the module:
 
 ```bash
 go run .
 ```
 
-程序会输出如下的一张截图“a.png”。
+The program will output a screenshot "a.png" like the one below:
 
 ![first-program](first-program.png)
 
 ## 了解发生了什么
 
-对于有经验的开发者，可以跳过这里的所有内容、阅读[这个文件](https://github.com/go-rod/rod/blob/master/examples_test.go)。
+For senior developers, you can skip all and read this file: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
 
-默认情况下，Rod 会禁用浏览器的 UI 来最大化性能。 但开发自动化任务时我们通常更加关心调试的难易程度。 Rod 为你提供了许多调试代码的方案。
+By default, Rod will disable the browser's UI to maximize the performance. But when developing an automation task we usually care more about the ease of debugging. Rod provides a lot of solutions to help you debug the code.
 
-让我们在当前工作目录下创建一个“.rod”配置文件， 并输入以下内容：
+Let's create a ".rod" config file under the current working directory. The content is:
 
 ```txt
 show
 ```
 
-意思是“显示浏览器 UI”。 再次运行这个 module 之前，让我们在代码最后加上 `time.Sleep(time.Hour)`，这样可以保证程序不会太快结束，让我们可以看到程序的运行结果。“main.go”的代码现在变成了：
+It means "show the browser UI on the foreground". Before we run the module again, let's append `time.Sleep(time.Hour)` to the end the code so that it won't be too fast for our eyes to catch it, the code of "main.go" now becomes:
 
 ```go
 package main
@@ -69,30 +69,30 @@ func main() {
 }
 ```
 
-如果再次运行这个 module，你可以看到像这样的一个浏览器：
+If you run the module again, you should see a browser like this:
 
 ![show](show.png)
 
-在键盘上按 [CTRL + C](https://en.wikipedia.org/wiki/Control-C) 停止程序。
+Press [CTRL + C](https://en.wikipedia.org/wiki/Control-C) on the keyboard to stop the program.
 
 ## 输入与点击
 
-让我们控制浏览器来搜索关键词“earth”。 一个网站可能有许多输入框和按钮。我们需要告诉程序它需要操控其中的哪一个。 通常我们会使用 [Devtools](https://developers.google.com/web/tools/chrome-devtools/) 来帮助定位我们想要控制的元素。 让我们在“.rod”文件中新增一行配置来启用 Devtools。现在配置文件变成了：
+Let's automate the website to search the keyword "earth". A website may have many input fields or buttons, we need to tell the program which one to manipulate. Usually, we use [Devtools](https://developers.google.com/web/tools/chrome-devtools/) to help us locate the element we want to control. let's append a new config to the ".rod" file to enable the Devtools, now it becomes:
 
 ```txt
 show
 devtools
 ```
 
-再次运行“main.go”。将鼠标移动到输入框，在上面右击，然后在弹出的菜单中点击“审查元素”：
+Run the "main.go" again, move your mouse to the input field and right-click above it, you will see the context menu, then click the "inspect":
 
 ![inspect](inspect.png)
 
-你会看到如下的 `<input id="searchInput`。
+You should see the `<input id="searchInput` like below:
 
 ![input](input.png)
 
-如上图所示，右击复制 [CSS 选择器](css-selector.md)。 剪贴板中的内容会变成“#searchInput”。 我们之后会使用它来定位用于输入关键字的元素。 现在“main.go”中的内容变为：
+Right-click to copy the [css selector](css-selector.md) like the image above. The content on your clipboard will be "#searchInput". We will use it to locate the element to input the keyword. Now the "main.go" becomes:
 
 ```go
 package main
@@ -113,17 +113,17 @@ func main() {
 }
 ```
 
-`MustWindowFullscreen` 用于调整浏览器窗口的大小，以便调试。 我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitLoad`。 然后我们调用 `MustInput` 来输入关键词“earth”。 再次运行“main.go”后你会看到如下的结果：
+The `MustWindowFullscreen` resizes the browser window to make it easier to debug. We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitLoad` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
 
 ![after-input](after-input.png)
 
-让我们用类似的方法，右击搜索按钮，复制它的选择器：
+Similar to the input field let's right-click the search button to copy the selector for it:
 
 ![search-btn](search-btn.png)
 
 ![search-btn-selector](search-btn-selector.png)
 
-然后添加代码来点击这个搜索按钮。现在“main.go”的内容是：
+Then add code to click the search button, now the "main.go" looks like:
 
 ```go
 package main
@@ -140,13 +140,13 @@ func main() {
 }
 ```
 
-重新运行这个 module，“a.png”会显示搜索结果：
+If we rerun the module, the "a.png" will show the search result:
 
 ![earth-page](earth-page.png)
 
 ## 慢动作和可视化跟踪
 
-自动化操作对人眼来说太快了，调试时我们通常会启用慢动作和可视化跟踪。让我们修改“.rod”文件：
+The automated operations are too fast for human eyes to catch, to debug them we usually enable the slow-motion and visual trace configs, let's update the ".rod" file:
 
 ```txt
 show
@@ -154,13 +154,13 @@ slow=1s
 trace
 ```
 
-然后重新运行模块。现在每次操作都会在执行前等待 1 秒。 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
+Then rerun the module, now every action now will wait for 1 second before its execution. On the page, you will see the debug trace generated by Rod like below:
 
 ![trace](trace.png)
 
-如图所示，Rod 会在搜索按钮上创建一个虚拟的鼠标光标。
+As you can see on the search button, Rod will create a mock mouse cursor.
 
-在控制台中，你会看到如下的跟踪日志：
+On console you will see the trace log like below:
 
 ```txt
 [rod] 2020/11/11 11:11:11 [eval] {"js":"rod.element","params":["#searchInput"]}
@@ -175,17 +175,17 @@ trace
 
 ## 除“.rod”文件之外
 
-“.rod”文件只是一些常用 API 的快捷方式。你也可以在代码中手动设置，比如“slow”可以通过 `rod.New().SlowMotion(2 * time.Second)` 这样的代码来实现。 你也可以使用环境变量来设置，比如在 Mac 或者 Linux 上：`rod=show go main.go`。
+The ".rod" file is just a shortcut for some commonly used API, you can also manually set them in code, such as the "slow", the code to set it is like `rod.New().SlowMotion(2 * time.Second)`. You can also use an environment variable to set it, such as on Mac or Linux: `rod=show go main.go`.
 
 ## 获取文本内容
 
-Rod 提供了许多方便的方法来获取页面中的内容。
+Rod provides lots of handy methods to retrieve the contents from the page.
 
-让我们试着来获取关于 Earth 的说明，依然和先前一样通过 Devtools 来复制 CSS 选择器：
+Let's try to get the description of the Earth, use the same technique we previously used to copy the selector from the Devtools:
 
 ![get-text](get-text.png)
 
-我们使用的方法是 `MustText`，修改 main.go 如下：
+The method we use is `MustText`, here's the full code of it:
 
 ```go
 package main
@@ -207,7 +207,7 @@ func main() {
 }
 ```
 
-重新运行，正常情况下，我们会在控制台中看到如下输出：
+If we rerun the module, we should see the console outputs something like:
 
 ```txt
 Earth is the third planet from the Sun and the only astronomical object known to harbor life.
@@ -216,11 +216,11 @@ Earth is the third planet from the Sun and the only astronomical object known to
 
 ## 获取图片内容
 
-与获取文本内容一样，我们也可以从页面中获取图像。让我们找到 Earth 图像的 CSS 选择器，并使用 `MustResource` 获取图像的二进制数据：
+Same as get text, we can also get images from the page, let's get the selector of the Earth image and use `MustResource` to get the binary of the image:
 
 ![get-image](get-image.png)
 
-完整的代码如下：
+The full code is:
 
 ```go
 package main
@@ -241,8 +241,8 @@ func main() {
 }
 ```
 
-输出的文件“b.png”如下：
+The output file "b.png" should be:
 
 ![earth](earth.png)
 
-[下一章](/context-and-timeout.md)
+[Next Chapter](/context-and-timeout.md)
