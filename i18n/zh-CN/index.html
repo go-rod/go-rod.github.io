@@ -7,18 +7,30 @@
   <link rel="shortcut icon" type="image/png" href="favicon.png" />
   <meta name="description" content="A Devtools driver for web automation and scraping">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
 
   <style>
-    a {
-      text-decoration: none;
+    :root {
+      --base-font-size: 14px;
+      --sidebar-width: 21em;
+      --code-font-size: 12px;
+      --content-max-width: 75em;
     }
-    a:hover {
-      text-decoration: underline;
+
+    .sidebar>h1 .app-name-link, .app-nav li a {
+      color: #d3d3d3;
+    }
+
+    .app-nav>ul>li ul {
+      width: 10em;
+    }
+
+    .app-nav:not(:empty) ~ main .markdown-section {
+      padding-top: 5rem;
     }
 
     @media screen and (max-width: 768px) {
-      .app-nav li:not(:last-child) {
+      .app-nav>ul>li:not(:last-child) {
         display: none;
       }
     }
@@ -50,7 +62,6 @@
 
     .emoji {
       height: 1rem;
-      vertical-align: bottom;
     }
   </style>
 </head>
@@ -59,18 +70,10 @@
   <script>
     window.$docsify = {
       name: 'Rod',
-      repo: 'https://github.com/go-rod/rod/',
       loadNavbar: true,
       loadSidebar: true,
       auto2top: true,
-      subMaxLevel: 3,
-      plugins: [
-        function(hook, vm) {
-          hook.beforeEach(function(html) {
-            return `[📝 修订文档](https://crowdin.com/project/go-rod/zh-CN#/master)\n${html}`
-          });
-        }
-      ]
+      subMaxLevel: 3
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
