@@ -11,7 +11,7 @@ Let's try to navigate to a page and wait until the network of the page is almost
 
 ```go
 func main() {
-	page := rod.New().MustConnect().MustPage("")
+	page := rod.New().MustConnect().MustPage()
 
 	wait := page.MustWaitNavigation()
 	page.MustNavigate("https://www.wikipedia.org/")
@@ -33,7 +33,7 @@ the response status code of the navigation request:
 
 ```go
 func main() {
-	page := rod.New().MustConnect().MustPage("")
+	page := rod.New().MustConnect().MustPage()
 
 	e := proto.NetworkResponseReceived{}
 	wait := page.WaitEvent(&e)

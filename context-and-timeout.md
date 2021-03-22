@@ -11,7 +11,7 @@ If you are not familiar with Context, please read [Understand Context](understan
 For example, the code below creates a blank page and navigates it to the "github.com":
 
 ```go
-page := rod.New().MustConnect().MustPage("")
+page := rod.New().MustConnect().MustPage()
 page.MustNavigate("http://github.com")
 ```
 
@@ -19,7 +19,7 @@ Now, suppose we want to cancel the `MustNavigate` if it takes more than 2 second
 In Rod we can do something like this:
 
 ```go
-page := rod.New().MustConnect().MustPage("")
+page := rod.New().MustConnect().MustPage()
 
 ctx, cancel := context.WithCancel(context.Background())
 pageWithCancel := page.Context(ctx)
@@ -49,7 +49,7 @@ The code above is just a way to timeout an operation. In Golang, timeout is usua
 Because it's so useful, we created a helper to do the same thing above, it's called `Timeout`, so the code above can be reduced like below:
 
 ```go
-page := rod.New().MustConnect().MustPage("")
+page := rod.New().MustConnect().MustPage()
 page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 ```
 
@@ -62,7 +62,7 @@ How do I know if an operation is timed out or not? In Golang, timeout is usually
 For the code above we can do this to detect timeout:
 
 ```go
-page := rod.New().MustConnect().MustPage("")
+page := rod.New().MustConnect().MustPage()
 
 err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
