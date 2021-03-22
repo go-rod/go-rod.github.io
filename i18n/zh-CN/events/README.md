@@ -8,7 +8,7 @@
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage("")
+    page := rod.New().MustConnect().MustPage()
 
     wait := page.MustWaitNavigation()
     page.MustNavigate("https://www.wikipedia.org/")
@@ -26,7 +26,7 @@ Rod 提供了许多其他事件帮助函数，函数名都以 `MustWait` 或 `Wa
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage("")
+    page := rod.New().MustConnect().MustPage()
 
     e := proto.NetworkResponseReceived{}
     wait := page.WaitEvent(&e)
