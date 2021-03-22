@@ -6,11 +6,14 @@ Then run these commands:
 
 ```bash
 git clone https://github.com/go-rod/go-rod.github.io.git
-cd go-rod.github.io.git
-docsify serve -o
+docsify serve -o go-rod.github.io
 ```
 
 When you edit a doc file, the page will refresh automatically.
+
+## Contribute documentation
+
+Just create a PR for this [repo](https://github.com/go-rod/go-rod.github.io.git).
 
 ## Contribute translations
 
