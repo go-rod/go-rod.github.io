@@ -13,7 +13,7 @@ When you edit a doc file, the page will refresh automatically.
 
 ## Contribute documentation
 
-Just create a PR for this [repo](https://github.com/go-rod/go-rod.github.io.git).
+Just create a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) for this [repo](https://github.com/go-rod/go-rod.github.io.git).
 
 ## Contribute translations
 
