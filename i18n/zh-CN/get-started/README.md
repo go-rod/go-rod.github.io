@@ -35,7 +35,7 @@ go mod init learn-rod
 go run .
 ```
 
-程序会输出如下的一张截图“a.png”。
+程序会输出如下的一张截图 "a.png"。
 
 ![first-program](first-program.png)
 
@@ -92,7 +92,7 @@ devtools
 
 ![input](input.png)
 
-如上图所示，右击复制 [css 选择器](css-selector.md)。 剪贴板中的内容会变成"#searchInput"。 我们之后会使用它来定位用于输入关键字的元素。 现在“main.go”中的内容变为：
+如上图所示，右击复制 [css 选择器](css-selector.md)。 剪贴板中的内容会变成 "#searchInput"。 我们之后会使用它来定位用于输入关键字的元素。 现在“main.go”中的内容变为：
 
 ```go
 package main
@@ -123,7 +123,7 @@ func main() {
 
 ![search-btn-selector](search-btn-selector.png)
 
-然后添加代码来点击这个搜索按钮。现在“main.go”的内容是：
+然后添加代码来点击这个搜索按钮。现在 "main.go" 的内容是：
 
 ```go
 package main
