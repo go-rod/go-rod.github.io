@@ -6,17 +6,20 @@
 
 ```bash
 git clone https://github.com/go-rod/go-rod.github.io.git
-cd go-rod.github.io.git
-docsify serve -o
+docsify serve -o go-rod.github.io
 ```
 
 每当你修改文档时，页面都会自动刷新。
 
-## 贡献翻译
+## Contribute documentation
 
-我们使用 [crowdin](https://crowdin.com/) 管理翻译。
+Just create a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) for this [repo](https://github.com/go-rod/go-rod.github.io.git).
 
-首先：
+## Contribute translations
+
+We use [crowdin](https://crowdin.com/) to manage the localization.
+
+To get started:
 
 1. 到[项目页面](https://crowdin.com/project/go-rod)
 2. 点击目标语言的图标
