@@ -6,11 +6,14 @@
 
 ```bash
 git clone https://github.com/go-rod/go-rod.github.io.git
-cd go-rod.github.io.git
-docsify serve -o
+docsify serve -o go-rod.github.io
 ```
 
 每当你修改文档时，页面都会自动刷新。
+
+## 贡献文档
+
+只需为此 [repo](https://github.com/go-rod/go-rod.github.io.git) 创建一个 [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)。
 
 ## 贡献翻译
 
