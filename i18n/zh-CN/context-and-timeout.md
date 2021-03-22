@@ -26,7 +26,7 @@ go func() {
     cancel()
 }()
 
-pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
+pageWithCancel.MustNavigate("http://github.com") // 会在 2 秒钟后取消
 ```
 
 我们使用 `page.Context` 创建了 `page` 的一个浅克隆。 当我们调用 `cancel` 时，由 `pageWithCancel` 发起的所有操作（不仅仅是 `MustNavigate`）都会被取消。
@@ -61,9 +61,9 @@ err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
 if errors.Is(err, context.DeadlineExceeded) {
-    // code for timeout error
+    // 对于超时异常的代码
 } else if err != nil {
-    // code for other types of error
+    // 对于其他异常的代码
 }
 ```
 
