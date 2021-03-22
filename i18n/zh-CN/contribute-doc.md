@@ -11,15 +11,15 @@ docsify serve -o go-rod.github.io
 
 每当你修改文档时，页面都会自动刷新。
 
-## Contribute documentation
+## 贡献文档
 
-Just create a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) for this [repo](https://github.com/go-rod/go-rod.github.io.git).
+只需为此 [repo](https://github.com/go-rod/go-rod.github.io.git) 创建一个 [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)。
 
-## Contribute translations
+## 贡献翻译
 
-We use [crowdin](https://crowdin.com/) to manage the localization.
+我们使用 [crowdin](https://crowdin.com/) 管理翻译。
 
-To get started:
+首先：
 
 1. 到[项目页面](https://crowdin.com/project/go-rod)
 2. 点击目标语言的图标
