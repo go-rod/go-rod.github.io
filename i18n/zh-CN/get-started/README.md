@@ -8,7 +8,7 @@
 
 ## 第一个程序
 
-Let's use Rod to open a page and take a screenshot of it, first, create a "main.go" file with the content below:
+让我们使用 Rod 来打开一个网页并获取它的截图。首先创建 "main.go"，并在其中输入以下内容：
 
 ```go
 package main
@@ -21,37 +21,37 @@ func main() {
 }
 ```
 
-The `rod.New` creates a browser object, the `MustConnect` launches and connects to a browser. The `MustPage` creates a page object, it's like a page tab in the browser. The `MustWaitLoad` waits for the page is fully loaded. The `MustScreenshot` takes a screenshot of the page.
+`rod.New` 用于创建浏览器对象，而 `MustConnect` 则会启动并连接到浏览器。 `MustPage` 会创建一个页面对象（类似于浏览器中的一个标签页）。 `MustWaitLoad` 表示会一直等待直到页面加载完毕。 `MustScreenshot` 会获取页面的截图。
 
-Create a module:
+创建一个 module：
 
 ```bash
 go mod init learn-rod
 ```
 
-Run the module:
+运行这个 module：
 
 ```bash
 go run .
 ```
 
-The program will output a screenshot "a.png" like the one below:
+程序会输出如下的一张截图“a.png”。
 
 ![first-program](first-program.png)
 
 ## 了解发生了什么
 
-For senior developers, you can skip all and read this file: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
+对于有经验的开发者，可以跳过这里的所有内容、阅读[这个文件](https://github.com/go-rod/rod/blob/master/examples_test.go)。
 
-By default, Rod will disable the browser's UI to maximize the performance. But when developing an automation task we usually care more about the ease of debugging. Rod provides a lot of solutions to help you debug the code.
+默认情况下，Rod 会禁用浏览器的 UI 来最大化性能。 但开发自动化任务时我们通常更加关心调试的难易程度。 Rod 为你提供了许多调试代码的方案。
 
-Let's create a ".rod" config file under the current working directory. The content is:
+让我们在当前工作目录下创建一个“.rod”配置文件， 内容为：
 
 ```txt
 show
 ```
 
-It means "show the browser UI on the foreground". Before we run the module again, let's append `time.Sleep(time.Hour)` to the end the code so that it won't be too fast for our eyes to catch it, the code of "main.go" now becomes:
+意思是“显示浏览器 UI”。 再次运行这个 module 之前，让我们在代码最后加上 `time.Sleep(time.Hour)`，这样可以保证程序不会太快结束，让我们可以看到程序的运行结果。“main.go”的代码现在变成了：
 
 ```go
 package main
@@ -69,30 +69,30 @@ func main() {
 }
 ```
 
-If you run the module again, you should see a browser like this:
+如果再次运行这个 module，你可以看到像这样的一个浏览器：
 
 ![show](show.png)
 
-Press [CTRL + C](https://en.wikipedia.org/wiki/Control-C) on the keyboard to stop the program.
+在键盘上按 [CTRL + C](https://en.wikipedia.org/wiki/Control-C) 停止程序。
 
 ## 输入与点击
 
-Let's automate the website to search the keyword "earth". A website may have many input fields or buttons, we need to tell the program which one to manipulate. Usually, we use [Devtools](https://developers.google.com/web/tools/chrome-devtools/) to help us locate the element we want to control. let's append a new config to the ".rod" file to enable the Devtools, now it becomes:
+让我们控制浏览器来搜索关键词“earth”。 一个网站可能有许多输入框和按钮。我们需要告诉程序它需要操控其中的哪一个。 通常我们会使用 [Devtools](https://developers.google.com/web/tools/chrome-devtools/) 来帮助定位我们想要控制的元素。 让我们在“.rod”文件中新增一行配置来启用 Devtools。现在配置文件变成了：
 
 ```txt
 show
 devtools
 ```
 
-Run the "main.go" again, move your mouse to the input field and right-click above it, you will see the context menu, then click the "inspect":
+再次运行“main.go”。将鼠标移动到输入框，在上面右击，然后在弹出的菜单中点击“审查元素”：
 
 ![inspect](inspect.png)
 
-You should see the `<input id="searchInput` like below:
+你会看到如下的 `<input id="searchInput`。
 
 ![input](input.png)
 
-Right-click to copy the [css selector](css-selector.md) like the image above. The content on your clipboard will be "#searchInput". We will use it to locate the element to input the keyword. Now the "main.go" becomes:
+如上图所示，右击复制 [css 选择器](css-selector.md)。 剪贴板中的内容会变成"#searchInput"。 We will use it to locate the element to input the keyword. Now the "main.go" becomes:
 
 ```go
 package main
