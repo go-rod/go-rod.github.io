@@ -80,8 +80,8 @@ proto.EmulationSetEmulatedMedia{
 }.Call(page)
 ```
 
-## 绕过机器人检查
+## 防止机器人检测
 
-控制页面时，我们希望整个过程对页面来说完全不可感知，这样页面就不知道是否是机器人在控制它。 当然你也可以自己想办法解决，不过这里有一个经过测试的方案：[代码示例](https://github.com/go-rod/bypass/blob/master/examples_test.go)
+控制页面时，我们希望整个过程对页面来说完全不可感知，这样页面就不知道是否是机器人在控制它。 当然你也可以自己想办法解决，不过这里有一个久经测试的方案：[代码示例](https://github.com/go-rod/stealth/blob/master/examples_test.go)
 
 [下一章](/network.md)
