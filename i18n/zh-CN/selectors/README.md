@@ -47,7 +47,7 @@ page.MustElementByJS(`jQuery('option:selected')[0]`)
 
 获取多个元素的方法的名称都以 `MustElements` 或 `Elements` 作为前缀。 单元素选择器和多元素选择器之间的一个关键区别是，单元素选择器会等待元素出现。 如果一个多元素选择器没有找到任何东西，他会立即返回一个空列表。
 
-## 遍历元素树
+## Traverse element tree
 
 还有一些方便的选择器用于选择元素内部或周围的元素，如 `MustParent`、`MustNext`、`MustPrevious`等。
 
