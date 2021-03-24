@@ -1,26 +1,26 @@
-# Browsers & Pages
+# 多浏览器与多页面
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+你可以很直观的使用 Rod 同时控制多个浏览器或页面。
 
-## Multiple browsers
+## 多个浏览器
 
-To launch multiple browsers:
+启动多个浏览器：
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+所有 API 都是线程安全的，同样适用于多个 Go routines。
 
-You can also use incognito mode to launch multiple browsers:
+也可以使用隐身模式启动多个浏览器：
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+使用不同的启动参数启动浏览器：
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -32,9 +32,9 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 ```
 
-## Multiple pages
+## 多页面
 
-To control multiple pages for a browser:
+控制一个浏览器的多个页面：
 
 ```go
 browser := rod.New().MustConnect()
@@ -42,14 +42,14 @@ page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## 页面池
 
-We can use PagePool to help concurrently control and reuse pages.
+我们可以使用 PagePool 来辅助同时控制和复用多个页面。
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+见这个[示例](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## 浏览器池
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Rod 中测试是管理浏览器池进行并发测试的一个好例子。 这就是为什么测试可以在数秒钟内跑完。 请看这里的[代码](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59)。
 
-[Next Chapter](/custom-launch.md)
+[下一章](/custom-launch.md)
