@@ -15,7 +15,7 @@
   - [网络 / Network](network.md)
   - [页面资源](page-resources/README.md)
   - [JavaScript 运行时](javascript-runtime.md)
-  - [Browsers & Pages](browsers-pages.md)
+  - [多浏览器与多页面](browsers-pages.md)
   - [自定义 WebSocket](custom-websocket.md)
   - [端到端测试](end-to-end-testing.md)
 
