@@ -15,7 +15,7 @@
   - [Network](network.md)
   - [Page Resources](page-resources/README.md)
   - [Javascript Runtime](javascript-runtime.md)
-  - [Page Pool](page-pool.md)
+  - [Browsers & Pages](browsers-pages.md)
   - [Custom WebSocket](custom-websocket.md)
   - [End-to-end testing](end-to-end-testing.md)
 

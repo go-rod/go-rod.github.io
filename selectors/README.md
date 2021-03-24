@@ -57,7 +57,7 @@ The names of the methods to get multiple elements are all prefixed with `MustEle
 One key difference between a single-selector and a multi-selector is the single-selector will wait for the
 element to appear. If a multi-selector doesn't find anything, it will immediately return an empty list.
 
-## Traverse through the element tree
+## Traverse element tree
 
 There are also some handy selectors to select elements inside or around an element, such as
 `MustParent`, `MustNext`, `MustPrevious`, etc.
