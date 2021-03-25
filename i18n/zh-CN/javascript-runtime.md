@@ -53,5 +53,3 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 ```go
 hash := page.MustEval(`window.md5("test")`).Str()
 ```
-
-[下一章](/page-pool.md)
