@@ -5,4 +5,4 @@
 * 请使用 markdown 格式化代码块
 * 请不要向这里发送超过 30 行的代码块，而是使用 gist 或 github issue
 * 如果可能，请使用您的 Github 用户名
-* 请学习 http://www.catb.org/~esr/faqs/smart-questions.html
+* 在提问之前，请阅读 [如何用聪明的方式提问](http://www.catb.org/~esr/faqs/smart-questions.html)。
