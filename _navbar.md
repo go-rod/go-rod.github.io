@@ -1,7 +1,7 @@
 
-- [API](https://pkg.go.dev/github.com/go-rod/rod)
+- [API](api-reference.md)
 - [Examples](examples.md)
-- [Chat](https://discord.gg/CpevuvY)
+- [Chat](chat-room.md)
 
 - :earth_americas: Translations
   - [:uk:English](/ ':ignore')
