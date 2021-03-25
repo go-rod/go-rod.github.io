@@ -1,8 +1,8 @@
-# Chat Room
+# 聊天室
 
-We use discord: [link to join](https://discord.gg/CpevuvY).
+我们使用 discord: [加入地址](https://discord.gg/CpevuvY)。
 
-* Please use markdown to format code blocks
-* Please don't send code block larger than 30 lines to here, instead use gist or github issue
-* Please use your Github user name if possible
-* Please learn http://www.catb.org/~esr/faqs/smart-questions.html
+* 请使用 markdown 格式化代码块
+* 请不要向这里发送超过 30 行的代码块，而是使用 gist 或 github issue
+* 如果可能，请使用您的 Github 用户名
+* 请学习 http://www.catb.org/~esr/faqs/smart-questions.html
