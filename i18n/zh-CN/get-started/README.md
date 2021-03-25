@@ -244,5 +244,3 @@ func main() {
 输出的文件 "b.png" 如下：
 
 ![earth](earth.png)
-
-[下一章](/context-and-timeout.md)
