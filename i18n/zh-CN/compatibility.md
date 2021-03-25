@@ -41,15 +41,15 @@ cdp 协议总是与 [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-
 
 你可以使用 Github 的版本比较来查看自动生成的更新日志，例如，[比较 v0.75.2 与 v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0)。
 
-## API reference versioning
+## API 文档版本
 
-Go to [here](https://pkg.go.dev/github.com/go-rod/rod?tab=versions).
+参考这里 [](https://pkg.go.dev/github.com/go-rod/rod?tab=versions)。
 
-## Doc site versioning
+## Doc 网站版本
 
-We use github to manage the doc, it's easy to view any version of the doc:
+我们使用 github 来管理文档，很容易查看任何版本的文档：
 
-1. Clone the doc [repo](https://github.com/go-rod/go-rod.github.io.git)
-2. Git checkout to the commit that is near the release date of the Rod version you want
-3. Install [docsify-cli](https://docsify.js.org/#/quickstart)
-4. On the root of the repo run `docsify serve -o`
+1. 克隆 doc [repo](https://github.com/go-rod/go-rod.github.io.git)
+2. Git checkout 到你想要的 Rod 版本发布日期附近的 commit
+3. 安装 [docsify-cli](https://docsify.js.org/#/quickstart)。
+4. 在仓库的根目录下运行 `docsify serve -o`
