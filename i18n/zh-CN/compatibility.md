@@ -40,3 +40,16 @@ cdp 协议总是与 [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-
 在 `v1.0.0` 之前，如果版本号的第二个部分改变了，比如说由 `v0.1.0` 变为了 `v0.2.0`，那么肯定有公有 API 发生了改变，比如说函数名或参数类型发生了变更。 如果仅仅是版本号的最后一部分改变了，则公有 API 不会变更。
 
 你可以使用 Github 的版本比较来查看自动生成的更新日志，例如，[比较 v0.75.2 与 v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0)。
+
+## API 文档版本
+
+参考这里 [](https://pkg.go.dev/github.com/go-rod/rod?tab=versions)。
+
+## Doc 网站版本
+
+我们使用 github 来管理文档，很容易查看任何版本的文档：
+
+1. 克隆 doc [repo](https://github.com/go-rod/go-rod.github.io.git)
+2. Git checkout 到你想要的 Rod 版本发布日期附近的 commit
+3. 安装 [docsify-cli](https://docsify.js.org/#/quickstart)。
+4. 在仓库的根目录下运行 `docsify serve -o`

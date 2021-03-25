@@ -1,4 +1,4 @@
-## 在本地调试与预览文档
+## 调试和预览
 
 安装 [docsify-cli](https://docsify.js.org/#/quickstart)。
 
