@@ -44,3 +44,16 @@ Each version of Rod only guarantees to work with its `launcher.DefaultRevision` 
 Before `v1.0.0` whenever the second section changed, such as `v0.1.0` to `v0.2.0`, there must be some public API changes, such as changes of function names or parameter types. If only the last section changed, no public API will be changed.
 
 You can use Github's release comparison to see the automated changelog, for example, [compare v0.75.2 with v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0).
+
+## API reference versioning
+
+Go to [here](https://pkg.go.dev/github.com/go-rod/rod?tab=versions).
+
+## Doc site versioning
+
+We use github to manage the doc, it's easy to view any version of the doc:
+
+1. Clone the doc [repo](https://github.com/go-rod/go-rod.github.io.git)
+2. Git checkout to the commit that is near the release date of the Rod version you want
+3. Install [docsify-cli](https://docsify.js.org/#/quickstart)
+4. On the root of the repo run `docsify serve -o`

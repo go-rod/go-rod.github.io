@@ -1,4 +1,4 @@
-## Debug and preview the doc locally
+## Debug and preview
 
 Install [docsify-cli](https://docsify.js.org/#/quickstart).
 
