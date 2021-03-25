@@ -1,3 +1,3 @@
-# Source Code
+# 源代码
 
-The main code repository: [link](https://github.com/go-rod/rod).
+主代码仓库： [链接](https://github.com/go-rod/rod)。
