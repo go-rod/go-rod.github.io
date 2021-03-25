@@ -58,5 +58,3 @@ func main() {
 ## 控制每一步
 
 如果你想要控制启动过程中的每个步骤，比如说禁用自动下载、使用系统默认浏览器，见此[示例文件](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go)。
-
-[下一章](/custom-websocket.md)
