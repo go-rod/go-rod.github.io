@@ -1,85 +1,23 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Rod</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <link rel="shortcut icon" type="image/png" href="favicon.png" />
   <meta name="description" content="A Devtools driver for web automation and scraping">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
-
-  <style>
-    :root {
-      --base-font-size: 14px;
-      --sidebar-width: 21em;
-      --code-font-size: 12px;
-      --content-max-width: 75em;
-    }
-
-    .sidebar>h1 .app-name-link, .app-nav li a {
-      color: #d3d3d3;
-    }
-
-    .app-nav>ul>li ul {
-      width: 10em;
-    }
-
-    .app-nav:not(:empty) ~ main .markdown-section {
-      padding-top: 5rem;
-    }
-
-    @media screen and (max-width: 768px) {
-      .app-nav>ul>li:not(:last-child) {
-        display: none;
-      }
-    }
-
-    .sidebar > .app-name {
-      text-align: left;
-      padding-left: 15px;
-    }
-    .app-name-link {
-      font-size: 2rem;
-    }
-
-    @media screen and (min-width: 768px) {
-      .markdown-section img {
-        max-width: 50%;
-      }
-    }
-    .markdown-section video {
-      max-width: 50%;
-    }
-    .medium-zoom-image {
-      border: 1px solid white;
-      box-shadow: 0 0 5px #46464685;
-    }
-
-    .markdown-section {
-      padding-bottom: 100vh;
-    }
-
-    .emoji {
-      height: 1rem;
-    }
-  </style>
 </head>
 <body>
-  <div id="app">Loading ...</div>
-  <script>
-    window.$docsify = {
-      name: 'Rod',
-      loadNavbar: true,
-      loadSidebar: true,
-      auto2top: true,
-      subMaxLevel: 3
-    }
-  </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-go.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <div id="app"><h1>Loading ...</h1></div>
+  <div id="chapter-nav" style="display: none;">
+    <a class="prev">
+      <div class="label">Previous</div>
+      <div class="title"></div>
+    </a>
+    <a class="next">
+      <div class="label">Next</div>
+      <div class="title"></div>
+    </a>
+  </div>
+  <script src="/index.js"></script>
 </body>
 </html>

@@ -53,5 +53,3 @@ Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa3
 The tests in Rod is a good example of managing a pool of browsers to run tests concurrently.
 That's why the tests can finish in seconds.
 Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
-
-[Next Chapter](/custom-launch.md)

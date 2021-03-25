@@ -1,0 +1,74 @@
+:root {
+  --base-font-size: 14px;
+  --sidebar-width: 21em;
+  --code-font-size: 12px;
+  --content-max-width: 75em;
+}
+
+.sidebar>h1 .app-name-link, .app-nav li a {
+  color: #d3d3d3;
+}
+
+.app-nav>ul>li ul {
+  width: 10em;
+}
+
+.app-nav:not(:empty) ~ main .markdown-section {
+  padding-top: 5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .app-nav>ul>li:not(:last-child) {
+    display: none;
+  }
+}
+
+.sidebar > .app-name {
+  text-align: left;
+  padding-left: 15px;
+}
+.app-name-link {
+  font-size: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .markdown-section img {
+    max-width: 50%;
+  }
+}
+.markdown-section video {
+  max-width: 50%;
+}
+.medium-zoom-image {
+  border: 1px solid white;
+  box-shadow: 0 0 5px #46464685;
+}
+
+.markdown-section {
+  padding-bottom: 100vh;
+}
+
+.emoji {
+  height: 1rem;
+}
+
+#chapter-nav {
+  display: flex;
+  margin-top: 5em;
+}
+#chapter-nav a {
+  flex: 1;
+  padding: 0.5em 1em;
+  border: 1px solid #ffffff7a;
+  border-radius: 0.5em;
+  text-decoration: none;
+}
+#chapter-nav .title {
+  font-size: 1.2em;
+  color: azure;
+  text-decoration: underline;
+}
+#chapter-nav .next {
+  margin-left: 1em;
+  text-align: right;
+}

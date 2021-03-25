@@ -77,5 +77,3 @@ if errors.Is(err, context.DeadlineExceeded) {
 Here we use `rod.Try` to wrap the function that may throw a timeout error.
 
 We will talk more about error handing at [Error Handling](error-handling.md).
-
-[Next Chapter](error-handling.md)

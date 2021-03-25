@@ -55,5 +55,3 @@ Now the page can invoke this method on the window object:
 ```go
 hash := page.MustEval(`window.md5("test")`).Str()
 ```
-
-[Next Chapter](/page-pool.md)

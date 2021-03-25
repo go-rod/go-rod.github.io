@@ -90,5 +90,3 @@ pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 
 You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs.
 Such as you can search the unit test for dragging to learn how to simulate dragging.
-
-[Next Chapter](/emulation.md)

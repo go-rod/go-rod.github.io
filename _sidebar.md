@@ -21,13 +21,13 @@
 
 - Resources
 
-  - [API Reference](https://pkg.go.dev/github.com/go-rod/rod)
+  - [API Reference](api-reference.md)
   - [Examples](examples.md)
   - [FAQ](faq/README.md)
   - [Why Rod](why-rod.md)
   - [Compatibility](compatibility.md)
   - [Understand Context](understand-context.md)
-  - [Chat Room](https://discord.gg/CpevuvY)
-  - [Join Development](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+  - [Chat Room](chat-room.md)
+  - [Join Development](join-development.md)
   - [Contribute Doc](contribute-doc.md)
-  - [Source Code](https://github.com/go-rod/rod)
+  - [Source Code](source-code.md)
