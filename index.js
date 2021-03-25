@@ -49,7 +49,7 @@
       } else {
         btnNext.style.display = 'none'
       }
-      chapterNav.style.display = 'block'
+      chapterNav.style.display = 'flex'
     })
   }
 
