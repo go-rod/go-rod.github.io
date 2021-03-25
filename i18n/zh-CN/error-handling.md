@@ -67,5 +67,3 @@ func handleError(err error) {
     }
 }
 ```
-
-[下一章](selectors/README.md)

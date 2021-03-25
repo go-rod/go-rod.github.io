@@ -70,5 +70,3 @@ if errors.Is(err, context.DeadlineExceeded) {
 这里我们使用了 `rod.Try` 来包裹可能抛出超时异常的函数。
 
 我们在[异常处理](error-handling.md)里有更多这方面的讲解。
-
-[下一章](error-handling.md)

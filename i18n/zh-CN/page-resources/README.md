@@ -17,5 +17,3 @@ bin, err := page.GetResource("https://test.com/a.png")
 ```go
 bin := page.MustElement("img").MustResource()
 ```
-
-[下一章](/javascript-runtime.md)

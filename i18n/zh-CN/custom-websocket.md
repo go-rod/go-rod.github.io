@@ -53,5 +53,3 @@ func (ws *MyWebSocket) Read() ([]byte, error) {
     return data, err
 }
 ```
-
-[下一章](/end-to-end-testing.md)

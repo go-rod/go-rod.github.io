@@ -28,5 +28,3 @@ browser.MustPage("https://test.com/")
 ```
 
 更多信息，见[劫持相关的单元测试](https://github.com/go-rod/rod/blob/master/hijack_test.go)
-
-[下一章](/page-resources/README.md)

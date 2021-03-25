@@ -4,5 +4,5 @@
 - [聊天室](https://discord.gg/CpevuvY)
 
 - :earth_americas: 文档翻译
-  - [:uk: English](/ ":ignore")
-  - [:cn: 中文](/i18n/zh-CN ":ignore")
+  - [:uk:英文](/ ":ignore")
+  - [:cn:中文](/i18n/zh-CN ":ignore")

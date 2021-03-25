@@ -78,5 +78,3 @@ wait()
 ![event-list](event-list.png)
 
 你也可以使用这个[网站](https://chromedevtools.github.io/devtools-protocol/tot/Page)来浏览所有事件。
-
-[下一章](/input.md)
