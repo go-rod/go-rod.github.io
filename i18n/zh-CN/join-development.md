@@ -1,9 +1,9 @@
-# Join Development
+# 加入开发
 
-Your help is more than welcome! Even just open an issue to ask a question may greatly help others.
+欢迎任何形式的帮助！ 即使只是新建一个 issue 来提问也会大大有助于他人。
 
-Please read [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) before you ask questions.
+在提问之前，请阅读 [如何用聪明的方式提问](http://www.catb.org/~esr/faqs/smart-questions.html)。
 
-We use Github Projects to manage tasks, you can see the priority and progress of the issues [here](https://github.com/orgs/go-rod/projects/1).
+我们使用 Github Projects 来管理任务，你可以 [在这里](https://github.com/orgs/go-rod/projects/1) 看到 issue 的优先级和进度。
 
-If you want to contribute code for this project please read the [Contributor Guide](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+如果你想为这个项目贡献代码，请阅读 [贡献者指南](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
