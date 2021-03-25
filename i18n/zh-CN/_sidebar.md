@@ -21,13 +21,13 @@
 
 - 资源
 
-  - [API 文档](https://pkg.go.dev/github.com/go-rod/rod)
+  - [API 文档](api-reference.md)
   - [示例](examples.md)
   - [常见问题](faq/README.md)
   - [为什么选择 Rod](why-rod.md)
   - [兼容性](compatibility.md)
   - [理解 Context](understand-context.md)
-  - [聊天室](https://discord.gg/CpevuvY)
-  - [参与开发](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+  - [聊天室](chat-room.md)
+  - [参与开发](join-development.md)
   - [贡献文档](contribute-doc.md)
-  - [源代码](https://github.com/go-rod/rod)
+  - [源代码](source-code.md)
