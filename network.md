@@ -30,5 +30,3 @@ browser.MustPage("https://test.com/")
 ```
 
 For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
-
-[Next Chapter](/page-resources/README.md)

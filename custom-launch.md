@@ -65,5 +65,3 @@ You can easily load balance requests to the cluster of this image, each containe
 
 If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser,
 check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
-
-[Next Chapter](/custom-websocket.md)

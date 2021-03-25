@@ -90,5 +90,3 @@ we can create an empty page object and use the `WaitEvent(proto.Event)` to list 
 ![event-list](event-list.png)
 
 You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
-
-[Next Chapter](/input.md)

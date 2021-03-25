@@ -270,5 +270,3 @@ func main() {
 The output file "b.png" should be:
 
 ![earth](earth.png)
-
-[Next Chapter](/context-and-timeout.md)

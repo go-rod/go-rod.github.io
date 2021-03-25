@@ -18,5 +18,3 @@ Such as for element `<img src="a.jpg">`, you can use code like this to get the `
 ```go
 bin := page.MustElement("img").MustResource()
 ```
-
-[Next Chapter](/javascript-runtime.md)

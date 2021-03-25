@@ -3,6 +3,7 @@ files:
     ignore:
       - .*
       - .*/
-      - '*.html'
       - i18n/
+      - '*.css'
+      - '*.js'
     translation: /i18n/%locale%/%original_path%/%original_file_name%

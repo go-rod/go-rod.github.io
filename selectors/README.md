@@ -162,5 +162,3 @@ func main() {
 	}).MustDo()
 }
 ```
-
-[Next Chapter](/events/README.md)

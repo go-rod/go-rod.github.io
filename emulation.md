@@ -87,5 +87,3 @@ proto.EmulationSetEmulatedMedia{
 When we control a page we hope it's completely transparent for the page so that the page cannot tell if it's under
 control or not. Sure you can handcraft one, but here's one tested solution that might help:
 [code example](https://github.com/go-rod/stealth/blob/master/examples_test.go)
-
-[Next Chapter](/network.md)
