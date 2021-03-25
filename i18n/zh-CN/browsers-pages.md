@@ -51,5 +51,3 @@ page2 := browser.MustPage("http://b.com")
 ## 浏览器池
 
 Rod 中测试是管理浏览器池进行并发测试的一个好例子。 这就是为什么测试可以在数秒钟内跑完。 请看这里的[代码](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59)。
-
-[下一章](/custom-launch.md)
