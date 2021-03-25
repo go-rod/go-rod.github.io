@@ -53,8 +53,8 @@ u := launcher.New().Env("TZ=America/New_York").MustConnect()
 browser := rod.New().ControlURL(u).MustConnect()
 ```
 
-Or you can use [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetTimezoneOverride)
-or [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetLocaleOverride)
+Or you can use [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride)
+or [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride)
 to set for a specific page:
 
 ```go
@@ -63,15 +63,15 @@ proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
 
 ## Permissions
 
-Use [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#BrowserGrantPermissions)
+Use [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#BrowserGrantPermissions)
 
 ## Geolocation
 
-Use [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetGeolocationOverride)
+Use [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetGeolocationOverride)
 
 ## Color scheme and media
 
-Use [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetEmulatedMedia)
+Use [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
 
 ```go
 proto.EmulationSetEmulatedMedia{

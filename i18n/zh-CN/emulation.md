@@ -53,7 +53,7 @@ u := launcher.New().Env("TZ=America/New_York").MustConnect()
 browser := rod.New().ControlURL(u).MustConnect()
 ```
 
-或者可以使用 [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetTimezoneOverride) 或 [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetLocaleOverride) 为特定页面设置：
+或者可以使用 [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) 或 [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) 为特定页面设置：
 
 ```go
 proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
@@ -61,15 +61,15 @@ proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
 
 ## 权限
 
-使用 [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#BrowserGrantPermissions)
+使用 [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#BrowserGrantPermissions)
 
 ## 地理位置
 
-使用 [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetGeolocationOverride)
+使用 [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetGeolocationOverride)
 
 ## 配色方案和媒体
 
-使用 [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod@v0.81.3/lib/proto#EmulationSetEmulatedMedia)
+使用 [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
 
 ```go
 proto.EmulationSetEmulatedMedia{
