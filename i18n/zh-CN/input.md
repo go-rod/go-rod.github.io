@@ -86,5 +86,3 @@ pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ## 鼠标、键盘和触摸
 
 也可以使用 `page.Mouse`、`page.Keyboard` 或 `page.Touch` 模拟底层输入。 例如，可以在 Rod 的单元测试中搜索 drag 来了解如何模拟拖动。
-
-[下一章](/emulation.md)
