@@ -29,6 +29,7 @@ Create a module:
 
 ```bash
 go mod init learn-rod
+go mod tidy
 ```
 
 Run the module:
