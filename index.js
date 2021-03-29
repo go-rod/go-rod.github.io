@@ -6,6 +6,11 @@
     loadSidebar: true,
     auto2top: true,
     subMaxLevel: 3,
+    search: {
+      namespace: location.pathname,
+      placeholder: l('search-placeholder'),
+      noData: l('search-noData'),
+    },
     plugins: [pluginChapterNav, zoomImg]
   }
 
@@ -46,5 +51,9 @@
         bgColor: 'rgba(28, 35, 37, 0.9)',
       }).listen('article img')
     })
+  }
+
+  function l(key) {
+    return document.querySelector(`#strings [${key}]`).textContent
   }
 })()
