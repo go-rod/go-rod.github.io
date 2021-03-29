@@ -1,4 +1,4 @@
-;(async () => {
+;(() => {
 
   window.$docsify = {
     name: 'Rod',
@@ -6,29 +6,16 @@
     loadSidebar: true,
     auto2top: true,
     subMaxLevel: 3,
-    plugins: [pluginChapterNav]
+    plugins: [pluginChapterNav, zoomImg]
   }
-
-  await importScript('css','https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css')
-  await importScript('css','/index.css')
-  
-  await importScript('js','//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js')
-  await importScript('js','//cdn.jsdelivr.net/npm/prismjs@1/components/prism-go.min.js')
-  await importScript('js','//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js')
-  await importScript('js','//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js')
-  await importScript('js','//cdn.jsdelivr.net/npm/docsify-copy-code')
 
   function pluginChapterNav(hook, vm) {
     const chapterNav = document.querySelector('#chapter-nav')
 
-    const ready = new Promise((r) => hook.ready(r))
-    hook.afterEach(async (html, next) => {
-      await ready
+    hook.doneEach(() => {
 
       const list = Array.from(document.querySelectorAll(`.sidebar-nav a:not(.section-link)`))
       const i = list.findIndex(e => e.getAttribute('href') === '#' + vm.route.path)
-
-      next(html)
 
       const article = document.querySelector('article')
       article.appendChild(chapterNav)
@@ -53,20 +40,11 @@
     })
   }
 
-  function importScript(type, url) {
-    return new Promise((resolve, reject) => {
-      let s
-      if (type === 'js') {
-        s = document.createElement('script')
-        s.src = url
-      } else {
-        s = document.createElement('link')
-        s.rel = 'stylesheet'
-        s.href = url
-      }
-      s.onload = resolve
-      s.onerror = reject
-      document.head.appendChild(s)
+  function zoomImg(hook, vm) {
+    hook.doneEach(() => {
+      new Zooming({
+        bgColor: 'rgba(28, 35, 37, 0.9)',
+      }).listen('article img')
     })
   }
 })()
