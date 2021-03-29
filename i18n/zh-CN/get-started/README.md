@@ -27,6 +27,7 @@ func main() {
 
 ```bash
 go mod init learn-rod
+go mod tidy
 ```
 
 运行这个 module：
