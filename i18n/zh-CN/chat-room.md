@@ -1,6 +1,6 @@
 # 聊天室
 
-我们使用 discord: [加入地址](https://discord.gg/CpevuvY)。
+我们使用 discord: [加入地址](https://discord.gg/PAaMGJw)。
 
 * 请使用 markdown 格式化代码块
 * 请不要向这里发送超过 30 行的代码块，而是使用 gist 或 github issue
