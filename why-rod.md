@@ -45,7 +45,11 @@ Rod supports cancellation and timeout better, this can be critical if you want t
 
 ### Playwright
 
-Rod and [Playwright](https://github.com/microsoft/playwright) were first published almost at the same time. It's a great step forward for the Puppeteer team. Most comparisons between Rod and Puppeteer remain true to Playwright.
+Rod and [Playwright](https://github.com/microsoft/playwright) were first published almost at the same time.
+Most comparisons between Rod and Puppeteer remain true to Playwright, because both Playwright and Puppeteer are maintained by almost the same contributors.
+
+As Playwright stated on their doc "Playwright enables reliable end-to-end testing for modern web apps.", the focus of the project is testing.
+But the focus for Rod is more general that is for web automation and scraping, which make the design focus more on flexibility and performance.
 
 One of Rod's architectural goal is to make it easier for everyone to contribute and make it a pure community project, that's one big reason why I chose Golang and the MIT license.
 Typescript is a nice choice but if you check Playwright's design choices, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) and [union types](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types) are everywhere, if you try to jump to the source code of [page.click](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options), `d.ts` files will let you understand the reality of typescript. Golang is definitely not good enough, but it usually introduces less tech debt than node.js typescript, if you want me to choose which one to use for QA or Infra who's not familiar with coding to automate end-to-end test or site-monitoring, I would pick Golang.
