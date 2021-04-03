@@ -28,6 +28,7 @@ waits for the page is fully loaded. The `MustScreenshot` takes a screenshot of t
 Create a module:
 
 ```bash
+go env -w GOPROXY=https://goproxy.io,direct
 go mod init learn-rod
 go mod tidy
 ```
