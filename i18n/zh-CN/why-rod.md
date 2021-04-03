@@ -42,7 +42,9 @@ Rod 对取消，超时支持的更好。如果想要处理成千上万的页面�
 
 ### Playwright
 
-Rod 和 [Playwright](https://github.com/microsoft/playwright) 几乎是同时发布的。 对于 Puppeteer 团队来说这是一次很大的进步。 Rod 和 Puppeteer 的比较大多也适用于 Playwright。
+Rod 和 [Playwright](https://github.com/microsoft/playwright) 几乎是同时发布的。 对于 Playwright 来说，Rod 和 Puppeteer 之间的大多数比较仍然适用，因为 Playwright 和 Puppeteer 都是由几乎相同的贡献者维护的。
+
+正如 Playwright 在他们的文档上所说的那样： "Playwright enables reliable end-to-end testing for modern web apps."，它侧重的是测试。 但是 Rod 专注于更通用的领域，页面自动化和爬虫，这使得其设计更加侧重于灵活度和性能。
 
 Rod 的架构目标之一是让每个人都能更轻松的为社区贡献力量，让 Rod 成为一个纯粹的社区项目，而这也是我选择 Golang 与 MIT 许可的一大原因。 TypeScript 也是一个不错的选择，不过如果你了解过 Playwright 的设计选择的话，你会发现 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) 和 [union 类型](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types)随处可见。如果你尝试跳转到 [page.click](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options) 的源码，那些 `d.ts` 文件会让你明白 TypeScript 的现实问题。 当然 Golang 也还不够好，但它通常会比 Node.js TypeScript 带来很少的技术债。如果我是一个不熟悉如何用代码来自动化端对端测试或网站监测的人，而你想让我选择用 Golang 还是 TypeScript 来做 QA 或 Infra 的话，我会选择 Golang。
 
@@ -68,7 +70,7 @@ Rod 的架构目标之一是让每个人都能更轻松的为社区贡献力量�
 
 Rod 是用于控制木偶的装置，比如说下图中褐色棍子：
 
-![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png)
+![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png ":size=200")
 
 意思是说，我们是操控木偶的人，而浏览器则是木偶。我们使用“木偶棍（rod）”来控制木偶。
 
