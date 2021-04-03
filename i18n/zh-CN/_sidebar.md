@@ -2,7 +2,7 @@
 - 入门
 
   - [入门指南](get-started/README.md)
-  - [上下文（Context）和超时（Timeout）](context-and-timeout.md)
+  - [上下文与超时](context-and-timeout.md)
   - [异常处理](error-handling.md)
 
 - 使用手册
