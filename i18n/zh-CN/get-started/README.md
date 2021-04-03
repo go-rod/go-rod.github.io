@@ -26,6 +26,7 @@ func main() {
 创建一个 module：
 
 ```bash
+go env -w GOPROXY=https://goproxy.io,direct
 go mod init learn-rod
 go mod tidy
 ```
