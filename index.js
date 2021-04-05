@@ -29,14 +29,14 @@
 
       if (i > 0) {
         btnPrev.href = list[i-1].getAttribute('href')
-        btnPrev.querySelector('.title').textContent = '« ' + list[i-1].textContent
+        btnPrev.querySelector('.title').textContent = list[i-1].textContent
         btnPrev.style.display = 'block'
       } else {
         btnPrev.style.display = 'none'
       }
       if (i < list.length - 1) {
         btnNext.href = list[i+1].getAttribute('href')
-        btnNext.querySelector('.title').textContent = list[i+1].textContent + ' »'
+        btnNext.querySelector('.title').textContent = list[i+1].textContent
         btnNext.style.display = 'block'
       } else {
         btnNext.style.display = 'none'
