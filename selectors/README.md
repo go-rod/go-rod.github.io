@@ -120,7 +120,7 @@ page.MustSearch("button")
 ## Race selectors
 
 Rod encourage sleep-free automation to reduce flakiness.
-When an action has multiple results, we don't use sleep to wait for the page to settle down.
+When an action has multiple results, we don't use sleep to wait for the page to redirect or settle down.
 For example, when we login a page, the password maybe incorrect, we want to handle the success and failure separately.
 We should avoid code like below:
 
