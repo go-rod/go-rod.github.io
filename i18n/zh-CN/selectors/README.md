@@ -106,7 +106,7 @@ page.MustSearch("button")
 
 ## 竞争选择器
 
-Rod 鼓励无 sleep 的自动化任务，这样可以增加任务的可靠性。 When an action has multiple results, we don't use sleep to wait for the page to redirect or settle down. 例如，登录网页时密码可能错误，这时我们希望分别处理成功和失败的情况。 我们应该避免这样的代码：
+Rod 鼓励无 sleep 的自动化任务，这样可以增加任务的可靠性。 当一个操作有多种可能的结果时，我们不使用 sleep 来等待页面跳转或加载完毕。 例如，登录网页时密码可能错误，这时我们希望分别处理成功和失败的情况。 我们应该避免这样的代码：
 
 ```go
 func main() {
