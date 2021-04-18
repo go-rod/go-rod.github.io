@@ -33,7 +33,7 @@ pageWithCancel.MustNavigate("http://github.com") // 会在 2 秒钟后取消
 
 Rod 的此种风格和 Golang 标准库中的 [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) 很类似。
 
-同时由于 `pageWithCancel` 和 `page` 是相互独立的，所以 `cancel` 只会影响到 <0>pageWithCancel</0> 发起的操作而不会影响到 <0>page</0> 发起的操作。
+同时由于 `pageWithCancel` 和 `page` 是相互独立的，由  `page` 触发的操作不会受到取消的影响。
 
 ```go
 page.MustNavigate("http://github.com") // 不会在 2 秒钟后取消
@@ -48,7 +48,7 @@ page := rod.New().MustConnect().MustPage()
 page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 ```
 
-`page.Timeout(2 * time.Second)` 相当于之前的 `pageWithCancel`。 同时，对 `Context` 的操作并不是 `Page` 独有。在 Rod 中，`Browser` 和 <0>Element</0> 也都有相同的 API。
+`page.Timeout(2 * time.Second)` 相当于之前的 `pageWithCancel`。 不只是 `Page`，`Browser` 和 `Element` 也都有相同的 context 帮助函数。
 
 ## 判断超时
 
