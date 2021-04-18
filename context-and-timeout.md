@@ -34,6 +34,7 @@ pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 sec
 
 We use the `page.Context` to create a shallow clone of the `page`. Whenever we call the `cancel`, the operations
 triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`.
+The origin `page` won't be affected, if we use it to call operations they won't be cancelled.
 
 This style is not special for Rod, you can find similar APIs like [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) in the standard library.
 
