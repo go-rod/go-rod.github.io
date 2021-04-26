@@ -52,12 +52,11 @@ Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/
 Here's an example to remote control browsers inside the container so that we don't have to install browsers locally,
 because on some linux distributions it's very hard to install chromium correctly:
 
-1. Run the rod image `docker run -p 9222:9222 rodorg/rod`
+1. Run the rod image `docker run -p 9222:9222 ghcr.io/go-rod/rod`
 
 2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/remote-launch/main.go)
 
-The [rod image](https://hub.docker.com/repository/docker/rodorg/rod)
-can dynamically launch a browser for each remote driver with customizable browser flags.
+The rod image can dynamically launch a browser for each remote driver with customizable browser flags.
 It's [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages.
 You can easily load balance requests to the cluster of this image, each container can create multiple browser instances at the same time.
 
