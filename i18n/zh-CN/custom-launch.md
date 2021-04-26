@@ -49,11 +49,11 @@ func main() {
 
 这里有一个远程控制 container 内的浏览器的例子；这样我们就不用在本地安装浏览器了（一些 linux 发行版中很难正确安装 chromium）：
 
-1. 运行 rod 镜像 `docker run -p 9222:9222 rodorg/rod`
+1. Run the rod image `docker run -p 9222:9222 ghcr.io/go-rod/rod`
 
 2. 打开另一个终端，并运行类似这个[示例](https://github.com/go-rod/rod/blob/master/lib/examples/remote-launch/main.go)中的代码
 
-[rod 镜像](https://hub.docker.com/repository/docker/rodorg/rod)为每个远程驱动动态地运行一个浏览器，且启动选项可以自定义。 它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile)。 你可以轻松地将请求负载均衡到由这个镜像组成的集群中，每个容器可以同时创建多个浏览器实例。
+The rod image can dynamically launch a browser for each remote driver with customizable browser flags. 它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile)。 你可以轻松地将请求负载均衡到由这个镜像组成的集群中，每个容器可以同时创建多个浏览器实例。
 
 ## 控制每一步
 
