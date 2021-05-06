@@ -49,7 +49,7 @@ func main() {
 
 这里有一个远程控制 container 内的浏览器的例子；这样我们就不用在本地安装浏览器了（一些 linux 发行版中很难正确安装 chromium）：
 
-1. Run the rod image `docker run -p 7317:7317 ghcr.io/go-rod/rod`
+1. 运行 rod 镜像 `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
 2. 打开另一个终端，并运行类似这个[示例](https://github.com/go-rod/rod/blob/master/lib/examples/remote-launch/main.go)中的代码
 
