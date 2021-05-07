@@ -1,33 +1,33 @@
 
 - Introduction
 
-  - [Get Started](get-started/README.md)
-  - [Context & Timeout](context-and-timeout.md)
-  - [Error Handling](error-handling.md)
+  - [Commencer](get-started/README.md)
+  - [Contexte & Timeout](context-and-timeout.md)
+  - [Gestion des erreurs](error-handling.md)
 
-- Guides
+- Tutoriels
 
-  - [Custom Browser Launch](custom-launch.md)
-  - [Selectors](selectors/README.md)
-  - [Events](events/README.md)
+  - [Lancement du navigateur personnalisé](custom-launch.md)
+  - [Sélecteurs](selectors/README.md)
+  - [Évènements](events/README.md)
   - [Input](input.md)
-  - [Emulation](emulation.md)
-  - [Network](network.md)
-  - [Page Resources](page-resources/README.md)
-  - [Javascript Runtime](javascript-runtime.md)
-  - [Browsers & Pages](browsers-pages.md)
-  - [Custom WebSocket](custom-websocket.md)
-  - [End-to-end testing](end-to-end-testing.md)
+  - [Émulation](emulation.md)
+  - [Réseau](network.md)
+  - [Ressources de la page](page-resources/README.md)
+  - [Exécution Javascript](javascript-runtime.md)
+  - [Navigateurs & Pages](browsers-pages.md)
+  - [WebSocket personnalisé](custom-websocket.md)
+  - [Test de bout en bout](end-to-end-testing.md)
 
-- Resources
+- Ressource
 
-  - [API Reference](api-reference.md)
-  - [Examples](examples.md)
-  - [FAQ](faq/README.md)
-  - [Why Rod](why-rod.md)
-  - [Compatibility](compatibility.md)
-  - [Understand Context](understand-context.md)
-  - [Chat Room](chat-room.md)
-  - [Join Development](join-development.md)
-  - [Contribute Doc](contribute-doc.md)
-  - [Source Code](source-code.md)
+  - [Référence API](api-reference.md)
+  - [Exemples](examples.md)
+  - [Foire Aux Questions](faq/README.md)
+  - [Pourquoi Tige](why-rod.md)
+  - [Compatibilité](compatibility.md)
+  - [Comprendre le contexte](understand-context.md)
+  - [Salon de discussion](chat-room.md)
+  - [Rejoignez le développement](join-development.md)
+  - [Contribuer à la documentation](contribute-doc.md)
+  - [Code source](source-code.md)
