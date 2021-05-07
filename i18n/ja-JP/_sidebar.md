@@ -1,33 +1,33 @@
 
-- Introduction
+- はじめに
 
-  - [Get Started](get-started/README.md)
-  - [Context & Timeout](context-and-timeout.md)
-  - [Error Handling](error-handling.md)
+  - [はじめよう](get-started/README.md)
+  - [コンテキスト & タイムアウト](context-and-timeout.md)
+  - [エラー処理](error-handling.md)
 
-- Guides
+- 補助線
 
-  - [Custom Browser Launch](custom-launch.md)
-  - [Selectors](selectors/README.md)
-  - [Events](events/README.md)
+  - [カスタムブラウザの起動](custom-launch.md)
+  - [セレクター](selectors/README.md)
+  - [イベント](events/README.md)
   - [Input](input.md)
-  - [Emulation](emulation.md)
-  - [Network](network.md)
-  - [Page Resources](page-resources/README.md)
+  - [エミュレーション](emulation.md)
+  - [ネットワーク](network.md)
+  - [ページのリソース](page-resources/README.md)
   - [Javascript Runtime](javascript-runtime.md)
-  - [Browsers & Pages](browsers-pages.md)
-  - [Custom WebSocket](custom-websocket.md)
-  - [End-to-end testing](end-to-end-testing.md)
+  - [ブラウザ & ページ](browsers-pages.md)
+  - [カスタム WebSocket](custom-websocket.md)
+  - [エンドツーエンドテスト](end-to-end-testing.md)
 
-- Resources
+- リソース
 
-  - [API Reference](api-reference.md)
-  - [Examples](examples.md)
+  - [APIリファレンス](api-reference.md)
+  - [例](examples.md)
   - [FAQ](faq/README.md)
-  - [Why Rod](why-rod.md)
-  - [Compatibility](compatibility.md)
-  - [Understand Context](understand-context.md)
-  - [Chat Room](chat-room.md)
-  - [Join Development](join-development.md)
-  - [Contribute Doc](contribute-doc.md)
-  - [Source Code](source-code.md)
+  - [ロッドの理由](why-rod.md)
+  - [互換性](compatibility.md)
+  - [コンテキストを理解する](understand-context.md)
+  - [チャットルーム](chat-room.md)
+  - [開発に参加](join-development.md)
+  - [ドキュメントに貢献する](contribute-doc.md)
+  - [ソースコード：](source-code.md)
