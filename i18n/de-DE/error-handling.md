@@ -1,13 +1,13 @@
-# Error Handling
+# Fehler beim Umgang
 
-In the previous chapters, we have seen a lot of `Must` prefixed methods like `MustNavigate`, `MustElement`, etc. They all have non-prefixed versions like `Navigate`, `Element`, etc. The main difference between them is how they handle errors. It's not special for Rod, you can find it in the standard library like [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
+In den vorhergehenden Kapiteln haben wir viele `Muss` vordefinierte Methoden wie `MustNavigate`, `MustElement`, etc. sehen. Sie alle haben nicht voreingestellte Versionen wie `Navigieren`, `Element`, etc. Der Hauptunterschied zwischen ihnen ist, wie sie mit Fehlern umgehen. Es ist nicht besonders für Rod, du findest es in der Standardbibliothek wie [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
 
-The methods like `MustNavigate` and `MustElement` are commonly used in example code or quick scripting. They are useful for jobs like smoke testing, site monitoring, end-to-end test, etc. Jobs with lots of uncertainty, such as web scraping, the non-prefixed version will be a better choice.
+Die Methoden wie `MustNavigate` und `MustElement` werden häufig im Beispielcode oder im Schnellskript verwendet. Sie sind nützlich für Jobs wie Smoke Testing, Site-Monitoring, End-to-End-Test etc. Jobs mit vielen Unsicherheiten, wie Web-Scraping, die nicht vordefinierte Version wird eine bessere Wahl.
 
-The prefixed version is just the non-prefixed version wrapped with an error checker. Here's the source code of the `MustElement`, as you can see it just calls the `Element` with several extra lines to panic if err is not `nil`:
+Die Prefix-Version ist nur die nicht-prefixierte Version, die mit einem Fehlerprüfer verpackt ist. Hier ist der Quellcode des `MustElement`, wie Sie es sehen können, ruft nur das `Element` mit mehreren zusätzlichen Zeilen zur Panik auf, wenn Fehler nicht `nil` ist:
 
 ```go
-func (p *Page) MustElement(selectors ...string) *Element {
+func (p *Seite) MustElement(Selektoren ...string) *Element {
     el, err := p.Element(selectors...)
     if err != nil {
         panic(err)
@@ -16,21 +16,21 @@ func (p *Page) MustElement(selectors ...string) *Element {
 }
 ```
 
-## Get the error value
+## Fehlerwert abrufen
 
-The two code blocks below are almost doing the same thing in two styles.
+Die zwei folgenden Code-Blöcke machen fast dasselbe in zwei Stile.
 
-The style below is the Go's standard way to handle errors:
+Der folgende Stil ist die Standardmethode zum Umgang mit Fehlern:
 
 ```go
-page := rod.New().MustConnect().MustPage("https://example.com")
+Seite := rod.New().MustConnect().MustPage("https://example.com")
 
-el, err := page.Element("a")
-if err != nil {
+el, err := Seite. lement("a")
+wenn err ! nil {
     handleError(err)
     return
 }
-html, err := el.HTML()
+html, err := el. TML()
 if err != nil {
     handleError(err)
     return
@@ -38,10 +38,10 @@ if err != nil {
 fmt.Println(html)
 ```
 
-We can use `rod.Try` to catch the error from the `Must` prefixed methods `MustElement` and `MustHTML`. The style below will usually end up in less code, but it may also catch extra errors:
+Wir können `roten. Versuchen Sie` den Fehler von den `Muss` vorfixierte Methoden `MustElement` und `MustHTML` zu fangen. Der folgende Stil wird normalerweise in weniger Code enden, aber er kann auch zusätzliche Fehler aufzeichnen:
 
 ```go
-page := rod.New().MustConnect().MustPage("https://example.com")
+Seite := rod.New().MustConnect().MustPage("https://example.com")
 
 err := rod.Try(func() {
     fmt.Println(page.MustElement("a").MustHTML())
@@ -49,21 +49,21 @@ err := rod.Try(func() {
 handleError(err)
 ```
 
-## Check the error type
+## Überprüfen Sie den Fehlertyp
 
-We use Go's standard way to check error types, no magic.
+Wir verwenden Go's Standard-Methode, um Fehlertypen zu überprüfen, keine Magie.
 
-The `handleError` in the above code may look like:
+Der `HandleError` im obigen Code kann aussehen:
 
 ```go
 func handleError(err error) {
     var evalErr *rod.ErrEval
-    if errors.Is(err, context.DeadlineExceeded) { // timeout error
+    if errors.Is(err, context). eadlineExceeded) { // Timeout-Fehler
         fmt.Println("timeout err")
-    } else if errors.As(err, &evalErr) { // eval error
-        fmt.Println(evalErr.LineNumber)
+    } Sonst, wenn Fehler. s(err, &evalErr) { // eval error
+        fmt.Println(evalErr. ineNumber)
     } else if err != nil {
-        fmt.Println("can't handle", err)
+        fmt. rintln("cannot handle", err)
     }
 }
 ```
