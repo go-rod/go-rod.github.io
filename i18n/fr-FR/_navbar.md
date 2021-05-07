@@ -1,10 +1,10 @@
 
 - [API](api-reference.md)
-- [示例](examples.md)
-- [聊天室](chat-room.md)
+- [Examples](examples.md)
+- [Chat](chat-room.md)
 
-- :earth_americas: 文档语言
-  - [:uk:英文](/ ":ignore")
+- :earth_americas: Translations
+  - [:uk:English](/ ":ignore")
   - [:cn:中文](/i18n/zh-CN ":ignore")
   - [:fr:Français](/i18n/fr ":ignore")
   - [:de:Deutschland](/i18n/de ":ignore")
