@@ -11,6 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+  
       - uses: actions/setup-node@v1
 
       - run: npx markdownlint-cli '**/*.md'
+
+      - name: merge
+        if: ${{ github.actor == 'ysmood' && github.ref == 'refs/heads/l10n_master' }}
+        run: |
+          git checkout master
+          git rebase l10n_master
+          git push origin master
