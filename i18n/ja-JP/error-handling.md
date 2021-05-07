@@ -1,13 +1,13 @@
-# Error Handling
+# エラー処理
 
-In the previous chapters, we have seen a lot of `Must` prefixed methods like `MustNavigate`, `MustElement`, etc. They all have non-prefixed versions like `Navigate`, `Element`, etc. The main difference between them is how they handle errors. It's not special for Rod, you can find it in the standard library like [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
+前の章では、 `MustNavigate` 、 `MustElement`、 `MustElement`などの多くの接頭辞付きメソッドを見てきました。 これらはすべて、 `ナビゲート`、 `エレメント`などのような接頭辞のないバージョンがあります。 彼らの主な違いは、どのように エラーを処理するかです。 Rod にとっては特別ではありません。 [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile) のような標準ライブラリで見つけることができます。
 
-The methods like `MustNavigate` and `MustElement` are commonly used in example code or quick scripting. They are useful for jobs like smoke testing, site monitoring, end-to-end test, etc. Jobs with lots of uncertainty, such as web scraping, the non-prefixed version will be a better choice.
+`MustNavigate` や `MustElement` のようなメソッドは、コード例やクイックスクリプトで一般的に使用されます。 煙のテスト、現場監視、エンドツーエンドのテストなどの仕事に役立ちます。 Webスクレイピングのような不確実性の多いジョブは、接頭辞なしのバージョンは、より良い選択になります。
 
-The prefixed version is just the non-prefixed version wrapped with an error checker. Here's the source code of the `MustElement`, as you can see it just calls the `Element` with several extra lines to panic if err is not `nil`:
+接頭辞付きバージョンはエラーチェッカーでラップされた接頭辞なしのバージョンのみです。 Here's the source code of the `MustElement`, as you can see it just calls the `Element` with several extra lines to panic if err is not `nil`:
 
 ```go
-func (p *Page) MustElement(selectors ...string) *Element {
+func (p *ページ) MustElement(selectors ...string) *Element {
     el, err := p.Element(selectors...)
     if err != nil {
         panic(err)
@@ -16,11 +16,11 @@ func (p *Page) MustElement(selectors ...string) *Element {
 }
 ```
 
-## Get the error value
+## エラー値を取得する
 
-The two code blocks below are almost doing the same thing in two styles.
+以下の2つのコードブロックは、ほぼ2つのスタイルで同じことをしています。
 
-The style below is the Go's standard way to handle errors:
+以下のスタイルはエラーを処理するGoの標準的な方法です:
 
 ```go
 page := rod.New().MustConnect().MustPage("https://example.com")
@@ -38,7 +38,7 @@ if err != nil {
 fmt.Println(html)
 ```
 
-We can use `rod.Try` to catch the error from the `Must` prefixed methods `MustElement` and `MustHTML`. The style below will usually end up in less code, but it may also catch extra errors:
+`rod.Try` to catch the error from the `must` prefixed methods `MustElement` and `MustHTML`. 以下のスタイルは通常より少ないコードで終わりますが、追加のエラーも発生する可能性があります。
 
 ```go
 page := rod.New().MustConnect().MustPage("https://example.com")
@@ -46,14 +46,14 @@ page := rod.New().MustConnect().MustPage("https://example.com")
 err := rod.Try(func() {
     fmt.Println(page.MustElement("a").MustHTML())
 })
-handleError(err)
+handleError(error)
 ```
 
-## Check the error type
+## エラーの種類を確認する
 
-We use Go's standard way to check error types, no magic.
+エラーの種類を確認するためにGoの標準的な方法を使用します。
 
-The `handleError` in the above code may look like:
+上記のコードの `handleError` は次のようになります。
 
 ```go
 func handleError(err error) {
