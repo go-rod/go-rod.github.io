@@ -1,12 +1,12 @@
-# Rod
+# Stange
 
-Rod is a high-level driver for [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol). It's widely used for web automation and scraping. Rod can automate most things in the browser that can be done manually:
+Rod ist ein High-Level-Treiber für [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol). Es ist weit verbreitet für Web-Automatisierung und Schrottung. Rod kann die meisten Dinge im Browser automatisieren, die manuell erledigt werden können:
 
-- Capture page screenshots
-- Scrape client-side rendered pages
-- Auto-fill forms
-- End-to-end testing
-- Hijack requests
-- And more
+- Screenshots der Seite aufnehmen
+- Client-seitig gerenderte Seiten
+- Formulare automatisch ausfüllen
+- Ende-zu-Ende Test
+- Hijack Anfragen
+- Und mehr
 
-To contribute doc, [check here](contribute-doc.md).
+Um Doc beizutragen, [schaue hier](contribute-doc.md).

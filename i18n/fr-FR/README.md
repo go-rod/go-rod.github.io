@@ -1,12 +1,12 @@
-# Rod
+# Tige
 
-Rod is a high-level driver for [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol). It's widely used for web automation and scraping. Rod can automate most things in the browser that can be done manually:
+Rod est un pilote de haut niveau pour [le protocole DevTools](https://chromedevtools.github.io/devtools-protocol). Il est largement utilisé pour l'automatisation web et le grattage. Rod peut automatiser la plupart des choses dans le navigateur qui peuvent être faites manuellement :
 
-- Capture page screenshots
-- Scrape client-side rendered pages
-- Auto-fill forms
-- End-to-end testing
-- Hijack requests
-- And more
+- Capturer des captures d'écran de page
+- Scrape les pages affichées côté client
+- Formulaires de remplissage automatique
+- Test de bout en bout
+- Demandes de Hijack
+- Et plus encore
 
-To contribute doc, [check here](contribute-doc.md).
+Pour contribuer au doc, [cliquez ici](contribute-doc.md).

@@ -1,12 +1,12 @@
-# Rod
+# Жезл
 
-Rod is a high-level driver for [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol). It's widely used for web automation and scraping. Rod can automate most things in the browser that can be done manually:
+Rod является высокоуровневым драйвером для [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol). Широко используется для веб-автоматизации и лома. Rod может автоматизировать большинство вещей в браузере, что может быть сделано вручную:
 
-- Capture page screenshots
-- Scrape client-side rendered pages
-- Auto-fill forms
-- End-to-end testing
-- Hijack requests
-- And more
+- Скриншоты страницы
+- Scrape страницы на стороне клиента
+- Формы автозаполнения
+- Тестирование до конца
+- Запросы на захват
+- И многое другое
 
-To contribute doc, [check here](contribute-doc.md).
+Чтобы внести свой вклад в документ, [проверьте здесь](contribute-doc.md).
