@@ -9,4 +9,4 @@ Rod は [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol) 
 - ハイジャックリクエスト
 - その他
 
-ドキュメントを作成するには、 [](contribute-doc.md) を確認してください。
+ドキュメントに貢献するには、 [ここ](contribute-doc.md) を確認してください。
