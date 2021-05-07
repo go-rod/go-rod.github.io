@@ -1,72 +1,72 @@
-# Context and Timeout
+# Контекст и время ожидания
 
-In Golang, we usually use [Context](https://golang.org/pkg/context/) to abort long-running tasks. Rod uses Context to handle cancellations for IO blocking operations, most times it's timeout. You need to pay special attention to them.
+В Голанге мы обычно используем [Контекст](https://golang.org/pkg/context/) для отмены долговременных задач. Rod использует контекстный текст для отмены IO блокирующие операции, в большинстве случаев тайм-аут. Вы должны уделить им особое внимание.
 
-If you are not familiar with Context, please read [Understand Context](understand-context.md) first.
+Если вы не знакомы с контекстом, сначала прочитайте [Understand Context](understand-context.md).
 
-## Cancellation
+## Отмена
 
-For example, the code below creates a blank page and navigates it to the "github.com":
+Например, код ниже создает пустую страницу и переходит к "github.com":
 
 ```go
 page := rod.New().MustConnect().MustPage()
 page.MustNavigate("http://github.com")
 ```
 
-Now, suppose we want to cancel the `MustNavigate` if it takes more than 2 seconds. In Rod we can do something like this:
+Предположим, что мы хотим отменить `MustNavigate` , если это занимает более 2 секунд. На стержне мы можем сделать что-то вроде этого:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+страница := rod.New().MustConnect().MustPage()
 
 ctx, cancel := context.WithCancel(context.Background())
 pageWithCancel := page.Context(ctx)
 
 go func() {
-    time.Sleep(2 * time.Second)
+    time. leep(2 * time.Second)
     cancel()
 }()
 
-pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
+pageWithCancel.MustNavigate("http://github.com") // будет отменено через 2 секунды
 ```
 
-We use the `page.Context` to create a shallow clone of the `page`. Whenever we call the `cancel`, the operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. The origin `page` won't be affected, if we use it to call operations they won't be cancelled.
+Мы используем `page.Context` для создания мелкого клонирования `страницы`. Каждый раз, когда мы вызываем `отмену`, операции вызванные `отменой отмены` будут отменены, это может быть любая операция, а не просто `MustNavigate`. Происхождение `страницы` не пострадает, если мы используем её для вызова операций, они не будут отменены.
 
-This style is not special for Rod, you can find similar APIs like [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) in the standard library.
+Этот стиль для Rod не является особенным, вы можете найти похожие API, такие как [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) в стандартной библиотеке.
 
-Because `pageWithCancel` and `page` are independent to each other, operations triggered by `page` will not be affected by the cancellation:
+Потому что `pageWithCancel` и `страница` не зависят друг от друга, операции, вызванные `страницей` не будут затронуты отменой:
 
 ```go
-page.MustNavigate("http://github.com") // won't be canceled after 2 seconds
+page.MustNavigate("http://github.com") // не будет отменен через 2 секунды
 ```
 
-## Timeout
+## Таймаут
 
-The code above is just a way to timeout an operation. In Golang, timeout is usually just a special case of cancellation. Because it's so useful, we created a helper to do the same thing above, it's called `Timeout`, so the code above can be reduced like below:
+Вышеприведенный код является всего лишь способом тайм-аута операции. В Голанге тайм-аут обычно является особым случаем отмены. Because it's so useful, we created a helper to do the same thing above, it's called `Timeout`, so the code above can be reduced like below:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+страница := rod.New().MustConnect().MustPage()
 page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 ```
 
-The `page.Timeout(2 * time.Second)` is the previous `pageWithCancel`. Not just `Page`, `Browser` and `Element` also have the same context helpers.
+`page.Timeout(2 * time.Second)` является предыдущей `pageWithel`. Не просто `страница`, `браузер` и `элемент` также имеют одни и те же контекстные помощники.
 
-## Detect timeout
+## Определить тайм-аут
 
-How do I know if an operation is timed out or not? In Golang, timeout is usually a type of error. It's not special for Rod. For the code above we can do this to detect timeout:
+Как узнать, есть ли время ожидания операции или нет? В Голанге тайм-аут обычно является типом ошибки. Это не особый для Rod. Для приведенного выше кода мы можем сделать это для определения таймаута:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+страница := rod.New().MustConnect().MustPage()
 
 err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
-if errors.Is(err, context.DeadlineExceeded) {
+если ошибки. s(err, context. eadlineExceeded) {
     // code for timeout error
-} else if err != nil {
-    // code for other types of error
+} else if err ! nil {
+    // код для других типов ошибки
 }
 ```
 
-Here we use `rod.Try` to wrap the function that may throw a timeout error.
+Здесь мы используем `rod.Try` , чтобы обернуть функцию, которая может вызвать ошибку таймаута.
 
-We will talk more about error handing at [Error Handling](error-handling.md).
+Мы расскажем больше об ошибке на [Error Handling](error-handling.md).
