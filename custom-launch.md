@@ -1,6 +1,6 @@
 # Custom Browser Launch
 
-## Connect to an existing browser
+## Connect to an running browser
 
 Find the executable path of your browser, such as on macOS run:
 
