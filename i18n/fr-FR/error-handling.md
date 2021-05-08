@@ -63,7 +63,5 @@ func handleError(errr error) {
     } sinon si erreurs. s(err, &evalErr) { // erreur eval
         fmt.Println(evalErr. ineNumber)
     } sinon si err != nil {
-        fmt. rintln("ne peut pas gérer", err)
-    }
-}
+        fmt.
 ```

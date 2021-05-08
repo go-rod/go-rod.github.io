@@ -1,6 +1,56 @@
 # 自定义浏览器启动
 
-可以使用 `launcher` 库来自定义浏览器的启动，比如说增减命令行参数、自定义自动下载浏览器的镜像。
+## 连接到正在运行的浏览器
+
+查找您的浏览器的可执行路径，例如 macOS 运行：
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debugging-port=9222
+```
+
+它将输出类似于：
+
+```txt
+DevTools listening on ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913
+```
+
+上面的 `ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913` 就是控制浏览器的接口：
+
+```go
+package main
+
+import (
+    "github.com/go-rod/rod"
+)
+
+func main() {
+    u := "ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913"
+    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
+}
+```
+
+## launcher 库
+
+由于上面的工作流经常被使用，我们抽象出 ` launcher ` 库来简化浏览器的启动。 例如自动下载或搜索浏览器可执行程序， 添加或删除浏览器可执行程序的命令行参数等。
+
+因此，上述的手动启动和代码变成：
+
+```go
+func main() {
+    u := launcher.New().MustLaunch()
+    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
+}
+```
+
+您可以简化它：
+
+```go
+func main() {
+    rod.New().MustConnect().MustPage("https://example.com")
+}
+```
+
+因为未设置 `ControlURL` ， `MustConnect` 将自动运行 `launch().MustLaunch()`。
 
 ## 增加或删除选项
 
@@ -51,10 +101,10 @@ func main() {
 
 1. 运行 rod 镜像 `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
-2. 打开另一个终端，并运行类似这个[示例](https://github.com/go-rod/rod/blob/master/lib/examples/remote-launch/main.go)中的代码
+2. 打开另一个终端，并运行类似这个[示例](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)中的代码
 
 rod 镜像为每个远程驱动动态地运行一个浏览器，且启动选项可以自定义。 它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile)。 你可以轻松地将请求负载均衡到由这个镜像组成的集群中，每个容器可以同时创建多个浏览器实例。
 
-## 控制每一步
+## 控制每个步骤
 
 如果你想要控制启动过程中的每个步骤，比如说禁用自动下载、使用系统默认浏览器，见此[示例文件](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go)。

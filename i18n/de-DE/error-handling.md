@@ -1,14 +1,19 @@
 # Fehler beim Umgang
 
-In den vorhergehenden Kapiteln haben wir viele `Muss` vordefinierte Methoden wie `MustNavigate`, `MustElement`, etc. sehen. Sie alle haben nicht voreingestellte Versionen wie `Navigieren`, `Element`, etc. Der Hauptunterschied zwischen ihnen ist, wie sie mit Fehlern umgehen. Es ist nicht besonders für Rod, du findest es in der Standardbibliothek wie [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
+In den vorhergehenden Kapiteln haben wir viele `Muss` vordefinierte Methoden wie `MustNavigate`, `MustElement`, etc. sehen. Sie alle haben nicht voreingestellte Versionen wie `Navigieren`, `Element`, etc. Der Hauptunterschied zwischen ihnen ist, wie sie mit Fehlern umgehen. Der Hauptunterschied zwischen ihnen ist, wie sie mit Fehlern umgehen. Es ist nicht besonders für Rod, du findest es in der Standardbibliothek wie [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
 
-Die Methoden wie `MustNavigate` und `MustElement` werden häufig im Beispielcode oder im Schnellskript verwendet. Sie sind nützlich für Jobs wie Smoke Testing, Site-Monitoring, End-to-End-Test etc. Jobs mit vielen Unsicherheiten, wie Web-Scraping, die nicht vordefinierte Version wird eine bessere Wahl.
+Die Methoden wie `MustNavigate` und `MustElement` werden häufig im Beispielcode oder im Schnellskript verwendet. Sie sind nützlich für Jobs wie Smoke Testing, Site-Monitoring, End-to-End-Test etc. Jobs mit vielen Unsicherheiten, wie Web-Scraping, die nicht vordefinierte Version wird eine bessere Wahl. Jobs mit vielen Unsicherheiten, wie Web-Scraping, die nicht vordefinierte Version wird eine bessere Wahl.
 
 Die Prefix-Version ist nur die nicht-prefixierte Version, die mit einem Fehlerprüfer verpackt ist. Hier ist der Quellcode des `MustElement`, wie Sie es sehen können, ruft nur das `Element` mit mehreren zusätzlichen Zeilen zur Panik auf, wenn Fehler nicht `nil` ist:
 
 ```go
 func (p *Seite) MustElement(Selektoren ...string) *Element {
     el, err := p.Element(selectors...)
+    if err != nil {
+        panic(err)
+    }
+    return el
+}
     if err != nil {
         panic(err)
     }
