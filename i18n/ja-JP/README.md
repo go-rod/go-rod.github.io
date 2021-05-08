@@ -1,6 +1,6 @@
 # Rod
 
-Rod は [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol) 用の高レベルドライバです。 ウェブオートメーションやスクレイピングに広く使われています ロッドは、手動で行うことができるブラウザのほとんどのものを自動化できます:
+Rod は [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol) 用の高レベルドライバです。 ウェブオートメーションやスクレイピングに広く使われています ウェブオートメーションやスクレイピングに広く使われています ロッドは、手動で行うことができるブラウザのほとんどのものを自動化できます:
 
 - ページのスクリーンショットをキャプチャする
 - クライアント側でレンダリングされたページをスクレイプする
