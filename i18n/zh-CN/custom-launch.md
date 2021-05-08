@@ -37,7 +37,7 @@ func main() {
 
 ```go
 func main() {
-    u := launcher.New().MustLaunch()
+    u := launcher.New().Bin("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").MustLaunch()
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
@@ -50,7 +50,7 @@ func main() {
 }
 ```
 
-因为未设置 `ControlURL` ， `MustConnect` 将自动运行 `launch().MustLaunch()`。
+因为如果未设置 `ControlURL` ， `MustConnect` 将自动运行 `launch().MustLaunch()`。 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。
 
 ## 增加或删除选项
 
