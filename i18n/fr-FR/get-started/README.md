@@ -53,7 +53,7 @@ Nous allons créer un fichier de configuration ".rod" dans le répertoire de tra
 afficher
 ```
 
-Cela signifie "afficher l'interface utilisateur du navigateur au premier plan". Avant d'exécuter le module à nouveau, ajoutons `time.Sleep(temps. notre)` jusqu'à la fin du code pour qu'il ne soit pas trop rapide pour que nos yeux l'attrapent, le code de "main. o" devient maintenant :
+Cela signifie "afficher l'interface utilisateur du navigateur au premier plan". Avant d'exécuter le module à nouveau, ajoutons `time.Sleep(temps. notre)` jusqu'à la fin du code pour qu'il ne soit pas trop rapide pour que nos yeux l'attrapent, le code de "main.
 
 ```go
 package main
@@ -68,7 +68,6 @@ func main() {
     page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
     page.MustWaitLoad().MustScreenshot("a.png")
     time.Sleep(time.Hour)
-
 ```
 
 Si vous exécutez le module à nouveau, vous devriez voir un navigateur comme ceci :
