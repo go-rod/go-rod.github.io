@@ -39,7 +39,7 @@ So the above manual launch and code becomes:
 
 ```go
 func main() {
-	u := launcher.New().MustLaunch()
+	u := launcher.New().Bin("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").MustLaunch()
 	rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
@@ -53,6 +53,8 @@ func main() {
 ```
 
 Because if `ControlURL` is not set, the `MustConnect` will run `launcher.New().MustLaunch()` automatically.
+By default, the launcher will automatically download and use a statically versioned browser so that the browser
+behavior is consistent.
 
 ## Add or remove options
 
