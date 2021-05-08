@@ -16,6 +16,6 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout master
-          git rebase l10n_master
+          git rebase l10n_master || true
           git push origin master
-          git push -d l10n_master
+          git push -d origin l10n_master || true
