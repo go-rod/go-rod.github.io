@@ -1,8 +1,9 @@
 name: Rebase l10n_master Daily
 on:
-
   schedule:
     - cron: '17 5 * * *'
+
+  workflow_dispatch:
 
 jobs:
   linux:
