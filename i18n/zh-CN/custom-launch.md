@@ -42,15 +42,23 @@ func main() {
 }
 ```
 
-您可以简化它：
+我们可以使用帮助函数 `launcher.LookPath` 来获取浏览器的可执行文件路径，上面的代码等价于：
+
+```go
+func main() {
+    path, _ := launcher.LookPath()
+    u := launcher.New().Bin(path).MustLaunch()
+    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
+}
+```
+
+如果 `ControlURL` 未设置， `MustConnect` 将自动运行 `launcher.New().MustLaunch()` 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。 所以您可以将上述代码简化为：
 
 ```go
 func main() {
     rod.New().MustConnect().MustPage("https://example.com")
 }
 ```
-
-因为如果未设置 `ControlURL` ， `MustConnect` 将自动运行 `launch().MustLaunch()`。 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。
 
 ## 增加或删除选项
 
@@ -95,16 +103,18 @@ func main() {
 
 阅读 API 文档以获取更多信息：[链接](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher)。
 
-## Docker
+## 远程管理启动器
 
-这里有一个远程控制 container 内的浏览器的例子；这样我们就不用在本地安装浏览器了（一些 linux 发行版中很难正确安装 chromium）：
+对于生产环境的爬虫系统拆，我们通常会把爬虫和浏览器拆分到不同的集群，从而使它们能够独立扩容。 Rod 提供模块 `launcher.Manager` 来远程管理启动器。 通过它我们可以远程启动用自定义启动参数浏览器。 它的用例在 [这里](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go)。
+
+因为很难在某些Linux发行版上正确安装chromium， Rod 提供了一个 docker image 来支持跨平台。 下面是一个用例：
 
 1. 运行 rod 镜像 `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
 2. 打开另一个终端，并运行类似这个[示例](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)中的代码
 
-rod 镜像为每个远程驱动动态地运行一个浏览器，且启动选项可以自定义。 它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile)。 你可以轻松地将请求负载均衡到由这个镜像组成的集群中，每个容器可以同时创建多个浏览器实例。
+它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile)。 每个容器可以同时启动多个浏览器。
 
-## 控制每个步骤
+## 底层 API
 
 如果你想要控制启动过程中的每个步骤，比如说禁用自动下载、使用系统默认浏览器，见此[示例文件](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go)。

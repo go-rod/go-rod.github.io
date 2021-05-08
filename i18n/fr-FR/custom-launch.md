@@ -42,15 +42,23 @@ func main() {
 }
 ```
 
-You can simplify it into:
+We can use the helper function `launcher.LookPath` to get the browser executable path, the above code is the same as:
+
+```go
+func main() {
+    path, _ := launcher.LookPath()
+    u := launcher.New().Bin(path).MustLaunch()
+    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
+}
+```
+
+If `ControlURL` is not set, the `MustConnect` will run `launcher.New().MustLaunch()` automatically. By default, the launcher will automatically download and use a statically versioned browser so that the browser behavior is consistent. So you can simplify the above code into:
 
 ```go
 func main() {
     rod.New().MustConnect().MustPage("https://example.com")
 }
 ```
-
-Because if `ControlURL` is not set, the `MustConnect` will run `launcher.New().MustLaunch()` automatically. By default, the launcher will automatically download and use a statically versioned browser so that the browser behavior is consistent.
 
 ## Add or remove options
 
@@ -95,16 +103,18 @@ Here are the available flags: [link](https://peter.sh/experiments/chromium-comma
 
 Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
-## Docker
+## Remotely manage the launcher
 
-Here's an example to remote control browsers inside the container so that we don't have to install browsers locally, because on some linux distributions it's very hard to install chromium correctly:
+For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+
+Because it's very hard to install chromium correctly on some linux distributions, Rod provides a docker image to make it consistent cross platforms. Here's an example to use it:
 
 1. Run the rod image `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
 2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/remote-launch/main.go)
 
-The rod image can dynamically launch a browser for each remote driver with customizable browser flags. It's [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. You can easily load balance requests to the cluster of this image, each container can create multiple browser instances at the same time.
+The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time.
 
-## Control every step
+## Low-level API
 
 If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
