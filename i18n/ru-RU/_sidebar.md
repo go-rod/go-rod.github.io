@@ -1,33 +1,33 @@
 
-- Introduction
+- Введение
 
-  - [Get Started](get-started/README.md)
-  - [Context & Timeout](context-and-timeout.md)
-  - [Error Handling](error-handling.md)
+  - [Начать работу](get-started/README.md)
+  - [Контекст & таймаут](context-and-timeout.md)
+  - [Обработка ошибок](error-handling.md)
 
-- Guides
+- Руководства
 
-  - [Custom Browser Launch](custom-launch.md)
-  - [Selectors](selectors/README.md)
-  - [Events](events/README.md)
+  - [Пользовательский запуск браузера](custom-launch.md)
+  - [Селекторы](selectors/README.md)
+  - [События](events/README.md)
   - [Input](input.md)
-  - [Emulation](emulation.md)
-  - [Network](network.md)
-  - [Page Resources](page-resources/README.md)
+  - [Эмуляция](emulation.md)
+  - [Сеть](network.md)
+  - [Ресурсы страницы](page-resources/README.md)
   - [Javascript Runtime](javascript-runtime.md)
-  - [Browsers & Pages](browsers-pages.md)
-  - [Custom WebSocket](custom-websocket.md)
-  - [End-to-end testing](end-to-end-testing.md)
+  - [Браузеры & страницы](browsers-pages.md)
+  - [Пользовательское WebSocket](custom-websocket.md)
+  - [Тестирование до конца](end-to-end-testing.md)
 
-- Resources
+- Ресурсы
 
-  - [API Reference](api-reference.md)
-  - [Examples](examples.md)
-  - [FAQ](faq/README.md)
-  - [Why Rod](why-rod.md)
-  - [Compatibility](compatibility.md)
-  - [Understand Context](understand-context.md)
-  - [Chat Room](chat-room.md)
-  - [Join Development](join-development.md)
-  - [Contribute Doc](contribute-doc.md)
-  - [Source Code](source-code.md)
+  - [Справочник по API](api-reference.md)
+  - [Примеры](examples.md)
+  - [ЧАВО](faq/README.md)
+  - [Почему Rod](why-rod.md)
+  - [Совместимость](compatibility.md)
+  - [Понимание контекста](understand-context.md)
+  - [Чат](chat-room.md)
+  - [Присоединиться к разработке](join-development.md)
+  - [Внести вклад в документацию](contribute-doc.md)
+  - [Исходный код](source-code.md)
