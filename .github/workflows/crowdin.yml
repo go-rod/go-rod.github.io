@@ -1,0 +1,20 @@
+name: Rebase l10n_master Daily
+on:
+
+  schedule:
+    - cron: '17 5 * * *'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout master
+          git rebase l10n_master
+          git push origin master
+          git push -d l10n_master
