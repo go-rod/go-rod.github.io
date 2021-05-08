@@ -105,9 +105,9 @@ Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/
 
 ## Remotely manage the launcher
 
-For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom browser launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
 
-Because on some linux distributions it's very hard to install chromium correctly, we build a docker image to make it consistent cross platforms. Here's an example to use it:
+Because it's very hard to install chromium correctly on some linux distributions, Rod provides a docker image to make it consistent cross platforms. Here's an example to use it:
 
 1. Run the rod image `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
