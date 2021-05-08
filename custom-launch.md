@@ -32,7 +32,7 @@ func main() {
 ## The launcher lib
 
 Because the above workflow is so often used, we abstract a the `launcher` lib to simplify launch of browsers.
-Such as automatically download or search for the executable path of the browser,
+Such as automatically download or search for the browser executable,
 add or delete the browser executable command-line arguments, etc.
 
 So the above manual launch and code becomes:
