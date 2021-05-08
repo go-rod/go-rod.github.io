@@ -52,7 +52,7 @@ func main() {
 }
 ```
 
-If `ControlURL` is not set, the `MustConnect` will run `launcher.New().MustLaunch()` automatically. 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。 So you can simplify the above code into:
+如果 `ControlURL` 未设置， `MustConnect` 将自动运行 `launcher.New().MustLaunch()` 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。 所以您可以将上述代码简化为：
 
 ```go
 func main() {
@@ -103,18 +103,18 @@ func main() {
 
 阅读 API 文档以获取更多信息：[链接](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher)。
 
-## Remotely manage the launcher
+## 远程管理启动器
 
-For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom browser launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+对于生产环境的爬虫系统拆，我们通常会把爬虫和浏览器拆分到不同的集群，从而使它们能够独立扩容。 Rod 提供模块 `launcher.Manager` 来远程管理启动器。 通过它我们可以远程启动用自定义启动参数浏览器。 它的用例在 [这里](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go)。
 
-Because on some linux distributions it's very hard to install chromium correctly, we build a docker image to make it consistent cross platforms. Here's an example to use it:
+Because it's very hard to install chromium correctly on some linux distributions, Rod provides a docker image to make it consistent cross platforms. Here's an example to use it:
 
 1. 运行 rod 镜像 `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
 2. 打开另一个终端，并运行类似这个[示例](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)中的代码
 
-The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time.
+它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile)。 每个容器可以同时启动多个浏览器。
 
-## Low-level API
+## 底层 API
 
-If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
+如果你想要控制启动过程中的每个步骤，比如说禁用自动下载、使用系统默认浏览器，见此[示例文件](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go)。
