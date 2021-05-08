@@ -1,6 +1,6 @@
 # コンテキストとタイムアウト
 
-Golangでは、通常 [Context](https://golang.org/pkg/context/) を使用して、長時間実行されているタスクを中断します。 RodはContextを使用して、IOブロッキング操作のキャンセルを処理します。ほとんどの場合タイムアウトします。 あなたは彼らに特別な注意を払う必要があります。
+Golangでは、通常 [Context](https://golang.org/pkg/context/) を使用して、長時間実行されているタスクを中断します。 RodはContextを使用して、IOブロッキング操作のキャンセルを処理します。 ほとんどの場合タイムアウトします。 あなたは彼らに特別な注意を払う必要があります。
 
 コンテキストに慣れていない場合は、最初に [コンテキストを理解する](understand-context.md) を読んでください。
 
@@ -29,9 +29,9 @@ go func() {
 pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
 ```
 
-`page.Context` を使用して、 `ページ` の浅いクローンを作成します。 Whenever we call the `cancel`, the operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. オリジン `ページ` は影響を受けません。操作を呼び出すために使用するとキャンセルされることはありません。
+`page.Context` を使用して、 `ページ` の浅いクローンを作成します。 Whenever we call the `cancel`, the operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. オリジン `ページ` は影響を受けません。 操作を呼び出すために使用するとキャンセルされることはありません。
 
-このスタイルは Rod にとって特別なものではありません。標準ライブラリに [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) のような API があります。
+このスタイルは Rod にとって特別なものではありません。 標準ライブラリに [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) のような API があります。
 
 Because `pageWithCancel` and `page` are independent to each other, operations triggered by `page` will not be affected by the cancellation:
 
