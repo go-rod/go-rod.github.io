@@ -8,7 +8,7 @@ Golangを使用したことがない場合は、 [](https://golang.org/doc/insta
 
 ## 最初のプログラム
 
-Rod を使ってページを開き、そのスクリーンショットを撮りましょう。まず、以下の内容の "main.go" ファイルを作成します。
+Rod を使ってページを開き、そのスクリーンショットを撮りましょう。 まず、以下の内容の "main.go" ファイルを作成します。
 
 ```go
 package main
@@ -79,14 +79,14 @@ func main() {
 
 ## 入力してクリック
 
-キーワード"earth"を検索するためにウェブサイトを自動化しましょう。 ウェブサイトには多くの入力フィールドやボタンがあるかもしれませんが、どの入力フィールドを操作するかをプログラムに伝える必要があります。 通常、制御したい要素を特定するために [Devtools](https://developers.google.com/web/tools/chrome-devtools/) を使用します。 開発ツールを有効にするために、".rod"ファイルに新しい設定を追加しましょう。これで次のようになります。
+キーワード"earth"を検索するためにウェブサイトを自動化しましょう。 ウェブサイトには多くの入力フィールドやボタンがあるかもしれませんが、どの入力フィールドを操作するかをプログラムに伝える必要があります。 通常、制御したい要素を特定するために [Devtools](https://developers.google.com/web/tools/chrome-devtools/) を使用します。 開発ツールを有効にするために、".rod"ファイルに新しい設定を追加しましょう。
 
 ```txt
 show
 devtools
 ```
 
-"main"を実行します。 " o, もう一度, 入力フィールドにマウスを移動し、その上にある を右クリックすると、コンテキストメニューが表示されます。そして、 "inspect":
+"main"を実行します。 " o, もう一度, 入力フィールドにマウスを移動し、その上にある を右クリックすると、コンテキストメニューが表示されます。 そして、 "inspect":
 
 ![検査する](inspect.png)
 
@@ -139,7 +139,6 @@ func main() {
     page.MustElement("#search-form > fieldset > button").MustClick()
 
     page.MustScreenshot("a.png") }
-
 ```
 
 モジュールを再実行すると、"a.png" に検索結果が表示されます。
@@ -151,7 +150,6 @@ func main() {
 自動化された操作は、人間の目を捕まえるには速すぎます。 デバッグするには、通常、 スローモーションと視覚的なトレース設定を有効にします。 Od" ファイル:
 
 ```txt
-
 slow=1s
 のトレースを表示する
 ```
@@ -177,7 +175,7 @@ slow=1s
 
 ## ".rod"ファイル以外のファイル
 
-The ".rod" file is just a shortcut for some commonly used API, you can also manually set them in code, such as the "slow", the code to set it is like `rod.New().SlowMotion(2 * time.Second)`. また、 環境変数を使用して設定することもできます。例えば、Mac や Linux などです。 `rod=show go main.go`.
+The ".rod" file is just a shortcut for some commonly used API, you can also manually set them in code, such as the "slow", the code to set it is like `rod.New().SlowMotion(2 * time.Second)`. また、 環境変数を使用して設定することもできます。 例えば、Mac や Linux などです。 `rod=show go main.go`.
 
 ## テキストコンテンツを取得する
 
@@ -187,7 +185,7 @@ Rodはページからコンテンツを取得するための便利なメソッ�
 
 ![get-text](get-text.png)
 
-私たちが使用するメソッドは `MustText`です。以下のコードがあります:
+私たちが使用するメソッドは `MustText`です。 以下のコードがあります:
 
 ```go
 package main
@@ -213,6 +211,7 @@ func main() {
 
 ```txt
 地球は太陽から3番目の惑星であり、生命を持つことが知られている唯一の天体です。
+...
 ...
 ```
 
