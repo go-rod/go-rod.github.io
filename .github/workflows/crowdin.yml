@@ -1,7 +1,7 @@
 name: Rebase l10n_master Daily
 on:
   schedule:
-    - cron: '17 5 * * *'
+    - cron: '13 30 * * *'
 
 jobs:
   linux:
@@ -13,7 +13,6 @@ jobs:
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout master
           git rebase l10n_master || true
           git push origin master
           git push -d origin l10n_master || true
