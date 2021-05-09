@@ -1,5 +1,7 @@
 # Network
 
+## Hijack requests
+
 You can use Rod to hijack any HTTP or HTTPS traffic.
 
 The entire process of hijacking one request:
@@ -26,7 +28,10 @@ router.MustAdd("https://test.com/test.js", func(ctx *rod.Hijack) {
 
 go router.Run()
 
-browser.MustPage("https://test.com/")
+page := browser.MustPage("https://test.com/")
+
+// Hijack requests under the scope of a page
+page.HijackRequests()
 ```
 
 For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
