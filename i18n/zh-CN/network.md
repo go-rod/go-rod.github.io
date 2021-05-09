@@ -1,5 +1,7 @@
 # 网络
 
+## Hijack requests
+
 你可以使用 Rod 劫持任何 HTTP 或 HTTPS 流量。
 
 劫持一个请求的全过程：
@@ -24,7 +26,10 @@ router.MustAdd("https://test.com/test.js", func(ctx *rod.Hijack) {
 
 go router.Run()
 
-browser.MustPage("https://test.com/")
+page := browser.MustPage("https://test.com/")
+
+// Hijack requests under the scope of a page
+page.HijackRequests()
 ```
 
 更多信息，见[劫持相关的单元测试](https://github.com/go-rod/rod/blob/master/hijack_test.go)
