@@ -12,16 +12,16 @@
 
 当浏览器想要向服务器发送请求时，它会先把请求发给 Rod，然后 Rod 作为代理，把请求发送给实际的服务器，并把响应返回给浏览器。 `--请求->` 和 `--响应->` 是可以篡改的部分。
 
-例如，我们可以这样替换 js 文件 `test.js`：
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 browser := rod.New().MustConnect()
 
 router := browser.HijackRequests()
 
-router.MustAdd("https://test.com/test.js", func(ctx *rod.Hijack) {
+router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js replaced")`)
+    ctx.Response.SetBody(`console.log("js file replaced")`)
 })
 
 go router.Run()
