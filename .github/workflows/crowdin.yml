@@ -1,7 +1,7 @@
 name: Rebase l10n_master Daily
 on:
   schedule:
-    - cron: '13 30 * * *'
+    - cron: '31 3 * * *'
 
 jobs:
   linux:
