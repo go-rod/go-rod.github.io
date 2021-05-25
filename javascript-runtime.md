@@ -31,7 +31,7 @@ fmt.Println(val) // output: jack
 
 The `Page.Evaluate` method will execute the function if its outmost is a function definition.
 
-For example, the `test` function below will be executed immediately, it will not be treated as an function definition:
+For example, the `test` function below will be executed immediately, it will not be treated as a function definition:
 
 ```go
 page.MustEval(`function test() { alert('ok') }`)
