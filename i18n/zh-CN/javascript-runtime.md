@@ -23,24 +23,44 @@ page.MustEval(`(k, val) => {
 从 Eval 获取返回值：
 
 ```go
-val := page.MustEval(`window.a`).Get("name").Str()
-fmt.Println(val) // 输出：jack
+val := page.MustEval(`a`).Get("name").Str()
+fmt.Println(val) // output: jack
 ```
 
-## 在元素上 eval
+## Define a global function
 
-`Element.Eval` 和 `Page.Eval` 类似，但是对于前者来说，`this` 对象代表当前元素。 例如在页面上有一个 `<button>Submit</button>` ，我们可以用 JS 来读取或修改元素：
+The `Page.Evaluate` method will execute the function if its outmost is a function definition.
+
+For example, the `test` function below will be executed immediately, it will not be treated as an function definition:
+
+```go
+page.MustEval(`function test() { alert('ok') }`)
+
+page.MustEval(`test()`) // panic with test not defined
+```
+
+To define the global function `test` you can code like this, because the outmost is an assignment, not a function definition:
+
+```go
+page.MustEval(`test = function () { alert('ok') }`)
+
+page.MustEval(`test()`)
+```
+
+## Eval on an element
+
+`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
 
 ```go
 el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // 更改内容
+el.MustEval(`this.innerText = "Apply"`) // Modify the content
 txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // 输出: Apply
+fmt.Println(txt) // output: Apply
 ```
 
-## 将 Go 函数暴露给页面
+## Expose Go functions to the page
 
-我们使用 `Page.Expose` 来把回调函数暴露给页面。 例如，我们可以像这样暴露函数，来帮助页面计算 md5：
+We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
@@ -48,7 +68,7 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 })
 ```
 
-现在页面可以在 window 对象上调用这个方法：
+Now the page can invoke this method on the window object:
 
 ```go
 hash := page.MustEval(`window.md5("test")`).Str()
