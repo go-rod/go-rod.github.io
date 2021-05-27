@@ -29,7 +29,7 @@ fmt.Println(val) // 输出: jack
 
 ## 定义一个全局函数
 
-The `Page.Evaluate` method will execute the function if its outermost is a function definition.
+`Page.Evaluate` 会直接执行函数如果最外层是一个函数声明。
 
 例如，下面的 `test` 函数将被立即执行，它将不被视为函数声明：
 
@@ -39,7 +39,7 @@ page.MustEval(`function test() { alert('ok') }`)
 page.MustEval(`test()`) // 报没有定义的错误
 ```
 
-To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
+要定义全局函数 `测试` ，可以像这样写，因为外层是一个赋值，而不是函数声明：
 
 ```go
 page.MustEval(`test = function () { alert('ok') }`)
