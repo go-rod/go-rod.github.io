@@ -29,7 +29,7 @@ fmt.Println(val) // output: jack
 
 ## Define a global function
 
-The `Page.Evaluate` method will execute the function if its outmost is a function definition.
+The `Page.Evaluate` method will execute the function if its outermost is a function definition.
 
 For example, the `test` function below will be executed immediately, it will not be treated as a function definition:
 
@@ -39,7 +39,7 @@ page.MustEval(`function test() { alert('ok') }`)
 page.MustEval(`test()`) // panic with test not defined
 ```
 
-To define the global function `test` you can code like this, because the outmost is an assignment, not a function definition:
+To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
 
 ```go
 page.MustEval(`test = function () { alert('ok') }`)
