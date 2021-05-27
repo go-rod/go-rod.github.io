@@ -23,8 +23,28 @@ page.MustEval(`(k, val) => {
 从 Eval 获取返回值：
 
 ```go
-val := page.MustEval(`window.a`).Get("name").Str()
-fmt.Println(val) // 输出：jack
+val := page.MustEval(`a`).Get("name").Str()
+fmt.Println(val) // 输出: jack
+```
+
+## 定义一个全局函数
+
+The `Page.Evaluate` method will execute the function if its outermost is a function definition.
+
+例如，下面的 `test` 函数将被立即执行，它将不被视为函数声明：
+
+```go
+page.MustEval(`function test() { alert('ok') }`)
+
+page.MustEval(`test()`) // 报没有定义的错误
+```
+
+To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
+
+```go
+page.MustEval(`test = function () { alert('ok') }`)
+
+page.MustEval(`test()`)
 ```
 
 ## 在元素上 eval
