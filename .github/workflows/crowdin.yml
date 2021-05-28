@@ -1,11 +1,8 @@
 name: Rebase l10n_master Daily
+
 on:
-  push:
-    branches:
-      - '**'
-# on:
-#   schedule:
-#     - cron: '31 3 * * *'
+  schedule:
+    - cron: '31 3 * * *'
 
 jobs:
   linux:
