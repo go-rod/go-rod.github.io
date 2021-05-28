@@ -1,7 +1,11 @@
 name: Rebase l10n_master Daily
 on:
-  schedule:
-    - cron: '31 3 * * *'
+  push:
+    branches:
+      - '**'
+# on:
+#   schedule:
+#     - cron: '31 3 * * *'
 
 jobs:
   linux:
@@ -9,10 +13,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git rebase l10n_master || true
+          if ! git fetch origin l10n_master; then
+            exit 0
+          fi
+          git merge origin/l10n_master
           git push origin master
-          git push -d origin l10n_master || true
+          git push -d origin l10n_master
