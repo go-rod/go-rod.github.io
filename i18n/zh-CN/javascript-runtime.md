@@ -23,8 +23,28 @@ page.MustEval(`(k, val) => {
 从 Eval 获取返回值：
 
 ```go
-val := page.MustEval(`window.a`).Get("name").Str()
-fmt.Println(val) // 输出：jack
+val := page.MustEval(`a`).Get("name").Str()
+fmt.Println(val) // 输出: jack
+```
+
+## 定义一个全局函数
+
+`Page.Evaluate` 会直接执行函数如果最外层是一个函数声明。
+
+例如，下面的 `test` 函数将被立即执行，它将不被视为函数声明：
+
+```go
+page.MustEval(`function test() { alert('ok') }`)
+
+page.MustEval(`test()`) // 报没有定义的错误
+```
+
+要定义全局函数 `测试` ，可以像这样写，因为外层是一个赋值，而不是函数声明：
+
+```go
+page.MustEval(`test = function () { alert('ok') }`)
+
+page.MustEval(`test()`)
 ```
 
 ## 在元素上 eval
