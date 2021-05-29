@@ -21,4 +21,3 @@ jobs:
           fi
           git merge origin/l10n_master
           git push origin master
-          git push -d origin l10n_master
