@@ -1,3 +1,5 @@
+# Contribute Doc
+
 ## Debug and preview
 
 Install [docsify-cli](https://docsify.js.org/#/quickstart).
@@ -11,11 +13,11 @@ docsify serve -o go-rod.github.io
 
 When you edit a doc file, the page will refresh automatically.
 
-## Contribute documentation
+## Documentation
 
 Just create a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) for this [repo](https://github.com/go-rod/go-rod.github.io.git).
 
-## Contribute translations
+## Translations
 
 We use [crowdin](https://crowdin.com/) to manage the localization.
 
