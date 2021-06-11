@@ -18,6 +18,12 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 yum localinstall -y google-chrome-stable_current_x86_64.rpm
 ```
 
+On Alpine:
+
+```bash
+apk add chromium
+```
+
 ## Supported browsers
 
 Rod should work with any browser that supports [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/).
