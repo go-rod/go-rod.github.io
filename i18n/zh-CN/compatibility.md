@@ -18,7 +18,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 yum localinstall -y google-chrome-stable_current_x86_64.rpm
 ```
 
-On Alpine:
+对于 Alpine：
 
 ```bash
 apk add chromium
@@ -26,7 +26,7 @@ apk add chromium
 
 ## 支持的浏览器
 
-Rod should work with any browser that supports [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/).
+Rod 支持任何使用 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/)的浏览器。
 
 - 支持 Microsoft Edge。
 - Firefox 目前正在[支持](https://wiki.mozilla.org/Remote)这一协议。
@@ -35,25 +35,25 @@ Rod should work with any browser that supports [DevTools Protocol](https://chrom
 
 ## 浏览器和 cdp 协议版本号
 
-The cdp protocol is always the same as [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision). If Rod can't find your local browser, it will download the browser version of the `launcher.DefaultRevision`.
+cdp 协议总是与 [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision) 相同。 如果 Rod 找不到本地浏览器，它会下载 `launcher.DefaultRevision` 版本的浏览器。
 
-Each version of Rod only guarantees to work with its `launcher.DefaultRevision` of the browser.
+每个版本的 Rod 指保证支持它的 `launcher.DefaultRevision` 版本的浏览器。
 
 ## API 版本号
 
-[Semver](https://semver.org/) is used.
+采用 [Semver](https://semver.org/)。
 
-Before `v1.0.0` whenever the second section changed, such as `v0.1.0` to `v0.2.0`, there must be some public API changes, such as changes of function names or parameter types. If only the last section changed, no public API will be changed.
+在 `v1.0.0` 之前，如果版本号的第二个部分改变了，比如说由 `v0.1.0` 变为了 `v0.2.0`，那么肯定有公有 API 发生了改变，比如说函数名或参数类型发生了变更。 如果仅仅是版本号的最后一部分改变了，则公有 API 不会变更。
 
-You can use Github's release comparison to see the automated changelog, for example, [compare v0.75.2 with v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0).
+你可以使用 Github 的版本比较来查看自动生成的更新日志，例如，[比较 v0.75.2 与 v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0)。
 
 ## API 文档版本
 
-Go to [here](https://pkg.go.dev/github.com/go-rod/rod?tab=versions).
+参考这里 [](https://pkg.go.dev/github.com/go-rod/rod?tab=versions)。
 
 ## Doc 网站版本
 
-We use github to manage the doc, it's easy to view any version of the doc:
+我们使用 github 来管理文档，很容易查看任何版本的文档：
 
 1. 克隆 doc [repo](https://github.com/go-rod/go-rod.github.io.git)
 2. Git checkout 到你想要的 Rod 版本发布日期附近的 commit
