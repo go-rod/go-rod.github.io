@@ -36,9 +36,9 @@ page.MustEmulate(devices.Device{
 
 还可以通过 [Browser.DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice) 来为所有页面设置默认设备。
 
-设备模拟默认会被起用（[Devices.LaptopWithMDPIScreen](https://github.com/go-rod/rod/blob/bc44c39c9b4352c15d00bef6f6a1071205d2c388/lib/devices/list.go#L616) 会被使用），这会覆盖某些浏览器的默认设定，这么做是为了稳定的一致性（比如有助于复现测试结果）。
+Emulation is activated by default (using the [Devices.LaptopWithMDPIScreen](https://github.com/go-rod/rod/blob/bc44c39c9b4352c15d00bef6f6a1071205d2c388/lib/devices/list.go#L616) device), which overrides some of the default browser settings, which is better in terms of coherence (i.e., it helps to reproduce tests).
 
-你可以通过特殊的 _Clear_ 设备为默认设备来禁用设备模拟功能。
+You can disable the Device Emulation feature passing the special _Clear_ device to the `Browser.DefaultDevice`.
 
 ```go
 browser.DefaultDevice(devices.Clear)
@@ -92,17 +92,16 @@ proto.EmulationSetEmulatedMedia{
 
 ## 防止机器人检测
 
-控制页面时，我们希望整个过程对页面来说完全不可感知，这样页面就不知道是否是机器人在控制它。 当然你也可以自己想办法解决，不过这里有一个久经测试的方案：[代码示例](https://github.com/go-rod/stealth/blob/master/examples_test.go).
+Usually it's better to make the headless browser completely transparent for the page so that the page cannot tell if it's controlled by a human or robot. In some cases, some page could use client js to detect if the page is control by a human or a robot, such web WebGL, WebDriver, or http request headers. You can handcraft a js lib to hide all the trails, or just use lib [stealth](https://github.com/go-rod/stealth): [code example](https://github.com/go-rod/stealth/blob/master/examples_test.go).
 
-In some cases, some servers could detect some incoherences (_lies_) between the params reported in the browser API, other browser features (like web workers) and the headers sent to the server. For those cases it's recommended to disable the device emulation and tune the browser launcher with the [custom launch](custom-launch.md) features.
+If `stealth` lib doesn't work for you, you can just launch the regular user browser with `launcher.NewUserMode`: [User mode](custom-launch.md?id=user-mode).
 
-For example, you could try to:
+You can use tools like [https://bot.sannysoft.com](https://bot.sannysoft.com) to test your configuration.
 
-- Launch the rod browser with some deterministic params (language, viewport, timezone, etc.) to make the browser fingerprint more reliable.
-- Just point the path to use your regular user browser.
+## Browser fingerprint
 
-You can test the reliability of your setup using some test sites:
+Browser fingerprinting is not bot detection. It uses various tricks to collect unique browser attributes to identify browsers. Website can use it to track users even when they are not logged in, it's also widely used to mark headless scrapers. For example, different users usually will install different fonts on their OS, we can use this to distinguish different users. Another example would be using the canvas to render text, different users usually will have different GPUs, graphic drivers, or OSes, they all will affect the result of the rendered image.
 
-- [https://bot.sannysoft.com](https://bot.sannysoft.com)
-- [https://abrahamjuliot.github.io/creepjs](https://abrahamjuliot.github.io/creepjs)
-- [https://pixelscan.net](https://pixelscan.net)
+Usually you can launch multiple browser instances to have different fingerprints. If you want to use a single browser to save memory and CPU, you have to manually overriding the API for canvas, fonts, etc.
+
+You can use open-source projects like [FingerprintJS](https://github.com/fingerprintjs/fingerprintjs/) to test your configuration.
