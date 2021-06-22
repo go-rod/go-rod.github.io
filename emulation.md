@@ -36,6 +36,16 @@ Check the source code of the predefined devices, the fields should self explain 
 
 You can also set the default device for all pages by using [Browser.DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice).
 
+Emulation is activated by default (using the [Devices.LaptopWithMDPIScreen](https://github.com/go-rod/rod/blob/bc44c39c9b4352c15d00bef6f6a1071205d2c388/lib/devices/list.go#L616) device), which overrides some of the default browser settings, which is better in terms of coherence (i.e., it helps to perform repeteable tests).
+
+You can disable the Device Emulation feature passing the special _Clear_ device as DefaultDevice.
+
+```go
+browser.DefaultDevice(devices.Clear)
+```
+
+Or you can just use the [Browser.NoDefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.NoDefaultDevice) helper.
+
 ## User agent
 
 If you want to specify a user-agent for a specific page, use [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent).
@@ -86,4 +96,15 @@ proto.EmulationSetEmulatedMedia{
 
 When we control a page we hope it's completely transparent for the page so that the page cannot tell if it's under
 control or not. Sure you can handcraft one, but here's one tested solution that might help:
-[code example](https://github.com/go-rod/stealth/blob/master/examples_test.go)
+[code example](https://github.com/go-rod/stealth/blob/master/examples_test.go).
+
+In some cases, some servers could detect some incoherences (_lies_) between the params reported in the browser API, other browser features (like web workers) and the headers sent to the server. For those cases it's recommended to disable the device emulation and tune the browser launcher with the [custom launch](custom-launch.md) features.
+
+For example, you could try to:
+- Launch the rod browser with some deterministic params (language, viewport, timezone, etc.) to make the browser fingerprint more reliable.
+- Just point the path to use your regular user browser.
+
+You can test the reliability of your setup using some test sites:
+- https://bot.sannysoft.com
+- https://abrahamjuliot.github.io/creepjs
+- https://pixelscan.net
