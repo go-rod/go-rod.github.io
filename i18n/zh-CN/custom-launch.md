@@ -115,6 +115,17 @@ func main() {
 
 它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile)。 每个容器可以同时启动多个浏览器。
 
-## 底层 API
+## User mode
 
-如果你想要控制启动过程中的每个步骤，比如说禁用自动下载、使用系统默认浏览器，见此[示例文件](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go)。
+When you log into your github account, and you want to reuse the login session for automation task. You can use the `launcher.NewUserMode` to launch your regular user browser. Rod will be just like a browser extension:
+
+```go
+wsURL := launcher.NewUserMode().MustLaunch()
+browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+```
+
+Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
+
+## Low-level API
+
+If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
