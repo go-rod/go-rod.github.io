@@ -101,10 +101,12 @@ control or not. Sure you can handcraft one, but here's one tested solution that 
 In some cases, some servers could detect some incoherences (_lies_) between the params reported in the browser API, other browser features (like web workers) and the headers sent to the server. For those cases it's recommended to disable the device emulation and tune the browser launcher with the [custom launch](custom-launch.md) features.
 
 For example, you could try to:
+
 - Launch the rod browser with some deterministic params (language, viewport, timezone, etc.) to make the browser fingerprint more reliable.
 - Just point the path to use your regular user browser.
 
 You can test the reliability of your setup using some test sites:
-- https://bot.sannysoft.com
-- https://abrahamjuliot.github.io/creepjs
-- https://pixelscan.net
+
+- [https://bot.sannysoft.com](https://bot.sannysoft.com)
+- [https://abrahamjuliot.github.io/creepjs](https://abrahamjuliot.github.io/creepjs)
+- [https://pixelscan.net](https://pixelscan.net)
