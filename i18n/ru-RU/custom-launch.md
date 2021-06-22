@@ -115,6 +115,17 @@ Because it's very hard to install chromium correctly on some linux distributions
 
 The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time.
 
+## User mode
+
+When you log into your github account, and you want to reuse the login session for automation task. You can use the `launcher.NewUserMode` to launch your regular user browser. Rod will be just like a browser extension:
+
+```go
+wsURL := launcher.NewUserMode().MustLaunch()
+browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+```
+
+Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
+
 ## Low-level API
 
 If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
