@@ -126,7 +126,7 @@ Here's an example to use it:
 The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages.
 Each container can launch multiple browsers at the same time.
 
-## User mode
+## User mode :id=user-mode
 
 When you log into your github account, and you want to reuse the login session for automation task.
 You can use the `launcher.NewUserMode` to launch your regular user browser. Rod will be just like a browser extension:
