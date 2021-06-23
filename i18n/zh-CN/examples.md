@@ -2,7 +2,7 @@
 
 请先阅读 [examples_test.go](https://github.com/go-rod/rod/tree/master/examples_test.go) 文件，然后查看 [examples](https://github.com/go-rod/rod/tree/master/lib/examples) 文件夹。
 
-有关更多详细示例，请在单元测试中搜索。 Such as the usage of method `HandleAuth`, you can search all the `*_test.go` files that contain `HandleAuth`, You can also search the GitHub [issues](https://github.com/go-rod/rod/issues) or [discussions](https://github.com/go-rod/rod/discussions), a lot of usage examples are recorded there.
+有关更多详细示例，请在单元测试中搜索。 例如方法 `HandleAuth`的使用，您可以搜索所有 `*_test.go` 包含 `HandleAuth`的文件 您也可以搜索 GitHub [问题](https://github.com/go-rod/rod/issues) 或 [讨论](https://github.com/go-rod/rod/discussions), 这里记录了大量使用示例。
 
 ## 与 Chromedp 的对比
 
