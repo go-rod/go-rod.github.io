@@ -1,29 +1,29 @@
-# Browsers & Pages
+# Przeglądarki & Strony
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+Jest intuicyjne, aby kontrolować wiele przeglądarek lub stron w tym samym czasie.
 
-## Multiple browsers
+## Wiele przeglądarek
 
-To launch multiple browsers:
+Aby uruchomić wiele przeglądarek:
 
 ```go
-browser1 := rod.New().MustConnect()
-browser2 := rod.New().MustConnect()
+przeglądarka1 := rod.New().MustConnect()
+przeglądarka2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Wszystkie API są bezpieczne dla wątków, to samo działa dla wielu rutynów Idź.
 
-You can also use incognito mode to launch multiple browsers:
+Możesz również użyć trybu incognito do uruchomienia wielu przeglądarek:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Uruchom przeglądarki z różnymi argumentami uruchomienia:
 
 ```go
-browser1 := rod.New().ControlURL(
+przeglądarka1 := rod.New().ControlURL(
     launcher.New().Headless(false).MustLaunch()
 ).MustConnect()
 
@@ -32,22 +32,22 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 ```
 
-## Multiple pages
+## Wiele stron
 
-To control multiple pages for a browser:
+Aby kontrolować wiele stron dla przeglądarki:
 
 ```go
-browser := rod.New().MustConnect()
-page1 := browser.MustPage("http://a.com")
-page2 := browser.MustPage("http://b.com")
+przeglądarka := rod.New().MustConnect()
+strona1 := browser.MustPage("http://a.com")
+strona2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Pula stron
 
-We can use PagePool to help concurrently control and reuse pages.
+Możemy użyć PagePool, aby pomóc jednocześnie kontrolować i ponownie używać stron.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Sprawdź ten [przykład](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Pula przeglądarek
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Testy w Rod są dobrym przykładem zarządzania pulą przeglądarek do jednoczesnego przeprowadzania testów. Dlatego testy mogą zakończyć się w kilka sekund. Sprawdź kod [tutaj](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
