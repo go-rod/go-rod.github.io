@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod bietet viele Methoden zur Simulation von menschlichen Eingängen, wie zum Beispiel Mausklick oder Tastendruck.
 
-## Mouse click
+## Mausklick
 
-To simulate the mouse click an element:
+Um die Maus zu simulieren, klicken Sie auf ein Element:
 
 ```go
 // left click
@@ -16,26 +16,26 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Um die Eingabe zu simulieren:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // MustText verwenden um den Text zu erhalten
 ```
 
-## Remove text from an input
+## Text von einer Eingabe entfernen
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Simulieren Sie einfach, wie ein Mensch es macht, wählen Sie den ganzen Text aus und ersetzen Sie ihn durch eine leere Zeichenkette:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Sie können `SelectText` verwenden, um einen Teil des Textes zu ersetzen.
 
-## Time input
+## Zeiteingabe
 
 The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
@@ -45,37 +45,37 @@ page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 
 ## Checkbox
 
-Just click it like a human:
+Klicke einfach wie ein Mensch:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
-if !el.MustProperty("checked").Bool() {
+// // Prüfen Sie, ob nicht
+aktiviert ist, wenn !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## Optionen auswählen
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Wählen Sie Optionen in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Der folgende Code wird Optionen auswählen, die den Text "B" oder "C" enthalten:
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Sie können auch regex oder css-Selektor verwenden, um Optionen auszuwählen:
 
 ```go
-page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
+page.MustElement("select").Select([]string{``^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
+// false setzen um
 page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## Dateien festlegen
 
 Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
@@ -83,6 +83,6 @@ Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/e
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Maus, Tastatur und Berühren
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+Sie können auch die `page.Maus`, `page.Keyboard`oder `page.Touch` verwenden, um niedrigstufige Eingaben zu simulieren. So können Sie den Einheitstest nach Ziehen durchsuchen, um zu lernen, wie man das Ziehen zu simulieren.
