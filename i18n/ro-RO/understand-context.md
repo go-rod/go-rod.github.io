@@ -1,11 +1,11 @@
-# Understand Context
+# Înțelege contextul
 
-Before understanding Context, make sure you have learned [Goroutines](https://tour.golang.org/concurrency/1) and [Channels](https://tour.golang.org/concurrency/2). Context is mainly used to transfer context information between Goroutines, including: cancellation signal, timeout, deadline, k-v, etc.
+Înainte de a înțelege contextul, asigură-te că ai învățat [Goroutine](https://tour.golang.org/concurrency/1) și [Canale](https://tour.golang.org/concurrency/2). Contextul este utilizat în principal pentru a transfera informații contextuale între Goroutines, inclusiv: semnal de anulare, termen-limită, k-v etc.
 
-For example, we have a long-running function `heartbeat` that prints `beat` every second:
+De exemplu, avem o funcţie `bătăi cardiace pe termen lung` care printează `bate` în fiecare secundă:
 
 ```go
-package main
+main
 
 import (
     "fmt"
@@ -17,65 +17,65 @@ func main() {
 }
 
 func heartbeat() {
-    tick := time.Tick(time.Second)
+    tick := time. ick(ora). al doilea)
 
-    for {
+    pentru {
         <-tick
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```
 
-If we want to abort the heartbeat whenever we press the enter key, we may code like this:
+Dacă vrem să abandonăm bătăile inimii ori de câte ori apăsăm tasta de introducere, putem programa astfel:
 
 ```go
 func main() {
     stop := make(chan struct{})
     go func() {
-        fmt.Scanln()
+        fmt. canln()
         close(stop)
     }()
 
-    heartbeat(stop)
+    ritm cardiac (stop)
 }
 
-func heartbeat(stop chan struct{}) {
-    tick := time.Tick(time.Second)
+bătăi func ale inimii (stop chan struct{}) {
+    tick := time. ick(ora). al doilea)
 
-    for {
+    pentru {
         select {
         case <-tick:
         case <-stop:
             return
         }
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```
 
-Because this kind of code is so often used, Golang abstracted a helper package to handle it, it's called [Context](https://golang.org/pkg/context/). If we use Context, the code above will become something like this:
+Deoarece acest tip de cod este folosit atât de des, Golang a abstractizat un pachet de ajutor pentru a-l gestiona, se numește [Context](https://golang.org/pkg/context/). Dacă folosim contextul, codul de mai sus va deveni ceva de genul:
 
 ```go
 func main() {
-    ctx, stop := context.WithCancel(context.Background())
-    go func() {
-        fmt.Scanln()
-        stop()
+    ctx, stop := context.WithCancel(context. ackground())
+    mergi func() {
+        fmt. canln()
+        opri()
     }()
 
-    heartbeat(ctx)
+    bătăi cardiace (ctx)
 }
 
-func heartbeat(ctx context.Context) {
-    tick := time.Tick(time.Second)
+bătăi func (ctx context. ontext) {
+    tick := time. ick(ora). al doilea)
 
-    for {
+    pentru {
         select {
         case <-tick:
-        case <-ctx.Done():
+        case <-ctx. una():
             return
         }
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```
