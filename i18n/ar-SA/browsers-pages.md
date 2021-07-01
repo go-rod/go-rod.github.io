@@ -1,53 +1,53 @@
-# Browsers & Pages
+# المتصفحات & الصفحات
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+من البديهي استخدام Rod للتحكم في العديد من المتصفحات أو الصفحات في نفس الوقت.
 
-## Multiple browsers
+## متصفحات متعددة
 
-To launch multiple browsers:
+لبدء متصفحات متعددة:
 
 ```go
-browser1 := rod.New().MustConnect()
-browser2 := rod.New().MustConnect()
+المتصفح1 := rod.New().MustConnect()
+المتصفح2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+جميع واجهات برمجة التطبيقات آمنة للموضوع، نفس الأعمال لتعدد الروتينيات.
 
-You can also use incognito mode to launch multiple browsers:
+يمكنك أيضا استخدام وضع التخفي لتشغيل متصفحات متعددة:
 
 ```go
-browser1 := rod.New().MustConnect()
-browser2 := browser1.MustIncognito()
+المتصفح1 := rod.New().MustConnect()
+المتصفح2 := المتصفح.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+تشغيل المتصفحات مع حجج تشغيل مختلفة:
 
 ```go
-browser1 := rod.New().ControlURL(
+المتصفح1 := rod.New().ControlURL(
     launcher.New().Headless(false).MustLaunch()
 ).MustConnect()
 
-browser1 := rod.New().ControlURL(
+المتصفح1 := rod.New().ControlURL(
     launcher.New().UserDataDir("path").MustLaunch()
 ).MustConnect()
 ```
 
-## Multiple pages
+## صفحات متعددة
 
-To control multiple pages for a browser:
+للتحكم في صفحات متعددة للمتصفح:
 
 ```go
-browser := rod.New().MustConnect()
-page1 := browser.MustPage("http://a.com")
-page2 := browser.MustPage("http://b.com")
+المتصفح := rod.New().MustConnect()
+صفحة 1 := المتصفح.MustPage("http://a.com")
+صفحة 2 := المتصفح.MustPage("http://b.com")
 ```
 
-## Page pool
+## مخزن الصفحات
 
-We can use PagePool to help concurrently control and reuse pages.
+يمكننا استخدام PagePool للمساعدة في نفس الوقت في التحكم في الصفحات وإعادة استخدامها.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+تحقق من هذا [المثال](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## مخزن المتصفح
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+والاختبارات في رود مثال جيد على إدارة مجموعة من المتصفحات لتشغيل الاختبارات في نفس الوقت. لهذا السبب يمكن أن تنتهي الاختبارات في ثوان. تحقق من الكود [هنا](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
