@@ -1,25 +1,25 @@
-# Custom Browser Launch
+# تشغيل متصفح مخصص
 
-## Connect to an running browser
+## الاتصال بمتصفح قيد التشغيل
 
-Find the executable path of your browser, such as on macOS run:
+ابحث عن المسار القابل للتنفيذ للمتصفح الخاص بك، مثل تشغيل macOS:
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --Remote-debugging-port=9222
 ```
 
-It will output something like:
+وستنتج شيئا من هذا القبيل:
 
 ```txt
-DevTools listening on ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913
+تستمع الأدوات على العنوان التالي: w://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6c913
 ```
 
-The above `ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913` is the interface to control the browser:
+`ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913` هو واجهة التحكم في المتصفح:
 
 ```go
-package main
+استيراد الحزمة الرئيسية
 
-import (
+(
     "github.com/go-rod/rod"
 )
 
@@ -29,103 +29,103 @@ func main() {
 }
 ```
 
-## The launcher lib
+## لوحة المشغل
 
-Because the above workflow is so often used, we abstract a the `launcher` lib to simplify launch of browsers. Such as automatically download or search for the browser executable, add or delete the browser executable command-line arguments, etc.
+نظرًا لأن سير العمل أعلاه يتم استخدامه في كثير من الأحيان، فإننا نلخص `مشغل` لتبسيط إطلاق المتصفحات. مثل التحميل التلقائي أو البحث عن الجهاز التنفيذي للمتصفح، إضافة أو حذف حجج سطر الأوامر التنفيذي للمتصفح، إلخ.
 
-So the above manual launch and code becomes:
+لذا يصبح الإطلاق اليدوي والشفرة المذكورة أعلاه:
 
 ```go
-func main() {
+تموج main() {
     u := launcher.New().Bin("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").MustLaunch()
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
-}
+
 ```
 
-We can use the helper function `launcher.LookPath` to get the browser executable path, the above code is the same as:
+يمكننا استخدام وظيفة المساعد `المشغل.LookPath` للحصول على المسار التنفيذي للمتصفح، الرمز أعلاه هو نفسه:
 
 ```go
 func main() {
-    path, _ := launcher.LookPath()
+    المسار _ := launcher.LookPath()
     u := launcher.New().Bin(path).MustLaunch()
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
 
-If `ControlURL` is not set, the `MustConnect` will run `launcher.New().MustLaunch()` automatically. By default, the launcher will automatically download and use a statically versioned browser so that the browser behavior is consistent. So you can simplify the above code into:
+إذا لم يتم تعيين `ControlURL` ، سيتم تشغيل `MustConnect` `launcher.New().MustLaunch()` تلقائيا. بشكل افتراضي، سيقوم المشغل تلقائياً بتنزيل واستخدام متصفح محمول بشكل ثابت حتى يكون سلوك المتصفح متسقاً. لذا يمكنك تبسيط التعليمات البرمجية أعلاه في:
 
 ```go
-func main() {
+تمرين الرئيسي() {
     rod.New().MustConnect().MustPage("https://example.com")
 }
 ```
 
-## Add or remove options
+## إضافة أو إزالة الخيارات
 
-You can use the `Set` and `Delete` to modify the browser launch arguments (flags):
+يمكنك استخدام `مجموعة` و `حذف` لتعديل حجج تشغيل المتصفح (الأعلام):
 
 ```go
-package main
+استيراد الحزمة الرئيسية
 
-import (
+(
     "github.com/go-rod/rod"
-    "github.com/go-rod/rod/lib/launcher"
+    "github.com/go-rod/rod/lib/launcher
 )
 
 func main() {
-    u := launcher.New().
-        Set("user-data-dir", "path").
-        Set("headless").
-        Delete("--headless").
+    u := launcher.New.
+        Set("userer-data-dir", "path").
+        الإعداد("بدون رأس").
+        حذف("--بدون رأس").
         MustLaunch()
 
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
 
-As you can see from above the `--` prefix is optional, such as `headless` and `--headless` are the same.
+كما ترون من أعلى `--` البادئة اختيارية، مثل `بلا رأس` و `--بلا رأس` هي نفسها.
 
-Because options like `user-data-dir`, `proxy-server`, `headless` are so often used, we added some helpers for them, so the above code can become like this:
+لأن الخيارات مثل `المستخدم-البيانات-dir`، `بروكسي-سيرفر`، `لا رأس` غالبا ما يتم استخدامها، أضفنا بعض المساعدين لهم، لذلك يمكن أن تصبح التعليمات البرمجية أعلاه مثل هذا:
 
 ```go
-func main() {
-    u := launcher.New().
+تمسك الرئيسي() {
+    u := launcher.New.
         UserDataDir("path").
-        Headless(true).
-        Headless(false).
+        هلا (صحيح).
+        هيرمينيس (مزيف).
         MustLaunch()
 
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
 
-Here are the available flags: [link](https://peter.sh/experiments/chromium-command-line-switches).
+فيما يلي الأعلام المتاحة: [رابط](https://peter.sh/experiments/chromium-command-line-switches).
 
-Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
+اقرأ API doc لمزيد من المعلومات: [رابط](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
-## Remotely manage the launcher
+## إدارة المشغل عن بعد
 
-For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+في نظام خردة الإنتاج، عادةً، سنقوم بتقسيم الناطحات والمتصفحات إلى مجموعات مختلفة بحيث يمكن قياسها بشكل منفصل. يوفر Rod الوحدة النمطية `مشغل .Manager` لإدارة المشغل عن بعد. مع ذلك يمكننا تشغيل متصفح عن بعد مع أعلام الإطلاق المخصصة. المثال لاستخدامه هو [هنا](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
 
-Because it's very hard to install chromium correctly on some linux distributions, Rod provides a docker image to make it consistent cross platforms. Here's an example to use it:
+لأنه من الصعب جداً تثبيت الكروم بشكل صحيح على بعض توزيعات لينوكس، يوفر رود صورة مرفأ لجعله متماسكاً عبر المنصات. إليك مثال لاستخدامه:
 
-1. Run the rod image `docker run -p 7317:7317 ghcr.io/go-rod/rod`
+1. تشغيل صورة القضيب `docker تشغيل -p 7317:7317 ghcr.io/go-rod/rod`
 
-2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
+2. افتح محطة طرفية أخرى وقم بتشغيل التعليمات البرمجية مثل هذا المثال [](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
 
-The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time.
+الصورة [تم ضبطها](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) لقطات الشاشة والخطوط بين اللغات الطبيعية الشائعة. ويمكن لكل حاوية أن تطلق متصفحات متعددة في نفس الوقت.
 
-## User mode :id=user-mode
+## وضع المستخدم :id=user-mode
 
-When you log into your github account, and you want to reuse the login session for automation task. You can use the `launcher.NewUserMode` to launch your regular user browser. Rod will be just like a browser extension:
+عند تسجيل الدخول إلى حساب github الخاص بك، تريد إعادة استخدام جلسة تسجيل الدخول لمهمة التشغيل الآلي. يمكنك استخدام `مشغل .NewUserMode` لتشغيل متصفح المستخدم العادي الخاص بك. سيكون الرود مثل ملحق المتصفح:
 
 ```go
 wsURL := launcher.NewUserMode().MustLaunch()
-browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+المتصفح := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
 ```
 
-Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
+إليك مثال أكثر تفصيلاً: [مثال التعليمات البرمجية](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
 
-## Low-level API
+## API مستوى منخفض
 
-If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
+إذا كنت ترغب في التحكم في كل خطوة من عملية الإطلاق، مثل تعطيل التحميل التلقائي واستخدام المتصفح الافتراضي للنظام، تحقق من [مثال الملف](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
