@@ -1,35 +1,35 @@
-# Network
+# Nettverk
 
-## Hijack requests
+## Forespørsler om hierarkisk
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+Du kan bruke Rod til å skjule hvilken som helst HTTP eller HTTPS trafikk.
 
-The entire process of hijacking one request:
+Hele prosessen med å fjerne én forespørsel:
 
 ```text
-   browser --req-> rod ---> server ---> rod --res-> browser
+   nettleser --req-> rod ---> server ---> rod --res-> nettleser
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+Når nettleseren ønsker å sende en forespørsel til en server, vil den sende forespørselen til Rod først, deretter vil Rod oppføre seg som en proxy for å sende forespørselen til den faktiske serveren og returnere svaret til nettleseren. `--req->` og `--s ->` er delene som kan endres.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+For eksempel for å erstatte en fil `test.js` svar fra serveren kan vi gjøre noe slik:
 
 ```go
-browser := rod.New().MustConnect()
+nettleser := rod.New().MustConnect()
 
 router := browser.HijackRequests()
 
-router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
+router.MustAdd("*/test.js", funksjoner (ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.SetBody(`konsoll. og(«js fil erstattet»)
 })
 
-go router.Run()
+gå router.Run()
 
-page := browser.MustPage("https://test.com/")
+side := browser.MustPage("https://test.com/")
 
-// Hijack requests under the scope of a page
+// Hijack forespørsler under omfanget for en side
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For mer informasjon, sjekk [hijack-tester](https://github.com/go-rod/rod/blob/master/hijack_test.go)
