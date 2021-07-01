@@ -1,3 +1,3 @@
-# Source Code
+# Kilde Kode
 
-The main code repository: [link](https://github.com/go-rod/rod).
+Hovedkode repository: [link](https://github.com/go-rod/rod).
