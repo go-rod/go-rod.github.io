@@ -1,88 +1,88 @@
-# Selectors
+# Väljare
 
-Rod provides lots of methods to get elements. Their names are all prefixed with `MustElement` or `Element`. If you use an IDE after you type `Element`, you will see all the available selectors like below:
+Rod ger massor av metoder för att få element. Deras namn är alla prefixade med `MustElement` eller `Element`. Om du använder en IDE när du skriver `Element`, kommer du att se alla tillgängliga selektorer som nedan:
 
-![ide-selectors](ide-selectors.png)
+![ide-väljare](ide-selectors.png)
 
-If you hover the cursor over the method, you will see the doc of it like below:
+Om du svävar markören över metoden, kommer du att se doc av det som nedan:
 
 ![ide-doc](ide-doc.png)
 
-Usually, you only need some basic knowledge of [CSS Selector](css-selector) to achieve the automation task you want to do. In the rest of the documentation we will only use CSS Selector to get elements from the page.
+Vanligtvis behöver du bara några grundläggande kunskaper i [CSS Selector](css-selector) för att uppnå den automatiseringsuppgift du vill göra. I resten av dokumentationen kommer vi endast att använda CSS-väljaren för att få element från sidan.
 
-## By text content
+## Efter textinnehåll
 
-Use `ElementR` to match elements with specific text content, such as select the search input in the screenshot below:
+Använd `ElementR` för att matcha element med specifikt textinnehåll, till exempel välj sökinmatningen i skärmdumpen nedan:
 
 ![match-text](match-text.png)
 
 ```go
 page.MustElementR("input", "Search or jump")
-page.MustElementR("input", "/click/i") // use the case-insensitive flag "i"
+page.MustElementR("input", "/click/i") // använd den fall-okänsliga flaggan "i"
 ```
 
-Since we use [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), we don't have to match the whole text context. The text to match is what you actually see on the website, not the source code, compare 1 and 2 in the screenshot below. You can use the `copy` helper in Devtools to copy the text to your clipboard (look at the 4):
+Eftersom vi använder [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)behöver vi inte matcha hela textkontexten. Texten att matcha är vad du faktiskt ser på webbplatsen, inte källkoden, jämför 1 och 2 i skärmdumpen nedan. Du kan använda `kopiera` hjälparen i Devtools för att kopiera texten till ditt urklipp (titta på 4):
 
-![copy-text](copy-text.png)
+![kopieringstext](copy-text.png)
 
-## By XPath
+## Efter XPath
 
-CSS selector is the recommended way to selector elements, such as you cannot use XPath to select [rendered text](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454). But sometimes XPath may be handier for programmers coming from other languages. Use the `ElementX` for XPath:
+CSS-väljare är det rekommenderade sättet att välja element som du inte kan använda XPath för att välja [renderad text](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454). Men ibland kan XPath vara handier för programmerare som kommer från andra språk. Använd `ElementX` för XPath:
 
 ```go
 page.MustElementX("//h2")
 ```
 
-## By Javascript
+## Av Javascript
 
-If you have a complex query or you want to use a high-level query engine, such as [jQuery](https://jquery.com/):
+Om du har en komplex fråga eller om du vill använda en sökmotor på hög nivå, till exempel [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`jQuery('option:selected')[0]`)
+sida.MustElementByJS(`jQuery('option:selected')[0]`)
 ```
 
-Actually, if you check the source code of other selectors, such as `Element` or `ElementR`, they are all based on `ElementByJS`, and `ElementByJS` is based on `Page.Evaluate`, for more details about how to evaluate js, check the [Javascript Runtime](/javascript-runtime.md). Usually, you use `ElementByJS` to create your own selector to extend Rod.
+Faktum är att om du kontrollerar källkoden för andra selektorer, som `Element` eller `ElementR`, de är alla baserade på `ElementByJS`, och `ElementByJS` är baserade på `sida. värdera`, för mer information om hur man utvärderar js, kontrollera [Javascript Runtime](/javascript-runtime.md). Vanligtvis använder du `ElementByJS` för att skapa din egen väljare för att förlänga Rod.
 
-## Select list of elements
+## Välj lista över element
 
-The names of the methods to get multiple elements are all prefixed with `MustElements` or `Elements`. One key difference between a single-selector and a multi-selector is the single-selector will wait for the element to appear. If a multi-selector doesn't find anything, it will immediately return an empty list.
+Namnen på metoderna för att få flera element är alla prefixade med `MustElements` eller `Elements`. En nyckelskillnad mellan en enda väljare och en multiväljare är att en väljare väntar på att -elementet ska visas. Om en multiväljare inte hittar något kommer den omedelbart att returnera en tom lista.
 
-## Traverse element tree
+## Träd med traverser
 
-There are also some handy selectors to select elements inside or around an element, such as `MustParent`, `MustNext`, `MustPrevious`, etc.
+Det finns också några praktiska väljare att välja element inuti eller runt ett element, såsom `MustParent`, `MustNext`, `MustPrevious`, etc.
 
-Here's an example of how we use various selectors to retrieve contents from a page:
+Här är ett exempel på hur vi använder olika väljare för att hämta innehåll från en sida:
 
 ```go
-// On awesome-go page, finding the specified section sect,
-// and retrieving the associated projects from the page.
+// På awesome-go-sidan hittar du det angivna avsnittet sekt,
+// och hämtar de associerade projekten från sidan.
 func main() {
     page := rod.New().MustConnect().MustPage("https://github.com/avelino/awesome-go")
 
-    section := page.MustElementR("p", "Selenium and browser control tools").MustNext()
+    sektion := sida.MustElementR("p", "Selen och webbläsare styrverktyg"). ustNext()
 
-    // get children elements of an element
-    projects := section.MustElements("li")
+    // få underordnade element i ett element
+    projekt := avsnitt. ustElements("li")
 
     for _, project := range projects {
-        link := project.MustElement("a")
-        log.Printf(
-            "project %s (%s): '%s'",
-            link.MustText(),
-            link.MustProperty("href"),
-            project.MustText(),
+        link := project. ustElement("a")
+        logg. rintf(
+            "projekt %s (%s): '%s'",
+            länk. ustText(),
+            länk. ustProperty("href"),
+            projekt. ustText(),
         )
     }
 }
 ```
 
-## Get elements from iframes
+## Hämta element från iframes
 
-For example we have want to get the button from the nested iframes:
+Till exempel har vi vill få knappen från de nästlade iframes:
 
 ![iframes](iframes.png)
 
-The code will look like:
+Koden kommer att se ut:
 
 ```go
 frame01 := page.MustElement("iframe").MustFrame()
@@ -90,59 +90,59 @@ iframe02 := iframe01.MustElement("iframe").MustFrame()
 frame02.MustElement("button")
 ```
 
-## Search elements
+## Sök element
 
-There's another powerful helper to get elements, the `MustSearch`. It's less precise than the selectors mentioned above, but it's handy if you want to get elements from deep nested iframes or shadow-doms.
+Det finns en annan kraftfull hjälpare att hämta element, `MustSearch`. Det är mindre exakt än de selektorer som nämns ovan, men det är praktiskt om du vill få element från djupa nästlade iramar eller skugg-doms.
 
-The functionality is the same as the [Devtools' Search for nodes](https://developers.google.com/web/tools/chrome-devtools/dom#search), you can use it to find out what keyword to use to select the element you want, like the screenshot below:
+Funktionen är densamma som [Devtools' Sök efter noder](https://developers.google.com/web/tools/chrome-devtools/dom#search), du kan använda den för att ta reda på vilket nyckelord du vill använda för att välja det element du vill ha, som skärmdump nedan:
 
-![search](search.png)
+![sök](search.png)
 
-To get the same element from the [Get elements from iframes](#get-elements-from-iframes), we can simply code like this:
+För att få samma element från [Hämta element från iframes](#get-elements-from-iframes)kan vi helt enkelt koda så här:
 
 ```go
-page.MustSearch("button")
+MustSearch("knapp")
 ```
 
-## Race selectors
+## Ras väljare
 
-Rod encourage sleep-free automation to reduce flakiness. When an action has multiple results, we don't use sleep to wait for the page to redirect or settle down. For example, when we login a page, the password maybe incorrect, we want to handle the success and failure separately. We should avoid code like below:
+Rod uppmuntra sömnfri automatisering för att minska flagnigheten. När en åtgärd har flera resultat använder vi inte sömn för att vänta på att sidan ska omdirigeras eller avvecklas. Till exempel, när vi loggar in en sida, lösenordet kanske felaktigt, vi vill hantera framgång och misslyckande separat. Vi bör undvika kod som nedan:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
+    sida := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
-    page.MustElement("#id_login").MustInput("username")
-    page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
+    sida.MustElement("#id_login").MustInput("användarnamn")
+    sida.MustElement("#id_password").MustInput("lösenord").MustPress(input.Enter)
 
-    time.Sleep(10 * time.Second) // Please avoid the use of time.Sleep!
+    tid.Sleep(10 * time.Second) // Undvik användning av tid.Sleep!
 
-    if page.MustHas(".nav-user-icon-base") {
-        // print the username after successful login
-        fmt.Println(*el.MustAttribute("title"))
-    } else if page.MustHas("[data-cy=sign-in-error]") {
-        // when wrong username or password
-        fmt.Println(el.MustText())
+    om sidan.MustHas(". av-user-icon-base") {
+        // skriv ut användarnamnet efter lyckad inloggning
+        fmt. rintln(*el.MustAttribute("titel"))
+    } annars om sidan. ustHas("[data-cy=sign-in-error]") {
+        // när fel användarnamn eller lösenord
+        fmt. rintln(el.MustText())
     }
 }
 ```
 
-Instead we should code like this:
+Istället skulle vi koda så här:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
+    sida := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
-    page.MustElement("#id_login").MustInput("username")
-    page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
+    sida.MustElement("#id_login").MustInput("användarnamn")
+    sida. ustElement("#id_password").MustInput("lösenord").MustPress(input.Enter)
 
-    // It will keep polling until one selector has found a match
-    page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
-        // print the username after successful login
-        fmt.Println(*e.MustAttribute("title"))
-    }).Element("[data-cy=sign-in-error]").MustHandle(func(e *rod.Element) {
-        // when wrong username or password
-        panic(e.MustText())
+    // Det kommer att fortsätta polling tills en selektor har hittat en match
+    page.Race().Element(". av-user-icon-base").MustHandle (funktion (e *stav. lement) {
+        // skriv ut användarnamnet efter lyckad inloggning
+        fmt. rintln(*e.MustAttribute("titel"))
+    }). lement("[data-cy=sign-in-error]").MustHandle(func(e *rod. lement) {
+        // vid fel användarnamn eller lösenord
+        panic(e. ustText())
     }).MustDo()
 }
 ```
