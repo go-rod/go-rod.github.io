@@ -1,40 +1,40 @@
-# Browsers & Pages
+# Browsere & Pagini
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+Este intuitiv să folosești Rod pentru a controla mai multe browsere sau pagini în același timp.
 
-## Multiple browsers
+## Mai multe browsere
 
-To launch multiple browsers:
+Pentru a lansa mai multe browsere:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Toate API-urile sunt nesigure, la fel și pentru mai multe rutine.
 
-You can also use incognito mode to launch multiple browsers:
+De asemenea, puteți utiliza modul incognito pentru a lansa mai multe browsere:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Lansează browsere cu diferite argumente de lansare:
 
 ```go
 browser1 := rod.New().ControlURL(
     launcher.New().Headless(false).MustLaunch()
 ).MustConnect()
 
-browser1 := rod.New().ControlURL(
-    launcher.New().UserDataDir("path").MustLaunch()
+browser: = rod.New().ControlURL(
+    launcher.New().New().UserDataDir("path").MustLaunch()
 ).MustConnect()
 ```
 
-## Multiple pages
+## Mai multe pagini
 
-To control multiple pages for a browser:
+Pentru a controla mai multe pagini pentru un browser:
 
 ```go
 browser := rod.New().MustConnect()
@@ -42,12 +42,12 @@ page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Rezerva paginilor
 
-We can use PagePool to help concurrently control and reuse pages.
+Putem folosi PagePool pentru a ajuta simultan la controlul și reutilizarea paginilor.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Vezi acest exemplu [](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Browser de conexiune
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Testele din Rod sunt un bun exemplu de gestionare a unei rezerve de browsere pentru a rula simultan teste. De aceea testele se pot termina în secunde. Verifică codul [aici](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
