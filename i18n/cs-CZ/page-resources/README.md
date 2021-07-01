@@ -1,18 +1,18 @@
-# Page Resources
+# Zdroje stránky
 
-You can use the `Page.GetResource` method to get files from here:
+Můžete použít metodu `Page.GetResource` k získání souborů zde:
 
-![page-resources](page-resources.png)
+![Zdroje na stránkování](page-resources.png)
 
-Such as get an image:
+Například, jak získat obrázek:
 
 ```go
 bin, err := page.GetResource("https://test.com/a.png")
 ```
 
-## Element resource
+## Zdroj prvku
 
-You can also use the `Element.Resource` method to get the file of the `src` attribute. Such as for element `<img src="a.jpg">`, you can use code like this to get the `a.jpg`:
+Můžete také použít metodu `Element.Resource` pro získání souboru atributu `src`. Jako u prvku `<img src="a.jpg">`můžete použít kód jako tento k získání `a.jpg`:
 
 ```go
 bin := page.MustElement("img").MustResource()
