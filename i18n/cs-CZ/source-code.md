@@ -1,3 +1,3 @@
-# Source Code
+# Zdrojový kód
 
-The main code repository: [link](https://github.com/go-rod/rod).
+Hlavní úložiště kódů: [odkaz](https://github.com/go-rod/rod).
