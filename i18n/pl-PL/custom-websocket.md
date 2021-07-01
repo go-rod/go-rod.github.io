@@ -1,55 +1,55 @@
-# Customize the WebSocket
+# Dostosuj WebSocket
 
-Useful when you want to proxy the transport layer or tune the performance. Here we use the `github.com/gorilla/websocket` as an example, you can wrap any lib you like.
+Przydatne, gdy chcesz proxy warstwa transportowa lub dostrajanie wydajności. Tutaj używamy `github.com/gorilla/websocket` jako przykładu, możesz owijać wszystkie libu, które chcesz.
 
 ```go
-package main
+pakiet główny
 
 import (
     "context"
     "fmt"
     "net/http"
 
-    "github.com/go-rod/rod"
-    "github.com/go-rod/rod/lib/cdp"
+    "github. om/go-rod/rod"
+    "github. om/go-rod/rod/lib/cdp"
     "github.com/go-rod/rod/lib/launcher"
-    "github.com/gorilla/websocket"
+    "github. om/gorilla/websocket"
 )
 
 func main() {
-    u := launcher.New().MustLaunch()
+    u := launcher.New(). ustLaunch()
 
-    // Use a custom websocket lib as the transport layer for JSON-RPC
-    client := cdp.New(u).Websocket(&MyWebSocket{})
+    // Użyj własnej libi websocket jako warstwy transportowej dla JSON-RPC
+    klienta := cdp. ew(u).Websocket(&MyWebSocket{})
 
-    p := rod.New().Client(client).MustConnect().MustPage("http://example.com")
+    p := rod.New().Client(client). ustConnect().MustPage("http://example.com")
 
     fmt.Println(p.MustInfo().Title)
 }
 
-// MyWebSocket implements the cdp.WebSocketable interface
-var _ cdp.WebSocketable = &MyWebSocket{}
+// MyWebSocket imimplementuje cdp.WebSocketable interfejs
+var _ cdp. ebSocketable = &MyWebSocket{}
 
 type MyWebSocket struct {
     conn *websocket.Conn
 }
 
-func (ws *MyWebSocket) Connect(ctx context.Context, url string, header http.Header) error {
-    dialer := *websocket.DefaultDialer
-    dialer.WriteBufferSize = 2 * 1024 * 1024 // 2MB
+func (ws *MyWebSocket) Connect(kontekst ctx. błąd ontext, ciąg URL, nagłówek http.Header) {
+    dialer := *websocket. efaultDialer
+    dialer.WriteBufferSize = 2 * 1024 * 1024 / 2MB
 
-    conn, _, err := dialer.DialContext(ctx, url, header)
-    ws.conn = conn
+    conn, _, err := dialer. ialContext(ctx, url, header)
+    ws. onn = conn
 
     return err
 }
 
-func (ws *MyWebSocket) Send(b []byte) error {
-    return ws.conn.WriteMessage(websocket.TextMessage, b)
+func (ws *MyWebSocket) Send(b []byte) błąd {
+    return ws. onn.WriteMessage(websocket. extMessage, b)
 }
 
-func (ws *MyWebSocket) Read() ([]byte, error) {
-    _, data, err := ws.conn.ReadMessage()
-    return data, err
+func (ws *MyWebSocket) Read() []bajt, error) {
+    _, data, err := ws. onn.ReadMessage()
+    zwraca dane, err
 }
 ```
