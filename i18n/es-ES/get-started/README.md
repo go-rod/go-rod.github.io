@@ -1,14 +1,14 @@
-# Get Started with Rod
+# Empezar con Rod
 
-## Requirements
+## Requisitos
 
-[Golang](https://golang.org/) is the only requirement, you don't even need to know anything about HTML.
+[Golang](https://golang.org/) es el único requerimiento, ni siquiera necesitas saber nada sobre HTML.
 
-If you have never used Golang, [install](https://golang.org/doc/install) it and you can master it in hours: [A tour of Go](https://tour.golang.org/welcome).
+Si nunca has usado Golang, [instala](https://golang.org/doc/install) y puedes dominarlo en horas: [Un tour de Ir](https://tour.golang.org/welcome).
 
-## First program
+## Primer programa
 
-Let's use Rod to open a page and take a screenshot of it, first, create a "main.go" file with the content below:
+Vamos a usar Rod para abrir una página y tomar una captura de pantalla de ella, primero, crear un archivo "main.go" con el contenido de abajo:
 
 ```go
 package main
@@ -21,9 +21,9 @@ func main() {
 }
 ```
 
-The `rod.New` creates a browser object, the `MustConnect` launches and connects to a browser. The `MustPage` creates a page object, it's like a page tab in the browser. The `MustWaitLoad` waits for the page is fully loaded. The `MustScreenshot` takes a screenshot of the page.
+El `rod.New` crea un objeto de navegador, el `MustConnect` se inicia y se conecta a un navegador. El `MustPage` crea un objeto de página, es como una pestaña de página en el navegador. The `MustWaitLoad` waits for the page is fully loaded. El `MustScreenshot` toma una captura de pantalla de la página.
 
-Create a module:
+Crear un módulo:
 
 ```bash
 go env -w GOPROXY=https://goproxy.io,direct
@@ -31,29 +31,29 @@ go mod init learn-rod
 go mod tidy
 ```
 
-Run the module:
+Ejecutar el módulo:
 
 ```bash
-go run .
+ir a correr .
 ```
 
-The program will output a screenshot "a.png" like the one below:
+El programa mostrará una captura de pantalla "a.png" como la siguiente:
 
-![first-program](first-program.png)
+![primero-programa](first-program.png)
 
-## See what's under the hood
+## Mira lo que está debajo del capucha
 
-For senior developers, you can skip all and read this file: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
+Para desarrolladores superiores, puedes omitir todos y leer este archivo: [enlace](https://github.com/go-rod/rod/blob/master/examples_test.go).
 
-By default, Rod will disable the browser's UI to maximize the performance. But when developing an automation task we usually care more about the ease of debugging. Rod provides a lot of solutions to help you debug the code.
+De forma predeterminada, Rod desactivará la interfaz de usuario del navegador para maximizar el rendimiento. Pero cuando desarrollamos una tarea de automatización normalmente nos importa más la facilidad de depuración. Rod proporciona muchas soluciones para ayudarle a depurar el código.
 
-Let's create a ".rod" config file under the current working directory. The content is:
+Vamos a crear un archivo de configuración ".rod" en el directorio de trabajo actual. El contenido es:
 
 ```txt
-show
+ver
 ```
 
-It means "show the browser UI on the foreground". Before we run the module again, let's append `time.Sleep(time.Hour)` to the end the code so that it won't be too fast for our eyes to catch it, the code of "main.go" now becomes:
+Significa "mostrar la interfaz de usuario del navegador en primer plano". Antes de volver a ejecutar el módulo, añadamos `time.Sleep(time. nuestro)` hasta el final el código para que no sea demasiado rápido para que nuestros ojos lo capturen, el código de "main. o" ahora se convierte:
 
 ```go
 package main
@@ -71,42 +71,42 @@ func main() {
 }
 ```
 
-If you run the module again, you should see a browser like this:
+Si vuelves a ejecutar el módulo, deberías ver un navegador como esto:
 
-![show](show.png)
+![ver](show.png)
 
-Press [CTRL + C](https://en.wikipedia.org/wiki/Control-C) on the keyboard to stop the program.
+Pulsa [CTRL + C](https://en.wikipedia.org/wiki/Control-C) en el teclado para detener el programa.
 
-## Input and click
+## Entrada y haga clic
 
-Let's automate the website to search the keyword "earth". A website may have many input fields or buttons, we need to tell the program which one to manipulate. Usually, we use [Devtools](https://developers.google.com/web/tools/chrome-devtools/) to help us locate the element we want to control. let's append a new config to the ".rod" file to enable the Devtools, now it becomes:
+Automatizemos el sitio web para buscar la palabra clave "tierra". Un sitio web puede tener muchos campos de entrada o botones, necesitamos decirle al programa cuál manipular. Generalmente, utilizamos [Devtools](https://developers.google.com/web/tools/chrome-devtools/) para ayudarnos a localizar el elemento que queremos controlar. añadiremos una nueva configuración al archivo ".rod" para activar Devtools, ahora se hace:
 
 ```txt
 show
 devtools
 ```
 
-Run the "main.go" again, move your mouse to the input field and right-click above it, you will see the context menu, then click the "inspect":
+Ejecutar la "principal. o" otra vez, mueva el ratón al campo de entrada y haga clic derecho en encima de él, verá el menú contextual, luego haga clic en "inspeccionar":
 
-![inspect](inspect.png)
+![inspeccionar](inspect.png)
 
-You should see the `<input id="searchInput` like below:
+Deberías ver la `<input id="searchInput` como a continuación:
 
 ![input](input.png)
 
-Right-click to copy the [css selector](css-selector.md) like the image above. The content on your clipboard will be "#searchInput". We will use it to locate the element to input the keyword. Now the "main.go" becomes:
+Haga clic derecho para copiar el [selector cbr.](css-selector.md) como la imagen anterior. El contenido de su portapapeles será "#searchInput". Lo usaremos para localizar el elemento para introducir la palabra clave. Ahora el "main.go" se hace:
 
 ```go
-package main
+paquete principal
 
 import (
     "time"
 
-    "github.com/go-rod/rod"
+    "github. om/go-rod/rod"
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
+    page := rod.New().MustConnect().MustPage("https://www.wikipedia. rg/").MustWindowFullscreen()
 
     page.MustElement("#searchInput").MustInput("earth")
 
@@ -115,17 +115,17 @@ func main() {
 }
 ```
 
-The `MustWindowFullscreen` resizes the browser window to make it easier to debug. We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitLoad` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
+`MustWindowFullscreen` cambia el tamaño de la ventana del navegador para facilitar la depuración. Utilizamos `MustElement` y el selector que hemos copiado desde el panel de Devtools para obtener el elemento que queremos manipular. El `MustElement` esperará automáticamente hasta que el elemento aparezca, así que no necesitamos usar `MustWaitLoad` antes de él. Luego llamamos a la `MustInput` para introducir la palabra clave "tierra" en ella. Si vuelves a ejecutar el "main.go", deberías ver el resultado que aparece a continuación:
 
-![after-input](after-input.png)
+![después?](after-input.png)
 
-Similar to the input field let's right-click the search button to copy the selector for it:
+Similar al campo de entrada vamos a hacer clic derecho en el botón de búsqueda para copiar el selector para el:
 
-![search-btn](search-btn.png)
+![buscar-btn](search-btn.png)
 
-![search-btn-selector](search-btn-selector.png)
+![buscar-btn-selector](search-btn-selector.png)
 
-Then add code to click the search button, now the "main.go" looks like:
+Luego agregue el código para hacer clic en el botón de búsqueda, ahora el "main.go" se ve como:
 
 ```go
 package main
@@ -142,107 +142,107 @@ func main() {
 }
 ```
 
-If we rerun the module, the "a.png" will show the search result:
+Si volvemos a ejecutar el módulo, el "a.png" mostrará el resultado de la búsqueda:
 
-![earth-page](earth-page.png)
+![tercero](earth-page.png)
 
-## Slow motion and visual trace
+## Traza visual y movimiento lento
 
-The automated operations are too fast for human eyes to catch, to debug them we usually enable the slow-motion and visual trace configs, let's update the ".rod" file:
+Las operaciones automatizadas son demasiado rápidas para que los ojos humanos puedan capturar, para depurarlos normalmente habilite las configuraciones de rastreo lento y visual, actualicemos el ". od" archivo:
 
 ```txt
-show
-slow=1s
-trace
+muestra
+lento=1s
+rastro
 ```
 
-Then rerun the module, now every action now will wait for 1 second before its execution. On the page, you will see the debug trace generated by Rod like below:
+Luego vuelva a ejecutar el módulo, ahora cada acción ahora esperará 1 segundo antes de su ejecución. En la página, verás la traza de depuración generada por Rod como a continuación:
 
-![trace](trace.png)
+![trazar](trace.png)
 
-As you can see on the search button, Rod will create a mock mouse cursor.
+Como puedes ver en el botón de búsqueda, Rod creará un cursor de ratón simulado.
 
-On console you will see the trace log like below:
+En la consola verás el registro de trazas como a continuación:
 
 ```txt
 [rod] 2020/11/11 11:11:11 [eval] {"js":"rod.element","params":["#searchInput"]}
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"input#searchInput"}
-[rod] 2020/11/11 11:11:11 [input] scroll into view
+[rod] 2020/11/11 11:11:11 [eval] {"js":"vara. isible", this":"input#searchInput"}
+[rod] 2020/11/11 11:11:11 [input] se desplaza en la vista
 [rod] 2020/11/11 11:11:11 [input] input earth
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.element","params":["#search-form > fieldset > button"]}
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"button.pure-button.pure-button-primary-progressive"}
-[rod] 2020/11/11 11:11:11 [input] scroll into view
-[rod] 2020/11/11 11:11:11 [input] left click
+[rod] 2020/11/11 11:11:11 [eval] {"js":"rod. lement","params":["#formulario de búsqueda > fieldset > button"]}
+[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"button.pure-button. ure-button-primary-progressive"}
+[rod] 2020/11/11 11:11:11 [input] desplazamiento en la vista
+[rod] 2020/11/11 11:11:11 [input] clic izquierdo
 ```
 
-## Other than the ".rod" file
+## Aparte del archivo ".rod"
 
-The ".rod" file is just a shortcut for some commonly used API, you can also manually set them in code, such as the "slow", the code to set it is like `rod.New().SlowMotion(2 * time.Second)`. You can also use an environment variable to set it, such as on Mac or Linux: `rod=show go main.go`.
+El ". El archivo od" es sólo un acceso directo para algunas API comúnmente usadas, también puede configurarlas manualmente en código, como el "lento", el código para establecerlo es como `varilla. ew().SlowMotion(2 * time.Segundd)`. También puedes usar una variable de entorno para configurarla, como en Mac o Linux: `rod=show go main.go`.
 
-## Get text content
+## Obtener contenido de texto
 
-Rod provides lots of handy methods to retrieve the contents from the page.
+Rod proporciona muchos métodos prácticos para recuperar el contenido de la página.
 
-Let's try to get the description of the Earth, use the same technique we previously used to copy the selector from the Devtools:
+Intentemos obtener la descripción de la Tierra, utilicemos la misma técnica que previamente usamos para copiar el selector de las Herramientas:
 
 ![get-text](get-text.png)
 
-The method we use is `MustText`, here's the full code of it:
+El método que utilizamos es `MustText`, aquí está el código completo del mismo:
 
 ```go
-package main
+paquete principal
 
 import (
     "fmt"
 
-    "github.com/go-rod/rod"
+    "github. om/go-rod/rod"
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    page := rod. ew().MustConnect().MustPage("https://www.wikipedia.org/")
 
-    page.MustElement("#searchInput").MustInput("earth")
+    page.MustElement("#searchInput"). ustInput("terre")
     page.MustElement("#search-form > fieldset > button").MustClick()
 
-    el := page.MustElement("#mw-content-text > div.mw-parser-output > p:nth-child(6)")
+    el := page. ustElement("#mw-content-text > div.mw-parser-output > p:nth-child(6)")
     fmt.Println(el.MustText())
 }
 ```
 
-If we rerun the module, we should see the console outputs something like:
+Si volvemos a ejecutar el módulo, deberíamos ver las salidas de la consola algo como:
 
 ```txt
-Earth is the third planet from the Sun and the only astronomical object known to harbor life.
+La Tierra es el tercer planeta del Sol y el único objeto astronómico conocido por albergar la vida.
 ...
 ```
 
-## Get image content
+## Obtener contenido de imagen
 
-Same as get text, we can also get images from the page, let's get the selector of the Earth image and use `MustResource` to get the binary of the image:
+Igual que obtener texto, también podemos obtener imágenes de la página, Vamos a obtener el selector de la imagen de la Tierra y usar `MustResource` para obtener el binario de la imagen:
 
 ![get-image](get-image.png)
 
-The full code is:
+El código completo es:
 
 ```go
-package main
+paquete principal
 
 import (
     "github.com/go-rod/rod"
-    "github.com/go-rod/rod/lib/utils"
+    "github. om/go-rod/rod/lib/utils"
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    page := rod. ew().MustConnect().MustPage("https://www.wikipedia.org/")
 
-    page.MustElement("#searchInput").MustInput("earth")
-    page.MustElement("#search-form > fieldset > button").MustClick()
+    page.MustElement("#searchInput").MustInput("tercia") página
+    . ustElement("#formulario de búsqueda > fieldset > button").MustClick()
 
-    el := page.MustElement("#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(1) > td > a > img")
-    _ = utils.OutputFile("b.png", el.MustResource())
+    el := page.MustElement("#mw-content-text > div.mw-parser-output > table. nfobox > tbody > tr:nth-child(1) > td > a > img")
+    _ = utils. utputFile("b.png", el.MustResource())
 }
 ```
 
-The output file "b.png" should be:
+El archivo de salida "b.png" debería ser:
 
-![earth](earth.png)
+![tierra](earth.png)
