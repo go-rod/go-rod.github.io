@@ -1,7 +1,7 @@
-# API Reference
+# مرجع API
 
-- [rod](https://pkg.go.dev/github.com/go-rod/rod): The main package
-- [defaults](https://pkg.go.dev/github.com/go-rod/rod/lib/defaults): Package defaults of commonly used options parsed from the environment.
-- [launcher](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher): Package launcher for launching browser utils.
-- [proto](https://pkg.go.dev/github.com/go-rod/rod/lib/proto): Package proto is a lib to encode/decode the data of the cdp protocol.
-- [cdp](https://pkg.go.dev/github.com/go-rod/rod/lib/cdp): Package cdp for application layer communication with browser.
+- [القضيب](https://pkg.go.dev/github.com/go-rod/rod): الحزمة الرئيسية
+- [الافتراضي](https://pkg.go.dev/github.com/go-rod/rod/lib/defaults): الحزمة الافتراضية للخيارات الشائعة الاستخدام والتي تم تحليلها من البيئة.
+- [المشغل](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher): مشغل الحزمة لتشغيل المتصفح باستخدام
+- [proto](https://pkg.go.dev/github.com/go-rod/rod/lib/proto): Package proto هو كلمة لترميز/فك شفرة بيانات بروتوكول cdp .
+- [cdp](https://pkg.go.dev/github.com/go-rod/rod/lib/cdp): حزمة cdp للاتصال بطبقة التطبيق مع المتصفح.
