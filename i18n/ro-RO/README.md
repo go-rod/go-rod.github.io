@@ -1,12 +1,12 @@
-# Rod
+# Tijă
 
-Rod is a high-level driver for [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol). It's widely used for web automation and scraping. Rod can automate most things in the browser that can be done manually:
+Rod este un șofer de nivel înalt pentru [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol). Este folosit pe scară largă pentru automatizarea și dezmembrarea pe internet. Zăpada poate automatiza cele mai multe lucruri în browser, care pot fi făcute manual:
 
-- Capture page screenshots
-- Scrape client-side rendered pages
-- Auto-fill forms
-- End-to-end testing
-- Hijack requests
-- And more
+- Capturează capturi de ecran
+- Răzuiește paginile randate de pe partea de client
+- Completare automată formulare
+- Testare de la capăt la capăt
+- Cereri de antijack
+- Și mai multe
 
-To contribute doc, [check here](contribute-doc.md).
+Pentru a contribui cu doc, [verificați aici](contribute-doc.md).
