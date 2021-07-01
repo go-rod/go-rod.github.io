@@ -1,18 +1,18 @@
-# Network
+# Rețea
 
-## Hijack requests
+## Cereri de antijack
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+Puteți folosi Rod pentru a deturna orice trafic HTTP sau HTTPS.
 
-The entire process of hijacking one request:
+Întregul proces de deturnare a unei cereri:
 
 ```text
-   browser --req-> rod ---> server ---> rod --res-> browser
+   browser --req-> rod ---> server ---> tir --res-> browser
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+Când browser-ul dorește să trimită o cerere către un server, acesta va trimite mai întâi solicitarea pentru sunet, apoi Rod va acționa ca un proxy pentru a trimite solicitarea către serverul actual și pentru a returna răspunsul la browser. `--req->` și `--res->` sunt părțile care pot fi modificate.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+De exemplu, pentru a înlocui răspunsul `test.js` de la server, putem face ceva de genul acesta:
 
 ```go
 browser := rod.New().MustConnect()
@@ -21,15 +21,15 @@ router := browser.HijackRequests()
 
 router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.Setody(`console. og("js file înlocuit")`)
 })
 
-go router.Run()
+mergi router.Run()
 
-page := browser.MustPage("https://test.com/")
+pagina := browser.MustPage("https://test.com/")
 
-// Hijack requests under the scope of a page
+// Hijack cereri sub acoperirea paginii
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+Pentru mai multe informații, verificați [testele hijack](https://github.com/go-rod/rod/blob/master/hijack_test.go)
