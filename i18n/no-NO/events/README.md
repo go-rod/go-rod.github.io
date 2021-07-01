@@ -1,14 +1,14 @@
-# Events
+# Hendelser
 
-Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
+Hendelser er handlinger eller hendelser som skjer i nettleseren du kontrollerer, som nettleseren forteller deg om så du kan svare på dem om ønskelig. Som når vi lar siden navigere til en ny URL, vi kan abonnere hendelsene for å vite når navigasjonen er fullført eller når siden gjengis.
 
-## Wait for an event once
+## Vent på en hendelse en gang
 
-Let's try to navigate to a page and wait until the network of the page is almost idle:
+La oss prøve å navigere til en side og vente til nettverket på siden er nesten uferdig:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    side := rod.New().MustConnect().MustPage()
 
     wait := page.MustWaitNavigation()
     page.MustNavigate("https://www.wikipedia.org/")
@@ -16,65 +16,65 @@ func main() {
 }
 ```
 
-We use the `MustWaitNavigation` to subscribe the network idle event. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+Vi bruker `MustWaitNavigation` for å abonnere på inaktiv nettverkshendelse. Grunnen til at abonnementet er før navigasjonen ikke etter er fordi koden som utløser navigasjon vil ta tid å utføre, i løpet av den tiden kan hendelsen allerede ha skjedd. Etter `MustNavigate` ringer vi `vente` funksjonen for å blokkere koden til neste nettverkets uvirkelige hendelse skjer.
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+Torsk gir mange andre hendelseshjelpere, funksjonsnavnene er alle med prefikset `MustWait` eller `Vent`.
 
-## Get the event details
+## Få hendelsesdetaljer
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+Noen hendelsestyper bærer detaljer om selve arrangementet. Slik som vi navigerer til en URL og bruker hendelsen for å få svarstatuskoden til navigasjon forespørsel:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    side := rod.New().MustConnect().MustPage()
 
     e := proto.NetworkResponseReceived{}
-    wait := page.WaitEvent(&e)
+    vent := page.WaitEvent(&e)
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 
     fmt.Println(e.Response.Status)
-}
+
 ```
 
-## Handle multiple events
+## Håndter flere hendelser
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+Hvis du vil håndtere alle hendelser av en type, slik som å lytte til alle hendelser på konsolluten, kan vi gjøre noe slik:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
+gå side.EachEvent(funk(e *proto.RuntimeConsoleAPICalled) {
     fmt.Println(page.MustObjectsToJSON(e.Args))
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+For å abonnere flere hendelsestyper på samme tid, slik som å abonnere `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
+go page.EachEvent(funk.RuntimeConsoleAPICalled) {
     fmt.Println(page.MustObjectsToJSON(e.Args))
-}, func(e *proto.PageLoadEventFired) {
+}, funksjoner (e *proto.PageLoadEventFired) {
     fmt.Println("loaded")
 })()
 ```
 
-## Stop the subscription
+## Avslutt abonnement
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+Enhver funksjon i Rod som blokker kan avbrytes med [kontekst](context-and-timeout.md), er ikke spesielt for hendelser. I tillegg kan du også stoppe arrangementet ved å returnere sann fra håndtereren av arrangementet, for eksempel:
 
 ```go
-wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
+vent := page.EachEvent(funk(e *proto.PageLoadEventFired) (stop bool) {
     return true
 })
 page.MustNavigate("https://example.com")
 wait()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+Hvis vi ikke returnerer sann, vil vent vente på `PageLoadEventFired` hendelsene og blokkere programmet for alltid. Dette er faktisk koden til hvordan `side.WaitEvent` fungerer.
 
-## Available events
+## Tilgjengelige hendelser
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+Alle hendelsestyper implementerer `proto.Event` grensesnittet, du kan bruke det til å finne alle hendelser. Vanligvis vil IDE filtrere automatisk etter grensesnittet. Som vi ønsker å se alle hendelsene under sidens domene, vi kan opprette et tomt sideobjekt og bruke `WaitEvent(proto. Hjelp)` å liste opp og filtrere alle hendelsestypene som skjermbildet nedenfor:
 
-![event-list](event-list.png)
+![hendelseliste](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+Du kan også bruke dette [nettstedet](https://chromedevtools.github.io/devtools-protocol/tot/Page) for å bla gjennom hendelsene.
