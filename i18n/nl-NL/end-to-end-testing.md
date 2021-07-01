@@ -1,3 +1,3 @@
-# End-to-end Testing
+# End-to-end testen
 
-Check the [example project](https://github.com/go-rod/rod-e2e-example)
+Controleer het [voorbeeldproject](https://github.com/go-rod/rod-e2e-example)
