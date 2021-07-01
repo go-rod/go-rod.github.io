@@ -1,55 +1,55 @@
-# Customize the WebSocket
+# Personalizează WebSocket
 
-Useful when you want to proxy the transport layer or tune the performance. Here we use the `github.com/gorilla/websocket` as an example, you can wrap any lib you like.
+Util atunci când doriţi să înlocuiţi nivelul de transport sau să reglaţi performanţa. Aici folosim `github.com/gorilla/websocket` ca exemplu, poți îngloba orice lib vrei.
 
 ```go
-package main
+import main
 
-import (
+(
     "context"
     "fmt"
     "net/http"
 
-    "github.com/go-rod/rod"
-    "github.com/go-rod/rod/lib/cdp"
+    "github. om/go-rod/rod"
+    "github. om/go-rod/rod/lib/cdp"
     "github.com/go-rod/rod/lib/launcher"
-    "github.com/gorilla/websocket"
+    "github. om/gorilla/websocket"
 )
 
 func main() {
-    u := launcher.New().MustLaunch()
+    u := launcher.New().
 
-    // Use a custom websocket lib as the transport layer for JSON-RPC
-    client := cdp.New(u).Websocket(&MyWebSocket{})
+    // Folosește un lib websocket personalizat ca strat de transport pentru clientul JSON-RPC
+    := cdp. ew(u).Websocket(&MyWebSocket{})
 
-    p := rod.New().Client(client).MustConnect().MustPage("http://example.com")
+    p := rod.New().Client(client). ustConnect().MustPage("http://example.com")
 
     fmt.Println(p.MustInfo().Title)
 }
 
-// MyWebSocket implements the cdp.WebSocketable interface
-var _ cdp.WebSocketable = &MyWebSocket{}
+// MyWebSocket implementează interfața cdp.WebSocketable
+var _ cdp. ebSocketable = &MyWebSocket{}
 
-type MyWebSocket struct {
+tip MyWebSocket struct {
     conn *websocket.Conn
 }
 
-func (ws *MyWebSocket) Connect(ctx context.Context, url string, header http.Header) error {
-    dialer := *websocket.DefaultDialer
+func (ws *MyWebSocket) Connect(ctx context. eroarea ontext, şirul url, header http.Header) {
+    dialer := *websocket. efaultDialer
     dialer.WriteBufferSize = 2 * 1024 * 1024 // 2MB
 
-    conn, _, err := dialer.DialContext(ctx, url, header)
-    ws.conn = conn
+    conn, _, err := dialer. ialContext(ctx, url, header)
+    ws. onn = conn
 
     return err
 }
 
 func (ws *MyWebSocket) Send(b []byte) error {
-    return ws.conn.WriteMessage(websocket.TextMessage, b)
+    return ws. onn.ScrieMessage(websocket. extMessage, b)
 }
 
-func (ws *MyWebSocket) Read() ([]byte, error) {
-    _, data, err := ws.conn.ReadMessage()
-    return data, err
+func (ws *MyWebSocket) Read() ([]byte, eroare) {
+    _, data, err := ws. onn.ReadMessage()
+    date de returnare, err
 }
 ```
