@@ -1,26 +1,26 @@
-# Browsers & Pages
+# Webbläsare & sidor
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+Det är intuitivt att använda Rod för att styra flera webbläsare eller sidor samtidigt.
 
-## Multiple browsers
+## Flera webbläsare
 
-To launch multiple browsers:
+Starta flera webbläsare:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Alla API:er är trådsäkra, samma fungerar för flera Go rutiner.
 
-You can also use incognito mode to launch multiple browsers:
+Du kan också använda inkognitoläge för att starta flera webbläsare:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Starta webbläsare med olika startargument:
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -32,22 +32,22 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 ```
 
-## Multiple pages
+## Flera sidor
 
-To control multiple pages for a browser:
+För att styra flera sidor för en webbläsare:
 
 ```go
-browser := rod.New().MustConnect()
+webbläsare := rod.New().MustConnect()
 page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Sidfrågebank
 
-We can use PagePool to help concurrently control and reuse pages.
+Vi kan använda PagePool för att samtidigt kontrollera och återanvända sidor.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Kontrollera exemplet [](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Webbläsare frågebank
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Testerna i Rod är ett bra exempel på att hantera en pool av webbläsare för att köra tester samtidigt. Det är därför testerna kan avslutas på några sekunder. Kontrollera koden [här](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
