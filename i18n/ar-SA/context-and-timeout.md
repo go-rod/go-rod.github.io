@@ -1,72 +1,72 @@
-# Context and Timeout
+# السياق والمدة الزمنية
 
-In Golang, we usually use [Context](https://golang.org/pkg/context/) to abort long-running tasks. Rod uses Context to handle cancellations for IO blocking operations, most times it's timeout. You need to pay special attention to them.
+في جولانغ، نحن عادة نستخدم [السياق](https://golang.org/pkg/context/) لإجهاض المهام التي تعمل منذ وقت طويل. يستخدم Rod السياق للتعامل مع الإلغاء لعمليات حظر IO ، في معظم الأحيان يتم المهلة. وأنت بحاجة إلى إيلاء اهتمام خاص لهم.
 
-If you are not familiar with Context, please read [Understand Context](understand-context.md) first.
+إذا كنت غير مألوفة في السياق، يرجى قراءة [فهم السياق](understand-context.md) أولاً.
 
-## Cancellation
+## إلغاء
 
-For example, the code below creates a blank page and navigates it to the "github.com":
+على سبيل المثال، الكود أدناه ينشئ صفحة فارغة وينقلها إلى "github.com":
 
 ```go
 page := rod.New().MustConnect().MustPage()
 page.MustNavigate("http://github.com")
 ```
 
-Now, suppose we want to cancel the `MustNavigate` if it takes more than 2 seconds. In Rod we can do something like this:
+الآن، لنفترض أننا نريد إلغاء `MustNavigate` إذا استغرق أكثر من ثانية. في رود يمكننا أن نفعل شيئا كهذا:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+صفحة := rod.New().MustConnect().MustPage()
 
-ctx, cancel := context.WithCancel(context.Background())
-pageWithCancel := page.Context(ctx)
+ctx، إلغاء := context.WithCancel(context.Background())
+صفحة صفحة char@@0WithCancel := page.Context(ctx)
 
-go func() {
-    time.Sleep(2 * time.Second)
-    cancel()
+اذهب إلى وظيفة () {
+    وقت. النوم (2 * time.Second)
+    إلغاء()
 }()
 
-pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
+pageWithCancel.MustNavigate("http://github.com") // سيتم إلغاؤه بعد ثوانين
 ```
 
-We use the `page.Context` to create a shallow clone of the `page`. Whenever we call the `cancel`, the operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. The origin `page` won't be affected, if we use it to call operations they won't be cancelled.
+نحن نستخدم `الصفحة.السياق` لإنشاء نسخة ضحلة من صفحة ``. كلما نتصل بـ `إلغاء`، سيتم إلغاء العمليات التي تم تشغيلها بواسطة `الصفحة` ، يمكن أن تكون أي عملية، وليس فقط `MustNavigate`. لن يتأثر الأصل `صفحة` ، إذا استخدمناها للاتصال بالعمليات فلن يتم إلغاؤها.
 
-This style is not special for Rod, you can find similar APIs like [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) in the standard library.
+هذا النمط ليس مميزًا لرود، يمكنك العثور على APIs مشابهة مثل [request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) في المكتبة العادية.
 
-Because `pageWithCancel` and `page` are independent to each other, operations triggered by `page` will not be affected by the cancellation:
+لأن `pageWithCancel` و `صفحة` مستقلة عن بعضها البعض، العمليات التي تشغلها `صفحة` لن تتأثر بالإلغائ:
 
 ```go
-page.MustNavigate("http://github.com") // won't be canceled after 2 seconds
+page.MustNavigate("http://github.com") // لن يتم إلغاؤها بعد ثواني
 ```
 
-## Timeout
+## مهلة
 
-The code above is just a way to timeout an operation. In Golang, timeout is usually just a special case of cancellation. Because it's so useful, we created a helper to do the same thing above, it's called `Timeout`, so the code above can be reduced like below:
+الرمز أعلاه هو مجرد طريقة لإنهاء عملية ما. وفي غولانغ، تكون المهلة عادة مجرد حالة خاصة من حالات الإلغاء. لأنه مفيد جداً، لقد أنشأنا مساعداً للقيام بنفس الشيء أعلاه، تسمى `مهلة`، لذا يمكن تقليل الكود أعلاه كما هو أدناه:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+الصفحة := rod.New().MustConnect().MustPage()
 page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 ```
 
-The `page.Timeout(2 * time.Second)` is the previous `pageWithCancel`. Not just `Page`, `Browser` and `Element` also have the same context helpers.
+`page.Timeout(2 * time.Second)` هو `الصفحة السابقة`. ليس فقط `الصفحة`و `المتصفح` و `العنصر` لديه أيضا نفس المساعدين.
 
-## Detect timeout
+## كشف المهلة
 
-How do I know if an operation is timed out or not? In Golang, timeout is usually a type of error. It's not special for Rod. For the code above we can do this to detect timeout:
+كيف أعرف ما إذا كانت العملية قد انتهت أم لا؟ في غولانغ، تكون المهلة عادة نوعا من الأخطاء. إنها ليست مميزة لرود بالنسبة للتعليمات البرمجية أعلاه يمكننا القيام بذلك للكشف عن المهلة:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+الصفحة := rod.New().MustConnect().MustPage()
 
 err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
-if errors.Is(err, context.DeadlineExceeded) {
-    // code for timeout error
-} else if err != nil {
-    // code for other types of error
+إذا كانت الأخطاء. (خطأ، سياق. eadlineExceeded) {
+    // كود خطأ مهلة
+} أخرى إذا كان خطأ! لا شيء
+    // رمز لأنواع الأخطاء الأخرى
 }
 ```
 
-Here we use `rod.Try` to wrap the function that may throw a timeout error.
+هنا نستخدم `rod.حاول` لإغلاق الدالة التي قد ترمي خطأ في المهلة.
 
-We will talk more about error handing at [Error Handling](error-handling.md).
+سوف نتحدث أكثر عن الخطأ في التعامل مع [خطأ في التعامل مع](error-handling.md).
