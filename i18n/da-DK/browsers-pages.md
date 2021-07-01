@@ -1,26 +1,26 @@
-# Browsers & Pages
+# Browsere & sider
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+Det er intuitivt at bruge Rod til at styre flere browsere eller sider på samme tid.
 
-## Multiple browsers
+## Flere browsere
 
-To launch multiple browsers:
+For at starte flere browsere:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Alle API'er er trådsikre, samme værker for flere Go rutiner.
 
-You can also use incognito mode to launch multiple browsers:
+Du kan også bruge inkognito-tilstand til at starte flere browsere:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Start browsere med forskellige start argumenter:
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -32,9 +32,9 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 ```
 
-## Multiple pages
+## Flere sider
 
-To control multiple pages for a browser:
+For at styre flere sider for en browser:
 
 ```go
 browser := rod.New().MustConnect()
@@ -42,12 +42,12 @@ page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Side pool
 
-We can use PagePool to help concurrently control and reuse pages.
+Vi kan bruge PagePool til at hjælpe sideløbende styre og genbruge sider.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Tjek dette [eksempel](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
 ## Browser pool
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Testene i Rod er et godt eksempel på at styre en pulje af browsere til at køre tests samtidigt. Derfor kan testene afsluttes på få sekunder. Tjek koden [her](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
