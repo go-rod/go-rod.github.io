@@ -1,7 +1,7 @@
-# API Reference
+# Справочник по API
 
-- [rod](https://pkg.go.dev/github.com/go-rod/rod): The main package
-- [defaults](https://pkg.go.dev/github.com/go-rod/rod/lib/defaults): Package defaults of commonly used options parsed from the environment.
-- [launcher](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher): Package launcher for launching browser utils.
-- [proto](https://pkg.go.dev/github.com/go-rod/rod/lib/proto): Package proto is a lib to encode/decode the data of the cdp protocol.
-- [cdp](https://pkg.go.dev/github.com/go-rod/rod/lib/cdp): Package cdp for application layer communication with browser.
+- [стержень](https://pkg.go.dev/github.com/go-rod/rod): Основной пакет
+- [по умолчанию](https://pkg.go.dev/github.com/go-rod/rod/lib/defaults): Пакет по умолчанию обычно используемых параметров, обработанных из окружения.
+- [launcher](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher): Пакет для запуска утилит браузера.
+- [proto](https://pkg.go.dev/github.com/go-rod/rod/lib/proto): Пакет proto является lib для кодирования/декодирования данных cdp протокола.
+- [cdp](https://pkg.go.dev/github.com/go-rod/rod/lib/cdp): Пакет cdp для взаимодействия прикладного уровня с браузером.
