@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod proporciona muchos métodos para simular entradas humanas, como el clic del ratón o la pulsación del teclado.
 
-## Mouse click
+## Clic del ratón
 
-To simulate the mouse click an element:
+Para simular el ratón haga clic en un elemento:
 
 ```go
 // left click
@@ -16,73 +16,73 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Para simular la entrada:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // usa MustText para obtener el texto
 ```
 
-## Remove text from an input
+## Eliminar texto de una entrada
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Simplemente simula cómo lo hace un humano, selecciona todo el texto y reemplázalo con una cadena vacía:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Puede usar `SelectText` para reemplazar una parte del texto.
 
-## Time input
+## Hora de entrada
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+Los tipos de entrada soportados son [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), y [hora](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## Casilla
 
-Just click it like a human:
+Simplemente haz clic en él como un humano:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
+// verificarlo si no está marcado
 if !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## Seleccionar opciones
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Selecciona opciones en [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+El siguiente código seleccionará las opciones que contengan el texto "B" o "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+También puede utilizar el selector regex o css para seleccionar opciones:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// establece false para deseleccionar
+page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSector)
 ```
 
-## Set files
+## Definir archivos
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Utilice `SetFiles` para establecer archivos para la [entrada de archivo](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Ratón, teclado y toque
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+También puede utilizar el `page.Mouse`, `page.Keyboard`, o `page.Touch` para simular entradas de bajo nivel. Tal como se puede buscar en la prueba unitaria para arrastrar para aprender a simular el arrastre.
