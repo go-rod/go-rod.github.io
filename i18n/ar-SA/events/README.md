@@ -1,80 +1,80 @@
-# Events
+# الأحداث
 
-Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
+الأحداث هي أفعال أو أحداث تحدث في المتصفح الذي تتحكم فيه، الذي يخبرك به المتصفح حتى تتمكن من الرد عليها بطريقة ما إذا رغبت في ذلك. مثل عندما نسمح للصفحة بالتنقل إلى عنوان URL جديد، يمكننا الاشتراك في الأحداث لمعرفة متى اكتمل التنقل أو متى تم تقديم الصفحة.
 
-## Wait for an event once
+## انتظر حدث مرة واحدة
 
-Let's try to navigate to a page and wait until the network of the page is almost idle:
+دعونا نحاول الانتقال إلى صفحة والانتظار حتى تصبح شبكة الصفحة شبه خاملة:
 
 ```go
-func main() {
-    page := rod.New().MustConnect().MustPage()
+تمسك الرئيسي() {
+    صفحة := rod.New().MustConnect().MustPage()
 
-    wait := page.MustWaitNavigation()
+    انتظر := page.MustWaitNavigation()
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 }
 ```
 
-We use the `MustWaitNavigation` to subscribe the network idle event. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+نحن نستخدم `MustWaitNavigation` للاشتراك في حدث الخمول عن الشبكة. السبب في أن الاشتراك قبل التنقل ليس بعد أن يكون لأن التعليمة البرمجية لتفعيل التنقل ستستغرق وقتاً لتنفيذها، خلال ذلك الوقت ربما يكون الحدث قد حدث بالفعل. بعد `MustNavigate` نتصل بدالة `الانتظار` لحجب التعليمات البرمجية حتى يحدث حدث الخمول التالي للشبكة .
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+يوفر Rod الكثير من مساعدي الأحداث الآخرين، جميع أسماء الدالة مسبقة مع `MustWit` أو `انتظر`.
 
-## Get the event details
+## احصل على تفاصيل الحدث
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+بعض أنواع الأحداث تحمل تفاصيل عن الحدث نفسه. مثل الانتقال إلى عنوان URL واستخدام الحدث للحصول على رمز حالة الاستجابة لطلب التنقل:
 
 ```go
-func main() {
-    page := rod.New().MustConnect().MustPage()
+تمسك main() {
+    صفحة := rod.New().MustConnect().MustPage()
 
-    e := proto.NetworkResponseReceived{}
-    wait := page.WaitEvent(&e)
+    e := proto.NetworkResponsereceieived{}
+    الانتظار := page.WaitEvent(&e)
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 
-    fmt.Println(e.Response.Status)
+    fmt.Println', Response.Status)
 }
 ```
 
-## Handle multiple events
+## التعامل مع أحداث متعددة
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+إذا كنت ترغب في التعامل مع جميع الأحداث من نوع ما، مثل الاستماع لجميع أحداث إخراج وحدة التحكم في الصفحة، يمكننا القيام بشيء مثل هذا:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
-    fmt.Println(page.MustObjectsToJSON(e.Args))
+انتقل إلى page.EachEvent(funct(e *proto.RuntimeConsoleAPICalled) {
+    fmt.Println(page.MustObjectsToJSON<unk> Args))
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+للاشتراك بأنواع متعددة من الأحداث في نفس الوقت، مثل الاشتراك `RuntimeConsoleAPICalled` و `PageLoadEventFired`:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
-    fmt.Println(page.MustObjectsToJSON(e.Args))
-}, func(e *proto.PageLoadEventFired) {
-    fmt.Println("loaded")
+انتقل إلى page.EachEvent(funct(e *proto.RuntimeConsoleAPICalled) {
+    fmt.Println(page.MustObjectsToJSON<unk> Args))
+}, function(e *proto.PageLoadEventFired) {
+    fmt.Println("loadaded")
 })()
 ```
 
-## Stop the subscription
+## إيقاف الاشتراك
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+أي دالة في Rod يمكن إلغاء الكتل مع السياق [](context-and-timeout.md)، إنها ليست خاصة للأحداث. بالإضافة إلى ذلك، يمكنك أيضا إيقاف الحدث عن طريق إعادة الصحيح من معالج الحدث، على سبيل المثال:
 
 ```go
-wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
+انتظر := page.EachEvent(funct(e *proto.PageLoadEventFired) (إيقاف bool) {
     return true
 })
 page.MustNavigate("https://example.com")
 wait()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+إذا لم نعود صحيحًا، فالانتظار سيبقى في انتظار `أحداث PageLoadEventFired` وحظر البرنامج إلى الأبد. هذه في الواقع هي التعليمات البرمجية لكيفية عمل `الصفحة.WaitEven`.
 
-## Available events
+## الأحداث المتاحة
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+جميع أنواع الأحداث تنفذ واجهة `المبدئي.الحدث` ، يمكنك استخدامها للعثور على جميع الأحداث. عادةً ما تقوم قاعدة البيانات بالتصفية تلقائيًا بتصفية الواجهة. مثل ما نريد أن نرى جميع الأحداث تحت نطاق الصفحة، يمكننا إنشاء عنصر صفحة فارغة واستخدام `WaitEvent(proto). vent)` لقائمة وتصفية جميع أنواع الأحداث مثل لقطة الشاشة أدناه:
 
-![event-list](event-list.png)
+![قائمة الأحداث](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+يمكنك أيضا استخدام هذا الموقع [](https://chromedevtools.github.io/devtools-protocol/tot/Page) لتصفح الأحداث.
