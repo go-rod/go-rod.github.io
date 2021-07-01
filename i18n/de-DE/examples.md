@@ -1,9 +1,9 @@
-# Examples
+# Beispiele
 
-Please check the [examples_test.go](https://github.com/go-rod/rod/tree/master/examples_test.go) file first, then check the [examples](https://github.com/go-rod/rod/tree/master/lib/examples) folder.
+Bitte überprüfen Sie zuerst die Datei [examples_test.go](https://github.com/go-rod/rod/tree/master/examples_test.go) und überprüfen Sie dann den [Beispiel-Ordner](https://github.com/go-rod/rod/tree/master/lib/examples).
 
-For more detailed examples, please search the unit tests. Such as the usage of method `HandleAuth`, you can search all the `*_test.go` files that contain `HandleAuth`, You can also search the GitHub [issues](https://github.com/go-rod/rod/issues) or [discussions](https://github.com/go-rod/rod/discussions), a lot of usage examples are recorded there.
+Für detailliertere Beispiele durchsuchen Sie bitte die Einheitstests. So wie die Verwendung der Methode `HandleAuth`, können Sie alle `*_test durchsuchen. o` Dateien mit `HandleAuth`, Sie können auch den GitHub durchsuchen [Tickets](https://github.com/go-rod/rod/issues) oder [Diskussionen](https://github.com/go-rod/rod/discussions), Dort werden viele Anwendungsbeispiele aufgezeichnet.
 
-## Comparison with Chromedp
+## Vergleich mit Chromedp
 
-For developers who are familiar with Chromedp, [here](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp) is a comparison of the examples between rod and Chromedp.
+Für Entwickler, die mit Chromedp vertraut sind, ist [hier](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp) ein Vergleich der Beispiele zwischen Stange und Chromedp.

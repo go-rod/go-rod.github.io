@@ -1,9 +1,9 @@
-# Examples
+# Exemple
 
 Please check the [examples_test.go](https://github.com/go-rod/rod/tree/master/examples_test.go) file first, then check the [examples](https://github.com/go-rod/rod/tree/master/lib/examples) folder.
 
-For more detailed examples, please search the unit tests. Such as the usage of method `HandleAuth`, you can search all the `*_test.go` files that contain `HandleAuth`, You can also search the GitHub [issues](https://github.com/go-rod/rod/issues) or [discussions](https://github.com/go-rod/rod/discussions), a lot of usage examples are recorded there.
+Pentru exemple mai detaliate, vă rugăm să căutaţi testele de unitate. Asemenea ca utilizarea metodei `HandleAuth`, poți căuta toate `*_test. o` de fișiere care conțin `HandleAuth`, De asemenea, puteți căuta problemele GitHub [](https://github.com/go-rod/rod/issues) sau [discuții](https://github.com/go-rod/rod/discussions), o mulţime de exemple de utilizare sunt înregistrate acolo.
 
-## Comparison with Chromedp
+## Comparaţie cu Chromedp
 
-For developers who are familiar with Chromedp, [here](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp) is a comparison of the examples between rod and Chromedp.
+Pentru dezvoltatorii care sunt familiarizați cu Chromedp, [aici](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp) este o comparație a exemplelor dintre tijă și Chromedp.

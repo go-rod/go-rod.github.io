@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod giver masser af metoder til at simulere menneskelige indgange, såsom museklik eller tastatur presse.
 
-## Mouse click
+## Klik på musen
 
-To simulate the mouse click an element:
+Klik på et element for at simulere musen:
 
 ```go
 // left click
@@ -16,36 +16,36 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+For at simulere input:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // brug MustText for at få teksten
 ```
 
-## Remove text from an input
+## Fjern tekst fra et input
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Bare simulere, hvordan et menneske gør det, skal du vælge al teksten og erstatte den med en tom streng:
 
 ```go
-page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
+page.MustElement(`[type="tekst"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Du kan bruge `SelectText` til at erstatte en del af teksten.
 
-## Time input
+## Tid input
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+De understøttede inputtyper er [dato](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [måned](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), og [tid](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
-page.MustElement(`[type="date"]`).MustInputTime(time.Now())
+side.MustElement(`[type="dato"]`).MustInputTime(tid.Now())
 ```
 
-## Checkbox
+## Afkrydsningsfelt
 
-Just click it like a human:
+Bare klik på det som et menneske:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
@@ -56,33 +56,33 @@ if !el.MustProperty("checked").Bool() {
 }
 ```
 
-## Select options
+## Vælg indstillinger
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Vælg indstillinger i [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Koden nedenfor vil vælge indstillinger, der indeholder tekst "B" eller "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Du kan også bruge regex eller css selector til at vælge muligheder:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// sæt false til at fravælge
+side.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## Angiv filer
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Brug `SetFiles` til at angive filer for [filens input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Mus,tastatur og berøring
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+Du kan også bruge `page.Mouse`, `side.Keyboard`eller `side.Tryk` for at simulere input på lavt niveau. Såsom du kan søge i enhedstesten for at trække for at lære, hvordan man simulerer træk.

@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Тяга надає багато методів симуляції введення людини, наприклад, натискання миші або натискання клавіатури.
 
-## Mouse click
+## Натискання мишею
 
-To simulate the mouse click an element:
+Для імітації миші натисніть елемент:
 
 ```go
 // left click
@@ -16,73 +16,74 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Для імітації вводу:
 
 ```go
 el := page.MustElement(`[type="text"]`)
-el.MustInput("Jack")
+el.MustInput("Джек")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // використовуйте MustText для отримання тексту
 ```
 
-## Remove text from an input
+## Видалити текст із вхідних даних
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Просто імітуйте як людина робить це, виділіть весь текст і замініть його порожнім рядком:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Ви можете використовувати `вибрати текст` , щоб замінити частину тексту.
 
-## Time input
+## Введення
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+Підтримувані типи вводу це [дата](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [дата-локальна](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [місяць](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), і [час](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## Прапорець
 
-Just click it like a human:
+Просто клацніть по ньому як людині:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
-if !el.MustProperty("checked").Bool() {
+// перевірте, чи не відмічено
+якщо !el.MustProperty("checked").Bool() {
     el.MustClick()
-}
+
 ```
 
-## Select options
+## Виберіть опції
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Виберіть параметри [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Нижче наведений код ви можете вибрати параметри, які містять текст "B" або "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Ви також можете використовувати регулярний вираз, або css селектор для вибору:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// встановлює хибність для вибору
+сторінки
+сторінки.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSect)
 ```
 
-## Set files
+## Встановити файли
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Використовувати `Встановити файли` для [введення файлу](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Миша, клавіатура та дотик
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+Ви також можете використовувати `сторінку`. `сторінку`. </code> або `сторінку.Торкніться` , щоб симулювати вхідні дані з низьким рівнем рівня. Такі, як ви можете шукати одиницю випробування перетягування, щоб дізнатися, як симулювати перетягування.

@@ -1,36 +1,36 @@
-# Error Handling
+# Fel vid hantering
 
-In the previous chapters, we have seen a lot of `Must` prefixed methods like `MustNavigate`, `MustElement`, etc. They all have non-prefixed versions like `Navigate`, `Element`, etc. The main difference between them is how they handle errors. It's not special for Rod, you can find it in the standard library like [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
+I de tidigare kapitlen har vi sett en hel del `Måste` prefixerade metoder som `MustNavigera`, `MustElement`, etc. De har alla icke-prefixade versioner som `Navigera`, `Element`, etc. Den största skillnaden mellan dem är hur de hanterar fel. Det är inte speciellt för Rod, du kan hitta det i standardbiblioteket som [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile).
 
-The methods like `MustNavigate` and `MustElement` are commonly used in example code or quick scripting. They are useful for jobs like smoke testing, site monitoring, end-to-end test, etc. Jobs with lots of uncertainty, such as web scraping, the non-prefixed version will be a better choice.
+Metoderna som `MustNavigera` och `MustElement` används ofta i exempelvis kod eller snabbskript. De är användbara för jobb som röktestning, platsövervakning, end-to-end-test, etc. Jobb med massor av osäkerhet, såsom webbskrapning, den icke-prefixade versionen kommer att vara ett bättre val.
 
-The prefixed version is just the non-prefixed version wrapped with an error checker. Here's the source code of the `MustElement`, as you can see it just calls the `Element` with several extra lines to panic if err is not `nil`:
+Prefix-versionen är bara den icke-prefix-versionen insvept med en felkontroller. Här är källkoden för `MustElement`, som du kan se det bara kallar `Element` med flera extra rader till panik om fel inte är `nil`:
 
 ```go
-func (p *Page) MustElement(selectors ...string) *Element {
+func (p *sida) MustElement(selectors ...string) *Element {
     el, err := p.Element(selectors...)
-    if err != nil {
+    om err != nil {
         panic(err)
     }
     return el
 }
 ```
 
-## Get the error value
+## Hämta felvärdet
 
-The two code blocks below are almost doing the same thing in two styles.
+De två kodblocken nedan gör nästan samma sak i två stilar.
 
-The style below is the Go's standard way to handle errors:
+Stilen nedan är Go's standard sätt att hantera fel:
 
 ```go
-page := rod.New().MustConnect().MustPage("https://example.com")
+sida := rod.New().MustConnect().MustPage("https://example.com")
 
-el, err := page.Element("a")
-if err != nil {
+el, err := sida. lement("a")
+om fel! nil {
     handleError(err)
     return
 }
-html, err := el.HTML()
+html, err := el. TML()
 if err != nil {
     handleError(err)
     return
@@ -38,10 +38,10 @@ if err != nil {
 fmt.Println(html)
 ```
 
-We can use `rod.Try` to catch the error from the `Must` prefixed methods `MustElement` and `MustHTML`. The style below will usually end up in less code, but it may also catch extra errors:
+Vi kan använda `rod.Try` to catch the error from the `must` prefixed methods `MustElement` and `MustHTML`. Stilen nedan kommer vanligtvis att hamna i mindre kod, men det kan också fånga extra fel:
 
 ```go
-page := rod.New().MustConnect().MustPage("https://example.com")
+sida := rod.New().MustConnect().MustPage("https://example.com")
 
 err := rod.Try(func() {
     fmt.Println(page.MustElement("a").MustHTML())
@@ -49,21 +49,21 @@ err := rod.Try(func() {
 handleError(err)
 ```
 
-## Check the error type
+## Kontrollera typen av fel
 
-We use Go's standard way to check error types, no magic.
+Vi använder Go's standard sätt att kontrollera feltyper, ingen magi.
 
-The `handleError` in the above code may look like:
+`HandleError` i ovanstående kod kan se ut som:
 
 ```go
 func handleError(err error) {
     var evalErr *rod.ErrEval
-    if errors.Is(err, context.DeadlineExceeded) { // timeout error
+    om fel.Is(err, context. eadlineExceeded) { // timeout error
         fmt.Println("timeout err")
-    } else if errors.As(err, &evalErr) { // eval error
-        fmt.Println(evalErr.LineNumber)
-    } else if err != nil {
-        fmt.Println("can't handle", err)
+    } annat om fel. s(err, &evalErr) { // eval error
+        fmt.Println(evalErr. ineNumber)
+    } annat om fel!= nil {
+        fmt. rintln ("kan inte hanteras", err)
     }
 }
 ```

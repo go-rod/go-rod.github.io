@@ -1,13 +1,13 @@
-# Understand Context
+# Розуміння контексту
 
-Before understanding Context, make sure you have learned [Goroutines](https://tour.golang.org/concurrency/1) and [Channels](https://tour.golang.org/concurrency/2). Context is mainly used to transfer context information between Goroutines, including: cancellation signal, timeout, deadline, k-v, etc.
+Перед розумінням контексту переконайтеся, що ви дізналися [Goroutines](https://tour.golang.org/concurrency/1) та [каналів](https://tour.golang.org/concurrency/2). Контекст в основному використовується для передачі інформації про контекст між Goroutins, в тому числі: скасування сигналу, тайм-аут, термін, k v, і т. д.
 
-For example, we have a long-running function `heartbeat` that prints `beat` every second:
+Наприклад, у нас є довга функція `heartbeat` , яка друкує `удар` кожні секунди:
 
 ```go
-package main
+пакет головний
 
-import (
+імпорт (
     "fmt"
     "time"
 )
@@ -17,16 +17,16 @@ func main() {
 }
 
 func heartbeat() {
-    tick := time.Tick(time.Second)
+    tick := time. кік(час. econd)
 
-    for {
+    для {
         <-tick
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```
 
-If we want to abort the heartbeat whenever we press the enter key, we may code like this:
+Якщо ми хочемо відступити від серцебиття, коли ми натискаємо клавішу входу, ми можемо запрограмувати наступним чином:
 
 ```go
 func main() {
@@ -53,29 +53,29 @@ func heartbeat(stop chan struct{}) {
 }
 ```
 
-Because this kind of code is so often used, Golang abstracted a helper package to handle it, it's called [Context](https://golang.org/pkg/context/). If we use Context, the code above will become something like this:
+Адже такий код часто використовується, Голанг абстрагував допоміжний пакет, щоб обробляти його, він називається [контекст](https://golang.org/pkg/context/). Якщо ми використовуємо контекст, то наведений вище код стане чимось на зразок цього:
 
 ```go
 func main() {
-    ctx, stop := context.WithCancel(context.Background())
-    go func() {
-        fmt.Scanln()
+    ctx, stop := context.WithCancel(context. ackground())
+    йти func() {
+        fmt. canln()
         stop()
     }()
 
     heartbeat(ctx)
 }
 
-func heartbeat(ctx context.Context) {
-    tick := time.Tick(time.Second)
+веселе серцебиття (ctx контекст. ontext) {
+    tick := time. кік(час. econd)
 
-    for {
-        select {
-        case <-tick:
-        case <-ctx.Done():
-            return
+    для {
+        вибрати {
+        випадок <-tick:
+        регістр <-ctx. один):
+            повертає
         }
-        fmt.Println("beat")
+        фут. rintln("beat")
     }
 }
 ```

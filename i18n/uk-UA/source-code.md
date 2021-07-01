@@ -1,3 +1,3 @@
-# Source Code
+# Початковий код
 
-The main code repository: [link](https://github.com/go-rod/rod).
+Основний код репозиторію: [посилання](https://github.com/go-rod/rod).

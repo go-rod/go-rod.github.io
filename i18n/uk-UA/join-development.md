@@ -1,9 +1,9 @@
-# Join Development
+# Долучитися до розвитку
 
-Your help is more than welcome! Even just open an issue to ask a question may greatly help others.
+Ваша допомога більше, ніж вітання! Навіть просто відкрийте питання, яке поставити питання, може сильно допомогти іншим.
 
-Please read [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) before you ask questions.
+Будь ласка, прочитайте [Як поставити питання Розумний шлях](http://www.catb.org/~esr/faqs/smart-questions.html) перед задачею.
 
-We use Github Projects to manage tasks, you can see the priority and progress of the issues [here](https://github.com/orgs/go-rod/projects/1).
+Ми використовуємо Github проекти для керування завданнями, ви можете побачити пріоритет та прогрес проблем [тут](https://github.com/orgs/go-rod/projects/1).
 
-If you want to contribute code for this project please read the [Contributor Guide](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+Якщо ви хочете зробити внесок в код цього проекту, прочитайте Керівництво учасників [](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)</p>

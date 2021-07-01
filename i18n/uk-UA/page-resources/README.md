@@ -1,18 +1,18 @@
-# Page Resources
+# Ресурси сторінки
 
-You can use the `Page.GetResource` method to get files from here:
+Ви можете використати метод `Page.GetResource` для отримання файлів звідси:
 
-![page-resources](page-resources.png)
+![ресурсами сторінки](page-resources.png)
 
-Such as get an image:
+Такі, як отримати зображення:
 
 ```go
 bin, err := page.GetResource("https://test.com/a.png")
 ```
 
-## Element resource
+## Елементний ресурс
 
-You can also use the `Element.Resource` method to get the file of the `src` attribute. Such as for element `<img src="a.jpg">`, you can use code like this to get the `a.jpg`:
+Ви також можете використати `Елемент.Ресурс` метод отримання файлу з `src` атрибуту. Такий як для елемента `<img src="a.jpg">`, ви можете використовувати код, як це, щоб отримати `a.jpg`:
 
 ```go
 bin := page.MustElement("img").MustResource()

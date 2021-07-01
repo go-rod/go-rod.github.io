@@ -1,8 +1,8 @@
-# Chat Room
+# Sala de Bate-papo
 
-We use discord: [link to join](https://discord.gg/CpevuvY).
+Usamos o discord: [link para entrar no](https://discord.gg/CpevuvY).
 
-* Please use markdown to format code blocks
-* Please don't send code block larger than 30 lines to here, instead use gist or github issue
-* Please use your Github user name if possible
-* Please learn [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)
+* Por favor, use markdown para formatar blocos de código
+* Por favor, não envie o bloco de código maior que 30 linhas para aqui, em vez disso, use o gist ou github issue
+* Use seu nome de usuário do Github se possível
+* Por favor, aprenda [Como fazer perguntas a Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)

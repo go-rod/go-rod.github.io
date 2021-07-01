@@ -1,19 +1,19 @@
-# Page Resources
+# Sivun Resurssit
 
-You can use the `Page.GetResource` method to get files from here:
+Voit käyttää `Page.GetResource` -menetelmää saadaksesi tiedostoja täältä:
 
-![page-resources](page-resources.png)
+![sivu-resurssit](page-resources.png)
 
-Such as get an image:
+Kuten saat kuvan:
 
 ```go
 bin, err := page.GetResource("https://test.com/a.png")
 ```
 
-## Element resource
+## Elementin resurssi
 
-You can also use the `Element.Resource` method to get the file of the `src` attribute. Such as for element `<img src="a.jpg">`, you can use code like this to get the `a.jpg`:
+Voit myös käyttää `Element.Resource` -menetelmää saadaksesi `src` -attribuutin tiedoston. Kuten elementille `<img src="a.jpg">`, voit käyttää tällaista koodia saadaksesi `a.jpg`:
 
 ```go
-bin := page.MustElement("img").MustResource()
+bin := sivu.MustElement("img").MustResource()
 ```

@@ -1,26 +1,26 @@
-# Browsers & Pages
+# Браузери & сторінки
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+інтуїтивно використовувати Rod для керування кількома браузерами або сторінками одночасно.
 
-## Multiple browsers
+## Кілька браузерів
 
-To launch multiple browsers:
+Щоб запустити декілька браузерів:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Всі API безпечні для потоку, те ж саме працює для підпрограм декількох.
 
-You can also use incognito mode to launch multiple browsers:
+Ви також можете використовувати режим інкогніто для запуску декількох браузерів:
 
 ```go
 browser1 := rod.New().MustConnect()
-browser2 := browser1.MustIncognito()
+browser2 := 1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Запустити браузери з різними аргументами запуску:
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -32,22 +32,22 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 ```
 
-## Multiple pages
+## Кілька сторінок
 
-To control multiple pages for a browser:
+Щоб керувати кількома сторінками у браузері:
 
 ```go
-browser := rod.New().MustConnect()
+Браузер := rod.New().MustConnect()
 page1 := browser.MustPage("http://a.com")
-page2 := browser.MustPage("http://b.com")
+сторінка := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Пункт сторінки
 
-We can use PagePool to help concurrently control and reuse pages.
+Ми можемо використовувати PagePool для допомоги в спільному контролі і повторному використанні сторінок.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Відмітьте [приклад](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Браузерний басейн
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Тести в Роді є гарним прикладом управління пулом браузерів для передачі тестів в даний час. Ось чому тести можуть завершити за секунди. Перевірте код [тут](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).

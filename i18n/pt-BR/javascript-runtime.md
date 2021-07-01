@@ -1,45 +1,45 @@
-# Javascript Runtime
+# Runtime Javascript
 
-We can use Rod to evaluate random javascript code on the page. Such as use it to read or modify the HTML content of the page.
+Podemos usar Rod para avaliar o código de javascript aleatório na página. Tal como usá-lo para ler ou modificar o conteúdo HTML da página.
 
-## Eval on the page
+## Avaliar na página
 
-For example use `Page.Eval` to set global value:
+Por exemplo, use `Page.Eval` para definir o valor global:
 
 ```go
 page.MustEval(`window.a = {name: 'jack'}`)
 ```
 
-We can use a js function to pass value as json arguments:
+Podemos usar uma função js para passar valor como argumentos json:
 
 ```go
-key := "a"
-data := map[string]string{"name": "jack"}
+chave := "a"
+dado := mapa[string]string{"name": "jack"}
 page.MustEval(`(k, val) => {
-    window[k] = val
+    janela[k] = val
 }`, key, data)
 ```
 
-To get the returned value from Eval:
+Para obter o valor retornado do Eval:
 
 ```go
-val := page.MustEval(`a`).Get("name").Str()
-fmt.Println(val) // output: jack
+val := page.MustEval(`a`).Get("nome").Str()
+fmt.Println(val) // saída: jack
 ```
 
-## Define a global function
+## Definir uma função global
 
-The `Page.Evaluate` method will execute the function if its outermost is a function definition.
+O método `Page.Evaluate` executará a função se sua periferia for uma definição de função.
 
-For example, the `test` function below will be executed immediately, it will not be treated as a function definition:
+Por exemplo, a função `test` abaixo será executada imediatamente, ela não será tratada como uma definição de função:
 
 ```go
 page.MustEval(`function test() { alert('ok') }`)
 
-page.MustEval(`test()`) // panic with test not defined
+page.MustEval(`test()`) // pânico com teste não definido
 ```
 
-To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
+Para definir a função global `teste` você pode programar desse jeito, pois a função mais remota é uma atribuição, não uma definição de função:
 
 ```go
 page.MustEval(`test = function () { alert('ok') }`)
@@ -47,20 +47,20 @@ page.MustEval(`test = function () { alert('ok') }`)
 page.MustEval(`test()`)
 ```
 
-## Eval on an element
+## Avaliar um elemento
 
-`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
+`Element.Eval` é similar com `Page.Eval`, mas com o `esse` objeto definido para o elemento atual. Por exemplo, temos um `<button>Submeter</button>` na página, nós podemos ler ou modificar o elemento com JS:
 
 ```go
 el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // Modify the content
+el.MustEval(`this.innerText = "Apply"`) // Modifique o conteúdo
 txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // output: Apply
+ft.Println(txt) // output: Aplicar
 ```
 
-## Expose Go functions to the page
+## Expor funções Ir para a página
 
-We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
+Podemos usar `Page.Expose` para expor funções de callback à página. Por exemplo, aqui nós expomos uma função para ajudar a página calcular md5 hash:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
@@ -68,7 +68,7 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 })
 ```
 
-Now the page can invoke this method on the window object:
+Agora a página pode invocar esse método no objeto da janela:
 
 ```go
 hash := page.MustEval(`window.md5("test")`).Str()

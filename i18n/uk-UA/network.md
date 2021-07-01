@@ -1,35 +1,35 @@
-# Network
+# Мережа
 
-## Hijack requests
+## Запити cіджака
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+Ви можете використовувати мотузку для викрадення будь-якого HTTP або HTTPS трафіку.
 
-The entire process of hijacking one request:
+Увесь процес викрадення одного запиту:
 
 ```text
-   browser --req-> rod ---> server ---> rod --res-> browser
+   браузер --req-> жорстка ---> сервер ---> rod --res-> браузер
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+Коли браузер хоче відправити запит на сервер, він спочатку відправить запит до Проза, потім Rod діятиме, як проксі-сервер для надсилання запиту на справжній сервер і повернення відповіді на браузер. `--req->` і `--res->` це частини, які можна змінити.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+Наприклад, щоб замінити файл `test.js` на сервер, ми можемо зробити щось на зразок цього:
 
 ```go
-browser := rod.New().MustConnect()
+Браузер := rod.New().MustConnect()
 
-router := browser.HijackRequests()
+маршрутизатор := browser.HijackRequests()
 
 router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.Response.SetBody(`console. og("js файл замінено")`)
 })
 
 go router.Run()
 
-page := browser.MustPage("https://test.com/")
+сторінка := browser.MustPage("https://test.com/")
 
-// Hijack requests under the scope of a page
+// Hijack запитів під областю сторінки
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+Для отримання додаткової інформації перевірте [тест](https://github.com/go-rod/rod/blob/master/hijack_test.go)

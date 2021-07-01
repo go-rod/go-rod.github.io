@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod poskytuje spoustu metod simulace lidských vstupů, jako je stisknutí myši nebo stisknutí klávesnice.
 
-## Mouse click
+## Kliknutí myší
 
-To simulate the mouse click an element:
+Chcete-li simulovat myší, klepněte na prvek:
 
 ```go
 // left click
@@ -16,36 +16,36 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Možnost simulovat vstup:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // použijte MustText pro získání textu
 ```
 
-## Remove text from an input
+## Odstranit text ze vstupu
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Stačí simulovat, jak to člověk udělá, vyberte všechen text a nahradte jej prázdným řetězcem:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Můžete použít `SelectText` k nahrazení části textu.
 
-## Time input
+## Vstup času
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+Podporované typy vstupů jsou [datum](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [měsíc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), a [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## Zaškrtávací políčko
 
-Just click it like a human:
+Stačí kliknout jako člověk:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
@@ -56,17 +56,17 @@ if !el.MustProperty("checked").Bool() {
 }
 ```
 
-## Select options
+## Vybrat možnosti
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Vyberte možnosti v [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Níže uvedený kód vybere možnosti, které obsahují text "B" nebo "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Můžete také použít regex nebo css selektor pro výběr možností:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
@@ -75,14 +75,14 @@ page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## Nastavit soubory
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Pomocí `SetFiles` můžete nastavit soubory pro [vstup do souboru](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
-pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
+pag.MustElement(`[type=file]`).MustSetles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Myší, klávesnice a dotyk
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+Můžete také použít `stránku.Mouse`, `stránku.Keyboard`nebo `stránku.Touch` k simulaci nízkých vstupů. Například můžete prohledat souhrnný test pro přetažení, abyste se naučili, jak simulovat přetažení.

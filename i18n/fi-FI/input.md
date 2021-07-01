@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod tarjoaa paljon menetelmiä simuloida ihmisen syötteitä, kuten hiiren napsautus tai näppäimistön painallus.
 
-## Mouse click
+## Hiiren napsautus
 
-To simulate the mouse click an element:
+Napsauta hiiren simulointia varten elementtiä:
 
 ```go
 // left click
@@ -16,73 +16,73 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Simuloidaksesi syötteen:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.mustText()) // käytä MustTextia saadaksesi tekstin
 ```
 
-## Remove text from an input
+## Poista teksti syötteestä
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Vain simuloida miten ihminen sen tekee, valitse kaikki teksti ja korvaa sen tyhjällä merkkijonolla:
 
 ```go
-page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
+sivu.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Voit käyttää `SelectText` korvataksesi osan tekstistä.
 
-## Time input
+## Ajan syöttö
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+Tuetut syöttötyypit ovat [päivämäärä](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [kuukausi](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), ja [aika](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
-page.MustElement(`[type="date"]`).MustInputTime(time.Now())
+sivu.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## Valintaruutu
 
-Just click it like a human:
+Klikkaa vain sitä kuin ihmistä:
 
 ```go
-el := page.MustElement(`[type="checkbox"]`)
+el := sivu.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
-if !el.MustProperty("checked").Bool() {
+// tarkista se jos ei ole tarkistettu
+jos !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## Valitse vaihtoehdot
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Valitse vaihtoehdot [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Alla oleva koodi valitsee vaihtoehdot, jotka sisältävät tekstin "B" tai "C":
 
 ```go
-page.MustElement("select").MustSelect("B", "C")
+sivu.MustElement("valinta").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Voit myös käyttää regex tai css valitsin valita vaihtoehtoja:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// aseta väärä valinta
+sivulle.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## Aseta tiedostot
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Käytä `AsetFiles` asettaaksesi tiedostoja [tiedostolle](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Hiiri, näppäimistö ja kosketus
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+Voit myös käyttää `sivua.Hiiri`, `sivu.Näppäimistö`, tai `sivu.Kosketa` simuloidaksesi matalan tason tuloja. Kuten voit etsiä yksikön testi vetämällä oppia simuloida vedon.
