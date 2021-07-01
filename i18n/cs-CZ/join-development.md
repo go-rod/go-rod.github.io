@@ -1,9 +1,9 @@
-# Join Development
+# Připojit se k vývoji
 
-Your help is more than welcome! Even just open an issue to ask a question may greatly help others.
+Vaše pomoc je více než vítána! I když jen otevřete problém, který si položí otázku, může velmi pomoci ostatním.
 
-Please read [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) before you ask questions.
+Přečtěte si prosím [Jak položit otázky Chytrý způsob](http://www.catb.org/~esr/faqs/smart-questions.html) předtím, než položíte otázky.
 
-We use Github Projects to manage tasks, you can see the priority and progress of the issues [here](https://github.com/orgs/go-rod/projects/1).
+K řízení úkolů používáme Githubové projekty, můžete vidět prioritu a průběh problémů [zde](https://github.com/orgs/go-rod/projects/1).
 
-If you want to contribute code for this project please read the [Contributor Guide](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+Pokud chcete přispět kódem pro tento projekt, přečtěte si prosím [příručku přispěvatelů](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
