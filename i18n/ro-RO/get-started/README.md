@@ -1,62 +1,62 @@
-# Get Started with Rod
+# Începeți cu Dumnezeu
 
-## Requirements
+## Cerințe
 
-[Golang](https://golang.org/) is the only requirement, you don't even need to know anything about HTML.
+[Golang](https://golang.org/) este singura cerinţă, nici măcar nu trebuie să ştii nimic despre HTML.
 
-If you have never used Golang, [install](https://golang.org/doc/install) it and you can master it in hours: [A tour of Go](https://tour.golang.org/welcome).
+Dacă nu ai folosit niciodată Golang, [instalează-l](https://golang.org/doc/install) și îl poți stăpâni în ore: [Un tur de tip Go](https://tour.golang.org/welcome).
 
-## First program
+## Primul program
 
-Let's use Rod to open a page and take a screenshot of it, first, create a "main.go" file with the content below:
+Hai să folosim Rod pentru a deschide o pagină și să facem o captură de ecran, mai întâi, creați un fișier "main.go" cu conținutul de mai jos:
 
 ```go
-package main
+pachetul principal
 
 import "github.com/go-rod/rod"
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    pagina := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
     page.MustWaitLoad().MustScreenshot("a.png")
 }
 ```
 
-The `rod.New` creates a browser object, the `MustConnect` launches and connects to a browser. The `MustPage` creates a page object, it's like a page tab in the browser. The `MustWaitLoad` waits for the page is fully loaded. The `MustScreenshot` takes a screenshot of the page.
+`rod.New` creează un obiect browser, `MustConnect` lansează și se conectează la un browser. `MustPage` creează un obiect de pagină, este ca o filă de pagină în browser. `MustWaitLoad` așteaptă ca pagina să fie complet încărcată. `MustScreenshot` face o captură de ecran a paginii.
 
-Create a module:
-
-```bash
-go env -w GOPROXY=https://goproxy.io,direct
-go mod init learn-rod
-go mod tidy
-```
-
-Run the module:
+Creeaza un modul:
 
 ```bash
-go run .
+mergi rov -w GOPROXY=https://goproxy.io,direct
+mergi mod init learn-rod
+mergi cu mod tidy
 ```
 
-The program will output a screenshot "a.png" like the one below:
+Rulează modulul:
 
-![first-program](first-program.png)
+```bash
+mergi să fugi .
+```
 
-## See what's under the hood
+Programul va afișa o captură de ecran "a.png" ca cea de mai jos:
 
-For senior developers, you can skip all and read this file: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
+![primul program](first-program.png)
 
-By default, Rod will disable the browser's UI to maximize the performance. But when developing an automation task we usually care more about the ease of debugging. Rod provides a lot of solutions to help you debug the code.
+## Vezi ce se află sub cucerire
 
-Let's create a ".rod" config file under the current working directory. The content is:
+Pentru dezvoltatori de rang superior, puteţi sări peste toate şi citi acest fişier: [link-ul](https://github.com/go-rod/rod/blob/master/examples_test.go).
+
+În mod implicit, Rod va dezactiva interfața browser-ului pentru a maximiza performanța. Dar atunci când dezvoltăm o sarcină de automatizare ne pasă mai mult de uşurinţa depanării. Rod oferă o mulțime de soluții pentru a vă ajuta să depanați codul.
+
+Hai să creăm un fișier de configurare ".rod" în actualul director de lucru. Conținutul este:
 
 ```txt
-show
+arată
 ```
 
-It means "show the browser UI on the foreground". Before we run the module again, let's append `time.Sleep(time.Hour)` to the end the code so that it won't be too fast for our eyes to catch it, the code of "main.go" now becomes:
+Înseamnă "arată interfața browser-ului pe prim-plan". Înainte de a rula modulul din nou, haideți să adăugăm `time.Sleep(timpul. our)` până la sfârșit codul astfel încât să nu fie prea rapid pentru ca ochii noștri să îl prindă, codul "principal". o” devine acum:
 
 ```go
-package main
+pachetul principal
 
 import (
     "time"
@@ -71,42 +71,42 @@ func main() {
 }
 ```
 
-If you run the module again, you should see a browser like this:
+Dacă rulați din nou modulul, ar trebui să vedeți un browser ca acesta:
 
-![show](show.png)
+![arată](show.png)
 
-Press [CTRL + C](https://en.wikipedia.org/wiki/Control-C) on the keyboard to stop the program.
+Apăsați [CTRL + C](https://en.wikipedia.org/wiki/Control-C) de pe tastatură pentru a opri programul.
 
-## Input and click
+## Introduceți și apăsați pe
 
-Let's automate the website to search the keyword "earth". A website may have many input fields or buttons, we need to tell the program which one to manipulate. Usually, we use [Devtools](https://developers.google.com/web/tools/chrome-devtools/) to help us locate the element we want to control. let's append a new config to the ".rod" file to enable the Devtools, now it becomes:
+Hai să automatizăm site-ul pentru a căuta cuvântul cheie "Pământ". Un site web poate avea mai multe câmpuri sau butoane, trebuie să spunem programului pe care să îl manipulăm. De obicei, folosim [Devtools](https://developers.google.com/web/tools/chrome-devtools/) pentru a ne ajuta să localizăm elementul pe care vrem să-l controlăm. haideți să adăugăm o configurație nouă la fișierul ".rod" pentru a activa instrumentele, acum devine:
 
 ```txt
 show
 devtools
 ```
 
-Run the "main.go" again, move your mouse to the input field and right-click above it, you will see the context menu, then click the "inspect":
+Rulează "principalul". o" din nou, mutați mouse-ul în câmpul de intrare și faceți clic dreapta deasupra lui, veți vedea meniul contextual, apoi faceți clic pe "inspectare":
 
-![inspect](inspect.png)
+![inspectează](inspect.png)
 
-You should see the `<input id="searchInput` like below:
+Ar trebui să vezi `<input id="searchInput` ca mai jos:
 
 ![input](input.png)
 
-Right-click to copy the [css selector](css-selector.md) like the image above. The content on your clipboard will be "#searchInput". We will use it to locate the element to input the keyword. Now the "main.go" becomes:
+Faceţi clic dreapta pentru a copia [selectorul css](css-selector.md) ca imaginea de mai sus. Continutul de pe clipboard-ul tau va fi "#searchInput". Îl vom folosi pentru a localiza elementul pentru a introduce cuvântul cheie. Acum „main.go” devine:
 
 ```go
-package main
+import main
 
-import (
+(
     "time"
 
-    "github.com/go-rod/rod"
+    "github. om/go-rod/rod"
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
+    page := rod.New().MustConnect().MustPage("https://www.wikipedia. rg/").MustWindowFullscreen()
 
     page.MustElement("#searchInput").MustInput("earth")
 
@@ -115,134 +115,134 @@ func main() {
 }
 ```
 
-The `MustWindowFullscreen` resizes the browser window to make it easier to debug. We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitLoad` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
+Ecranul `MustWindowFullscreen` redimensionează fereastra browser-ului pentru a facilita depanarea. Folosim `MustElement` și selectorul pe care l-am copiat din panoul Devtools pentru a obține elementul pe care dorim să-l manipulăm. `MustElement` va aștepta automat până când elementul apare, astfel încât nu trebuie să folosim `MustWaitLoad` înainte de acesta. Apoi numim `MustInput` pentru a introduce cuvântul cheie "Pământ" în el. Dacă reexecutați "main.go", ar trebui să vedeți rezultatul arată mai jos:
 
-![after-input](after-input.png)
+![post-intrare](after-input.png)
 
-Similar to the input field let's right-click the search button to copy the selector for it:
+Similar cu câmpul de intrare să facem clic dreapta pe butonul căutare pentru a copia selectorul acestuia:
 
-![search-btn](search-btn.png)
+![Tn de căutare](search-btn.png)
 
-![search-btn-selector](search-btn-selector.png)
+![selector-de-căutare](search-btn-selector.png)
 
-Then add code to click the search button, now the "main.go" looks like:
+Apoi adaugă cod pentru a apăsa butonul de căutare, acum "main.go" arată astfel:
 
 ```go
-package main
+principal
 
 import "github.com/go-rod/rod"
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
+    pagina := rod.New().MustConnect().MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
 
-    page.MustElement("#searchInput").MustInput("earth")
-    page.MustElement("#search-form > fieldset > button").MustClick()
+    page.MustElement("#searchInput").MustInput"
+    page.MustElement("#search-form > buton > button").MustClick()
 
-    page.MustWaitLoad().MustScreenshot("a.png")
-}
+    page.MustitLoad().MustScreenshot(".n.
+
 ```
 
-If we rerun the module, the "a.png" will show the search result:
+Daca reexecutam modulul, "a.png" va afisa rezultatul cautarii:
 
-![earth-page](earth-page.png)
+![pagină terestră](earth-page.png)
 
-## Slow motion and visual trace
+## Mișcare lentă și urmărire vizuală
 
-The automated operations are too fast for human eyes to catch, to debug them we usually enable the slow-motion and visual trace configs, let's update the ".rod" file:
+Operațiunile automatizate sunt prea rapide pentru ca ochii umani să prindă, pentru a le depana, de obicei activăm mişcările lente şi configurările vizuale, hai să actualizăm ". Fişier od:
 
 ```txt
-show
-slow=1s
-trace
+arată traseul
+lent=1s
+
 ```
 
-Then rerun the module, now every action now will wait for 1 second before its execution. On the page, you will see the debug trace generated by Rod like below:
+Apoi ruleaza modulul, acum fiecare actiune va astepta 1 secunda inainte de executia. Pe pagină, vei vedea urmele de depanare generate de Steem mai jos:
 
-![trace](trace.png)
+![urme](trace.png)
 
-As you can see on the search button, Rod will create a mock mouse cursor.
+După cum puteți vedea în butonul de căutare, Id va crea un cursor pentru mouse-ul mock.
 
-On console you will see the trace log like below:
+Pe consolă vei vedea jurnalul urmelor de mai jos:
 
 ```txt
 [rod] 2020/11/11 11:11:11 [eval] {"js":"rod.element","params":["#searchInput"]}
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"input#searchInput"}
-[rod] 2020/11/11 11:11:11 [input] scroll into view
+[rod] 2020/11/11 11:11:11 [eval] {"js":"rod. opsițiune”, this":"input#searchInput"}
+[rod] 2020/11/11 11:11:11 [input] scroll in view
 [rod] 2020/11/11 11:11:11 [input] input earth
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.element","params":["#search-form > fieldset > button"]}
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"button.pure-button.pure-button-primary-progressive"}
-[rod] 2020/11/11 11:11:11 [input] scroll into view
-[rod] 2020/11/11 11:11:11 [input] left click
+[rod] 2020/11/11 11:11:11 [eval] {"js":"rod. lement","params":["#search-form > fieldset > button"]}
+[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"button.pure-button. derulare ure-button-primar-progresive"}
+[rod] 2020/11/11 11:11:11 [input] în vedere
+[rod] 2020/11/11 11:11:11 [input] click stânga
 ```
 
-## Other than the ".rod" file
+## Altul decât fișierul ".rod"
 
-The ".rod" file is just a shortcut for some commonly used API, you can also manually set them in code, such as the "slow", the code to set it is like `rod.New().SlowMotion(2 * time.Second)`. You can also use an environment variable to set it, such as on Mac or Linux: `rod=show go main.go`.
+”. 'od' este doar o scurtătură pentru unele API utilizate în mod obișnuit, le puteți seta manual în cod, precum "lent", codul care îl setează este ca `tijă. ew().SlowMotion(2 * time.Secundă)`. Poți folosi, de asemenea, o variabilă de mediu pentru a o seta, cum ar fi pe Mac sau Linux: `rod=show go main.go`.
 
-## Get text content
+## Obține conținut text
 
-Rod provides lots of handy methods to retrieve the contents from the page.
+Ploile oferă o mulţime de metode utile pentru a prelua conţinutul de pe pagină.
 
-Let's try to get the description of the Earth, use the same technique we previously used to copy the selector from the Devtools:
+Să încercăm să obținem descrierea Pământului, să folosim aceeași tehnică pe care am folosit-o anterior pentru a copia selectorul de pe Dispozitive:
 
-![get-text](get-text.png)
+![citește-text](get-text.png)
 
-The method we use is `MustText`, here's the full code of it:
+Metoda pe care o folosim este `MustText`, iată codul complet al acestuia:
 
 ```go
-package main
+import principal
 
-import (
+(
     "fmt"
 
-    "github.com/go-rod/rod"
+    "github. om/go-rod/rod
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    page := rod. ew().MustConnect().MustPage("https://www.wikipedia.org/")
 
-    page.MustElement("#searchInput").MustInput("earth")
-    page.MustElement("#search-form > fieldset > button").MustClick()
+    page.MustElement("#searchInput"). ustInput("Pământ")
+    page.MustElement("#search-formular > buton > ").MustClick()
 
-    el := page.MustElement("#mw-content-text > div.mw-parser-output > p:nth-child(6)")
+    el := page. ustElement("#mw-content-text > div.mw-parser-output > p:nth-child(6)")
     fmt.Println(el.MustText())
 }
 ```
 
-If we rerun the module, we should see the console outputs something like:
+Dacă rerulăm modulul, ar trebui să vedem consola ieșind ceva de genul:
 
 ```txt
-Earth is the third planet from the Sun and the only astronomical object known to harbor life.
+Pământul este a treia planetă din Soare şi singurul obiect astronomic cunoscut ca adăpostind viaţă.
 ...
 ```
 
-## Get image content
+## Obține conținutul imaginii
 
-Same as get text, we can also get images from the page, let's get the selector of the Earth image and use `MustResource` to get the binary of the image:
+La fel ca textul, putem obține și imagini de pe pagină, hai să obținem selectorul imaginii Pământului și să folosim `MustResource` pentru a obține binarul imaginii:
 
 ![get-image](get-image.png)
 
-The full code is:
+Codul complet este:
 
 ```go
-package main
+import main
 
-import (
+(
     "github.com/go-rod/rod"
-    "github.com/go-rod/rod/lib/utils"
+    "github. om/go-rod/rod/lib/utils
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    page := rod. ew().MustConnect().MustPage("https://www.wikipedia.org/")
 
     page.MustElement("#searchInput").MustInput("earth")
-    page.MustElement("#search-form > fieldset > button").MustClick()
+    . ustElement("#search-form > fieldset > button").MustClick()
 
-    el := page.MustElement("#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(1) > td > a > img")
-    _ = utils.OutputFile("b.png", el.MustResource())
+    el := page.MustElement("#mw-content-text > div.mw-parser-output > tabel. poșetă > tbody > tr:nth-child(1) > td > a > img")
+    _ = utilitare. utputFile("b.png", el.MustResource())
 }
 ```
 
-The output file "b.png" should be:
+Fișierul de ieșire "b.png" trebuie să fie:
 
-![earth](earth.png)
+![Pământ](earth.png)
