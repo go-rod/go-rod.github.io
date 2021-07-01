@@ -1,53 +1,53 @@
-# Browsers & Pages
+# Περιηγητές & Σελίδες
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+Είναι διαισθητικό να χρησιμοποιείτε το Rod για να ελέγχετε ταυτόχρονα πολλαπλά προγράμματα περιήγησης ή σελίδες.
 
-## Multiple browsers
+## Πολλαπλά προγράμματα περιήγησης
 
-To launch multiple browsers:
+Για να ξεκινήσετε πολλαπλά προγράμματα περιήγησης:
 
 ```go
-browser1 := rod.New().MustConnect()
+browser1:= rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Όλα τα APIs είναι ασφαλή, ίδια έργα για πολλαπλές ρουτίνες Go .
 
-You can also use incognito mode to launch multiple browsers:
+Μπορείτε επίσης να χρησιμοποιήσετε ανώνυμη λειτουργία για να εκκινήσετε πολλαπλά προγράμματα περιήγησης:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Εκκίνηση προγραμμάτων περιήγησης με διαφορετικά ορίσματα εκκίνησης:
 
 ```go
-browser1 := rod.New().ControlURL(
+browser1:= rod.New().ControlURL(
     launcher.New().Headless(false).MustLaunch()
 ).MustConnect()
 
-browser1 := rod.New().ControlURL(
+browser1:= rod.New().ControlURL(
     launcher.New().UserDataDir("path").MustLaunch()
 ).MustConnect()
 ```
 
-## Multiple pages
+## Πολλαπλές σελίδες
 
-To control multiple pages for a browser:
+Για τον έλεγχο πολλαπλών σελίδων για έναν περιηγητή:
 
 ```go
 browser := rod.New().MustConnect()
-page1 := browser.MustPage("http://a.com")
-page2 := browser.MustPage("http://b.com")
+σελίδα1 := browser.MustPage("http://a.com")
+σελίδα2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Σύμπλεγμα σελίδας
 
-We can use PagePool to help concurrently control and reuse pages.
+Μπορούμε να χρησιμοποιήσουμε το PagePool για να βοηθήσουμε ταυτόχρονα τον έλεγχο και την επαναχρησιμοποίηση των σελίδων.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Ελέγξτε αυτό το παράδειγμα [](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Πισίνα προγράμματος περιήγησης
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Οι δοκιμές στο Rod είναι ένα καλό παράδειγμα της διαχείρισης ενός συνόλου προγραμμάτων περιήγησης για να εκτελέσετε τις δοκιμές ταυτόχρονα. Αυτός είναι ο λόγος για τον οποίο οι δοκιμές μπορούν να ολοκληρωθούν σε δευτερόλεπτα. Ελέγξτε τον κωδικό [εδώ](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
