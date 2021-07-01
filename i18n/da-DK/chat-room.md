@@ -1,8 +1,8 @@
-# Chat Room
+# Chat Rum
 
-We use discord: [link to join](https://discord.gg/CpevuvY).
+Vi bruger discord: [link til at deltage](https://discord.gg/CpevuvY).
 
-* Please use markdown to format code blocks
-* Please don't send code block larger than 30 lines to here, instead use gist or github issue
-* Please use your Github user name if possible
-* Please learn [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)
+* Brug markdown til at formatere kodeblokke
+* Send venligst ikke kodeblok større end 30 linjer til her, i stedet bruge github problem
+* Benyt venligst dit Github brugernavn om muligt
+* Læs venligst [Sådan Stil Spørgsmål Den Smarte Måde](http://www.catb.org/~esr/faqs/smart-questions.html)
