@@ -1,18 +1,18 @@
-# Network
+# Netværk
 
-## Hijack requests
+## Hijack anmodninger
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+Du kan bruge Rod til at kapre enhver HTTP eller HTTPS-trafik.
 
-The entire process of hijacking one request:
+Hele processen med kapring en anmodning:
 
 ```text
-   browser --req-> rod ---> server ---> rod --res-> browser
+   browser --req-> stang ---> server ---> stang --res-> browser
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+Når browseren ønsker at sende en anmodning til en server, vil det sende anmodningen til Rod først, så vil Rod handle som en proxy til at sende anmodningen til den faktiske server og returnere svaret til browseren. Den `--req->` og `--res->` er de dele, der kan ændres.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+For eksempel for at erstatte en fil `test.js` svar fra serveren kan vi gøre noget som dette:
 
 ```go
 browser := rod.New().MustConnect()
@@ -21,7 +21,7 @@ router := browser.HijackRequests()
 
 router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.SetBody(`console. og("js file replaced")`)
 })
 
 go router.Run()
@@ -32,4 +32,4 @@ page := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For mere information, tjek de [kapre tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
