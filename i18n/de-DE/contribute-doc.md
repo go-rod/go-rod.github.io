@@ -1,29 +1,29 @@
-# Contribute Doc
+# Doc beitragen
 
-## Debug and preview
+## Debuggen und Vorschau
 
-Install [docsify-cli](https://docsify.js.org/#/quickstart).
+[docsify-cli](https://docsify.js.org/#/quickstart) installieren.
 
-Then run these commands:
+Führen Sie dann folgende Befehle aus:
 
 ```bash
 git clone https://github.com/go-rod/go-rod.github.io.git
 docsify serve -o go-rod.github.io
 ```
 
-When you edit a doc file, the page will refresh automatically.
+Wenn Sie eine Doc-Datei bearbeiten, wird die Seite automatisch aktualisiert.
 
-## Documentation
+## Dokumentation
 
-Just create a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) for this [repo](https://github.com/go-rod/go-rod.github.io.git).
+Erstellen Sie einfach einen [Pull-Request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) für dieses [Repo](https://github.com/go-rod/go-rod.github.io.git).
 
-## Translations
+## Übersetzungen
 
-We use [crowdin](https://crowdin.com/) to manage the localization.
+Wir verwenden [crowdin](https://crowdin.com/) um die Lokalisierung zu verwalten.
 
-To get started:
+Um zu beginnen:
 
-1. Go to the [project page](https://crowdin.com/project/go-rod)
-2. Click the target language icon
-3. Click the file you want to translate
-4. Follow the UI, translate the file on the website
+1. Gehe zur [Projektseite](https://crowdin.com/project/go-rod)
+2. Klicken Sie auf das Zielsprachensymbol
+3. Klicken Sie auf die zu übersetzende Datei
+4. Folgen Sie der Benutzeroberfläche, übersetzen Sie die Datei auf der Webseite
