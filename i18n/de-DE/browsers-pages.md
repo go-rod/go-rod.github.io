@@ -1,26 +1,26 @@
-# Browsers & Pages
+# Browser & Seiten
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+Es ist intuitiv mit Rod mehrere Browser oder Seiten gleichzeitig zu steuern.
 
-## Multiple browsers
+## Mehrere Browser
 
-To launch multiple browsers:
+Um mehrere Browser zu starten:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Alle APIs sind Thread-sicher, dasselbe funktioniert für mehrere Go-Routinen.
 
-You can also use incognito mode to launch multiple browsers:
+Sie können auch den Inkognito-Modus verwenden, um mehrere Browser zu starten:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Browser mit verschiedenen Startargumenten starten:
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -29,12 +29,13 @@ browser1 := rod.New().ControlURL(
 
 browser1 := rod.New().ControlURL(
     launcher.New().UserDataDir("path").MustLaunch()
-).MustConnect()
+).MustConnect() 
+ ).MustConnect()
 ```
 
-## Multiple pages
+## Mehrere Seiten
 
-To control multiple pages for a browser:
+Um mehrere Seiten für einen Browser zu steuern:
 
 ```go
 browser := rod.New().MustConnect()
@@ -42,12 +43,12 @@ page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Seitenpool
 
-We can use PagePool to help concurrently control and reuse pages.
+Wir können PagePool verwenden, um die gleichzeitige Kontrolle und Wiederverwendung von Seiten zu erleichtern.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Prüfe dieses [-Beispiel](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Browserpool
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Die Tests in Rod sind ein gutes Beispiel für die Verwaltung eines Browserpools zur gleichzeitigen Durchführung von Tests. Deshalb können die Tests in Sekunden beendet werden. Überprüfen Sie den Code [hier](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
