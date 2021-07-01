@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod zapewnia wiele metod do symulacji danych wejściowych ludzi, takich jak kliknięcie myszy lub naciśnięcie klawiatury.
 
-## Mouse click
+## Kliknięcie myszy
 
-To simulate the mouse click an element:
+Aby symulować myszę, kliknij element:
 
 ```go
 // left click
@@ -16,73 +16,73 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Aby symulować dane wejściowe:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // użyj MustText aby uzyskać tekst
 ```
 
-## Remove text from an input
+## Usuń tekst z wejścia
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Wystarczy symulować jak człowiek to robi, wybrać cały tekst i zastąpić go pustym ciągiem znaków:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Możesz użyć `SelectText` , aby zastąpić część tekstu.
 
-## Time input
+## Czas wprowadzania
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+Obsługiwane typy danych wejściowych to [data](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), i [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## Pole wyboru
 
-Just click it like a human:
+Wystarczy kliknąć jak człowiek:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
-if !el.MustProperty("checked").Bool() {
+// sprawdź czy nie zaznaczono
+jeśli !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## Wybierz opcje
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Wybierz opcje w [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Poniższy kod wybierze opcje zawierające tekst "B" lub "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Możesz również użyć selektora regex lub css aby wybrać opcje:
 
 ```go
-page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
+page.MustElement("select").Wybierz([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// ustaw false aby odznaczyć stronę
+. MustElement("select").Wybierz ([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## Ustaw pliki
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Użyj `SetFiles` aby ustawić pliki dla [wprowadzania pliku](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Mysz, klawiatura i dotyk
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+Możesz również użyć `page.Mouse`, `page.Keyboard`, lub `page.Dotknij` , aby symulować dane wejściowe o niskim poziomie. Taki jak możesz przeszukać test jednostki, aby dowiedzieć się, jak symulować przeciąganie.
