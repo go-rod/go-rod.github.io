@@ -1,3 +1,3 @@
-# Source Code
+# Bron code
 
-The main code repository: [link](https://github.com/go-rod/rod).
+De hoofd code repository: [link](https://github.com/go-rod/rod).
