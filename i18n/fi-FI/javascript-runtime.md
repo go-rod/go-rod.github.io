@@ -1,75 +1,75 @@
-# Javascript Runtime
+# Käynnistä Javascript
 
-We can use Rod to evaluate random javascript code on the page. Such as use it to read or modify the HTML content of the page.
+Voimme käyttää sauva arvioida satunnaista javascript koodi sivulla. Kuten käyttää sitä lukea tai muokata HTML-sisältöä sivun.
 
-## Eval on the page
+## Nähdä sivulla
 
-For example use `Page.Eval` to set global value:
+Esimerkiksi käytä `Page.Eval` asettaaksesi globaalin arvon:
 
 ```go
-page.MustEval(`window.a = {name: 'jack'}`)
+sivu.MustEval(`window.a = {name: 'jack'}`)
 ```
 
-We can use a js function to pass value as json arguments:
+Voimme käyttää js toiminto siirtää arvon json argumentit:
 
 ```go
-key := "a"
-data := map[string]string{"name": "jack"}
-page.MustEval(`(k, val) => {
-    window[k] = val
-}`, key, data)
+avain := "a"
+tiedot := kartta[string]merkki{"name": "jack"}
+sivu.MustEval(`(k, val) => {
+    ikkuna[k] = val
+}`, avain, data)
 ```
 
-To get the returned value from Eval:
+Saadaksesi palautetun arvon Eval:
 
 ```go
-val := page.MustEval(`a`).Get("name").Str()
+val := sivu.MustEval(`a`).Get("nimi").Str()
 fmt.Println(val) // output: jack
 ```
 
-## Define a global function
+## Määritä globaali funktio
 
-The `Page.Evaluate` method will execute the function if its outermost is a function definition.
+The `Page.Evaluate` -menetelmä suorittaa funktion, jos sen uloin on funktion määritelmä.
 
-For example, the `test` function below will be executed immediately, it will not be treated as a function definition:
+Esimerkiksi jäljempänä oleva `testi` -toiminto suoritetaan välittömästi, sitä ei käsitellä funktion määritelmänä:
 
 ```go
-page.MustEval(`function test() { alert('ok') }`)
+sivu.MustEval(`function test() { alert('ok') }`)
 
-page.MustEval(`test()`) // panic with test not defined
+sivu.MustEval(`test()`) // panic testiä ei ole määritelty
 ```
 
-To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
+Globaalin funktion `testin` määrittämiseksi voit koodata näin, koska uloin on tehtävä, ei funktion määritelmä:
 
 ```go
-page.MustEval(`test = function () { alert('ok') }`)
+sivu.MustEval(`test = toiminto () { alert('ok') }`)
 
-page.MustEval(`test()`)
+sivu.MustEval(`test()`)
 ```
 
-## Eval on an element
+## Tunnista elementti
 
-`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
+`Element.Eval` on samanlainen `Page.Eval`, mutta `tämä` objekti on asetettu nykyiseen elementtiin. Esimerkiksi, meillä on `<button>Lähetä</button>` sivulla, voimme lukea tai muokata elementin JS: llä:
 
 ```go
-el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // Modify the content
+el := sivu.MustElement("painike")
+el.MustEval(`this.innerText = "Apply"`) // Muokkaa sisältöä
 txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // output: Apply
+fmt.Println(txt) // Tutkimustuotos: Lisää
 ```
 
-## Expose Go functions to the page
+## Alenna Go-funktiot sivulle
 
-We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
+Voimme käyttää `Page.Expose` altistaa callback toiminnot sivulle. Esimerkiksi, tässä me paljastaa funktion auttaa sivua laskea md5 hash:
 
 ```go
-page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
-    return md5.Sum([]byte(g.Str())), nil
+page.MustExpose("md5", funktio(g gson.JSON) (interface{}, error) {
+    return md5.Sum([]byte(g.Str()), nil
 })
 ```
 
-Now the page can invoke this method on the window object:
+Nyt sivu voi vedota tähän menetelmään ikkunan objektissa:
 
 ```go
-hash := page.MustEval(`window.md5("test")`).Str()
+hash := sivu.MustEval(`window.md5 ("testi")`).Str()
 ```
