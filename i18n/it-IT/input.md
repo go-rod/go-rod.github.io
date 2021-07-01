@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod fornisce un sacco di metodi per simulare gli input umani, come il clic del mouse o la pressione della tastiera.
 
-## Mouse click
+## Clic del mouse
 
-To simulate the mouse click an element:
+Per simulare il mouse fai clic su un elemento:
 
 ```go
 // left click
@@ -16,28 +16,28 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Per simulare l'input:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // usa MustText per ottenere il testo
 ```
 
-## Remove text from an input
+## Rimuovi testo da un input
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Basta simulare come un umano lo fa, selezionare tutto il testo e sostituirlo con una stringa vuota:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+È possibile utilizzare `SelectText` per sostituire una parte del testo.
 
-## Time input
+## Input orario
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+I tipi di input supportati sono [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [mese](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), e [tempo](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
@@ -45,28 +45,28 @@ page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 
 ## Checkbox
 
-Just click it like a human:
+Basta cliccare come un umano:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
-if !el.MustProperty("checked").Bool() {
+// controlla se non è stato controllato
+se !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## Seleziona opzioni
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Seleziona le opzioni in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Il codice qui sotto selezionerà le opzioni che contengono il testo "B" o "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+È inoltre possibile utilizzare il selettore regex o css per selezionare le opzioni:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
@@ -75,14 +75,14 @@ page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## Imposta file
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Usa `SetFiles` per impostare i file per il [file di input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Mouse, tastiera e tocco
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+È anche possibile utilizzare la pagina `page.Mouse`, `page.Tastiera`, o `page.Tocca` per simulare gli input di basso livello. Ad esempio è possibile cercare l'unità di prova per trascinare per imparare a simulare il trascinamento.
