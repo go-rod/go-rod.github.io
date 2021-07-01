@@ -1,26 +1,26 @@
-# Browsers & Pages
+# Prohlížeče & stránky
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+Je intuitivní použít Rod k ovládání více prohlížečů nebo stránek najednou.
 
-## Multiple browsers
+## Více prohlížečů
 
-To launch multiple browsers:
+Chcete-li spustit více prohlížečů:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Všechny API jsou bezpečné, shodné práce pro více rutin Go.
 
-You can also use incognito mode to launch multiple browsers:
+Můžete také použít anonymní režim pro spuštění více prohlížečů:
 
 ```go
-browser1 := rod.New().MustConnect()
-browser2 := browser1.MustIncognito()
+prohlížeč1 := rod.New().MustConnect()
+prohlížeč2 := prohlížeč1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Spustit prohlížeče s různými argumenty spuštění:
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -28,26 +28,26 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 
 browser1 := rod.New().ControlURL(
-    launcher.New().UserDataDir("path").MustLaunch()
+    launcher.New().UserDataDir("cesta").MustLaunch()
 ).MustConnect()
 ```
 
-## Multiple pages
+## Více stránek
 
-To control multiple pages for a browser:
+Možnost ovládat více stránek prohlížeče:
 
 ```go
-browser := rod.New().MustConnect()
+prohlížeč := rod.New().MustConnect()
 page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Stránka
 
-We can use PagePool to help concurrently control and reuse pages.
+PagePool můžeme použít k souběžné kontrole a opakovanému použití stránek.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Zaškrtněte tento [příklad](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Sloupec prohlížeče
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Testy v modu jsou dobrým příkladem správy skupiny prohlížečů pro současné provádění testů. To je důvod, proč zkoušky mohou být ukončeny v sekundách. Zkontrolujte kód [zde](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
