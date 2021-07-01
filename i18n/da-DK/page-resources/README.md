@@ -1,18 +1,18 @@
-# Page Resources
+# Side Ressourcer
 
-You can use the `Page.GetResource` method to get files from here:
+Du kan bruge `Page.GetResource` metoden til at hente filer herfra:
 
-![page-resources](page-resources.png)
+![side-ressourcer](page-resources.png)
 
-Such as get an image:
+Sådan som at få et billede:
 
 ```go
 bin, err := page.GetResource("https://test.com/a.png")
 ```
 
-## Element resource
+## Element ressource
 
-You can also use the `Element.Resource` method to get the file of the `src` attribute. Such as for element `<img src="a.jpg">`, you can use code like this to get the `a.jpg`:
+Du kan også bruge `Element.Resource` -metoden til at få filen af `src` -attributten. Såsom for element `<img src="a.jpg">`, kan du bruge kode som denne for at få `a.jpg`:
 
 ```go
 bin := page.MustElement("img").MustResource()
