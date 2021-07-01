@@ -1,14 +1,14 @@
-# Custom Browser Launch
+# Пользовательский запуск браузера
 
-## Connect to an running browser
+## Подключиться к запущенному браузеру
 
 You can use `launcher` lib to custom the launch of browsers, such as add or delete the browser executable command-line arguments, custom the auto-download-browser mirrors.
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debugging-port=9222
+"/Приложения/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debugging-port=9222
 ```
 
-It will output something like:
+Это даст что-то вроде этого:
 
 ```txt
 DevTools listening on ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913
@@ -17,7 +17,7 @@ DevTools listening on ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8f
 The `--` prefix is optional, such as `headless` and `--headless` are the same.
 
 ```go
-package main
+main
 
 import (
     "github.com/go-rod/rod"
@@ -29,11 +29,11 @@ func main() {
 }
 ```
 
-## The launcher lib
+## Лаунчер lib
 
-Because the above workflow is so often used, we abstract a the `launcher` lib to simplify launch of browsers. Such as automatically download or search for the browser executable, add or delete the browser executable command-line arguments, etc.
+Поскольку приведенный выше рабочий процесс так часто используется, мы абстрагируем `лаунчер` lib для упрощения запуска браузеров. Такие как автоматическая загрузка или поиск исполняемого файла браузера, добавляйте или удаляйте исполняемые аргументы в командной строке браузера и т.д.
 
-So the above manual launch and code becomes:
+Таким образом, приведенный выше ручной запуск и код становится:
 
 ```go
 func main() {
@@ -42,7 +42,7 @@ func main() {
 }
 ```
 
-We can use the helper function `launcher.LookPath` to get the browser executable path, the above code is the same as:
+Мы можем использовать вспомогательную функцию `launcher.LookPath` для получения исполняемого пути в браузере, приведенный выше код такой же как:
 
 ```go
 func main() {
@@ -52,7 +52,7 @@ func main() {
 }
 ```
 
-If `ControlURL` is not set, the `MustConnect` will run `launcher.New().MustLaunch()` automatically. By default, the launcher will automatically download and use a statically versioned browser so that the browser behavior is consistent. So you can simplify the above code into:
+Если `ControlURL` не установлен, то `MustConnect` запустит `launcher.New().MustLaunch()` автоматически. По умолчанию, лаунчер будет автоматически загружать и использовать статически версионный браузер, чтобы поведение браузера было последовательным. Таким образом, вы можете упростить приведенный выше код в:
 
 ```go
 func main() {
@@ -60,14 +60,14 @@ func main() {
 }
 ```
 
-## Add or remove options
+## Добавить или удалить параметры
 
-You can use the `Set` and `Delete` to modify the browser launch arguments (flags):
+Вы можете использовать `Set` и `Удалить` для изменения аргументов запуска браузера (флаги):
 
 ```go
-package main
+пакет основного
 
-import (
+импорта (
     "github.com/go-rod/rod"
     "github.com/go-rod/rod/lib/launcher"
 )
@@ -76,7 +76,7 @@ func main() {
     u := launcher.New().
         Set("user-data-dir", "path").
         Set("headless").
-        Delete("--headless").
+        Удалить("--headless").
         MustLaunch()
 
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
@@ -90,7 +90,7 @@ Because options like `user-data-dir`, `proxy-server`, `headless` are so often us
 ```go
 func main() {
     u := launcher.New().
-        UserDataDir("path").
+        UserDataDir("путь").
         Headless(true).
         Headless(false).
         MustLaunch()
@@ -99,33 +99,33 @@ func main() {
 }
 ```
 
-Here are the available flags: [link](https://peter.sh/experiments/chromium-command-line-switches).
+Вот доступные флага: [ссылка](https://peter.sh/experiments/chromium-command-line-switches).
 
-Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
+Подробнее о [ссылке](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
-## Remotely manage the launcher
+## Удаленное управление лаунчером
 
-For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+Для системы скрепежа, как правило, мы разделим скреперы и браузеры на различные кластеры, чтобы они могли масштабироваться отдельно. Rod предоставляет модуль `launcher.Manager` для удаленного управления лаунчером. С ним можно удаленно запустить браузер с пользовательскими флагами запуска. Пример его использования — [здесь](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
 
-Because it's very hard to install chromium correctly on some linux distributions, Rod provides a docker image to make it consistent cross platforms. Here's an example to use it:
+Поскольку очень трудно правильно установить chromium на некоторых дистрибутивах linux, Rod обеспечивает образ докера, чтобы сделать его совместимыми кросс-платформами. Вот пример его использования:
 
-1. Run the rod image `docker run -p 7317:7317 ghcr.io/go-rod/rod`
+1. Запустите изображение стержня `запуска докер -p 7317:7317 ghcr.io/go-rod/rod`
 
 2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/remote-launch/main.go)
 
-The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time.
+[Изображение настроено](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) на скриншоты и шрифты среди популярных природных языков. Каждый контейнер может запускать несколько браузеров одновременно.
 
-## User mode :id=user-mode
+## Режим пользователя :id=пользовательский режим
 
-When you log into your github account, and you want to reuse the login session for automation task. You can use the `launcher.NewUserMode` to launch your regular user browser. Rod will be just like a browser extension:
+Когда вы входите в свою учетную запись github, и вы хотите повторно использовать сеанс входа в систему для автоматизации. Вы можете использовать `launcher.NewUserMode` для запуска вашего обычного браузера. Rod будет похож на расширение браузера:
 
 ```go
 wsURL := launcher.NewUserMode().MustLaunch()
-browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+браузер := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
 ```
 
-Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
+Вот более подробный пример: [код пример](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
 
-## Low-level API
+## Нижний уровень API
 
-If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
+Если вы хотите контролировать каждый шаг процесса запуска, например, отключите автозагрузку и используйте системный браузер по умолчанию, проверьте пример файла [](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
