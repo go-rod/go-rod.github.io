@@ -1,48 +1,48 @@
-# Custom Browser Launch
+# Start egen nettleser
 
-## Connect to an running browser
+## Koble til en løpende nettleser
 
-Find the executable path of your browser, such as on macOS run:
+Finn den kjørbare banen til nettleseren din, for eksempel på macOS kjøring:
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debugging-port=9222
+"/Applikasjoner/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debugging-port=9222
 ```
 
-It will output something like:
+Det vil vise noe som:
 
 ```txt
-DevTools listening on ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913
+DevTools lytter på ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913
 ```
 
-The above `ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913` is the interface to control the browser:
+The above `ws://127.0.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913` er grensesnittet til å kontrollere nettleseren:
 
 ```go
-package main
+pakkens viktigste
 
 import (
-    "github.com/go-rod/rod"
+    "ofimgo-rod/rod"
 )
 
 func main() {
-    u := "ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913"
+    u := "ws://127.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913"
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
-}
+
 ```
 
-## The launcher lib
+## Launcher lib
 
-Because the above workflow is so often used, we abstract a the `launcher` lib to simplify launch of browsers. Such as automatically download or search for the browser executable, add or delete the browser executable command-line arguments, etc.
+Fordi arbeidsflyten over brukes er så ofte vi abstract a `launcher` lib for å forenkle lanseringen av nettlesere. Slik som det automatisk lastes ned eller søker etter nettleserens kjørbare, legg til eller slett nettleserens kjørbare kommando-linje-argumenter, osv.
 
-So the above manual launch and code becomes:
+Så ovennevnte manuell start og kode blir:
 
 ```go
 func main() {
     u := launcher.New().Bin("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").MustLaunch()
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
-}
+
 ```
 
-We can use the helper function `launcher.LookPath` to get the browser executable path, the above code is the same as:
+Vi kan bruke hjelper-funksjonen `launcher.LookPath` for å få nettleserens kjørbare bane, koden ovenfor er den samme som:
 
 ```go
 func main() {
@@ -52,80 +52,80 @@ func main() {
 }
 ```
 
-If `ControlURL` is not set, the `MustConnect` will run `launcher.New().MustLaunch()` automatically. By default, the launcher will automatically download and use a statically versioned browser so that the browser behavior is consistent. So you can simplify the above code into:
+Hvis `ControlURL` ikke er satt, vil `MustConnect` kjøre `launcher.New().MustLaunch()` automatisk. Som standard vil startskjermbildet automatisk laste ned og bruke en statisk versjonert nettleser slik at nettleseren fungerer konsekvent. Så du kan forenkle ovennevnte kode til:
 
 ```go
 func main() {
     rod.New().MustConnect().MustPage("https://example.com")
-}
+
 ```
 
-## Add or remove options
+## Legge til eller fjerne alternativer
 
-You can use the `Set` and `Delete` to modify the browser launch arguments (flags):
+Du kan bruke `Sett` og `Slett` for å endre nettleserens startargumenter (flagger):
 
 ```go
-package main
+pakkens viktigste
 
 import (
     "github.com/go-rod/rod"
-    "github.com/go-rod/rod/lib/launcher"
+    "ocepgo-rod/lib/launcher"
 )
 
-func main() {
+morsomme main() {
     u := launcher.New().
         Set("user-data-dir", "path").
-        Set("headless").
-        Delete("--headless").
+        Angi(headless").
+        Slett(--headless").
         MustLaunch()
 
-    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
-}
+    rod.New().ControlURL(u).MustConnect().MustPage(https://example.com")
+
 ```
 
-As you can see from above the `--` prefix is optional, such as `headless` and `--headless` are the same.
+Som du ser ovenfra er `--` prefikset valgfri, for eksempel `headless` og `--headless` den samme.
 
-Because options like `user-data-dir`, `proxy-server`, `headless` are so often used, we added some helpers for them, so the above code can become like this:
+Fordi valg som `user-data-dir`, `proxy-server`, `headless` er så ofte brukt, har vi lagt til noen hjelpere for dem, så koden ovenfor kan bli slik:
 
 ```go
-func main() {
+morsomme main() {
     u := launcher.New().
-        UserDataDir("path").
-        Headless(true).
-        Headless(false).
+        BrukerDataDir("sti").
+        Hodetelefon(sann)
+        Hodetelse(falsk).
         MustLaunch()
 
-    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
-}
+    rod.New().ControlURL(u).MustConnect().MustPage(https://example.com")
+
 ```
 
-Here are the available flags: [link](https://peter.sh/experiments/chromium-command-line-switches).
+Her er de tilgjengelige flaggene: [link](https://peter.sh/experiments/chromium-command-line-switches).
 
-Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
+Les API doc for mer informasjon: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
-## Remotely manage the launcher
+## Remotely administrere launcheren
 
-For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+For produksjonsscraping vil vi vanligvis skille skraperne og nettleseren i forskjellige klynger slik at de kan skalere separat. Rod tilbyr modulen `launcher.Manager` for å administrere launcheren eksternt. Med den kan vi eksternt starte en nettleser med egendefinerte startflagg. Eksemplet for bruk er [her](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
 
-Because it's very hard to install chromium correctly on some linux distributions, Rod provides a docker image to make it consistent cross platforms. Here's an example to use it:
+Fordi det er veldig vanskelig å installere krom riktig på noen linux distribusjoner, Rod gir et forankringsbilde som gjør det konsekvent kryssplattformer. Her er et eksempel som skal brukes:
 
-1. Run the rod image `docker run -p 7317:7317 ghcr.io/go-rod/rod`
+1. Kjør stavbildet `docker kjører -p 7317:7317 ghcr.io/go/stang`
 
-2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
+2. Åpne en annen terminal og kjør kode som dette [eksempelet](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
 
-The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time.
+Bildet er [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for skjermbilder og skrifter blant populære naturspråk. Hver beholder kan starte flere nettlesere samtidig.
 
-## User mode :id=user-mode
+## Brukermodus :id=user-mode
 
-When you log into your github account, and you want to reuse the login session for automation task. You can use the `launcher.NewUserMode` to launch your regular user browser. Rod will be just like a browser extension:
+Når du logger inn på din github konto, ønsker du å bruke påloggingsøkten på nytt. Du kan bruke `launcher.NewUserMode` for å starte din vanlige brukernettleser. Torsk blir akkurat som en nettleserutvidelse:
 
 ```go
 wsURL := launcher.NewUserMode().MustLaunch()
-browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+nettleser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
 ```
 
-Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
+Her er et mer detaljert eksempel: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
 
-## Low-level API
+## Lavnivå API
 
-If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
+Hvis du vil kontrollere alle trinn i startprosessen, som for eksempel å deaktivere auto-nedlasting og bruke systemets standardnettleser, sjekk [eksempelfil](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
