@@ -1,13 +1,13 @@
-# FAQ
+# ЧАП
 
-## How to search symbols in the comments or doc?
+## Як шукати символи в коментарях або документації?
 
-Such as the symbol `Page.Element` shown in the screenshot:
+Такий, як символ `Page.Element` показаний на скріншоті:
 
-![symbol-in-doc](symbol-in-doc.png)
+![символ в доці](symbol-in-doc.png)
 
-You can jump to it by searching it from here (keyboard shortcut is `F`):
+Для цього ви можете перейти до нього, шукаючи його звідси (ярлик клавіатури `F`):
 
-![search-symbol-in-doc](search-symbol-in-doc.png)
+![пошук символу - в доці](search-symbol-in-doc.png)
 
-For experienced developers please check [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
+Для досвідчених розробників перевірте [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
