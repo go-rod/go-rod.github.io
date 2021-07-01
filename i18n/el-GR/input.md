@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Ράβδος παρέχει πολλές μεθόδους για την προσομοίωση των ανθρώπινων εισροών, όπως το κλικ του ποντικιού ή το πάτημα του πληκτρολογίου.
 
-## Mouse click
+## Κλικ ποντικιού
 
-To simulate the mouse click an element:
+Για να προσομοιώσετε το ποντίκι κάντε κλικ σε ένα στοιχείο:
 
 ```go
 // left click
@@ -16,73 +16,73 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Για προσομοίωση της εισόδου:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // χρησιμοποιήστε MustText για να λάβετε το κείμενο
 ```
 
-## Remove text from an input
+## Αφαίρεση κειμένου από μια εισαγωγή
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Απλά προσομοιώστε πώς ένα ανθρώπινο το κάνει, επιλέξτε όλο το κείμενο και αντικαταστήστε το με ένα κενό string:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Μπορείτε να χρησιμοποιήσετε το `SelectText` για να αντικαταστήσετε ένα τμήμα του κειμένου.
 
-## Time input
+## Είσοδος χρόνου
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+Οι υποστηριζόμενοι τύποι εισόδου είναι η [ημερομηνία](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [μήνας](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), και [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## Πλαίσιο
 
-Just click it like a human:
+Απλά κάντε κλικ σαν άνθρωπος:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
+// ελέγξτε το αν δεν είναι επιλεγμένο
 if !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## Επιλογή επιλογών
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Επιλέξτε επιλογές σε [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Ο παρακάτω κώδικας θα επιλέξει επιλογές που περιέχουν το κείμενο "B" ή "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Μπορείτε επίσης να χρησιμοποιήσετε regex ή css επιλογέα για να επιλέξετε επιλογές:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
+// ορίστε ψευδές για να αποεπιλέξετε
 page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## Ορισμός αρχείων
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Χρησιμοποιήστε `SetFiles` για να ορίσετε αρχεία για την είσοδο του αρχείου [](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Ποντικί, πληκτρολόγιο και αφή
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+Μπορείς επίσης να χρησιμοποιήσεις τη σελίδα `page.Mouse`, `page.Keyboard`, or `page.Touch` για να προσομοιώσεις χαμηλού επιπέδου εισροές. Όπως μπορείτε να αναζητήσετε το τεστ της μονάδας για να σύρετε για να μάθετε πώς να προσομοιώσετε σύρετε.
