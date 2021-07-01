@@ -1,72 +1,72 @@
-# Context and Timeout
+# Context și timp
 
-In Golang, we usually use [Context](https://golang.org/pkg/context/) to abort long-running tasks. Rod uses Context to handle cancellations for IO blocking operations, most times it's timeout. You need to pay special attention to them.
+În Golang, de obicei folosim [Context](https://golang.org/pkg/context/) pentru a abandona sarcini de lungă durată. Rod folosește Context pentru a face față anulărilor pentru operațiunile de blocare IO, de cele mai multe ori este expirat. Trebuie să le acordaţi o atenţie deosebită.
 
-If you are not familiar with Context, please read [Understand Context](understand-context.md) first.
+Dacă nu sunteți familiarizat cu Context, vă rugăm să citiți [Înțelegeți Context](understand-context.md) mai întâi.
 
-## Cancellation
+## Anulare
 
-For example, the code below creates a blank page and navigates it to the "github.com":
+De exemplu, codul de mai jos creează o pagină goală şi navighează către "github.com":
 
 ```go
 page := rod.New().MustConnect().MustPage()
 page.MustNavigate("http://github.com")
 ```
 
-Now, suppose we want to cancel the `MustNavigate` if it takes more than 2 seconds. In Rod we can do something like this:
+Acum, să presupunem că vrem să anulăm `MustNavigate` dacă durează mai mult de 2 secunde. În Rod putem face ceva de genul acesta:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+pagina := rod.New().MustConnect().MustPage()
 
-ctx, cancel := context.WithCancel(context.Background())
+ctx, anulați := context.WithCancel(context.Background())
 pageWithCancel := page.Context(ctx)
 
 go func() {
-    time.Sleep(2 * time.Second)
-    cancel()
+    time. Somn (2 * timp.Secundă)
+    anulel()
 }()
 
-pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
+pageWithCancel.MustNavigate("http://github.com") // va fi anulat după 2 secunde
 ```
 
-We use the `page.Context` to create a shallow clone of the `page`. Whenever we call the `cancel`, the operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. The origin `page` won't be affected, if we use it to call operations they won't be cancelled.
+Folosim `page.Context` pentru a crea o clonă superficială a paginii ``. Ori de câte ori apelăm `anulați`, operațiunile declanșate de `pageWithCancel` vor fi anulate, poate fi orice operație, nu doar `MustNavigate`. Pagina de origine `` nu va fi afectată, dacă o folosim pentru a apela operațiuni, acestea nu vor fi anulate.
 
-This style is not special for Rod, you can find similar APIs like [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) in the standard library.
+Acest stil nu este special pentru Rod, puteţi găsi API-uri similare ca [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) în biblioteca standard.
 
-Because `pageWithCancel` and `page` are independent to each other, operations triggered by `page` will not be affected by the cancellation:
+Deoarece `pageWithCancel` și `pagina` sunt independente una față de cealaltă, operațiunile declanșate de `pagina` nu vor fi afectate de anulare:
 
 ```go
-page.MustNavigate("http://github.com") // won't be canceled after 2 seconds
+page.MustNavigate("http://github.com") // nu va fi anulat după 2 secunde
 ```
 
-## Timeout
+## Expirare
 
-The code above is just a way to timeout an operation. In Golang, timeout is usually just a special case of cancellation. Because it's so useful, we created a helper to do the same thing above, it's called `Timeout`, so the code above can be reduced like below:
+Codul de mai sus este doar un mod de a expira o operație. În Golang, perioada de expirare este de obicei doar un caz special de anulare. Pentru că este atât de util, am creat un ajutor pentru a face același lucru mai sus, se numește `Timeout`, astfel încât codul de mai sus să poată fi redus ca mai jos:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+pagina := rod.New().MustConnect().MustPage()
 page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 ```
 
-The `page.Timeout(2 * time.Second)` is the previous `pageWithCancel`. Not just `Page`, `Browser` and `Element` also have the same context helpers.
+Pagina `Timeout(2 * time.Secundă)` este `pageWithCancel` anterior. Nu doar `Pagină`, `Browser` și `Element` au aceleași ajutoare de context.
 
-## Detect timeout
+## Detectează timeout
 
-How do I know if an operation is timed out or not? In Golang, timeout is usually a type of error. It's not special for Rod. For the code above we can do this to detect timeout:
+Cum știu dacă o operație este expirată sau nu? În Golang, timpul expirat este de obicei un tip de eroare. Nu este special pentru Rod. Pentru codul de mai sus putem face acest lucru pentru a detecta timpul:
 
 ```go
-page := rod.New().MustConnect().MustPage()
+pagina := rod.New().MustConnect().MustPage()
 
 err := rod.Try(func() {
-    page.Timeout(2 * time.Second).MustNavigate("http://github.com")
+    page.Timeout(2 * time.Secd).MustNavigate("http://github.com")
 })
-if errors.Is(err, context.DeadlineExceeded) {
-    // code for timeout error
-} else if err != nil {
-    // code for other types of error
+dacă erorile. s(eroare, context. eadlineExceeded) {
+    // cod pentru eroare timeout
+} altfel dacă erori! cod nil {
+    // pentru alte tipuri de erori
 }
 ```
 
-Here we use `rod.Try` to wrap the function that may throw a timeout error.
+Aici folosim `roz.Încercaţi` pentru a completa funcţia care poate arunca o eroare de timeout.
 
-We will talk more about error handing at [Error Handling](error-handling.md).
+Vom vorbi mai mult despre transmiterea erorilor la [gestionarea erorilor](error-handling.md).
