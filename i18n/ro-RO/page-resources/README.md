@@ -1,18 +1,18 @@
-# Page Resources
+# Resurse pagină
 
-You can use the `Page.GetResource` method to get files from here:
+Poți folosi metoda `Page.GetResource` pentru a obține fișiere de aici:
 
-![page-resources](page-resources.png)
+![resurse de pagini](page-resources.png)
 
-Such as get an image:
+Cum să obțineți o imagine:
 
 ```go
 bin, err := page.GetResource("https://test.com/a.png")
 ```
 
-## Element resource
+## Resursă de element
 
-You can also use the `Element.Resource` method to get the file of the `src` attribute. Such as for element `<img src="a.jpg">`, you can use code like this to get the `a.jpg`:
+Poți folosi, de asemenea, metoda `Element.Resource` pentru a obține fișierul atributului `src`. Asemenea cu elementul `<img src="a.jpg">`, poți folosi un cod ca acesta pentru a obține `a.jpg`:
 
 ```go
 bin := page.MustElement("img").MustResource()
