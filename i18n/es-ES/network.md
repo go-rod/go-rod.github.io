@@ -1,18 +1,18 @@
-# Network
+# Red
 
-## Hijack requests
+## Solicitudes de Hijack
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+Puede usar Rod para secuestrar cualquier tráfico HTTP o HTTPS.
 
-The entire process of hijacking one request:
+Todo el proceso de secuestro de una solicitud:
 
 ```text
-   browser --req-> rod ---> server ---> rod --res-> browser
+   browser --req-> rod ---> server ---> rod --res-> navegador
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+Cuando el navegador quiere enviar una solicitud a un servidor, enviará la solicitud a Rod primero, entonces Rod actuará como un proxy para enviar la solicitud al servidor actual y devolver la respuesta al navegador. El `--req->` y `--res->` son las partes que pueden ser modificadas.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+Por ejemplo, para reemplazar un archivo `test.js` respuesta desde el servidor podemos hacer algo así:
 
 ```go
 browser := rod.New().MustConnect()
@@ -21,15 +21,15 @@ router := browser.HijackRequests()
 
 router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.SetBody(`console. og("js file rereemplazed")`)
 })
 
 go router.Run()
 
 page := browser.MustPage("https://test.com/")
 
-// Hijack requests under the scope of a page
+// Hijack requests bajo el ámbito de una página
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+Para más información, consulta las [pruebas de secuestro](https://github.com/go-rod/rod/blob/master/hijack_test.go)
