@@ -1,35 +1,35 @@
-# Events
+# Συμβάντα
 
-Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
+Τα συμβάντα είναι ενέργειες ή εμφανίσεις που συμβαίνουν στο πρόγραμμα περιήγησης που ελέγχετε, για το οποίο σας λέει ο φυλλομετρητής ώστε να μπορείτε να ανταποκριθείτε σε αυτούς κατά κάποιο τρόπο εάν το επιθυμείτε. Όπως όταν αφήνουμε τη σελίδα να πλοηγηθεί σε ένα νέο URL, μπορούμε να εγγραφούμε στα συμβάντα που θα γνωρίζουμε όταν ολοκληρωθεί η πλοήγηση ή όταν γίνεται απόδοση της σελίδας.
 
-## Wait for an event once
+## Αναμονή για ένα συμβάν μία φορά
 
-Let's try to navigate to a page and wait until the network of the page is almost idle:
+Ας προσπαθήσουμε να πλοηγηθούμε σε μια σελίδα και να περιμένουμε μέχρι το δίκτυο της σελίδας να είναι σχεδόν αδρανής:
 
 ```go
-func main() {
+func main() mptom
     page := rod.New().MustConnect().MustPage()
 
-    wait := page.MustWaitNavigation()
+    περίμενε := page.MustWaitNavigation()
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 }
 ```
 
-We use the `MustWaitNavigation` to subscribe the network idle event. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+Χρησιμοποιούμε το `MustWaitNavigation` για να εγγράφουμε το γεγονός σε αδράνεια δικτύου. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. Μετά την `MustNavigate` καλούμε τη συνάρτηση `περίμενε` για να μπλοκάρει τον κώδικα μέχρι να συμβεί το επόμενο γεγονός σε αδράνεια δικτύου.
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+Η ράβδος παρέχει πολλούς άλλους βοηθούς γεγονότων, τα ονόματα συναρτήσεων είναι όλα προκαθορισμένα με `MustWait` ή `Περιμένετε`.
 
-## Get the event details
+## Αποκτήστε τις λεπτομέρειες της εκδήλωσης
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+Μερικοί τύποι εκδηλώσεων μεταφέρουν λεπτομέρειες για το ίδιο το γεγονός. Όπως μεταβείτε σε μια διεύθυνση url και χρησιμοποιήστε το γεγονός για να λάβετε τον κωδικό κατάστασης απόκρισης του αιτήματος πλοήγησης:
 
 ```go
 func main() {
     page := rod.New().MustConnect().MustPage()
 
     e := proto.NetworkResponseReceived{}
-    wait := page.WaitEvent(&e)
+    περίμενε := page.WaitEvent(&e)
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 
@@ -37,29 +37,29 @@ func main() {
 }
 ```
 
-## Handle multiple events
+## Χειρισμός πολλαπλών συμβάντων
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+Αν θέλετε να χειριστείτε όλα τα γεγονότα ενός τύπου, όπως ακούστε για όλες τις εκδηλώσεις της εξόδου της κονσόλας της σελίδας, μπορούμε να κάνουμε κάτι σαν αυτό:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
+go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) ņ
     fmt.Println(page.MustObjectsToJSON(e.Args))
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+Για να εγγραφείτε ταυτόχρονα σε πολλαπλούς τύπους γεγονότων, όπως ο συνδρομητής `RuntimeConsoleAPICalled` και `PageLoadEventFired`:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
+go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) ņ
     fmt.Println(page.MustObjectsToJSON(e.Args))
-}, func(e *proto.PageLoadEventFired) {
-    fmt.Println("loaded")
+}, func(e *proto.PageLoadEventFired) mptom
+    fmt.Println ("loaded")
 })()
 ```
 
-## Stop the subscription
+## Διακοπή της συνδρομής
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+Οποιαδήποτε λειτουργία σε ράβδο που μπλοκ μπορούν να ακυρωθούν με το [context](context-and-timeout.md), δεν είναι ειδική για γεγονότα. Εκτός αυτού, μπορείτε επίσης να σταματήσετε την εκδήλωση επιστρέφοντας true από τον χειριστή γεγονότων, για παράδειγμα:
 
 ```go
 wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
@@ -69,12 +69,12 @@ page.MustNavigate("https://example.com")
 wait()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+Αν δεν επιστρέψουμε αληθές, η αναμονή θα συνεχίσει να περιμένει τα `PageLoadEventFired` events και να μπλοκάρει το πρόγραμμα για πάντα. Αυτό είναι στην πραγματικότητα ο κώδικας για το πώς λειτουργεί η `σελίδα.Αναμονή γεγονότων`.
 
-## Available events
+## Διαθέσιμα συμβάντα
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+Όλοι οι τύποι εκδηλώσεων υλοποιούν το `proto.Event` interface, μπορείτε να το χρησιμοποιήσετε για να βρείτε όλα τα γεγονότα. Συνήθως, το IDE θα φιλτράρει αυτόματα από τη διασύνδεση. Όπως θέλουμε να δούμε όλα τα γεγονότα στο πεδίο της Σελίδας, μπορούμε να δημιουργήσουμε ένα αντικείμενο κενής σελίδας και να χρησιμοποιήσουμε το `WaitEvent(proto. vent)` για να εμφανίσετε και να φιλτράρετε όλους τους τύπους εκδηλώσεων, όπως το στιγμιότυπο οθόνης παρακάτω:
 
-![event-list](event-list.png)
+![λίστα εκδηλώσεων](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+Μπορείτε επίσης να χρησιμοποιήσετε αυτό το [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) για να περιηγηθείτε στα γεγονότα.
