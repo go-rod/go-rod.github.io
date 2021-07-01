@@ -1,35 +1,35 @@
-# Events
+# Evenementen
 
-Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
+Gebeurtenissen zijn acties of gebeurtenissen die gebeuren in de browser die u controleert, waar de browser je over vertelt, zodat je op de een of andere manier op kunt reageren, indien gewenst. Bijvoorbeeld wanneer we de pagina laten navigeren naar een nieuwe URL, we kunnen events abonneren op weten wanneer de navigatie voltooid is of wanneer de pagina wordt weergegeven.
 
-## Wait for an event once
+## Wacht eens op een gebeurtenis
 
-Let's try to navigate to a page and wait until the network of the page is almost idle:
+Laten we proberen naar een pagina te navigeren en wachten tot het netwerk van de pagina bijna leeg is:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    pagina := rod.New().MustConnect().MustPage()
 
-    wait := page.MustWaitNavigation()
+    wacht := page.MustWaitNavigation()
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 }
 ```
 
-We use the `MustWaitNavigation` to subscribe the network idle event. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+We gebruiken het `MustWaitNavigation` om het netwerk inactieve event te abonneren. De reden waarom het abonnement voor de navigatie is en niet daarna omdat de code voor het activeren van navigatie de tijd zal nemen om uit te voeren, tijdens die periode kan de gebeurtenis al hebben plaatsgevonden. Na de `MoustNavigatie` roepen we de `wacht` functie op om de code te blokkeren totdat het volgende netwerk inactief is.
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+Staaf biedt veel andere eventhelpers, de functienamen zijn allemaal voorafgegaan door `MosterWait` of `Wachten`.
 
-## Get the event details
+## Haal de evenement details op
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+Sommige afspraaktypes bevatten details over de gebeurtenis zelf. Zoals we navigeer naar een url en gebruik de gebeurtenis om de response status code van de navigatie te krijgen:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    pagina := rod.New().MustConnect().MustPage()
 
-    e := proto.NetworkResponseReceived{}
-    wait := page.WaitEvent(&e)
+    e := proto.NetworkResponseResponseved{}
+    wacht := page.WaitEvent(&e)
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 
@@ -37,44 +37,44 @@ func main() {
 }
 ```
 
-## Handle multiple events
+## Meerdere gebeurtenissen afhandelen
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+Als je alle gebeurtenissen van een type wilt afhandelen, zoals luisteren voor alle gebeurtenissen van de console output van de pagina, we kunnen zoiets doen:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
+ga page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
     fmt.Println(page.MustObjectsToJSON(e.Args))
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+Om meerdere event types tegelijkertijd te abonneren, zoals het abonneren `RuntimeConsoleAPICalled` en `PageLoadEventFired`:
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
     fmt.Println(page.MustObjectsToJSON(e.Args))
 }, func(e *proto.PageLoadEventFired) {
-    fmt.Println("loaded")
+    fmt.Println("geladeerd)
 })()
 ```
 
-## Stop the subscription
+## Stop het abonnement
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+Elke functie in Rod die blokken kunnen worden geannuleerd met de [context](context-and-timeout.md), is niet speciaal voor gebeurtenissen. Overigens, kunt u ook stoppen met het evenement door de event handler terug te geven, bijvoorbeeld:
 
 ```go
-wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
+wait := page.EachEvent(functie (e *proto.PageLoadEventFired) (stop bool) {
     return true
 })
 page.MustNavigate("https://example.com")
 wait()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+Als we niet waar, zal de wacht blijven wachten op de `PageLoadEventFired` events en het programma voor altijd blokkeren. Dit is eigenlijk de code van hoe `page.WaitEvent` werkt.
 
-## Available events
+## Beschikbare evenementen
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+Alle event types implementeren de `proto.Event` interface, u kunt het gebruiken om alle evenementen te vinden. Meestal wordt de IDE automatisch door de interface gefilterd. Zo willen we alle gebeurtenissen onder het pagina-domein zien, we kunnen een leeg pagina-object maken en de `WaitEvent(proto gebruiken. vent)` om alle gebeurtenistypes zoals de onderstaande schermafbeelding weer te geven en te filteren:
 
-![event-list](event-list.png)
+![evenementen-lijst](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+U kunt deze [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) ook gebruiken om de gebeurtenissen te bekijken.
