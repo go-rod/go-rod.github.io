@@ -1,6 +1,6 @@
 # Compatibilidade
 
-## S.O
+## S.O.
 
 Você deve ser capaz de compilar e executar Rod sem problemas em todas as plataformas principais que Golang suporta. Em algumas plataformas, talvez você precise instalar o navegador manualmente, o Rod não pode garantir que o navegador baixado automaticamente funcionará. Se você deseja que o Rod suporte uma plataforma, por favor, crie um problema para ela.
 
