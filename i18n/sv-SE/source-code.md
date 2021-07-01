@@ -1,3 +1,3 @@
-# Source Code
+# Källkod
 
-The main code repository: [link](https://github.com/go-rod/rod).
+Huvudkodsarkivet: [länk](https://github.com/go-rod/rod).
