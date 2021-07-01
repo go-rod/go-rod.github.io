@@ -1,8 +1,8 @@
-# Chat Room
+# Camera de chat
 
-We use discord: [link to join](https://discord.gg/CpevuvY).
+Folosim discord: [link-ul pentru a se alătura](https://discord.gg/CpevuvY).
 
-* Please use markdown to format code blocks
-* Please don't send code block larger than 30 lines to here, instead use gist or github issue
-* Please use your Github user name if possible
-* Please learn [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)
+* Vă rugăm să folosiți markdown pentru a formata blocuri de cod
+* Vă rugăm să nu trimiteți cod bloc mai mare de 30 de linii aici, în schimb folosiți problema gist sau github
+* Vă rugăm să folosiți numele de utilizator Github dacă este posibil
+* Te rugăm să înveți [cum să pui întrebări Calea Inteligentă](http://www.catb.org/~esr/faqs/smart-questions.html)

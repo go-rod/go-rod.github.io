@@ -1,8 +1,8 @@
-# Understand Context
+# Κατανόηση Περιεχομένου
 
-Before understanding Context, make sure you have learned [Goroutines](https://tour.golang.org/concurrency/1) and [Channels](https://tour.golang.org/concurrency/2). Context is mainly used to transfer context information between Goroutines, including: cancellation signal, timeout, deadline, k-v, etc.
+Πριν από την κατανόηση του περιεχομένου, βεβαιωθείτε ότι έχετε μάθει [Goroutines](https://tour.golang.org/concurrency/1) και [Κανάλια](https://tour.golang.org/concurrency/2). Το πλαίσιο χρησιμοποιείται κυρίως για τη μεταφορά πληροφοριών πλαισίου μεταξύ Goroutines, συμπεριλαμβανομένων: σήμα ακύρωσης, χρονοδιάγραμμα, προθεσμία, k-v, κλπ.
 
-For example, we have a long-running function `heartbeat` that prints `beat` every second:
+Για παράδειγμα, έχουμε μια λειτουργία μακράς εκτέλεσης `καρδιακός παλμός` που εκτυπώνει `νικήσει` κάθε δευτερόλεπτο:
 
 ```go
 package main
@@ -12,70 +12,70 @@ import (
     "time"
 )
 
-func main() {
+func main() signs
     heartbeat()
 }
 
-func heartbeat() {
-    tick := time.Tick(time.Second)
+func heartbeat() connections
+    tick := time. Ψευδώνυμο Δεύτερον)
 
-    for {
+    για „
         <-tick
-        fmt.Println("beat")
+        fmt. rintln ("beat")
     }
 }
 ```
 
-If we want to abort the heartbeat whenever we press the enter key, we may code like this:
+Αν θέλουμε να ματαιώσουμε τον καρδιακό παλμό κάθε φορά που πατάμε το πλήκτρο εισόδου, μπορεί να κάνουμε κώδικα έτσι:
 
 ```go
-func main() {
-    stop := make(chan struct{})
-    go func() {
-        fmt.Scanln()
+func main() ⇒
+    σταμάτησε := make(chan struct{})
+    συναρτήθηκε ()
+        fmt. canln()
         close(stop)
     }()
 
-    heartbeat(stop)
+    καρδιακοί παλμοί (stop)
 }
 
-func heartbeat(stop chan struct{}) {
-    tick := time.Tick(time.Second)
+κτύπο της καρδιάς διασκέδασης (σταμάτημα chan struct{}) {
+    tick := ώρα. Ψευδώνυμο Δεύτερον)
 
-    for {
-        select {
-        case <-tick:
-        case <-stop:
-            return
+    για {
+        επιλέξτε „
+        περίπτωση <-tick:
+        περίπτωση <-stop:
+            επιστροφή
         }
-        fmt.Println("beat")
+        fmt. rintln ("beat")
     }
 }
 ```
 
-Because this kind of code is so often used, Golang abstracted a helper package to handle it, it's called [Context](https://golang.org/pkg/context/). If we use Context, the code above will become something like this:
+Επειδή αυτού του είδους ο κώδικας χρησιμοποιείται τόσο συχνά, ο Golang άφησε ένα βοηθητικό πακέτο για να το χειριστεί, ονομάζεται [Context](https://golang.org/pkg/context/). Αν χρησιμοποιήσουμε το Περιεχόμενο, ο παραπάνω κώδικας θα γίνει κάτι έτσι:
 
 ```go
-func main() {
-    ctx, stop := context.WithCancel(context.Background())
-    go func() {
-        fmt.Scanln()
+func main() mptom
+    ctx, stop := context.WithCancel(context. δευτερεύον έδαφος())
+    συναρτήσει () {
+        fmt. canln()
         stop()
     }()
 
-    heartbeat(ctx)
+    καρδιακοί παλμοί (ctx)
 }
 
-func heartbeat(ctx context.Context) {
-    tick := time.Tick(time.Second)
+func heartbeat(ctx context. ontext) {
+    tick := time. Ψευδώνυμο Δεύτερον)
 
-    for {
-        select {
-        case <-tick:
-        case <-ctx.Done():
-            return
+    για „
+        επιλέξτε „
+        περίπτωση <-τικ:
+        περίπτωση <-ctx. ένα():
+            επιστροφή
         }
-        fmt.Println("beat")
+        fmt. rintln ("beat")
     }
 }
 ```

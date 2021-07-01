@@ -1,18 +1,18 @@
-# Network
+# Netzwerk
 
-## Hijack requests
+## Hijack Anfragen
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+Sie können Rod benutzen, um jeden HTTP- oder HTTPS-Verkehr zu entführen.
 
-The entire process of hijacking one request:
+Der gesamte Prozess der Entführung einer Anfrage:
 
 ```text
-   browser --req-> rod ---> server ---> rod --res-> browser
+   browser --req-> rod ---> server ---> rod --res-> Browser
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. Die `--req->` und `--res->` sind die Teile, die geändert werden können.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+Zum Beispiel, um eine Datei `test.js` Antwort vom Server zu ersetzen, können wir so etwas tun:
 
 ```go
 browser := rod.New().MustConnect()
@@ -21,15 +21,15 @@ router := browser.HijackRequests()
 
 router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.SetBody(`console. og("js Datei ersetzt")`)
 })
 
-go router.Run()
+router.Run()
 
-page := browser.MustPage("https://test.com/")
+Seite := browser.MustPage("https://test.com/")
 
-// Hijack requests under the scope of a page
+// Hijack Anfragen im Rahmen einer Seite
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+Weitere Informationen findest du in den [Hijack Tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)

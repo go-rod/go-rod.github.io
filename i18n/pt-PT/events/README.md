@@ -1,14 +1,14 @@
-# Events
+# Eventos
 
-Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
+Eventos são ações ou ocorrências que acontecem no navegador que você está controlando, sobre o qual o navegador lhe conta para que você possa responder a eles de alguma forma se desejar. Tal como quando deixamos a página navegar para uma nova URL, podemos assinar os eventos para saber quando a navegação está completa ou quando a página é renderizada.
 
-## Wait for an event once
+## Aguarde um evento uma vez
 
-Let's try to navigate to a page and wait until the network of the page is almost idle:
+Vamos tentar navegar para uma página e esperar até que a rede da página esteja quase inativa:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    página := rod.New().MustConnect().MustPage()
 
     wait := page.MustWaitNavigation()
     page.MustNavigate("https://www.wikipedia.org/")
@@ -16,30 +16,30 @@ func main() {
 }
 ```
 
-We use the `MustWaitNavigation` to subscribe the network idle event. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+Usamos a `MustWaitNavigation` para assinar o evento ocioso da rede. A razão pela qual a assinatura é antes da navegação não depois é porque o código para acionar a navegação vai levar tempo para executar, durante esse tempo o evento pode já ter acontecido. Após o `dever navegar` chamamos a função `espera` para bloquear o código até o próximo evento de espera da rede.
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+Cajado fornece muitos outros auxiliares de eventos, todos os nomes das funções são prefixados com `MustWait` ou `Wait`.
 
-## Get the event details
+## Obter detalhes do evento
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+Alguns tipos de evento carregam detalhes sobre o próprio evento. Como vamos navegar para uma URL e usar o evento para obter o código de status de resposta da requisição de navegação:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    página := rod.New().MustConnect().MustPage()
 
     e := proto.NetworkResponseReceived{}
-    wait := page.WaitEvent(&e)
-    page.MustNavigate("https://www.wikipedia.org/")
+    espere := page.WaitEvent(&e)
+    page.MustNavigate("https://www.wikipedia.org/
     wait()
 
     fmt.Println(e.Response.Status)
 }
 ```
 
-## Handle multiple events
+## Manipular vários eventos
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+Se você quiser lidar com todos os eventos de um tipo, tal como escutar por todos os eventos da saída do console da página, nós podemos fazer algo parecido com isto:
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
@@ -47,7 +47,7 @@ go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+Para inscrever vários tipos de eventos ao mesmo tempo, como assinar `RuntimeConsoleAPIChamado` e `PageLoadEventFired`:
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
@@ -57,24 +57,24 @@ go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
 })()
 ```
 
-## Stop the subscription
+## Parar a assinatura
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+Qualquer função no Cajado que possa ser cancelada com o contexto [](context-and-timeout.md), não é especial para eventos. Além disso, você também pode parar o evento, retornando verdadeiro do manipulador de eventos, por exemplo:
 
 ```go
-wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
+espe:= page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
     return true
 })
 page.MustNavigate("https://example.com")
 wait()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+Se não retornarmos verdadeiro, a espera continuará esperando pelos eventos `PageLoadEventred` e bloqueará o programa para sempre. Isso é realmente o código de como `page.WaitEvent` funciona.
 
-## Available events
+## Eventos disponíveis
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+Todos os tipos de evento implementam a interface do `proto.Event` , você pode usá-la para encontrar todos os eventos. Geralmente, o IDE será filtrado automaticamente pela interface. Assim como nós queremos ver todos os eventos sob o domínio da Página, podemos criar um objeto de página vazio e usar o `WaitEvent(proto. vent)` para listar e filtrar todos os tipos de eventos, como a imagem abaixo:
 
-![event-list](event-list.png)
+![eventos-lista](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+Você também pode usar este [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) para navegar pelos eventos.

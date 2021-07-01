@@ -1,29 +1,29 @@
-# Contribute Doc
+# Contribuie la document
 
-## Debug and preview
+## Depanare și previzualizare
 
-Install [docsify-cli](https://docsify.js.org/#/quickstart).
+Instalează [docsify-cli](https://docsify.js.org/#/quickstart).
 
-Then run these commands:
+Apoi execută aceste comenzi:
 
 ```bash
 git clone https://github.com/go-rod/go-rod.github.io.git
 docsify serve -o go-rod.github.io
 ```
 
-When you edit a doc file, the page will refresh automatically.
+Când editaţi un fişier documentar, pagina se va actualiza automat.
 
-## Documentation
+## Documentație
 
-Just create a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) for this [repo](https://github.com/go-rod/go-rod.github.io.git).
+Doar creați o [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) pentru acest [repo](https://github.com/go-rod/go-rod.github.io.git).
 
-## Translations
+## Traduceri
 
-We use [crowdin](https://crowdin.com/) to manage the localization.
+Folosim [crowdin](https://crowdin.com/) pentru a administra localizarea.
 
-To get started:
+Pentru a începe:
 
-1. Go to the [project page](https://crowdin.com/project/go-rod)
-2. Click the target language icon
-3. Click the file you want to translate
-4. Follow the UI, translate the file on the website
+1. Mergeți la pagina [a proiectului](https://crowdin.com/project/go-rod)
+2. Faceți clic pe pictograma de limbă țintă
+3. Faceți clic pe fișierul pe care doriți să îl traduceți
+4. Urmărește UI-ul, traduce fișierul pe website

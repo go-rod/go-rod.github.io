@@ -1,55 +1,55 @@
-# Customize the WebSocket
+# Tilpass WebSocket
 
-Useful when you want to proxy the transport layer or tune the performance. Here we use the `github.com/gorilla/websocket` as an example, you can wrap any lib you like.
+Nyttig når du vil proxy transportlaget eller finjustere trekket. Her bruker vi `github.com/gorilla/websocket` som et eksempel, du kan pakke inn hvilket som helst lib du liker.
 
 ```go
-package main
+pakkens viktigste
 
 import (
-    "context"
+    "kontekst"
     "fmt"
     "net/http"
 
-    "github.com/go-rod/rod"
-    "github.com/go-rod/rod/lib/cdp"
+    "github. om/go-gnager/gnager"
+    "github. om/go-rod/rod/lib/cdp"
     "github.com/go-rod/rod/lib/launcher"
-    "github.com/gorilla/websocket"
+    "github. om/gorilla/websocket"
 )
 
-func main() {
-    u := launcher.New().MustLaunch()
+morsomme main() {
+    u := launcher.New(). ustLaunch()
 
-    // Use a custom websocket lib as the transport layer for JSON-RPC
-    client := cdp.New(u).Websocket(&MyWebSocket{})
+    // Bruk et egendefinert websocket lib som transportlaget for JSON-RPC
+    klienten := cdp. ew(u).Websocket(&MyWebSocket{})
 
-    p := rod.New().Client(client).MustConnect().MustPage("http://example.com")
+    p := rod.New().Client(client). ustConnect().MustPage("http://example.com")
 
     fmt.Println(p.MustInfo().Title)
 }
 
-// MyWebSocket implements the cdp.WebSocketable interface
-var _ cdp.WebSocketable = &MyWebSocket{}
+// MyWebSocket implementerer cdp.WebSocketable interface
+var _ cdp. ebocketable = &MyWebSocket{}
 
 type MyWebSocket struct {
     conn *websocket.Conn
 }
 
-func (ws *MyWebSocket) Connect(ctx context.Context, url string, header http.Header) error {
-    dialer := *websocket.DefaultDialer
+morsomme (ws *MyWebSocket) Connect(ctx context. ontext, url streng, tast http.Header) feil {
+    dialer := *websocket. FraultDialer
     dialer.WriteBufferSize = 2 * 1024 * 1024 // 2MB
 
-    conn, _, err := dialer.DialContext(ctx, url, header)
-    ws.conn = conn
+    conn, _, err := dialer. ialkontekst(ctx, nettadresse, hode)
+    ws. onn = conn
 
     return err
 }
 
-func (ws *MyWebSocket) Send(b []byte) error {
-    return ws.conn.WriteMessage(websocket.TextMessage, b)
+moro (ws *MyWebSocket) Send(b []byte) feil {
+    retur ws. onn.WriteMessage(websocket. extMessage, b)
 }
 
-func (ws *MyWebSocket) Read() ([]byte, error) {
-    _, data, err := ws.conn.ReadMessage()
+morsomme (ws *MyWebSocket) Read() ([]byte, error) {
+    _data, err := ws. onn.ReadMessage()
     return data, err
 }
 ```

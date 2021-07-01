@@ -1,88 +1,88 @@
-# Selectors
+# Selectores
 
-Rod provides lots of methods to get elements. Their names are all prefixed with `MustElement` or `Element`. If you use an IDE after you type `Element`, you will see all the available selectors like below:
+Rod proporciona muchos métodos para obtener elementos. Todos sus nombres tienen prefijo `MustElement` o `Elemento`. Si usas un IDE después de escribir `Element`, verás todos los selectores disponibles como a continuación:
 
-![ide-selectors](ide-selectors.png)
+![selectores ideales](ide-selectors.png)
 
-If you hover the cursor over the method, you will see the doc of it like below:
+Si pasa el cursor sobre el método, verá el documento como abajo:
 
 ![ide-doc](ide-doc.png)
 
-Usually, you only need some basic knowledge of [CSS Selector](css-selector) to achieve the automation task you want to do. In the rest of the documentation we will only use CSS Selector to get elements from the page.
+Por lo general, solo necesitas algunos conocimientos básicos de [selector CSS](css-selector) para lograr la tarea de automatización que quieres hacer. En el resto de la documentación sólo usaremos el selector CSS para obtener elementos de la página.
 
-## By text content
+## Por contenido de texto
 
-Use `ElementR` to match elements with specific text content, such as select the search input in the screenshot below:
+Utilice `ElementR` para coincidir con elementos con contenido de texto específico, como seleccionar la entrada de búsqueda en la captura de pantalla de abajo:
 
-![match-text](match-text.png)
+![coincidir texto](match-text.png)
 
 ```go
 page.MustElementR("input", "Search or jump")
-page.MustElementR("input", "/click/i") // use the case-insensitive flag "i"
+page.MustElementR("input", "/click/i") // utiliza la bandera "i"
 ```
 
-Since we use [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), we don't have to match the whole text context. The text to match is what you actually see on the website, not the source code, compare 1 and 2 in the screenshot below. You can use the `copy` helper in Devtools to copy the text to your clipboard (look at the 4):
+Puesto que utilizamos [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), no tenemos que coincidir con todo el contexto de texto. El texto a coincidir es lo que realmente ves en el sitio web, no el código fuente, compara 1 y 2 en la captura de pantalla de abajo. Puedes utilizar el helper `copiar` en Devtools para copiar el texto al portapapeles (mira el 4):
 
-![copy-text](copy-text.png)
+![copiar-texto](copy-text.png)
 
-## By XPath
+## Por XPath
 
-CSS selector is the recommended way to selector elements, such as you cannot use XPath to select [rendered text](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454). But sometimes XPath may be handier for programmers coming from other languages. Use the `ElementX` for XPath:
+El selector CSS es la forma recomendada de seleccionar elementos, como no puede usar XPath para seleccionar [texto renderizado](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454). Pero a veces XPath puede ser handier para programadores procedentes de otros idiomas. Usa el `ElementX` para XPath:
 
 ```go
 page.MustElementX("//h2")
 ```
 
-## By Javascript
+## Por Javascript
 
-If you have a complex query or you want to use a high-level query engine, such as [jQuery](https://jquery.com/):
+Si tiene una consulta compleja o desea utilizar un motor de consulta de alto nivel, como [jQuery](https://jquery.com/):
 
 ```go
 page.MustElementByJS(`jQuery('option:selected')[0]`)
 ```
 
-Actually, if you check the source code of other selectors, such as `Element` or `ElementR`, they are all based on `ElementByJS`, and `ElementByJS` is based on `Page.Evaluate`, for more details about how to evaluate js, check the [Javascript Runtime](/javascript-runtime.md). Usually, you use `ElementByJS` to create your own selector to extend Rod.
+En realidad, si comprueba el código fuente de otros selectores, como `Element` o `ElementR`, están basados en `ElementByJS`, y `ElementByJS` se basa en `Page. valuate`, para más detalles sobre cómo evaluar js, compruebe el [Javascript Runtime](/javascript-runtime.md). Generalmente, usas `ElementByJS` para crear tu propio selector para extender Rod.
 
-## Select list of elements
+## Seleccionar lista de elementos
 
-The names of the methods to get multiple elements are all prefixed with `MustElements` or `Elements`. One key difference between a single-selector and a multi-selector is the single-selector will wait for the element to appear. If a multi-selector doesn't find anything, it will immediately return an empty list.
+Los nombres de los métodos para obtener múltiples elementos tienen prefijo `MustElements` o `Elementos`. Una diferencia clave entre un selector único y un multi-selector es que el selector único esperará a que aparezca el elemento . Si un selector múltiple no encuentra nada, devolverá inmediatamente una lista vacía.
 
-## Traverse element tree
+## Árbol de elementos de recorrido
 
-There are also some handy selectors to select elements inside or around an element, such as `MustParent`, `MustNext`, `MustPrevious`, etc.
+También hay algunos selectores útiles para seleccionar elementos dentro o alrededor de un elemento, tales como `MustParent`, `MustNext`, `MustPrevious`, etc.
 
-Here's an example of how we use various selectors to retrieve contents from a page:
+Aquí hay un ejemplo de cómo utilizamos varios selectores para recuperar contenidos de una página:
 
 ```go
-// On awesome-go page, finding the specified section sect,
-// and retrieving the associated projects from the page.
+// En una página impresionante, encontrando la secta de sección especificada,
+// y recuperando los proyectos asociados desde la página.
 func main() {
     page := rod.New().MustConnect().MustPage("https://github.com/avelino/awesome-go")
 
-    section := page.MustElementR("p", "Selenium and browser control tools").MustNext()
+    section := page.MustElementR("p", "Selenium and browser control tools"). ustNext()
 
-    // get children elements of an element
-    projects := section.MustElements("li")
+    // obtiene elementos secundarios de un elemento
+    projects := sección. ustElements("li")
 
     for _, project := range projects {
-        link := project.MustElement("a")
-        log.Printf(
-            "project %s (%s): '%s'",
-            link.MustText(),
-            link.MustProperty("href"),
-            project.MustText(),
+        link := project. ustElement("a")
+        log. rintf(
+            "proyecto %s (%s): '%s'",
+            enlace. ustText(),
+            enlace. ustProperty("href"),
+            proyecto. ustText(),
         )
     }
 }
 ```
 
-## Get elements from iframes
+## Obtener elementos de iframes
 
-For example we have want to get the button from the nested iframes:
+Por ejemplo, queremos obtener el botón de los iframes anidados:
 
 ![iframes](iframes.png)
 
-The code will look like:
+El código se verá como:
 
 ```go
 frame01 := page.MustElement("iframe").MustFrame()
@@ -90,23 +90,23 @@ iframe02 := iframe01.MustElement("iframe").MustFrame()
 frame02.MustElement("button")
 ```
 
-## Search elements
+## Buscar elementos
 
-There's another powerful helper to get elements, the `MustSearch`. It's less precise than the selectors mentioned above, but it's handy if you want to get elements from deep nested iframes or shadow-doms.
+Hay otro poderoso ayudante para obtener elementos, el `MustSearch`. Es menos preciso que los selectores mencionados arriba, pero es útil si quieres obtener elementos de iframes profundos anidados o domos de sombras.
 
-The functionality is the same as the [Devtools' Search for nodes](https://developers.google.com/web/tools/chrome-devtools/dom#search), you can use it to find out what keyword to use to select the element you want, like the screenshot below:
+La funcionalidad es la misma que la [Búsqueda de nodos](https://developers.google.com/web/tools/chrome-devtools/dom#search)de Devtools, puedes usarlo para averiguar qué palabra clave usar para seleccionar el elemento que quieras, como la captura de pantalla de abajo:
 
-![search](search.png)
+![buscar](search.png)
 
-To get the same element from the [Get elements from iframes](#get-elements-from-iframes), we can simply code like this:
+Para obtener el mismo elemento del [Obtener elementos de iframes](#get-elements-from-iframes), podemos simplemente codificar así:
 
 ```go
-page.MustSearch("button")
+page.MustSearch("botón")
 ```
 
-## Race selectors
+## Selectores de carreras
 
-Rod encourage sleep-free automation to reduce flakiness. When an action has multiple results, we don't use sleep to wait for the page to redirect or settle down. For example, when we login a page, the password maybe incorrect, we want to handle the success and failure separately. We should avoid code like below:
+Rod alienta a la automatización sin dormir a reducir la falsedad. Cuando una acción tiene múltiples resultados, no usamos el sueño para esperar a que la página redireccione o se instale. Por ejemplo, cuando iniciamos sesión en una página, la contraseña tal vez incorrecta, queremos manejar el éxito y el fallo por separado. Deberíamos evitar el código como a continuación:
 
 ```go
 func main() {
@@ -115,34 +115,34 @@ func main() {
     page.MustElement("#id_login").MustInput("username")
     page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
 
-    time.Sleep(10 * time.Second) // Please avoid the use of time.Sleep!
+    time.Sleep(10 * time.secondd) // ¡Por favor evita el uso de time.Sleep!
 
-    if page.MustHas(".nav-user-icon-base") {
-        // print the username after successful login
-        fmt.Println(*el.MustAttribute("title"))
-    } else if page.MustHas("[data-cy=sign-in-error]") {
-        // when wrong username or password
-        fmt.Println(el.MustText())
+    if page.MustHas(". av-user-icon-base") {
+        // imprime el nombre de usuario después de iniciar sesión con éxito
+        fmt. rintln(*el.MustAttribute("title"))
+    } más si la página. ustHas("[data-cy=sign-in-error]") {
+        // cuando nombre de usuario o contraseña incorrectos
+        fmt. rintln(el.MustText())
     }
 }
 ```
 
-Instead we should code like this:
+En su lugar, deberíamos codificar así:
 
 ```go
 func main() {
     page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
-    page.MustElement("#id_login").MustInput("username")
-    page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
+    page.MustElement("#id_login").MustInput("username") página
+    . ustElement("#id_password").MustInput("password").MustPress(input.Enter)
 
-    // It will keep polling until one selector has found a match
-    page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
-        // print the username after successful login
-        fmt.Println(*e.MustAttribute("title"))
-    }).Element("[data-cy=sign-in-error]").MustHandle(func(e *rod.Element) {
-        // when wrong username or password
-        panic(e.MustText())
+    // Seguirá sondeando hasta que un selector haya encontrado una coincidencia
+    page.Race().Element(". av-user-icon-base").MustHandle(func(e *rod. lement) {
+        // imprime el nombre de usuario después de iniciar sesión con éxito
+        fmt. rintln(*e.MustAttribute("title"))
+    }). lement("[data-cy=sign-in-error]").MustHandle(func(e *rod. lement) {
+        // cuando nombre de usuario o contraseña incorrectos
+        pánico. ustText())
     }).MustDo()
 }
 ```

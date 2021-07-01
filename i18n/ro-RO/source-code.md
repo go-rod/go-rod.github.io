@@ -1,3 +1,3 @@
-# Source Code
+# Cod sursă
 
-The main code repository: [link](https://github.com/go-rod/rod).
+Depozitul principal de cod: [link-ul](https://github.com/go-rod/rod).

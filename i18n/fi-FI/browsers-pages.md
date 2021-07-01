@@ -1,26 +1,26 @@
-# Browsers & Pages
+# Selaimet & sivut
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+On intuitiivista käyttää sauvaa ohjaamaan useita selaimia tai sivuja samaan aikaan.
 
-## Multiple browsers
+## Useita selaimia
 
-To launch multiple browsers:
+Avataksesi useita selaimia:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Kaikki sovellusrajapinnat ovat lankaturvallisia, samat työt useille Go-rutiineille.
 
-You can also use incognito mode to launch multiple browsers:
+Voit myös käyttää incognito-tilaa käynnistääksesi useita selaimia:
 
 ```go
 browser1 := rod.New().MustConnect()
-browser2 := browser1.MustIncognito()
+selain2 := selain1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Käynnistä selaimet, joilla on erilaiset käynnistysparametrit:
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -32,22 +32,22 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 ```
 
-## Multiple pages
+## Useita sivuja
 
-To control multiple pages for a browser:
+Voit hallita useita sivuja selaimella:
 
 ```go
-browser := rod.New().MustConnect()
-page1 := browser.MustPage("http://a.com")
-page2 := browser.MustPage("http://b.com")
+selain := rod.New().MustConnect()
+sivu1 := browser.MustPage("http://a.com")
+sivu2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Sivun pooli
 
-We can use PagePool to help concurrently control and reuse pages.
+Voimme käyttää PagePoelia, joka auttaa samanaikaisesti valvomaan ja uudelleenkäyttämään sivuja.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Tarkista tämä [esimerkki](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Selain uima-allas
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Testit turska on hyvä esimerkki hallita joukko selaimia suorittaa testejä samanaikaisesti. Siksi testit voivat päättyä sekunneissa. Tarkista koodi [tästä](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).

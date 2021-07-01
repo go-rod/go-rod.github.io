@@ -1,30 +1,30 @@
-# Emulation
+# Emulatie
 
-Rod provides various ways to emulate the environment for pages.
+Rod biedt verschillende manieren om het milieu voor pagina's te emuleren.
 
-## Devices
+## Apparaten
 
-To set the viewport, user-agent, orientation, etc at the same time for a page, you can use the predefined devices:
+Om de weergave, gebruiker-agent, oriëntatie, etc tegelijkertijd voor een pagina in te stellen, kunt u de vooraf gedefinieerde apparaten gebruiken:
 
 ```go
 page.MustEmulate(devices.IPhone6or7or8Plus)
 ```
 
-Or define your own device:
+Of definieer je eigen apparaat:
 
 ```go
-page.MustEmulate(devices.Device{
-  Title:          "iPhone 4",
-  Capabilities:   []string{"touch", "mobile"},
-  UserAgent:      "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X)",
+page.MustEmulate(apparaten. {
+  Titel: "iPhone 4",
+  Mogelijkheden: []string{"touch", "mobile"},
+  Gebruikersagent: "Mozilla/5. (iPhone; CPU iPhone OS 7_1_2 zoals Mac OS X)",
   AcceptLanguage: "en",
-  Screen: devices.Screen{
+  Scherm: apparaten. Creen{
     DevicePixelRatio: 2,
-    Horizontal: devices.ScreenSize{
+    Horizontaal: apparaten. CreenSize{
       Width:  480,
       Height: 320,
     },
-    Vertical: devices.ScreenSize{
+    Verticaal: devices.ScreenSize{
       Width:  320,
       Height: 480,
     },
@@ -32,76 +32,76 @@ page.MustEmulate(devices.Device{
 })
 ```
 
-Check the source code of the predefined devices, the fields should self explain themselves.
+Controleer de broncode van de vooraf gedefinieerde apparaten, de velden moeten zichzelf uitleggen.
 
-You can also set the default device for all pages by using [Browser.DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice).
+U kunt ook het standaardapparaat instellen voor alle pagina's door [Browser.DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice) te gebruiken.
 
-Emulation is activated by default (using the [Devices.LaptopWithMDPIScreen](https://github.com/go-rod/rod/blob/bc44c39c9b4352c15d00bef6f6a1071205d2c388/lib/devices/list.go#L616) device), which overrides some of the default browser settings, which is better in terms of coherence (i.e., it helps to reproduce tests).
+Emulatie wordt standaard geactiveerd (gebruik makend van de [apparaten. aptopWithMDPIScreen](https://github.com/go-rod/rod/blob/bc44c39c9b4352c15d00bef6f6a1071205d2c388/lib/devices/list.go#L616) apparaat, dit overschrijft een aantal van de standaard browserinstellingen, wat beter is in termen van samenhang (d.w.z. het helpt tests te reproduceren).
 
-You can disable the Device Emulation feature passing the special _Clear_ device to the `Browser.DefaultDevice`.
+Je kunt de apparaatemulatie functie uitschakelen door het speciale _Wis_ apparaat naar `Browser.DefaultDevice`.
 
 ```go
-browser.DefaultDevice(devices.Clear)
+browser.DefaultDevice(apparaten.Clear)
 ```
 
-Or you can just use the [Browser.NoDefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.NoDefaultDevice) helper.
+Of je kunt gewoon de [Browser.NoDefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.NoDefaultDevice) helper gebruiken.
 
-## User agent
+## User Agent
 
-If you want to specify a user-agent for a specific page, use [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent).
+Als u een user-agent voor een specifieke pagina wilt opgeven, gebruik dan [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent).
 
-## Viewport
+## Uitzicht
 
-If you want to specify the viewport for a specific page, use [Page.SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport).
+Als u de viewport voor een specifieke pagina wilt opgeven, gebruik dan [Page.SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport).
 
-## Locale and timezone
+## Locale en tijdzone
 
-You can use the launch env to set for all pages:
+U kunt de lancering env gebruiken om voor alle pagina's in te stellen:
 
 ```go
-u := launcher.New().Env("TZ=America/New_York").MustConnect()
+u := launcher.New().Env("TZ=Amerika/New_York").MustConnect()
 browser := rod.New().ControlURL(u).MustConnect()
 ```
 
-Or you can use [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) or [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) to set for a specific page:
+Of je kunt [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) of [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) gebruiken voor een specifieke pagina:
 
 ```go
-proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
+proto.EmulationSetTimezoneOverride{TimezoneID: "Amerika/New_York"}.Call(pagina)
 ```
 
-## Permissions
+## Machtigingen
 
-Use [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#BrowserGrantPermissions)
+Gebruik [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#BrowserGrantPermissions)
 
-## Geolocation
+## Geolocatie
 
-Use [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetGeolocationOverride)
+Gebruik [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetGeolocationOverride)
 
-## Color scheme and media
+## Kleurenschema en media
 
-Use [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
+Gebruik [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
 
 ```go
 proto.EmulationSetEmulatedMedia{
-    Media: "screen",
-    Features: []*proto.EmulationMediaFeature{
-        {"prefers-color-scheme", "dark"},
+    Media: "scherm",
+    Functies: []*proto.EmulationMediaFeature{
+        {"prefers-color-schema", "donker"},
     },
 }.Call(page)
 ```
 
-## Prevent bot detection
+## Voorkom bot detectie
 
-Usually it's better to make the headless browser completely transparent for the page so that the page cannot tell if it's controlled by a human or robot. In some cases, some page could use client js to detect if the page is control by a human or a robot, such web WebGL, WebDriver, or http request headers. You can handcraft a js lib to hide all the traces, or just use lib [stealth](https://github.com/go-rod/stealth): [code example](https://github.com/go-rod/stealth/blob/master/examples_test.go).
+Meestal is het beter om de headless browser volledig transparant te maken voor de pagina, zodat de pagina niet kan zien of deze beheerd wordt door een mens of robot. In sommige gevallen kan sommige pagina client js gebruiken om te detecteren of de pagina door een mens of robot wordt bediend, dergelijke web WebGL, WebDriver of http-verzoekheaders. Je kunt een js lib gebruiken om alle sporen te verbergen, of gewoon lib [stealth](https://github.com/go-rod/stealth)gebruiken: [code voorbeeld](https://github.com/go-rod/stealth/blob/master/examples_test.go).
 
-If `stealth` lib doesn't work for you, you can just launch the regular user browser with `launcher.NewUserMode`: [User mode](custom-launch.md?id=user-mode).
+Als `stealth` lib niet voor u werkt, kunt u gewoon de normale gebruiker browser starten met `launcher. ewUserMode`: [User mode](custom-launch.md?id=user-mode).
 
-You can use tools like [https://bot.sannysoft.com](https://bot.sannysoft.com) to test your configuration.
+Je kunt hulpmiddelen zoals [https://bot.sannysoft.com](https://bot.sannysoft.com) gebruiken om je configuratie te testen.
 
-## Browser fingerprint
+## Browser vingerafdruk
 
-Browser fingerprinting is not bot detection. It uses various tricks to collect unique browser attributes to identify browsers. Website can use it to track users even when they are not logged in, it's also widely used to mark headless scrapers. For example, different users usually will install different fonts on their OS, we can use this to distinguish different users. Another example would be using the canvas to render text, different users usually will have different GPUs, graphic drivers, or OSes, they all will affect the result of the rendered image.
+Browser vingerafdrukken zijn geen bot detectie. Het gebruikt verschillende trucs om unieke browserattributen te verzamelen om browsers te identificeren. Website kan het gebruiken om gebruikers bij te houden, zelfs wanneer ze niet zijn ingelogd, het wordt ook veel gebruikt om headless scrapers te markeren. Verschillende gebruikers zullen bijvoorbeeld meestal verschillende lettertypen op hun OS installeren. We kunnen dit gebruiken om verschillende gebruikers te onderscheiden. Een ander voorbeeld zou het canvas gebruiken om tekst te maken, verschillende gebruikers hebben meestal verschillende GPU's, grafische chauffeurs of besturen, ze hebben allemaal invloed op het resultaat van de weergegeven afbeelding.
 
-Usually you can launch multiple browser instances to have different fingerprints. If you want to use a single browser to save memory and CPU, you have to manually overriding the API for canvas, fonts, etc.
+Meestal kun je meerdere browserinstanties starten om verschillende vingerafdrukken te hebben. Als je een enkele browser wilt gebruiken om geheugen en CPU op te slaan, moet je handmatig de API voor canvas, lettertypes, etc. overschrijven.
 
-You can use open-source projects like [FingerprintJS](https://github.com/fingerprintjs/fingerprintjs/) to test your configuration.
+Je kunt open-source projecten zoals [vingerafdruk JS](https://github.com/fingerprintjs/fingerprintjs/) gebruiken om je configuratie te testen.

@@ -1,16 +1,16 @@
-# Javascript Runtime
+# Execuție Javascript
 
-We can use Rod to evaluate random javascript code on the page. Such as use it to read or modify the HTML content of the page.
+Putem folosi Rod pentru a evalua codul de javascript aleatoriu de pe pagină. Așa cum o folosiți pentru a citi sau modifica conținutul HTML al paginii.
 
-## Eval on the page
+## Eval pe pagină
 
-For example use `Page.Eval` to set global value:
+Folosiți de exemplu `Page.Eval` pentru a seta valoarea globală:
 
 ```go
 page.MustEval(`window.a = {name: 'jack'}`)
 ```
 
-We can use a js function to pass value as json arguments:
+Putem folosi o functie js pentru a pasa valoarea ca argumente json:
 
 ```go
 key := "a"
@@ -20,26 +20,26 @@ page.MustEval(`(k, val) => {
 }`, key, data)
 ```
 
-To get the returned value from Eval:
+Pentru a obține valoarea returnată de la Eval:
 
 ```go
 val := page.MustEval(`a`).Get("name").Str()
 fmt.Println(val) // output: jack
 ```
 
-## Define a global function
+## Definește o funcție globală
 
-The `Page.Evaluate` method will execute the function if its outermost is a function definition.
+Metoda `Page.Evaluează` va executa funcția în cazul în care ultraperiferica sa este o definiție a funcției.
 
-For example, the `test` function below will be executed immediately, it will not be treated as a function definition:
+De exemplu, funcția `test` de mai jos va fi executată imediat, nu va fi tratată ca o definiție a funcției:
 
 ```go
 page.MustEval(`function test() { alert('ok') }`)
 
-page.MustEval(`test()`) // panic with test not defined
+page.MustEval(`test()`) // panică cu test nedefinit
 ```
 
-To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
+Pentru a defini testul funcției globale `` poți codifica așa, deoarece ultraperifericitatea este o atribuire, nu o definiție a funcției:
 
 ```go
 page.MustEval(`test = function () { alert('ok') }`)
@@ -47,20 +47,20 @@ page.MustEval(`test = function () { alert('ok') }`)
 page.MustEval(`test()`)
 ```
 
-## Eval on an element
+## Eval pe un element
 
-`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
+`Element.Eval` este similar cu `Page.Eval`, dar cu `acest obiect` setat pe elementul curent. De exemplu, avem un `<button>Trimiteți</button>` pe pagină, putem citi sau modifica elementul cu JS:
 
 ```go
 el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // Modify the content
+el.MustEval(`this.innerText = "Apply"`) // Modifică conţinutul
 txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // output: Apply
+fmt.Println(txt) // output: Aplică
 ```
 
-## Expose Go functions to the page
+## Expune funcţii de acces la pagină
 
-We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
+Putem folosi `Page.Expune` pentru a expune funcțiile de apel invers la pagină. For example, here we expose a function to help the page to calculate md5 hash:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
@@ -68,7 +68,7 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 })
 ```
 
-Now the page can invoke this method on the window object:
+Acum, pagina poate invoca această metodă în obiectul fereastră:
 
 ```go
 hash := page.MustEval(`window.md5("test")`).Str()

@@ -1,30 +1,30 @@
 # Emulation
 
-Rod provides various ways to emulate the environment for pages.
+Rod bietet verschiedene Möglichkeiten, die Umgebung für Seiten zu emulieren.
 
-## Devices
+## Geräte
 
-To set the viewport, user-agent, orientation, etc at the same time for a page, you can use the predefined devices:
+Um den Viewport, den User-Agent, die Orientierung usw. gleichzeitig für eine Seite festzulegen, können Sie die vordefinierten Geräte verwenden:
 
 ```go
 page.MustEmulate(devices.IPhone6or7or8Plus)
 ```
 
-Or define your own device:
+Oder definieren Sie Ihr eigenes Gerät:
 
 ```go
-page.MustEmulate(devices.Device{
-  Title:          "iPhone 4",
-  Capabilities:   []string{"touch", "mobile"},
-  UserAgent:      "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X)",
+page.MustEmulate(Geräte. evice{
+  Titel: "iPhone 4",
+  Fähigkeiten: []string{"touch", "mobile"},
+  UserAgent: "Mozilla/5. (iPhone; CPU iPhone OS 7_1_2 wie Mac OS X)",
   AcceptLanguage: "en",
-  Screen: devices.Screen{
+  Bildschirm: Geräte. creen{
     DevicePixelRatio: 2,
-    Horizontal: devices.ScreenSize{
+    Horizontal: Geräte. creenGröße{
       Width:  480,
       Height: 320,
     },
-    Vertical: devices.ScreenSize{
+    Vertikal: Geräte. Bildschirmgröße{
       Width:  320,
       Height: 480,
     },
@@ -32,76 +32,76 @@ page.MustEmulate(devices.Device{
 })
 ```
 
-Check the source code of the predefined devices, the fields should self explain themselves.
+Überprüfen Sie den Quellcode der vordefinierten Geräte, die Felder sollten sich selbst erklären.
 
-You can also set the default device for all pages by using [Browser.DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice).
+Sie können das Standardgerät für alle Seiten auch mit [Browser.DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice) setzen.
 
-Emulation is activated by default (using the [Devices.LaptopWithMDPIScreen](https://github.com/go-rod/rod/blob/bc44c39c9b4352c15d00bef6f6a1071205d2c388/lib/devices/list.go#L616) device), which overrides some of the default browser settings, which is better in terms of coherence (i.e., it helps to reproduce tests).
+Emulation ist standardmäßig aktiviert (mit den [Geräten. aptopWithMDPIScreen](https://github.com/go-rod/rod/blob/bc44c39c9b4352c15d00bef6f6a1071205d2c388/lib/devices/list.go#L616) device), das einige der Standardeinstellungen des Browsers überschreibt, was besser in Bezug auf Kohärenz ist (d.h. es hilft, Tests zu reproduzieren).
 
-You can disable the Device Emulation feature passing the special _Clear_ device to the `Browser.DefaultDevice`.
+Sie können die Funktion Geräte-Emulation deaktivieren und das spezielle _Leere_ Gerät an das `Browser.DefaultDevice` übergeben.
 
 ```go
 browser.DefaultDevice(devices.Clear)
 ```
 
-Or you can just use the [Browser.NoDefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.NoDefaultDevice) helper.
+Oder Sie können einfach den [Browser.NoDefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.NoDefaultDevice) Helfer verwenden.
 
-## User agent
+## User-Agent
 
-If you want to specify a user-agent for a specific page, use [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent).
+Wenn Sie einen User-Agent für eine bestimmte Seite angeben möchten, verwenden Sie [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent).
 
 ## Viewport
 
-If you want to specify the viewport for a specific page, use [Page.SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport).
+Wenn Sie den Viewport für eine bestimmte Seite angeben möchten, verwenden Sie [Page.SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport).
 
-## Locale and timezone
+## Sprache und Zeitzone
 
-You can use the launch env to set for all pages:
+Du kannst den Start env für alle Seiten verwenden:
 
 ```go
 u := launcher.New().Env("TZ=America/New_York").MustConnect()
-browser := rod.New().ControlURL(u).MustConnect()
+Browser := rod.New().ControlURL(u).MustConnect()
 ```
 
-Or you can use [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) or [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) to set for a specific page:
+Oder Sie können [EmulationSetTimeZoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) oder [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) für eine bestimmte Seite verwenden:
 
 ```go
 proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
 ```
 
-## Permissions
+## Berechtigungen
 
-Use [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#BrowserGrantPermissions)
+[BrowserGrantPermissionen verwenden](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#BrowserGrantPermissions)
 
-## Geolocation
+## Ortung
 
-Use [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetGeolocationOverride)
+[EmulationSetGeolocationOverride verwenden](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetGeolocationOverride)
 
-## Color scheme and media
+## Farbschema und Medien
 
-Use [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
+[EmulationSetEmulatedMedia verwenden](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
 
 ```go
 proto.EmulationSetEmulatedMedia{
-    Media: "screen",
-    Features: []*proto.EmulationMediaFeature{
+    Medien: "screen",
+    Funktionen: []*proto.EmulationMediaFeature{
         {"prefers-color-scheme", "dark"},
     },
 }.Call(page)
 ```
 
-## Prevent bot detection
+## Bot-Erkennung verhindern
 
-Usually it's better to make the headless browser completely transparent for the page so that the page cannot tell if it's controlled by a human or robot. In some cases, some page could use client js to detect if the page is control by a human or a robot, such web WebGL, WebDriver, or http request headers. You can handcraft a js lib to hide all the traces, or just use lib [stealth](https://github.com/go-rod/stealth): [code example](https://github.com/go-rod/stealth/blob/master/examples_test.go).
+Normalerweise ist es besser, den kopflosen Browser vollständig transparent für die Seite zu machen, so dass die Seite nicht sagen kann, ob sie von einem Menschen oder Roboter kontrolliert wird. In einigen Fällen könnte eine Seite Client Js verwenden, um festzustellen, ob die Seite von einem Menschen oder einem Roboter kontrolliert wird, solche WebGL, WebDriver oder http Request Header. Du kannst eine js lib handhaben, um alle Spuren zu verstecken, oder einfach die lib [stealth](https://github.com/go-rod/stealth): [Code-Beispiel](https://github.com/go-rod/stealth/blob/master/examples_test.go) verwenden.
 
-If `stealth` lib doesn't work for you, you can just launch the regular user browser with `launcher.NewUserMode`: [User mode](custom-launch.md?id=user-mode).
+Wenn `Stealth` lib nicht für Sie funktioniert, können Sie einfach den normalen Browser mit `Launcher starten. ewUserMode`: [Benutzermodus](custom-launch.md?id=user-mode).
 
-You can use tools like [https://bot.sannysoft.com](https://bot.sannysoft.com) to test your configuration.
+Sie können Werkzeuge wie [https://bot.sannysoft.com](https://bot.sannysoft.com) verwenden, um Ihre Konfiguration zu testen.
 
-## Browser fingerprint
+## Browser-Fingerabdruck
 
-Browser fingerprinting is not bot detection. It uses various tricks to collect unique browser attributes to identify browsers. Website can use it to track users even when they are not logged in, it's also widely used to mark headless scrapers. For example, different users usually will install different fonts on their OS, we can use this to distinguish different users. Another example would be using the canvas to render text, different users usually will have different GPUs, graphic drivers, or OSes, they all will affect the result of the rendered image.
+Browser-Fingerabdruck ist keine Bot-Erkennung. Es verwendet verschiedene Tricks, um eindeutige Browserattribute zu sammeln, um Browser zu identifizieren. Website kann verwendet werden, um Benutzer zu verfolgen, auch wenn sie nicht eingeloggt sind, ist es auch weit verbreitet, kopflose Scraper zu markieren. Zum Beispiel, verschiedene Benutzer in der Regel verschiedene Schriftarten auf ihrem Betriebssystem installieren, können wir dies verwenden, um verschiedene Benutzer zu unterscheiden. Ein weiteres Beispiel wäre, die Leinwand zu benutzen, um Text zu rendern, andere Benutzer werden normalerweise unterschiedliche GPUs haben, -Grafiktreiber oder Betriebssysteme, die alle das Ergebnis des gerenderten Bildes beeinflussen.
 
-Usually you can launch multiple browser instances to have different fingerprints. If you want to use a single browser to save memory and CPU, you have to manually overriding the API for canvas, fonts, etc.
+Normalerweise können Sie mehrere Browser-Instanzen starten, um unterschiedliche Fingerabdrücke zu haben. Wenn Sie einen einzelnen Browser verwenden wollen, um Speicher und CPU zu speichern, müssen Sie die API für Leinwand, Schriftarten usw. manuell überschreiben.
 
-You can use open-source projects like [FingerprintJS](https://github.com/fingerprintjs/fingerprintjs/) to test your configuration.
+Sie können Open-Source-Projekte wie [FingerprintJS](https://github.com/fingerprintjs/fingerprintjs/) verwenden, um Ihre Konfiguration zu testen.

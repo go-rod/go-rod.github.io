@@ -1,66 +1,66 @@
-# Javascript Runtime
+# Javascript běh
 
-We can use Rod to evaluate random javascript code on the page. Such as use it to read or modify the HTML content of the page.
+K vyhodnocení náhodného javascriptu kódu na stránce můžeme použít prut. Např. používejte jej ke čtení nebo změně obsahu HTML stránky.
 
-## Eval on the page
+## Eval na stránce
 
-For example use `Page.Eval` to set global value:
+Pro nastavení globální hodnoty použijte například `Page.Eval`:
 
 ```go
 page.MustEval(`window.a = {name: 'jack'}`)
 ```
 
-We can use a js function to pass value as json arguments:
+Můžeme použít funkci js k převedení hodnoty jako argumenty json:
 
 ```go
-key := "a"
-data := map[string]string{"name": "jack"}
+klíč := "a"
+data := mapa[string]string{"name": "jack"}
 page.MustEval(`(k, val) => {
-    window[k] = val
-}`, key, data)
+    okno[k] = val
+}`, klíč, data)
 ```
 
-To get the returned value from Eval:
+Pro získání vrácené hodnoty z Eval:
 
 ```go
 val := page.MustEval(`a`).Get("name").Str()
-fmt.Println(val) // output: jack
+fmt.Println(val) // výstup: jack
 ```
 
-## Define a global function
+## Definovat globální funkci
 
-The `Page.Evaluate` method will execute the function if its outermost is a function definition.
+Metoda `Page.Evaluate` spustí funkci, pokud je její nejvzdálenější definicí funkce.
 
-For example, the `test` function below will be executed immediately, it will not be treated as a function definition:
+Například funkce `test` níže bude spuštěna okamžitě, nebude považována za definici funkce:
 
 ```go
 page.MustEval(`function test() { alert('ok') }`)
 
-page.MustEval(`test()`) // panic with test not defined
+page.MustEval(`test()`// panic s nedefinovaným testem
 ```
 
-To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
+Pro definování globální funkce `test` můžete takto kódovat, protože nejvzdálenější je zadání, ne definice funkce:
 
 ```go
-page.MustEval(`test = function () { alert('ok') }`)
+page.MustEval(`test = funkce () { alert('ok') }`)
 
 page.MustEval(`test()`)
 ```
 
-## Eval on an element
+## Eval na prvku
 
-`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
+`Element.Eval` je podobný `Page.Eval`, ale s objektem `tohoto` nastaveným na aktuální prvek. Například máme na stránce `<button>Odeslat</button>` , můžeme si přečíst nebo upravit prvek pomocí JS:
 
 ```go
 el := page.MustElement("button")
 el.MustEval(`this.innerText = "Apply"`) // Modify the content
 txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // output: Apply
+fmt.Println(txt) // output: Použít
 ```
 
-## Expose Go functions to the page
+## Zveřejnit funkce Go na stránku
 
-We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
+Můžeme použít `Page.Expose` k vystavení funkcí zpětného volání stránce. Například, zde vystavujeme funkci, která pomůže stránce vypočítat md5 hash:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
@@ -68,7 +68,7 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 })
 ```
 
-Now the page can invoke this method on the window object:
+Nyní může stránka vyvolat tuto metodu na objekt okna:
 
 ```go
 hash := page.MustEval(`window.md5("test")`).Str()

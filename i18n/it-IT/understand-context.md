@@ -1,8 +1,8 @@
-# Understand Context
+# Comprendere Il Contesto
 
-Before understanding Context, make sure you have learned [Goroutines](https://tour.golang.org/concurrency/1) and [Channels](https://tour.golang.org/concurrency/2). Context is mainly used to transfer context information between Goroutines, including: cancellation signal, timeout, deadline, k-v, etc.
+Prima di comprendere il Contesto, assicurati di aver imparato [Goroutines](https://tour.golang.org/concurrency/1) e [Canali](https://tour.golang.org/concurrency/2). Il contesto è utilizzato principalmente per trasferire informazioni di contesto tra Goroutines, tra cui: segnale di cancellazione, timeout, scadenza, k-v, ecc.
 
-For example, we have a long-running function `heartbeat` that prints `beat` every second:
+Ad esempio, abbiamo una funzione di lungo periodo `battito cardiaco` che stampa `batte` ogni secondo:
 
 ```go
 package main
@@ -17,22 +17,22 @@ func main() {
 }
 
 func heartbeat() {
-    tick := time.Tick(time.Second)
+    tick := time. ick(tempo. econd)
 
     for {
         <-tick
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```
 
-If we want to abort the heartbeat whenever we press the enter key, we may code like this:
+Se vogliamo interrompere il battito cardiaco ogni volta che premiamo il tasto Invio, possiamo programmare così:
 
 ```go
 func main() {
     stop := make(chan struct{})
     go func() {
-        fmt.Scanln()
+        fmt. canln()
         close(stop)
     }()
 
@@ -40,7 +40,7 @@ func main() {
 }
 
 func heartbeat(stop chan struct{}) {
-    tick := time.Tick(time.Second)
+    tick := time. ick(tempo. econd)
 
     for {
         select {
@@ -48,34 +48,34 @@ func heartbeat(stop chan struct{}) {
         case <-stop:
             return
         }
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```
 
-Because this kind of code is so often used, Golang abstracted a helper package to handle it, it's called [Context](https://golang.org/pkg/context/). If we use Context, the code above will become something like this:
+Poiché questo tipo di codice è così spesso utilizzato, Golang ha astratto un pacchetto helper per gestirlo, si chiama [Contesto](https://golang.org/pkg/context/). Se utilizziamo Context, il codice qui sopra diventerà qualcosa di simile:
 
 ```go
 func main() {
-    ctx, stop := context.WithCancel(context.Background())
+    ctx, stop := context.WithCancel(context). ackground())
     go func() {
-        fmt.Scanln()
+        fmt. canln()
         stop()
     }()
 
     heartbeat(ctx)
 }
 
-func heartbeat(ctx context.Context) {
-    tick := time.Tick(time.Second)
+func heartbeat(ctx context. ontext) {
+    tick := time. ick(tempo. econd)
 
     for {
         select {
         case <-tick:
-        case <-ctx.Done():
-            return
+        case <-ctx. uno():
+            ritorno
         }
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```

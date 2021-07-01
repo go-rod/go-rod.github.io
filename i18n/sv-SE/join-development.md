@@ -1,9 +1,9 @@
-# Join Development
+# Gå med i utveckling
 
-Your help is more than welcome! Even just open an issue to ask a question may greatly help others.
+Din hjälp är mer än välkommen! Även bara öppna ett problem för att ställa en fråga kan i hög grad hjälpa andra.
 
-Please read [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) before you ask questions.
+Läs [Hur man ställer frågor Det smarta sättet](http://www.catb.org/~esr/faqs/smart-questions.html) innan du ställer frågor.
 
-We use Github Projects to manage tasks, you can see the priority and progress of the issues [here](https://github.com/orgs/go-rod/projects/1).
+Vi använder Github Projects för att hantera uppgifter, du kan se prioriteringen och utvecklingen av problemen [här](https://github.com/orgs/go-rod/projects/1).
 
-If you want to contribute code for this project please read the [Contributor Guide](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+Om du vill bidra med kod för det här projektet, läs [Bidragsgivarguide](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)

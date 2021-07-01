@@ -1,3 +1,3 @@
-# Source Code
+# Lähdekoodi
 
-The main code repository: [link](https://github.com/go-rod/rod).
+Tärkein koodin repository: [linkki](https://github.com/go-rod/rod).

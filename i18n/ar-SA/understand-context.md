@@ -1,81 +1,81 @@
-# Understand Context
+# فهم السياق
 
-Before understanding Context, make sure you have learned [Goroutines](https://tour.golang.org/concurrency/1) and [Channels](https://tour.golang.org/concurrency/2). Context is mainly used to transfer context information between Goroutines, including: cancellation signal, timeout, deadline, k-v, etc.
+قبل فهم السياق، تأكد من أنك تعلمت [غوروتين](https://tour.golang.org/concurrency/1) و [القنوات](https://tour.golang.org/concurrency/2). ويستخدم السياق أساسا لنقل المعلومات المتعلقة بالسياق بين غوروتن، بما في ذلك: إشارة الإلغاء والمهلة والمواعيد النهائية وكي - ضد وما إلى ذلك.
 
-For example, we have a long-running function `heartbeat` that prints `beat` every second:
+على سبيل المثال، لدينا دالة قديمة `القلب` التي تطبع `النبضات` كل ثانية:
 
 ```go
-package main
+استيراد الحزمة الرئيسية
 
-import (
+(
     "fmt"
     "time"
 )
 
-func main() {
+mainc () {
     heartbeat()
 }
 
-func heartbeat() {
-    tick := time.Tick(time.Second)
+clc heartbeat() {
+    ضع علامة := وقت. (وقت). cond)
 
-    for {
+    ل {
         <-tick
-        fmt.Println("beat")
+        fmt. rintln("الضرب")
     }
 }
 ```
 
-If we want to abort the heartbeat whenever we press the enter key, we may code like this:
+إذا أردنا إجهاض نبض القلب كلما ضغطنا على مفتاح الإدخال، قد نبرمج مثل هذا:
 
 ```go
-func main() {
-    stop := make(chan struct{})
-    go func() {
-        fmt.Scanln()
-        close(stop)
+تمسك main() {
+    أوقف := make(chan struct{})
+    اذهب إلى وظيفة () {
+        fmt. تعامل()
+        مغلق (توقف)
     }()
 
     heartbeat(stop)
 }
 
-func heartbeat(stop chan struct{}) {
-    tick := time.Tick(time.Second)
+Cltbeat(stopc heartbeat) (توقف عن بناء الدردشة {}) {
+    ضع علامة := وقت. (وقت). cond)
 
-    for {
-        select {
-        case <-tick:
-        case <-stop:
-            return
+    لـ {
+        اختر {
+        حالة <-tick:
+        حالة <- توقف:
+            العودة
         }
-        fmt.Println("beat")
+        قدوم. rintln("الضرب")
     }
 }
 ```
 
-Because this kind of code is so often used, Golang abstracted a helper package to handle it, it's called [Context](https://golang.org/pkg/context/). If we use Context, the code above will become something like this:
+لأن هذا النوع من التعليمات البرمجية يستخدم في كثير من الأحيان، قام جولانغ بتلخيص حزمة مساعدة للتعامل معها، تسمى [السياق](https://golang.org/pkg/context/). إذا استخدمنا السياق، ستصبح التعليمات البرمجية أعلاه شيئا كهذا:
 
 ```go
 func main() {
-    ctx, stop := context.WithCancel(context.Background())
-    go func() {
-        fmt.Scanln()
+    ctx، أوقف := context.WithCancel(السياق. ackground())
+    اذهب إلى وظيفة () {
+        قدم. canln()
         stop()
     }()
 
     heartbeat(ctx)
 }
 
-func heartbeat(ctx context.Context) {
-    tick := time.Tick(time.Second)
+func heartbeat(tx). ontext) {
+    علامة := الوقت. (وقت). cond)
 
-    for {
-        select {
+    لـ {
+        اختر {
         case <-tick:
-        case <-ctx.Done():
-            return
+        case <-ctx. واحد():
+            العودة
         }
-        fmt.Println("beat")
+        على الأقدام rintln("الضرب")
     }
 }
 ```

@@ -1,27 +1,27 @@
-# Network
+# Δίκτυο
 
-## Hijack requests
+## Αιτήσεις Hijack
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+Μπορείτε να χρησιμοποιήσετε το Rod για να αποκρύψετε οποιαδήποτε κίνηση HTTP ή HTTPS.
 
-The entire process of hijacking one request:
+Η όλη διαδικασία της πειρατείας ένα αίτημα:
 
 ```text
    browser --req-> rod ---> server ---> rod --res-> browser
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+Όταν το πρόγραμμα περιήγησης θέλει να στείλει ένα αίτημα σε ένα διακομιστή, θα στείλει πρώτα το αίτημα στο Rod, τότε το Rod θα ενεργήσει όπως ένας διαμεσολαβητής για να στείλει το αίτημα στον πραγματικό διακομιστή και να επιστρέψει την απάντηση στο πρόγραμμα περιήγησης. Το `--req->` και `--res->` είναι τα μέρη που μπορούν να τροποποιηθούν.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+Για παράδειγμα, για να αντικαταστήσουμε ένα αρχείο `test.js` απόκριση από το διακομιστή μπορούμε να κάνουμε κάτι έτσι:
 
 ```go
 browser := rod.New().MustConnect()
 
-router := browser.HijackRequests()
+δρομολογητής := browser.HijackRequests()
 
-router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
+router.MustAdd("*/test.js", func(ctx *rod.Hijack) mptom
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.SetBody(`console. og("js file replaced")`)
 })
 
 go router.Run()
@@ -32,4 +32,4 @@ page := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+Για περισσότερες πληροφορίες, ελέγξτε τις [δοκιμές hijack](https://github.com/go-rod/rod/blob/master/hijack_test.go)

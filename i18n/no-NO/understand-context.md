@@ -1,81 +1,81 @@
-# Understand Context
+# Understå kontekst
 
-Before understanding Context, make sure you have learned [Goroutines](https://tour.golang.org/concurrency/1) and [Channels](https://tour.golang.org/concurrency/2). Context is mainly used to transfer context information between Goroutines, including: cancellation signal, timeout, deadline, k-v, etc.
+Før du forstår sammenhengen, sørg for at du har lært [Goroutines](https://tour.golang.org/concurrency/1) og [kanaler](https://tour.golang.org/concurrency/2). Kontekst brukes hovedsakelig til å overføre kontekstinformasjon mellom Goroutiner, inkludert: kansellering signal, tidsfrist, tidsfrist, k-v, osv.
 
-For example, we have a long-running function `heartbeat` that prints `beat` every second:
+For eksempel har vi en langt løpende funksjon `hjerteslag` som skriver `slår` hvert andre:
 
 ```go
-package main
+pakkens viktigste
 
 import (
     "fmt"
     "time"
 )
 
-func main() {
+morsomme main() {
     heartbeat()
 }
 
-func heartbeat() {
-    tick := time.Tick(time.Second)
+morsomme heartbeat() {
+    tick := time. tykk(tid. econd)
 
     for {
         <-tick
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```
 
-If we want to abort the heartbeat whenever we press the enter key, we may code like this:
+Hvis vi vil avbryte hjerteslagene når vi trykker på nøkkelen, kan vi kode på måten:
 
 ```go
-func main() {
+Morsomme main() {
     stop := make(chan struct{})
     go func() {
-        fmt.Scanln()
-        close(stop)
+        fmt. canln()
+        lukke(stopp)
     }()
 
-    heartbeat(stop)
+    hjerte beat(stop)
 }
 
-func heartbeat(stop chan struct{}) {
-    tick := time.Tick(time.Second)
+morsomme hjerteslag (stopp chan struct{}) {
+    tick := time. tykk(tid. econd)
 
     for {
-        select {
-        case <-tick:
-        case <-stop:
-            return
+        velg {
+        tilfelle <-tick:
+        tilfelle <-stopp:
+            retur
         }
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```
 
-Because this kind of code is so often used, Golang abstracted a helper package to handle it, it's called [Context](https://golang.org/pkg/context/). If we use Context, the code above will become something like this:
+Fordi denne typen kode brukes er så ofte i bruk brukte Golang abstrakte hjelperepakken for å håndtere den, det kalles [Kontekst](https://golang.org/pkg/context/). Hvis vi bruker kontekst, vil koden ovenfor bli noe som dette:
 
 ```go
-func main() {
-    ctx, stop := context.WithCancel(context.Background())
+Morsomme main() {
+    ctx, stopp := kontekst.WithCancel(kontekst. ackground())
     go func() {
-        fmt.Scanln()
+        fmt. canln()
         stop()
     }()
 
     heartbeat(ctx)
 }
 
-func heartbeat(ctx context.Context) {
-    tick := time.Tick(time.Second)
+morsom hjerte beatat(ctx context. ontext) {
+    flått := tid. tykk(tid. econd)
 
     for {
-        select {
-        case <-tick:
-        case <-ctx.Done():
-            return
+        velg {
+        tilfelle <-tick:
+        tilfelle <-ctx. Én ():
+            retur
         }
-        fmt.Println("beat")
+        fmt. rintln("beat")
     }
 }
 ```

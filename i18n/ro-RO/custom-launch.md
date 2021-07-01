@@ -1,23 +1,23 @@
-# Custom Browser Launch
+# Lansare browser personalizată
 
-## Connect to an running browser
+## Conectează-te la un browser care rulează
 
-Find the executable path of your browser, such as on macOS run:
+Găsiți calea executabilă a browser-ului dvs., cum ar fi la pornirea macOS:
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debuging-port=9222
 ```
 
-It will output something like:
+Acesta va produce ceva de genul:
 
 ```txt
-DevTools listening on ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913
+DevTools ascultand pe ws://127.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6c913
 ```
 
-The above `ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913` is the interface to control the browser:
+Cea de mai sus `ws://127.0.1:9222/devtools/browser/4dccf09f2-ba2b-463a-8ff5-90d27c6c913` este interfața pentru a controla browser-ul:
 
 ```go
-package main
+pachet principal
 
 import (
     "github.com/go-rod/rod"
@@ -25,15 +25,15 @@ import (
 
 func main() {
     u := "ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913"
-    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
+    rod.New().ControlURL(u).MustConnect().MustPage("https://exemplu)
 }
 ```
 
-## The launcher lib
+## Agenda de lansare
 
-Because the above workflow is so often used, we abstract a the `launcher` lib to simplify launch of browsers. Such as automatically download or search for the browser executable, add or delete the browser executable command-line arguments, etc.
+Deoarece fluxul de lucru de mai sus este atât de des utilizat, abstractizăm un lib `launcher` pentru a simplifica lansarea browserelor. Cum ar fi să descarci automat sau să cauți browser-ul executabil, adaugă sau șterge argumentele executabile ale browser-ului, etc.
 
-So the above manual launch and code becomes:
+Așadar, lansarea manuală și codul de mai sus devine:
 
 ```go
 func main() {
@@ -42,17 +42,17 @@ func main() {
 }
 ```
 
-We can use the helper function `launcher.LookPath` to get the browser executable path, the above code is the same as:
+Putem folosi funcţia de ajutor `launcher.LookPath` pentru a obţine calea executabilă a browser-ului, codul de mai sus este acelaşi ca:
 
 ```go
 func main() {
-    path, _ := launcher.LookPath()
+    calea, _ := launcher.LookPath()
     u := launcher.New().Bin(path).MustLaunch()
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
 
-If `ControlURL` is not set, the `MustConnect` will run `launcher.New().MustLaunch()` automatically. By default, the launcher will automatically download and use a statically versioned browser so that the browser behavior is consistent. So you can simplify the above code into:
+Dacă `ControlURL` nu este setat, `MustConnect` va rula `launcher.New().MustLaunch()` automat. În mod implicit, lansatorul va descărca automat și va utiliza un browser cu versiuni statice, astfel încât navigatorul să fie consecvent. Așa că poți simplifica codul de mai sus în:
 
 ```go
 func main() {
@@ -60,12 +60,12 @@ func main() {
 }
 ```
 
-## Add or remove options
+## Adaugă sau șterge opțiuni
 
-You can use the `Set` and `Delete` to modify the browser launch arguments (flags):
+Puteți utiliza `Setați` și `Ștergeți` pentru a modifica argumentele lansării browser-ului (steaguri):
 
 ```go
-package main
+pachet principal
 
 import (
     "github.com/go-rod/rod"
@@ -74,58 +74,58 @@ import (
 
 func main() {
     u := launcher.New().
-        Set("user-data-dir", "path").
-        Set("headless").
-        Delete("--headless").
+        Setare ("user-data-dir", "path").
+        Setare („căști”).
+        Ștergere("--căști").
         MustLaunch()
 
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
 
-As you can see from above the `--` prefix is optional, such as `headless` and `--headless` are the same.
+După cum puteţi vedea de deasupra `--` prefixul este opţional, cum ar fi `headless` şi `--headless` sunt aceleaşi.
 
-Because options like `user-data-dir`, `proxy-server`, `headless` are so often used, we added some helpers for them, so the above code can become like this:
+Deoarece opțiuni precum `user-data-dir`, `proxy-server`, `Healess` sunt atât de des utilizate, am adăugat niște ajutoare pentru ei, astfel încât codul de mai sus să devină în felul următor:
 
 ```go
 func main() {
     u := launcher.New().
-        UserDataDir("path").
-        Headless(true).
-        Headless(false).
+        UserDataDir("cale").
+        Cefalee (adevărat).
+        Cefalee (false).
         MustLaunch()
 
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
 ```
 
-Here are the available flags: [link](https://peter.sh/experiments/chromium-command-line-switches).
+Aici sunt steagurile disponibile: [link-ul](https://peter.sh/experiments/chromium-command-line-switches).
 
-Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
+Citește documentul API pentru mai multe informații: [link-ul](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
-## Remotely manage the launcher
+## Gestionați la distanță lansatorul
 
-For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+Pentru sistemul de dezmembrare a producției, de obicei, vom separa browserele în diferite clustere, astfel încât să se poată dimensiona separat. Rod furnizează modulul `launcher.Manager` pentru a administra launcherul de la distanță. Cu el putem lansa de la distanță un browser cu stegulețe de lansare personalizate. Exemplul pentru a-l folosi este [aici](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
 
-Because it's very hard to install chromium correctly on some linux distributions, Rod provides a docker image to make it consistent cross platforms. Here's an example to use it:
+Pentru că este foarte greu să instalezi chromium corect pe niște distribuții linux, Rod oferă o imagine de docker pentru a o face să fie consecventă platforme încrucișate. Iată un exemplu pentru a-l folosi:
 
-1. Run the rod image `docker run -p 7317:7317 ghcr.io/go-rod/rod`
+1. Rulează imaginea tijă `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
-2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
+2. Deschide un alt terminal și rulează cod ca exemplul acestă [](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
 
-The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time.
+Imaginea este [aproximată](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) pentru capturi de ecran şi fonturi din limbile naturale populare. Fiecare container poate lansa mai multe browsere în același timp.
 
-## User mode :id=user-mode
+## Mod utilizator :id=mod utilizator
 
-When you log into your github account, and you want to reuse the login session for automation task. You can use the `launcher.NewUserMode` to launch your regular user browser. Rod will be just like a browser extension:
+Când te autentifici în contul tău github și vrei să refolosești sesiunea de conectare pentru sarcina automată. Puteţi utiliza `launcher.NewUserMode` pentru a lansa browser-ul de utilizator obişnuit. Rodul va fi exact ca o extensie a browserului:
 
 ```go
 wsURL := launcher.NewUserMode().MustLaunch()
 browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
 ```
 
-Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
+Iată un exemplu mai detaliat: [exemplul de cod](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
 
-## Low-level API
+## API de nivel scăzut
 
-If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
+Dacă doriţi să controlaţi fiecare pas al procesului de lansare, cum ar fi dezactivarea descărcării automate şi utilizarea browser-ului implicit al sistemului, verifică [fișierul exemplu](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).

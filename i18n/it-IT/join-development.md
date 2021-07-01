@@ -1,9 +1,9 @@
-# Join Development
+# Unisciti A Sviluppo
 
-Your help is more than welcome! Even just open an issue to ask a question may greatly help others.
+Il tuo aiuto è più che benvenuto! Anche solo aprire un problema per fare una domanda può aiutare notevolmente gli altri.
 
-Please read [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) before you ask questions.
+Si prega di leggere [Come fare domande The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) prima di fare domande.
 
-We use Github Projects to manage tasks, you can see the priority and progress of the issues [here](https://github.com/orgs/go-rod/projects/1).
+Utilizziamo i progetti Github per gestire le attività, puoi vedere la priorità e il progresso dei problemi [qui](https://github.com/orgs/go-rod/projects/1).
 
-If you want to contribute code for this project please read the [Contributor Guide](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+Se si desidera contribuire con il codice per questo progetto si prega di leggere la [Guida contributore](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)

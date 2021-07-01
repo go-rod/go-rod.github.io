@@ -1,75 +1,75 @@
-# Javascript Runtime
+# وقت تشغيل جافا سكريبت
 
-We can use Rod to evaluate random javascript code on the page. Such as use it to read or modify the HTML content of the page.
+يمكننا استخدام Rod لتقييم شفرة جافا سكريبت عشوائية على الصفحة. مثل استخدامه لقراءة أو تعديل محتوى HTML للصفحة.
 
-## Eval on the page
+## الفترة في الصفحة
 
-For example use `Page.Eval` to set global value:
+على سبيل المثال، استخدم `Page.Eval` لتعيين القيمة العالمية:
 
 ```go
 page.MustEval(`window.a = {name: 'jack'}`)
 ```
 
-We can use a js function to pass value as json arguments:
+يمكننا استخدام دالة js لتمرير القيمة كحجج json :
 
 ```go
-key := "a"
-data := map[string]string{"name": "jack"}
-page.MustEval(`(k, val) => {
+المفتاح:= "a"
+بيانات := خريطة[string]سلسلة {"name": "jack"}
+page.MustEval(`(kval) => {
     window[k] = val
-}`, key, data)
+}`, keyy, data)
 ```
 
-To get the returned value from Eval:
+للحصول على القيمة المرتجعة من Eval:
 
 ```go
 val := page.MustEval(`a`).Get("name").Str()
-fmt.Println(val) // output: jack
+fmt.Println(val) // خرج: jack
 ```
 
-## Define a global function
+## تعريف دالة عالمية
 
-The `Page.Evaluate` method will execute the function if its outermost is a function definition.
+طريقة `Page.Evaluate` ستنفذ الدالة إذا كان أقصى ما في الخارج هو تعريف الدالة.
 
-For example, the `test` function below will be executed immediately, it will not be treated as a function definition:
+على سبيل المثال، سيتم تنفيذ دالة `اختبار` أدناه على الفور، ولن يتم التعامل معها كتعريف للدالة:
 
 ```go
-page.MustEval(`function test() { alert('ok') }`)
+page.MustEval('اختبار الدالة () { alert('ok') }`)
 
-page.MustEval(`test()`) // panic with test not defined
+page.MustEval('test()`) // الذعر مع عدم تعريف الاختبار
 ```
 
-To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
+لتعريف الدالة العالمية `اختبار` يمكنك برمجة هكذا ، لأن الجزء الخارجي هو مهمة ، وليس تعريف دالة :
 
 ```go
-page.MustEval(`test = function () { alert('ok') }`)
+page.MustEval('اختبار = وظيفة () { alert('ok') }`)
 
-page.MustEval(`test()`)
+page.MustEval('test()`)
 ```
 
-## Eval on an element
+## الفترة على العنصر
 
-`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
+`Element.Eval` مماثل مع `Page.Eval`، ولكن مع `تعيين هذا الكائن` إلى العنصر الحالي. على سبيل المثال، لدينا `<button>إرسال</button>` على الصفحة، يمكننا قراءة أو تعديل العنصر باستخدام JS:
 
 ```go
-el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // Modify the content
+el := page.MustElement("زر")
+el.MustEval(`this.innerText = "Apply"`) // تعديل المحتوى
 txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // output: Apply
+fmt.Println(txt) // خرج: تطبيق
 ```
 
-## Expose Go functions to the page
+## عرض دوال الذهاب إلى الصفحة
 
-We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
+يمكننا استخدام `Page.Expose` لفضح وظائف رد الاتصال إلى الصفحة. على سبيل المثال، هنا نحن نعرض دالة لمساعدة الصفحة على حساب تجزئة md5:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
-    return md5.Sum([]byte(g.Str())), nil
+    return md5.Sum([]byte(g.Str()))، صفر
 })
 ```
 
-Now the page can invoke this method on the window object:
+الآن يمكن للصفحة أن تحتج بهذه الطريقة على كائن النافذة:
 
 ```go
-hash := page.MustEval(`window.md5("test")`).Str()
+هاش := page.MustEval(`window.md5("الاختبار")`).Str()
 ```

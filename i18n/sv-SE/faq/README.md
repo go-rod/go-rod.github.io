@@ -1,13 +1,13 @@
-# FAQ
+# Vanliga frågor
 
-## How to search symbols in the comments or doc?
+## Hur söker man efter symboler i kommentarerna eller dokumentet?
 
-Such as the symbol `Page.Element` shown in the screenshot:
+Som symbolen `Page.Element` som visas i skärmdumpen:
 
-![symbol-in-doc](symbol-in-doc.png)
+![symbol-i-doc](symbol-in-doc.png)
 
-You can jump to it by searching it from here (keyboard shortcut is `F`):
+Du kan hoppa till det genom att söka den härifrån (kortkommandot är `F`):
 
-![search-symbol-in-doc](search-symbol-in-doc.png)
+![sök-symbol-i-doc](search-symbol-in-doc.png)
 
-For experienced developers please check [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
+För erfarna utvecklare, se [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).

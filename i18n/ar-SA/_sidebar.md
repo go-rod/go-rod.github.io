@@ -1,33 +1,33 @@
 
-- Introduction
+- مقدمة
 
-  - [Get Started](get-started/README.md)
-  - [Context & Timeout](context-and-timeout.md)
-  - [Error Handling](error-handling.md)
+  - [ابدأ](get-started/README.md)
+  - [السياق & مهلة](context-and-timeout.md)
+  - [خطأ في التعامل](error-handling.md)
 
-- Guides
+- أدلة
 
-  - [Custom Browser Launch](custom-launch.md)
-  - [Selectors](selectors/README.md)
-  - [Events](events/README.md)
+  - [تشغيل متصفح مخصص](custom-launch.md)
+  - [محددات](selectors/README.md)
+  - [الأحداث](events/README.md)
   - [Input](input.md)
-  - [Emulation](emulation.md)
-  - [Network](network.md)
-  - [Page Resources](page-resources/README.md)
-  - [Javascript Runtime](javascript-runtime.md)
-  - [Browsers & Pages](browsers-pages.md)
-  - [Custom WebSocket](custom-websocket.md)
-  - [End-to-end testing](end-to-end-testing.md)
+  - [الصياغة](emulation.md)
+  - [الشبكة](network.md)
+  - [موارد الصفحة](page-resources/README.md)
+  - [وقت تشغيل جافا سكريبت](javascript-runtime.md)
+  - [المتصفحات & الصفحات](browsers-pages.md)
+  - [تخصيص WebSocket](custom-websocket.md)
+  - [اختبار نهاية إلى النهاية](end-to-end-testing.md)
 
-- Resources
+- الموارد
 
-  - [API Reference](api-reference.md)
-  - [Examples](examples.md)
-  - [FAQ](faq/README.md)
-  - [Why Rod](why-rod.md)
-  - [Compatibility](compatibility.md)
-  - [Understand Context](understand-context.md)
-  - [Chat Room](chat-room.md)
-  - [Join Development](join-development.md)
-  - [Contribute Doc](contribute-doc.md)
-  - [Source Code](source-code.md)
+  - [مرجع API](api-reference.md)
+  - [أمثلة](examples.md)
+  - [أسئلة متكررة](faq/README.md)
+  - [لماذا الغضب](why-rod.md)
+  - [التوافق](compatibility.md)
+  - [فهم السياق](understand-context.md)
+  - [غرفة الدردشة](chat-room.md)
+  - [الانضمام إلى التطوير](join-development.md)
+  - [ساهم بدوك](contribute-doc.md)
+  - [الكود المصدري](source-code.md)

@@ -1,8 +1,8 @@
-# Chat Room
+# Chattrum
 
-We use discord: [link to join](https://discord.gg/CpevuvY).
+Vi använder diskotek: [länk för att gå med](https://discord.gg/CpevuvY).
 
-* Please use markdown to format code blocks
-* Please don't send code block larger than 30 lines to here, instead use gist or github issue
-* Please use your Github user name if possible
-* Please learn [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)
+* Använd markdown för att formatera kodblock
+* Vänligen skicka inte kodblock större än 30 rader till här, istället använda gist eller github problem
+* Vänligen använd ditt Github användarnamn om möjligt
+* Lär dig [Hur man ställer frågor Det smarta sättet](http://www.catb.org/~esr/faqs/smart-questions.html)

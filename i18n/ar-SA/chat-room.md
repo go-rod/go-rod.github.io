@@ -1,8 +1,8 @@
-# Chat Room
+# غرفة الدردشة
 
-We use discord: [link to join](https://discord.gg/CpevuvY).
+نحن نستخدم ديسكورد: [رابط للانضمام إلى](https://discord.gg/CpevuvY).
 
-* Please use markdown to format code blocks
-* Please don't send code block larger than 30 lines to here, instead use gist or github issue
-* Please use your Github user name if possible
-* Please learn [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)
+* الرجاء استخدام markdown لتنسيق كتل التعليمات البرمجية
+* الرجاء عدم إرسال كتلة التعليمات البرمجية أكبر من 30 سطر إلى هنا، بدلاً من ذلك استخدم مشكلة القائمة أو github
+* الرجاء استخدام اسم المستخدم الخاص بك Github إذا كان ذلك ممكنا
+* يرجى تعلم [كيف تسأل الأسئلة الطريقة الذكية](http://www.catb.org/~esr/faqs/smart-questions.html)

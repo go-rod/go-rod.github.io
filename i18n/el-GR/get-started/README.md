@@ -1,14 +1,14 @@
-# Get Started with Rod
+# Ξεκινήστε με Rod
 
-## Requirements
+## Απαιτήσεις
 
-[Golang](https://golang.org/) is the only requirement, you don't even need to know anything about HTML.
+[Golang](https://golang.org/) είναι η μόνη απαίτηση, δεν χρειάζεται καν να γνωρίζετε τίποτα για HTML.
 
-If you have never used Golang, [install](https://golang.org/doc/install) it and you can master it in hours: [A tour of Go](https://tour.golang.org/welcome).
+Αν δεν έχετε χρησιμοποιήσει ποτέ το Golang, [εγκαταστήστε το](https://golang.org/doc/install) και μπορείτε να το κυριαρχήσετε σε ώρες: [Μια περιοδεία του Go](https://tour.golang.org/welcome).
 
-## First program
+## Πρώτο πρόγραμμα
 
-Let's use Rod to open a page and take a screenshot of it, first, create a "main.go" file with the content below:
+Ας χρησιμοποιήσουμε το Rod για να ανοίξουμε μια σελίδα και να λάβουμε ένα στιγμιότυπο οθόνης, πρώτα, δημιουργήστε ένα αρχείο "main.go" με το παρακάτω περιεχόμενο:
 
 ```go
 package main
@@ -21,39 +21,39 @@ func main() {
 }
 ```
 
-The `rod.New` creates a browser object, the `MustConnect` launches and connects to a browser. The `MustPage` creates a page object, it's like a page tab in the browser. The `MustWaitLoad` waits for the page is fully loaded. The `MustScreenshot` takes a screenshot of the page.
+Η `rod.New` δημιουργεί ένα αντικείμενο περιήγησης, το `MustConnect` ξεκινά και συνδέεται με ένα πρόγραμμα περιήγησης. Το `MustPage` δημιουργεί ένα αντικείμενο σελίδας, είναι σαν μια καρτέλα σελίδας στο πρόγραμμα περιήγησης. Το `MustWaitLoad` περιμένει για τη σελίδα είναι πλήρως φορτωμένο. Το `MustScreenshot` λαμβάνει ένα στιγμιότυπο οθόνης της σελίδας.
 
-Create a module:
+Δημιουργία ενότητας:
 
 ```bash
-go env -w GOPROXY=https://goproxy.io,direct
+πήγαινε env -w GOPROXY=https://goproxy.io,direct
 go mod init learn-rod
 go mod tidy
 ```
 
-Run the module:
+Εκτέλεση της ενότητας:
 
 ```bash
-go run .
+πήγαινε να τρέξεις .
 ```
 
-The program will output a screenshot "a.png" like the one below:
+Το πρόγραμμα θα παράγει ένα στιγμιότυπο οθόνης "a.png" όπως αυτό που ακολουθεί:
 
-![first-program](first-program.png)
+![πρώτο πρόγραμμα](first-program.png)
 
-## See what's under the hood
+## Δείτε τι είναι κάτω από την κουκούλα
 
-For senior developers, you can skip all and read this file: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
+Για ανώτερους προγραμματιστές, μπορείτε να παραλείψετε όλους και να διαβάσετε αυτό το αρχείο: [σύνδεσμος](https://github.com/go-rod/rod/blob/master/examples_test.go).
 
-By default, Rod will disable the browser's UI to maximize the performance. But when developing an automation task we usually care more about the ease of debugging. Rod provides a lot of solutions to help you debug the code.
+Από προεπιλογή, η ράβδος θα απενεργοποιήσει το UI του προγράμματος περιήγησης για να μεγιστοποιήσει την απόδοση. Αλλά όταν αναπτύσσουμε μια εργασία αυτοματισμού που συνήθως νοιάζονται περισσότερο για την ευκολία του εντοπισμού σφαλμάτων. Rod παρέχει πολλές λύσεις για να σας βοηθήσει να αποσφαλματώσετε τον κώδικα.
 
-Let's create a ".rod" config file under the current working directory. The content is:
+Ας δημιουργήσουμε ένα αρχείο ρύθμισης ".rod" κάτω από τον τρέχοντα κατάλογο εργασίας. Το περιεχόμενο είναι:
 
 ```txt
-show
+εμφάνιση
 ```
 
-It means "show the browser UI on the foreground". Before we run the module again, let's append `time.Sleep(time.Hour)` to the end the code so that it won't be too fast for our eyes to catch it, the code of "main.go" now becomes:
+Σημαίνει "εμφάνισε το UI του προγράμματος περιήγησης στο προσκήνιο". Πριν εκτελέσουμε ξανά το module, ας προσθέσουμε `time.Sleep(time. μας)` μέχρι το τέλος του κώδικα έτσι ώστε να μην είναι πολύ γρήγορο για τα μάτια μας να τον πιάσουν, ο κώδικας του «κύριο». ο" τώρα γίνεται:
 
 ```go
 package main
@@ -64,37 +64,37 @@ import (
     "github.com/go-rod/rod"
 )
 
-func main() {
+func main() Ş
     page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
     page.MustWaitLoad().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
 
-If you run the module again, you should see a browser like this:
+Αν εκτελέσετε ξανά την ενότητα, θα πρέπει να δείτε ένα πρόγραμμα περιήγησης όπως αυτό:
 
-![show](show.png)
+![εμφάνιση](show.png)
 
-Press [CTRL + C](https://en.wikipedia.org/wiki/Control-C) on the keyboard to stop the program.
+Πατήστε [CTRL + C](https://en.wikipedia.org/wiki/Control-C) στο πληκτρολόγιο για να σταματήσετε το πρόγραμμα.
 
-## Input and click
+## Είσοδος και κλικ
 
-Let's automate the website to search the keyword "earth". A website may have many input fields or buttons, we need to tell the program which one to manipulate. Usually, we use [Devtools](https://developers.google.com/web/tools/chrome-devtools/) to help us locate the element we want to control. let's append a new config to the ".rod" file to enable the Devtools, now it becomes:
+Ας αυτοματοποιήσουμε την ιστοσελίδα για να αναζητήσουμε τη λέξη-κλειδί "γη". Μια ιστοσελίδα μπορεί να έχει πολλά πεδία εισόδου ή κουμπιά, πρέπει να πούμε το πρόγραμμα που πρέπει να χειραγωγήσει. Συνήθως, χρησιμοποιούμε [Devtools](https://developers.google.com/web/tools/chrome-devtools/) για να μας βοηθήσουμε να εντοπίσουμε το στοιχείο που θέλουμε να ελέγξουμε. let's append a new config to the ".rod" file to enable the Devtools, now it becomes:
 
 ```txt
 show
 devtools
 ```
 
-Run the "main.go" again, move your mouse to the input field and right-click above it, you will see the context menu, then click the "inspect":
+Εκτελέστε το "κύριο". o" πάλι, μετακινήστε το ποντίκι σας στο πεδίο εισόδου και κάντε δεξί κλικ πάνω του, θα δείτε το σχετικό μενού, στη συνέχεια κάντε κλικ στο "επιθεώρηση":
 
-![inspect](inspect.png)
+![επιθεώρηση](inspect.png)
 
-You should see the `<input id="searchInput` like below:
+Θα πρέπει να δείτε το `<input id="searchInput` όπως παρακάτω:
 
 ![input](input.png)
 
-Right-click to copy the [css selector](css-selector.md) like the image above. The content on your clipboard will be "#searchInput". We will use it to locate the element to input the keyword. Now the "main.go" becomes:
+Κάντε δεξί κλικ για να αντιγράψετε τον [επιλογέα css](css-selector.md) όπως η παραπάνω εικόνα. Το περιεχόμενο στο πρόχειρο σας θα είναι "#searchInput". Θα το χρησιμοποιήσουμε για να εντοπίσουμε το στοιχείο για να εισάγουμε τη λέξη-κλειδί. Τώρα το "main.go" γίνεται:
 
 ```go
 package main
@@ -102,92 +102,92 @@ package main
 import (
     "time"
 
-    "github.com/go-rod/rod"
+    "github. om/go-rod/rod"
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
+    σελίδα := rod.New().MustConnect().MustPage("https://www.wikipedia. rg/").MustWindowFullscreen()
 
-    page.MustElement("#searchInput").MustInput("earth")
+    page.MustElement("#searchInput").MustInput("γείωση")
 
-    page.MustWaitLoad().MustScreenshot("a.png")
+    σελίδα.MustWaitLoad().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
 
-The `MustWindowFullscreen` resizes the browser window to make it easier to debug. We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitLoad` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
+Το `MustWindowFullscreen` αλλάζει το μέγεθος του παραθύρου του περιηγητή για να γίνει ευκολότερη η αποσφαλμάτωση. Χρησιμοποιούμε το `MustElement` και τον επιλογέα που αντιγράψαμε από τον πίνακα Devtools για να αποκτήσουμε το στοιχείο που θέλουμε να χειραγωγήσουμε. Το `MustElement` θα περιμένει αυτόματα μέχρι να εμφανιστεί το στοιχείο, οπότε δεν χρειάζεται να χρησιμοποιήσουμε `MustWaitLoad` πριν από αυτό. Στη συνέχεια καλούμε το `MustInput` για να εισάγουμε τη λέξη κλειδί "γη" σε αυτό. Αν εκτελέσετε ξανά το "main.go", θα πρέπει να δείτε το αποτέλεσμα μοιάζει με παρακάτω:
 
-![after-input](after-input.png)
+![μετά την εισαγωγή](after-input.png)
 
-Similar to the input field let's right-click the search button to copy the selector for it:
+Παρόμοια με το πεδίο εισαγωγής ας κάνουμε δεξί κλικ στο κουμπί αναζήτησης για να αντιγράψουμε τον επιλογέα για αυτό:
 
 ![search-btn](search-btn.png)
 
-![search-btn-selector](search-btn-selector.png)
+![αναζήτηση-btn-selector](search-btn-selector.png)
 
-Then add code to click the search button, now the "main.go" looks like:
+Στη συνέχεια, προσθέστε κώδικα για να κάνετε κλικ στο κουμπί αναζήτησης, τώρα το "main.go" φαίνεται:
 
 ```go
 package main
 
 import "github.com/go-rod/rod"
 
-func main() {
+func main() mptom
     page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
 
-    page.MustElement("#searchInput").MustInput("earth")
+    page.MustElement("#searchInput").MustInput("γείωση")
     page.MustElement("#search-form > fieldset > button").MustClick()
 
     page.MustWaitLoad().MustScreenshot("a.png")
 }
 ```
 
-If we rerun the module, the "a.png" will show the search result:
+Αν εκτελέσουμε ξανά το module, το "a.png" θα εμφανίσει το αποτέλεσμα αναζήτησης:
 
-![earth-page](earth-page.png)
+![Γη σελίδα](earth-page.png)
 
-## Slow motion and visual trace
+## Αργή κίνηση και οπτικό ίχνος
 
-The automated operations are too fast for human eyes to catch, to debug them we usually enable the slow-motion and visual trace configs, let's update the ".rod" file:
+Οι αυτοματοποιημένες λειτουργίες είναι πολύ γρήγορες για τα ανθρώπινα μάτια για να πιάσουν, για να τους αποσφαλματώσουμε συνήθως ενεργοποιούμε τις παραμέτρους αργής κίνησης και οπτικού ίχνους, ας ενημερώσουμε το ". αρχείο od":
 
 ```txt
-show
+εμφάνισε
 slow=1s
-trace
+ίχνος
 ```
 
-Then rerun the module, now every action now will wait for 1 second before its execution. On the page, you will see the debug trace generated by Rod like below:
+Στη συνέχεια, εκτελέστε ξανά την ενότητα, τώρα κάθε ενέργεια τώρα θα περιμένει για 1 δευτερόλεπτο πριν από την εκτέλεσή της. Στη σελίδα, θα δείτε το ίχνος αποσφαλμάτωσης που δημιουργείται από το Rod όπως παρακάτω:
 
-![trace](trace.png)
+![ίχνος](trace.png)
 
-As you can see on the search button, Rod will create a mock mouse cursor.
+Όπως μπορείτε να δείτε στο κουμπί αναζήτησης, Ράβδος θα δημιουργήσει ένα ψεύτικο ποντίκι δρομέα.
 
-On console you will see the trace log like below:
+Στην κονσόλα θα δείτε το αρχείο καταγραφής ιχνών όπως παρακάτω:
 
 ```txt
 [rod] 2020/11/11 11:11:11 [eval] {"js":"rod.element","params":["#searchInput"]}
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"input#searchInput"}
-[rod] 2020/11/11 11:11:11 [input] scroll into view
-[rod] 2020/11/11 11:11:11 [input] input earth
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.element","params":["#search-form > fieldset > button"]}
-[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"button.pure-button.pure-button-primary-progressive"}
-[rod] 2020/11/11 11:11:11 [input] scroll into view
-[rod] 2020/11/11 11:11:11 [input] left click
+[rod] 2020/11/11 11:11:11 [eval] {"js":"rod. Ορατό", this":"input#searchInput"}
+[rod] 2020/11/11 11:11 [input] μετακινηθείτε στο view
+[rod] 2020/11/11 11:11:11 [input] γη εισόδου
+[rod] 2020/11/11 11:11:11 [eval] {"js":"ράβδος. lement","params":["#search-form > fieldset > button"]}
+[rod] 2020/11/11 11:11:11 [eval] {"js":"rod.visible","this":"button.pure-button. ure-button-primary-progressive"}
+[rod] 2020/11/11 11:11:11 [input] μετακινηθείτε στην προβολή
+[rod] 2020/11/11 11:11:11 [input] αριστερό κλικ
 ```
 
-## Other than the ".rod" file
+## Εκτός από το αρχείο ".rod"
 
-The ".rod" file is just a shortcut for some commonly used API, you can also manually set them in code, such as the "slow", the code to set it is like `rod.New().SlowMotion(2 * time.Second)`. You can also use an environment variable to set it, such as on Mac or Linux: `rod=show go main.go`.
+Το ". od" αρχείο είναι απλά μια συντόμευση για κάποια ευρέως χρησιμοποιούμενα API, μπορείτε επίσης να τα ρυθμίσετε χειροκίνητα στον κώδικα, όπως το "αργό", ο κώδικας για να τον ορίσετε είναι σαν ράβδος `. ew().SlowMotion(2 * time.Second)`. Μπορείτε επίσης να χρησιμοποιήσετε μια μεταβλητή περιβάλλοντος για να την ορίσετε, όπως σε Mac ή Linux: `rod=show go main.go`.
 
-## Get text content
+## Λήψη περιεχομένου κειμένου
 
-Rod provides lots of handy methods to retrieve the contents from the page.
+Rod παρέχει πολλές εύχρηστες μεθόδους για να ανακτήσετε τα περιεχόμενα από τη σελίδα.
 
-Let's try to get the description of the Earth, use the same technique we previously used to copy the selector from the Devtools:
+Ας προσπαθήσουμε να πάρουμε την περιγραφή της Γης, να χρησιμοποιήσουμε την ίδια τεχνική που χρησιμοποιήσαμε προηγουμένως για να αντιγράψουμε τον επιλογέα από τους Προγραμματιστές:
 
 ![get-text](get-text.png)
 
-The method we use is `MustText`, here's the full code of it:
+Η μέθοδος που χρησιμοποιούμε είναι `MustText`, εδώ είναι ο πλήρης κώδικας της:
 
 ```go
 package main
@@ -195,54 +195,54 @@ package main
 import (
     "fmt"
 
-    "github.com/go-rod/rod"
+    "github. om/go-rod/rod"
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    σελίδα := ράβδος. ew().MustConnect().MustPage("https://www.wikipedia.org/")
 
-    page.MustElement("#searchInput").MustInput("earth")
-    page.MustElement("#search-form > fieldset > button").MustClick()
+    page.MustElement("#searchInput"). ustInput("γείωση")
+    σελίδα.MustElement("#search-form > fieldset > button").MustClick()
 
-    el := page.MustElement("#mw-content-text > div.mw-parser-output > p:nth-child(6)")
+    el := σελίδα. ustElement ("#mw-content-text > div.mw- parser- output > p: nth-child(6)")
     fmt.Println(el.MustText())
 }
 ```
 
-If we rerun the module, we should see the console outputs something like:
+Αν εκτελέσουμε ξανά την ενότητα, θα πρέπει να δούμε την κονσόλα να εξάγει κάτι όπως:
 
 ```txt
-Earth is the third planet from the Sun and the only astronomical object known to harbor life.
+Η Γη είναι ο τρίτος πλανήτης από τον Ήλιο και το μόνο αστρονομικό αντικείμενο που είναι γνωστό ότι φιλοξενεί τη ζωή.
 ...
 ```
 
-## Get image content
+## Λήψη περιεχομένου εικόνας
 
-Same as get text, we can also get images from the page, let's get the selector of the Earth image and use `MustResource` to get the binary of the image:
+Όπως και η λήψη κειμένου, μπορούμε επίσης να πάρουμε εικόνες από τη σελίδα, let's get the selector of the Earth image and use `MustResource` to get the binary of the image:
 
 ![get-image](get-image.png)
 
-The full code is:
+Ο πλήρης κωδικός είναι:
 
 ```go
 package main
 
 import (
     "github.com/go-rod/rod"
-    "github.com/go-rod/rod/lib/utils"
+    "github. om/go-rod/rod/lib/utils"
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    σελίδα := ράβδος. ew().MustConnect().MustPage("https://www.wikipedia.org/")
 
-    page.MustElement("#searchInput").MustInput("earth")
-    page.MustElement("#search-form > fieldset > button").MustClick()
+    page.MustElement("#searchInput").MustInput("Γη")
+    σελίδα. ustElement ("#search-form > fieldset > button").MustClick()
 
-    el := page.MustElement("#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(1) > td > a > img")
-    _ = utils.OutputFile("b.png", el.MustResource())
+    el := page.MustElement("#mw-content-text > div.mw-parser-output > table. nfobox > tbody > tr:nth-child(1) > td > a > img")
+    _ = utils. utputFile("b.png", el.MustResource())
 }
 ```
 
-The output file "b.png" should be:
+Το αρχείο εξόδου "b.png" πρέπει να είναι:
 
-![earth](earth.png)
+![γη](earth.png)

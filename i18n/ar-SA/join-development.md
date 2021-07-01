@@ -1,9 +1,9 @@
-# Join Development
+# الانضمام إلى التطوير
 
-Your help is more than welcome! Even just open an issue to ask a question may greatly help others.
+مساعدتك هي أكثر من ترحيب! وحتى مجرد فتح مسألة لطرح سؤال قد يساعد الآخرين مساعدة كبيرة.
 
-Please read [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) before you ask questions.
+الرجاء قراءة [كيفية طرح الأسئلة بالطريقة الذكية](http://www.catb.org/~esr/faqs/smart-questions.html) قبل طرح الأسئلة.
 
-We use Github Projects to manage tasks, you can see the priority and progress of the issues [here](https://github.com/orgs/go-rod/projects/1).
+نحن نستخدم مشاريع Github لإدارة المهام، يمكنك رؤية الأولوية والتقدم في المشكلات [هنا](https://github.com/orgs/go-rod/projects/1).
 
-If you want to contribute code for this project please read the [Contributor Guide](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+إذا كنت ترغب في المساهمة برمز لهذا المشروع يرجى قراءة [دليل المساهمين](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)

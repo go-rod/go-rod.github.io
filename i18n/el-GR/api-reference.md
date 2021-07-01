@@ -1,7 +1,7 @@
-# API Reference
+# Αναφορά API
 
-- [rod](https://pkg.go.dev/github.com/go-rod/rod): The main package
-- [defaults](https://pkg.go.dev/github.com/go-rod/rod/lib/defaults): Package defaults of commonly used options parsed from the environment.
-- [launcher](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher): Package launcher for launching browser utils.
-- [proto](https://pkg.go.dev/github.com/go-rod/rod/lib/proto): Package proto is a lib to encode/decode the data of the cdp protocol.
-- [cdp](https://pkg.go.dev/github.com/go-rod/rod/lib/cdp): Package cdp for application layer communication with browser.
+- [ράβδος](https://pkg.go.dev/github.com/go-rod/rod): Το κύριο πακέτο
+- [προεπιλογές](https://pkg.go.dev/github.com/go-rod/rod/lib/defaults): Προκαθορισμένα πακέτων επιλογών που χρησιμοποιούνται συνήθως αναλυτικά από το περιβάλλον.
+- [launcher](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher): Εκκινητής πακέτου για την εκκίνηση βοηθητικών προγραμμάτων περιήγησης.
+- [proto](https://pkg.go.dev/github.com/go-rod/rod/lib/proto): Το πακέτο proto είναι ένα lib για να κωδικοποιήσει/αποκωδικοποιήσει τα δεδομένα του πρωτοκόλλου cdp.
+- [cdp](https://pkg.go.dev/github.com/go-rod/rod/lib/cdp): Πακέτο cdp για επικοινωνία στρώματος εφαρμογής με το πρόγραμμα περιήγησης.

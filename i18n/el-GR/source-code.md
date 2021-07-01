@@ -1,3 +1,3 @@
-# Source Code
+# Πηγαίος Κωδικός
 
-The main code repository: [link](https://github.com/go-rod/rod).
+Το κύριο αποθετήριο κώδικα: [σύνδεσμος](https://github.com/go-rod/rod).

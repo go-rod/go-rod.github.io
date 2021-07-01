@@ -1,3 +1,3 @@
-# Source Code
+# الكود المصدري
 
-The main code repository: [link](https://github.com/go-rod/rod).
+مستودع التعليمات البرمجية الرئيسي: [رابط](https://github.com/go-rod/rod).

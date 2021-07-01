@@ -1,13 +1,13 @@
-# FAQ
+# أسئلة متكررة
 
-## How to search symbols in the comments or doc?
+## كيفية البحث عن الرموز في التعليقات أو الوثيقة؟
 
-Such as the symbol `Page.Element` shown in the screenshot:
+مثل الرمز `Page.Element` المعروض في لقطة الشاشة:
 
-![symbol-in-doc](symbol-in-doc.png)
+![الرمز في الدّالة](symbol-in-doc.png)
 
-You can jump to it by searching it from here (keyboard shortcut is `F`):
+يمكنك القفز إليها عن طريق البحث عنها من هنا (اختصار لوحة المفاتيح هو `F`):
 
-![search-symbol-in-doc](search-symbol-in-doc.png)
+![رموز البحث](search-symbol-in-doc.png)
 
-For experienced developers please check [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
+للمطورين ذوي الخبرة يرجى التحقق من [المصطلحات](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).

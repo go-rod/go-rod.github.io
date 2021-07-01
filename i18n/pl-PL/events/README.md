@@ -1,10 +1,10 @@
-# Events
+# Wydarzenia
 
-Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
+Zdarzenia to akcje lub zdarzenia, które zdarzają się w kontrolowanej przeglądarce, , o którym mówi przeglądarka, dzięki czemu w razie potrzeby możesz na nie odpowiedzieć w jakiś sposób. Tak jak kiedy pozwalamy stronie przejść do nowego adresu URL, możemy subskrybować wydarzenia, aby wiedzieć kiedy nawigacja jest zakończona lub gdy strona jest renderowana.
 
-## Wait for an event once
+## Poczekaj na wydarzenie raz
 
-Let's try to navigate to a page and wait until the network of the page is almost idle:
+Spróbujmy przejść na stronę i poczekać, aż sieć strony będzie prawie bezczynna:
 
 ```go
 func main() {
@@ -12,34 +12,34 @@ func main() {
 
     wait := page.MustWaitNavigation()
     page.MustNavigate("https://www.wikipedia.org/")
-    wait()
+    czeka()
 }
 ```
 
-We use the `MustWaitNavigation` to subscribe the network idle event. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+Używamy `MustWAitNavigation` do subskrybowania bezczynnego zdarzenia sieciowego. Powodem, dla którego subskrypcja znajduje się przed nawigacją, nie jest to, że kod uruchamiający nawigację zajmie czasu, w tym czasie zdarzenie mogło już mieć miejsce. Po `MustNavigate` wywołujemy funkcję `zaczekaj` aby zablokować kod, aż nastąpi następne zdarzenie bezczynności.
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+Rod zapewnia wiele innych pomocników zdarzeń, wszystkie nazwy funkcji są prefiksowane `MustWait` lub `Czekaj`.
 
-## Get the event details
+## Uzyskaj szczegóły wydarzenia
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+Niektóre rodzaje zdarzeń zawierają szczegóły dotyczące samego wydarzenia. Tak jak przechodzimy do adresu url i używamy wydarzenia, aby otrzymać kod statusu odpowiedzi żądania nawigacji:
 
 ```go
 func main() {
     page := rod.New().MustConnect().MustPage()
 
     e := proto.NetworkResponseReceived{}
-    wait := page.WaitEvent(&e)
+    czekaj := page.WaitEvent(&e)
     page.MustNavigate("https://www.wikipedia.org/")
-    wait()
+    czeka()
 
     fmt.Println(e.Response.Status)
 }
 ```
 
-## Handle multiple events
+## Obsługa wielu zdarzeń
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+Jeśli chcesz obsługiwać wszystkie zdarzenia typu, na przykład nasłuchiwanie wszystkich wydarzeń na wyjściu konsoli strony, możemy zrobić coś takiego:
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
@@ -47,7 +47,7 @@ go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+Aby subskrybować wiele typów zdarzeń w tym samym czasie, takich jak subskrybuj `RuntimeConsoleAPICalled` i `PageLoadEventFired`:
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
@@ -57,24 +57,24 @@ go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
 })()
 ```
 
-## Stop the subscription
+## Zatrzymaj subskrypcję
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+Jakakolwiek funkcja w Rod która blokuje może zostać anulowana z kontekstem [](context-and-timeout.md), nie jest specjalna dla zdarzeń. Ponadto możesz również zatrzymać wydarzenie zwracając prawdę od obsługi zdarzeń, na przykład:
 
 ```go
-wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
+czekaj := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
     return true
 })
 page.MustNavigate("https://example.com")
-wait()
+czekać()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+Jeśli nie zwrócimy true, czekaj na zdarzenia `PageLoadEventFired` i zablokuj program na zawsze. To jest w rzeczywistości kod jak działa `page.WaitEvent`.
 
-## Available events
+## Dostępne wydarzenia
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+Wszystkie typy zdarzeń implementują interfejs `proto.Event` , możesz go użyć do znalezienia wszystkich wydarzeń. Zwykle IDE automatycznie filtruje interfejs. Tak jak chcemy zobaczyć wszystkie wydarzenia w domenie Strony, możemy utworzyć pusty obiekt strony i użyć `WaitEvent(proto. zdarzenie)` aby wyświetlić i filtrować wszystkie typy zdarzeń takie jak zrzut ekranu poniżej:
 
-![event-list](event-list.png)
+![lista wydarzeń](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+Możesz również użyć tej [witryny](https://chromedevtools.github.io/devtools-protocol/tot/Page) , aby przeglądać wydarzenia.

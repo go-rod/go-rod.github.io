@@ -1,26 +1,26 @@
-# Browsers & Pages
+# Browser & Pagine
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+È intuitivo usare Rod per controllare contemporaneamente più browser o pagine.
 
-## Multiple browsers
+## Browser multipli
 
-To launch multiple browsers:
+Per avviare più browser:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Tutte le API sono senza fili, lo stesso funziona per le routine Go multiple.
 
-You can also use incognito mode to launch multiple browsers:
+È inoltre possibile utilizzare la modalità in incognito per avviare più browser:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Avvia browser con diversi argomenti di lancio:
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -32,9 +32,9 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 ```
 
-## Multiple pages
+## Pagine multiple
 
-To control multiple pages for a browser:
+Per controllare più pagine per un browser:
 
 ```go
 browser := rod.New().MustConnect()
@@ -44,10 +44,10 @@ page2 := browser.MustPage("http://b.com")
 
 ## Page pool
 
-We can use PagePool to help concurrently control and reuse pages.
+Possiamo usare PagePool per aiutare a controllare e riutilizzare le pagine contemporaneamente.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Controlla questo [esempio](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
 ## Browser pool
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+I test in Rod è un buon esempio di gestione di un pool di browser per eseguire test contemporaneamente. Ecco perché i test possono finire in pochi secondi. Controlla il codice [qui](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).

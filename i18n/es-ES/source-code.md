@@ -1,3 +1,3 @@
-# Source Code
+# Código fuente
 
-The main code repository: [link](https://github.com/go-rod/rod).
+El repositorio de código principal: [enlace](https://github.com/go-rod/rod).

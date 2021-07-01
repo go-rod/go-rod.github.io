@@ -1,3 +1,3 @@
-# End-to-end Testing
+# Testare End-to-end
 
-Check the [example project](https://github.com/go-rod/rod-e2e-example)
+Verifică proiectul de exemplu [](https://github.com/go-rod/rod-e2e-example)

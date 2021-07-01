@@ -1,9 +1,9 @@
-# Join Development
+# Alătură-te dezvoltării
 
-Your help is more than welcome! Even just open an issue to ask a question may greatly help others.
+Ajutorul tău este mai mult decât binevenit! Chiar și soluționarea unei probleme poate ajuta pe alții într-o mare măsură.
 
-Please read [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) before you ask questions.
+Vă rugăm să citiţi [Cum să puneţi întrebări "Calea inteligentă"](http://www.catb.org/~esr/faqs/smart-questions.html) înainte de a pune întrebări.
 
-We use Github Projects to manage tasks, you can see the priority and progress of the issues [here](https://github.com/orgs/go-rod/projects/1).
+Folosim Proiecte Github pentru a gestiona sarcinile, puteți vedea prioritatea și progresul problemelor [aici](https://github.com/orgs/go-rod/projects/1).
 
-If you want to contribute code for this project please read the [Contributor Guide](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+Dacă doriți să contribuiți cu cod la acest proiect, vă rugăm să citiți [Ghidul Contributor](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)

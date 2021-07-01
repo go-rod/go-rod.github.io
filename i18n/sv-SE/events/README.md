@@ -1,35 +1,35 @@
-# Events
+# Händelser
 
-Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
+Händelser är åtgärder eller händelser som händer i webbläsaren du kontrollerar, som webbläsaren berättar om så att du kan svara på dem på något sätt om så önskas. Som när vi låter sidan att navigera till en ny URL, vi kan prenumerera på händelserna för att veta när navigeringen är klar eller när sidan är renderad.
 
-## Wait for an event once
+## Vänta på en händelse en gång
 
-Let's try to navigate to a page and wait until the network of the page is almost idle:
+Låt oss försöka navigera till en sida och vänta tills nätverket av sidan är nästan tomrum:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    sida := rod.New().MustConnect().MustPage()
 
-    wait := page.MustWaitNavigation()
-    page.MustNavigate("https://www.wikipedia.org/")
+    vänta := page.MustWaitNavigation()
+    sida.MustNavigate("https://www.wikipedia.org/")
     wait()
 }
 ```
 
-We use the `MustWaitNavigation` to subscribe the network idle event. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+Vi använder `MustWaitNavigation` för att prenumerera på nätverkets tomgång. Anledningen till att prenumerationen är innan navigeringen inte är efter är att koden för att trigga navigering tar tid att köra, under den tiden kan händelsen redan ha hänt. Efter `MustNavigera` anropar vi `vänta` funktionen att blockera koden tills nästa nätverk tomgång hänt.
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+Rod ger massor av andra händelsehjälpare, funktionsnamnen är alla prefixade med `MustWait` eller `Vänta`.
 
-## Get the event details
+## Få information om evenemanget
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+Vissa evenemangstyper bär information om själva evenemanget. Såsom vi navigerar till en webbadress och använda händelsen för att få svarsstatuskoden för navigationsbegäran:
 
 ```go
 func main() {
     page := rod.New().MustConnect().MustPage()
 
     e := proto.NetworkResponseReceived{}
-    wait := page.WaitEvent(&e)
+    vänta := page.WaitEvent(&e)
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 
@@ -37,9 +37,9 @@ func main() {
 }
 ```
 
-## Handle multiple events
+## Hantera flera händelser
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+Om du vill hantera alla händelser av en typ, som att lyssna på alla händelser i sidans konsolutgång, kan vi göra något så här:
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
@@ -47,34 +47,34 @@ go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+För att prenumerera flera händelsetyper samtidigt, som till exempel subscribe `RuntimeConsoleAPICalled` och `PageLoadEventFired`:
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
     fmt.Println(page.MustObjectsToJSON(e.Args))
 }, func(e *proto.PageLoadEventFired) {
-    fmt.Println("loaded")
+    fmt.Println("laddade")
 })()
 ```
 
-## Stop the subscription
+## Avsluta prenumerationen
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+Alla funktioner i Rod som block kan avbrytas med [-kontext](context-and-timeout.md), det är inte speciellt för händelser. Dessutom kan du också stoppa händelsen genom att returnera sant från händelsehanteraren, till exempel:
 
 ```go
-wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
+vänta := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
     return true
 })
 page.MustNavigate("https://example.com")
 wait()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+Om vi inte kommer tillbaka sant, kommer väntan att vänta på `PageLoadEventFired` händelser och blockera programmet för evigt. Detta är faktiskt koden för hur `sida.WaitEvent` fungerar.
 
-## Available events
+## Tillgängliga händelser
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+Alla händelsetyper implementerar `proto.Event` gränssnittet, kan du använda det för att hitta alla händelser. Vanligtvis kommer IDE filtrera med gränssnittet automatiskt. Som vi vill se alla händelser under sidan domänen, vi kan skapa ett tomt sidobjekt och använda `WaitEvent(proto. vent)` för att lista och filtrera alla händelsetyper som skärmdumpen nedan:
 
-![event-list](event-list.png)
+![händelselista](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+Du kan också använda denna [webbplats](https://chromedevtools.github.io/devtools-protocol/tot/Page) för att bläddra bland händelserna.
