@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+يوفر Rod الكثير من الطرق لمحاكاة المدخلات البشرية، مثل النقر فوق الماوس أو الصحافة على لوحة المفاتيح.
 
-## Mouse click
+## انقر فوق الفأرة
 
-To simulate the mouse click an element:
+لمحاكاة الماوس انقر فوق عنصر:
 
 ```go
 // left click
@@ -16,73 +16,73 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+لمحاكاة المدخلات:
 
 ```go
 el := page.MustElement(`[type="text"]`)
-el.MustInput("Jack")
+el.MustInput("جاك")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // استخدم MustText للحصول على النص
 ```
 
-## Remove text from an input
+## إزالة النص من الإدخال
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+فقط محاكاة كيف يقوم الإنسان بذلك، حدد كل النص واستبداله بسلسلة فارغة:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+يمكنك استخدام `SelectText` لاستبدال جزء من النص.
 
-## Time input
+## إدخال الوقت
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+أنواع الإدخال المدعومة هي [تاريخ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)، [تاريخ الوقت المحلي](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local)، [شهر](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month)، و [الوقت](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## خانة
 
-Just click it like a human:
+فقط انقر عليها كإنسان:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
-if !el.MustProperty("checked").Bool() {
+// تحقق منها إذا لم يتم التحقق
+إذا كان !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## حدد الخيارات
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+حدد الخيارات في [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+سيقوم الرمز أدناه بتحديد الخيارات التي تحتوي على النص "B" أو "C":
 
 ```go
-page.MustElement("select").MustSelect("B", "C")
+page.MustElement("elect").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+يمكنك أيضًا استخدام regex أو css المحدد لتحديد الخيارات:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// تعيين خطأ لإلغاء تحديد
+الصفحة MustElement("elect").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## تعيين الملفات
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+استخدم `إعدادات الملفات` لتعيين الملفات لـ [إدخال الملفات](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## الفأرة ولوحة المفاتيح ولمس
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+يمكنك أيضًا استخدام `page.Mouse`أو `page.Keyboard`أو `page.Touch` لمحاكاة المدخلات ذات المستوى المنخفض. مثل يمكنك البحث عن اختبار الوحدة للسحب لتعلم كيفية محاكاة السحب.
