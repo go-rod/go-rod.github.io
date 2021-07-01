@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Strijd biedt veel methodes om menselijke inputs te simuleren, zoals muisklik of toetsenbord drukken.
 
-## Mouse click
+## Muis klik
 
-To simulate the mouse click an element:
+Klik op een element om de muis te simuleren:
 
 ```go
 // left click
@@ -16,26 +16,26 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Om het invoerveld te simuleren:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // gebruik MustText om de tekst te krijgen
 ```
 
-## Remove text from an input
+## Verwijder tekst uit een invoer
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+simuleren hoe een mens het doet, alle tekst selecteren en vervangen door een lege tekenreeks:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+U kunt `SelectText` gebruiken om een deel van de tekst te vervangen.
 
-## Time input
+## Tijd invoer
 
 The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
@@ -43,46 +43,46 @@ The supported input types are [date](https://developer.mozilla.org/en-US/docs/We
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## Selectievakje
 
-Just click it like a human:
+Klik er gewoon op als een mens:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
-if !el.MustProperty("checked").Bool() {
+// controleer het als het niet is aangevinkt
+als !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Select options
+## Selecteer opties
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Selecteer opties in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+De code hieronder zal opties selecteren die tekst "B" of "C" bevatten:
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Je kunt ook regex of css selector gebruiken om opties te selecteren:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// zet false om
+pagina te deselecteren.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeSSector)
 ```
 
-## Set files
+## Stel bestanden in
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Gebruik `SetFiles` om bestanden in te stellen voor [bestandsinvoer](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Muis, toetsenbord en aanraking
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+U kunt ook gebruik maken van de `page.Mouse`, `page.Keyboard`, of `page.Raak` aan om laag level invoeren te simuleren. Zoals je kunt zoeken naar de eenheidstest om te leren slepen hoe slepen kan worden gesimuleerd.
