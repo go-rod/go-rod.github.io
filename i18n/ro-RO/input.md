@@ -1,10 +1,10 @@
 # Input
 
-Rod provides lots of methods to simulate human inputs, such as the mouse click or keyboard press.
+Rod oferă o mulțime de metode de simulare a intrărilor umane, cum ar fi apăsarea mouse-ului sau tastatura.
 
-## Mouse click
+## Clic pe mouse
 
-To simulate the mouse click an element:
+Pentru a simula mouse-ul fă clic pe un element:
 
 ```go
 // left click
@@ -16,73 +16,73 @@ page.MustElement("button").Click(proto.InputMouseButtonRight)
 
 ## Text input
 
-To simulate the input:
+Pentru a simula intrarea:
 
 ```go
 el := page.MustElement(`[type="text"]`)
 el.MustInput("Jack")
 
-fmt.Println(el.MustText()) // use MustText to get the text
+fmt.Println(el.MustText()) // folosește MustText pentru a obține textul
 ```
 
-## Remove text from an input
+## Elimină textul dintr-o intrare
 
-Just simulate how a human does it, select all the text and replace it with an empty string:
+Simulați doar cum face un om, selectați tot textul și înlocuiți-l cu un șir gol:
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 ```
 
-You can use `SelectText` to replace a part of the text.
+Poți folosi `Selectare Text` pentru a înlocui o parte a textului.
 
-## Time input
+## Intrare timp
 
-The supported input types are [date](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [month](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), and [time](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+Tipurile de intrare acceptate sunt data [](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date), [datetime-local](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local), [luna](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month), şi ora [](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
 ```go
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## Checkbox
+## Casuta
 
-Just click it like a human:
+Apasă pe el ca pe o om:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// check it if not checked
-if !el.MustProperty("checked").Bool() {
+// verifică dacă nu este verificat
+dacă !el.MustProperty("checked").Bool() {
     el.MustClick()
-}
+
 ```
 
-## Select options
+## Selectează opțiuni
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Selectați opțiunile din [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-The code below will select options that contains text "B" or "C":
+Codul de mai jos va selecta opțiunile care conțin textul "B" sau "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+Puteți, de asemenea, utiliza selectorul regex sau css pentru a selecta opțiuni:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// setat fals pentru a deselecta
+page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeSSector)
 ```
 
-## Set files
+## Setare fișiere
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Folosește `SetFile-uri` pentru a seta fișiere pentru [intrarea fișierului](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## Șoareci, tastatură și atingeți
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+De asemenea, poți folosi `pagina.Mouse`, `page.Tastatură`, sau `page.Touch` pentru a simula intrări de nivel inferior. Cum poți căuta testul de unitate pentru a trage pentru a învăța cum să simulezi tragerea.
