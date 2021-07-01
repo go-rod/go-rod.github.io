@@ -1,35 +1,35 @@
-# Network
+# الشبكة
 
-## Hijack requests
+## طلبات Hijack
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+يمكنك استخدام Rod لخطف أي HTTP أو HTTPS حركة المرور.
 
-The entire process of hijacking one request:
+عملية اختطاف واحدة برمتها هي:
 
 ```text
-   browser --req-> rod ---> server ---> rod --res-> browser
+   المتصفح --req-> قضيب ---> خادم ---> قضيب --res-> المتصفح
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+عندما يريد المتصفح إرسال طلب إلى خادم، سوف يرسل الطلب إلى رود أولا، ثم سيتصرف Rod مثل وكيل لإرسال الطلب إلى الخادم الفعلي وإرجاع الرد إلى المتصفح. `--req->` و `--res->` هي الأجزاء التي يمكن تعديلها.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+على سبيل المثال، لإستبدال ملف `اختبار.js` استجابة من الخادم يمكننا القيام بشيء مثل هذا:
 
 ```go
-browser := rod.New().MustConnect()
+المتصفح := rod.New().MustConnect()
 
-router := browser.HijackRequests()
+جهاز التوجيه := browser.Hijackrequests()
 
 router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.SetBody(`console. og("ملف js تم تبديله")`)
 })
 
-go router.Run()
+اذهب إلى router.Run()
 
-page := browser.MustPage("https://test.com/")
+صفحة := browser.MustPage("https://test.com/")
 
-// Hijack requests under the scope of a page
-page.HijackRequests()
+// Hijack الطلبات تحت نطاق صفحة
+page.Hijackrequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+لمزيد من المعلومات، تحقق من [اختبارات الخطف](https://github.com/go-rod/rod/blob/master/hijack_test.go)
