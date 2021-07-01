@@ -1,35 +1,35 @@
-# Network
+# Verkko
 
-## Hijack requests
+## Hijack pyynnöt
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+Voit käyttää sauvaa kaappaamaan minkä tahansa HTTP- tai HTTPS-liikenteen.
 
-The entire process of hijacking one request:
+Koko prosessi kaappaus yksi pyyntö:
 
 ```text
-   browser --req-> rod ---> server ---> rod --res-> browser
+   selain --req-> sauva ---> palvelin ---> sauva --res-> selain
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+Kun selain haluaa lähettää pyynnön palvelimelle, se lähettää pyynnön Rod ensin, sitten Rod toimii kuten välityspalvelin, joka lähettää pyynnön varsinaiselle palvelimelle ja palauttaa vastauksen selaimeen. The `--req->` and `--res->` are the parts that can be modied.
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+Voit esimerkiksi korvata tiedoston `test.js` palvelimen vastauksen, voimme tehdä jotain tällaista:
 
 ```go
-browser := rod.New().MustConnect()
+selain := rod.New().MustConnect()
 
-router := browser.HijackRequests()
+reititin := selain.HijackRequests()
 
-router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
+reititin.MustAdd("*/test.js", func(ctx *rod.Hijack) {
     ctx.MustLoadResponse()
-    ctx.Response.SetBody(`console.log("js file replaced")`)
+    ctx.Response.SetBody(`console. og("js file replaced")`)
 })
 
 go router.Run()
 
 page := browser.MustPage("https://test.com/")
 
-// Hijack requests under the scope of a page
-page.HijackRequests()
+// Hijack pyyntöjä sivun
+laajuudessa.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+Lisätietoja varten tarkista [hijack testit](https://github.com/go-rod/rod/blob/master/hijack_test.go)
