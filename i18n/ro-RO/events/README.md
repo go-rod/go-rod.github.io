@@ -1,35 +1,35 @@
-# Events
+# Evenimente
 
-Events are actions or occurrences that happen in the browser you are controlling, which the browser tells you about so you can respond to them in some way if desired. Such as when we let the page to navigate to a new URL, we can subscribe the events to know when the navigation is complete or when the page is rendered.
+Evenimentele sunt acțiuni sau apariții care se întâmplă în browser-ul pe care îl controlați despre care navigatorul vă spune ca să le puteți răspunde într-un fel dacă doriți. Cum ar fi atunci când lăsăm pagina să navigheze la un URL nou, ne putem abona la evenimente pentru a ști când navigarea este completă sau când pagina este redată.
 
-## Wait for an event once
+## Așteptați un eveniment o dată
 
-Let's try to navigate to a page and wait until the network of the page is almost idle:
+Să încercăm să navigăm la o pagină și să așteptăm până când rețeaua paginii este aproape inactivă:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    pagina := rod.New().MustConnect().MustPage()
 
-    wait := page.MustWaitNavigation()
+    așteaptă := page.MustWaitNavigation()
     page.MustNavigate("https://www.wikipedia.org/")
-    wait()
+    așteaptă()
 }
 ```
 
-We use the `MustWaitNavigation` to subscribe the network idle event. The reason why the subscription is before the navigation not after is because the code to trigger navigation will take time to execute, during that time the event may have already happened. After the `MustNavigate` we call the `wait` function to block the code until the next network idle event happens.
+Folosim `MustWaitNavigation` pentru a ne abona la evenimentul inactiv de rețea. Motivul pentru care abonamentul este înainte de navigare nu după este pentru că codul care declanșează navigarea va dura să fie executat, în acel moment evenimentul poate să fi avut deja loc. După `MustNavigate` noi numim funcția `așteptăm` pentru a bloca codul până când se întâmplă următorul eveniment de inactivitate a rețelei.
 
-Rod provides lots of other event helpers, the function names are all prefixed with `MustWait` or `Wait`.
+Rod oferă o mulțime de alți participanți la evenimente, numele funcțiilor sunt prestabilite cu `MustWait` sau `Așteptați`.
 
-## Get the event details
+## Obține detaliile evenimentului
 
-Some event types carry details about the event itself. Such as we navigate to a url and use the event to get the response status code of the navigation request:
+Unele tipuri de evenimente poartă detalii despre evenimentul în sine. Cum navigăm la un url și folosim evenimentul pentru a obține codul de stare al cererii de navigare:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage()
+    pagina := rod.New().MustConnect().MustPage()
 
     e := proto.NetworkResponseReceived{}
-    wait := page.WaitEvent(&e)
+    așteaptă := page.WaitEvent(&e)
     page.MustNavigate("https://www.wikipedia.org/")
     wait()
 
@@ -37,44 +37,44 @@ func main() {
 }
 ```
 
-## Handle multiple events
+## Manipulează evenimente multiple
 
-If you want to handle all events of a type, such as listen for all events of the page's console output, we can do something like this:
+Dacă doriţi să gestionaţi toate evenimentele de un tip, cum ar fi ascultarea tuturor evenimentelor din consola de ieșire a paginii, putem face ceva de genul:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
+mergi page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
     fmt.Println(page.MustObjectsToJSON(e.Args))
 })()
 ```
 
-To subscribe multiple event types at the same time, such as subscribe `RuntimeConsoleAPICalled` and `PageLoadEventFired`:
+Pentru a vă abona mai multe tipuri de evenimente în același timp, cum ar fi abonarea `RuntimeConsoleAPICalled` și `PageLoadEventFired`:
 
 ```go
 go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
     fmt.Println(page.MustObjectsToJSON(e.Args))
 }, func(e *proto.PageLoadEventFired) {
-    fmt.Println("loaded")
+    fmt.Println("încărcat")
 })()
 ```
 
-## Stop the subscription
+## Oprește abonamentul
 
-Any function in Rod that blocks can be canceled with the [context](context-and-timeout.md), it's not special for events. Besides, you can also stop event by returning true from the event handler, for example:
+Orice funcție din Sir care blocurile pot fi anulate cu contextul [](context-and-timeout.md), nu este specială pentru evenimente. În plus, puteți opri evenimentul și returnând adevărat de la gestionarul de evenimente, de exemplu:
 
 ```go
-wait := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
+așteaptă := page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
     return true
 })
 page.MustNavigate("https://example.com")
-wait()
+așteaptă()
 ```
 
-If we don't return true, the wait will keep waiting for the `PageLoadEventFired` events and block the program forever. This is actually the code of how `page.WaitEvent` works.
+Dacă nu returnăm adevărat, așteptarea va continua să aștepte evenimentele `PageLoadEventFired` și să blocheze programul pentru totdeauna. Acesta este de fapt codul modului în care `page.WaitEvent` funcționează.
 
-## Available events
+## Evenimente disponibile
 
-All event types implements the `proto.Event` interface, you can use it to find all events. Usually, the IDE will filter by the interface automatically. Such as we want to see all the events under the Page domain, we can create an empty page object and use the `WaitEvent(proto.Event)` to list and filter all the event types like the screenshot below:
+Toate tipurile de evenimente implementează interfața `proto.Event` , o poți folosi pentru a găsi toate evenimentele. De obicei, ID-ul se va filtra automat după interfață. Cum vrem să vedem toate evenimentele din domeniul paginii, putem crea un obiect de pagină gol și să folosim `WaitEvent(proto. vent)` pentru a lista și filtra toate tipurile de evenimente precum captura de ecran de mai jos:
 
-![event-list](event-list.png)
+![listă de evenimente](event-list.png)
 
-You can also use this [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) to browse the events.
+De asemenea, poți folosi acest [site](https://chromedevtools.github.io/devtools-protocol/tot/Page) pentru a răsfoi evenimentele.
