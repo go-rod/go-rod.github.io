@@ -1,61 +1,61 @@
-# Compatibility
+# التوافق
 
-## OS
+## نظام التشغيل
 
-You should be able to compile and run Rod seamlessly on all main platforms that Golang supports. On some platforms, you might need to install the browser manually, Rod can't guarantee the auto-downloaded browser will always work, If you want Rod to support a platform, please raise an issue for it.
+يجب أن تكون قادراً على تجميع وتشغيل رود بسلاسة على جميع المنصات الرئيسية التي يدعمها جولانغ. في بعض المنصات، قد تحتاج إلى تثبيت المتصفح يدوياً، لا يمكن لـ Rod ضمان أن يعمل المتصفح الذي يتم تنزيله تلقائياً دائماً. إذا كنت تريد أن يدعم رود منصة ، يرجى إثارة مشكلة لها.
 
-It's very easy to google how to install the browser on your system, for example, on Ubuntu or Debian you will find something like this to install the browser:
+من السهل جداً جوجل كيفية تثبيت المتصفح على النظام الخاص بك، على سبيل المثال على Ubuntu أو Debian سوف تجد شيئا مثل هذا لتثبيت المتصفح:
 
 ```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-apt install ./google-chrome-stable_current_amd64.deb
+تثبيت apt ./google-chrome-stable_current_amd64.deb
 ```
 
-On CentOS:
+في المركز:
 
 ```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 yum localinstall -y google-chrome-stable_current_x86_64.rpm
 ```
 
-On Alpine:
+على جبال الألبين:
 
 ```bash
-apk add chromium
+إضافة كروميوم apk
 ```
 
-## Supported browsers
+## المتصفحات المدعومة
 
-Rod should work with any browser that supports [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/).
+يجب أن يعمل Rod مع أي متصفح يدعم [بروتوكول DevTools](https://chromedevtools.github.io/devtools-protocol/).
 
-- Microsoft Edge is supported.
-- Firefox is [supporting](https://wiki.mozilla.org/Remote) this protocol.
-- Safari doesn't have any plan to support it yet.
-- IE won't support it.
+- ميكروسوفت إيدج مدعوم.
+- فايرفوكس [يدعم](https://wiki.mozilla.org/Remote) هذا البروتوكول.
+- سفاري ليس لديها أي خطة لدعمها حتى الآن.
+- لن يدعمها IE.
 
-## Browser and cdp protocol versioning
+## إصدار بروتوكول المتصفح و cdp
 
-The cdp protocol is always the same as [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision). If Rod can't find your local browser, it will download the browser version of the `launcher.DefaultRevision`.
+بروتوكول cdp هو دائماً نفس [launcher.DefaultReview](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision). إذا لم يتمكن Rod من العثور على متصفحك المحلي، فإنه سيقوم بتنزيل نسخة المتصفح من `المشغل.DefaultReview`.
 
-Each version of Rod only guarantees to work with its `launcher.DefaultRevision` of the browser.
+كل إصدار من Rod يضمن فقط العمل مع `launcher.DefaultReview` من المتصفح.
 
 ## API Versioning
 
-[Semver](https://semver.org/) is used.
+[الفصل الدراسي](https://semver.org/) يستخدم
 
-Before `v1.0.0` whenever the second section changed, such as `v0.1.0` to `v0.2.0`, there must be some public API changes, such as changes of function names or parameter types. If only the last section changed, no public API will be changed.
+قبل `v1.0.0` كلما تغير القسم الثاني، مثل `v0.1.0` إلى `v0. .0`، يجب أن تكون هناك بعض التغييرات العامة في API ، مثل تغيير أسماء الدوال أو أنواع البارامترات. إذا تغير القسم الأخير فقط، لن يتغير أي واجهة برمجة التطبيقات العامة.
 
-You can use Github's release comparison to see the automated changelog, for example, [compare v0.75.2 with v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0).
+يمكنك استخدام مقارنة إصدار Github's لرؤية سجل التغييرات الآلي، على سبيل المثال، [قارن v0.75.2 مع v0.76.0](https://github.com/go-rod/rod/compare/v0.75.2...v0.76.0).
 
-## API reference versioning
+## إصدار مرجع API
 
-Go to [here](https://pkg.go.dev/github.com/go-rod/rod?tab=versions).
+انتقل إلى [هنا](https://pkg.go.dev/github.com/go-rod/rod?tab=versions).
 
-## Doc site versioning
+## إصدار موقع Doc
 
-We use github to manage the doc, it's easy to view any version of the doc:
+نحن نستخدم github لإدارة المستند ، من السهل عرض أي نسخة من الوثيقة:
 
-1. Clone the doc [repo](https://github.com/go-rod/go-rod.github.io.git)
-2. Git checkout to the commit that is near the release date of the Rod version you want
-3. Install [docsify-cli](https://docsify.js.org/#/quickstart)
-4. On the root of the repo run `docsify serve -o`
+1. استنساخ مستودع الـ doc [](https://github.com/go-rod/go-rod.github.io.git)
+2. قم بالدفع إلى الالتزام القريب من تاريخ الإصدار من الإصدار Rod الذي تريده
+3. تثبيت [docsify-cli](https://docsify.js.org/#/quickstart)
+4. في جذر ريبو الذي تم تشغيله `docsify Service -o`
