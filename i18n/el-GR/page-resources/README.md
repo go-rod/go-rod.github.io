@@ -1,18 +1,18 @@
-# Page Resources
+# Πόροι Σελίδας
 
-You can use the `Page.GetResource` method to get files from here:
+Μπορείτε να χρησιμοποιήσετε τη μέθοδο `Page.GetResource` για να πάρετε αρχεία από εδώ:
 
-![page-resources](page-resources.png)
+![σελίδες-πόροι](page-resources.png)
 
-Such as get an image:
+Όπως να πάρει μια εικόνα:
 
 ```go
 bin, err := page.GetResource("https://test.com/a.png")
 ```
 
-## Element resource
+## Πόρος στοιχείου
 
-You can also use the `Element.Resource` method to get the file of the `src` attribute. Such as for element `<img src="a.jpg">`, you can use code like this to get the `a.jpg`:
+Μπορείτε επίσης να χρησιμοποιήσετε τη μέθοδο `Element.Resource` για να πάρετε το αρχείο του χαρακτηριστικού `src`. Όπως για το στοιχείο `<img src="a.jpg">`, μπορείτε να χρησιμοποιήσετε κώδικα όπως αυτός για να πάρετε το `a.jpg`:
 
 ```go
 bin := page.MustElement("img").MustResource()
