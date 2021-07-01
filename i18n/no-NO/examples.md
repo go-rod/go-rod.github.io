@@ -1,9 +1,9 @@
-# Examples
+# Eksempler
 
-Please check the [examples_test.go](https://github.com/go-rod/rod/tree/master/examples_test.go) file first, then check the [examples](https://github.com/go-rod/rod/tree/master/lib/examples) folder.
+Vennligst sjekk [examples_test.go](https://github.com/go-rod/rod/tree/master/examples_test.go) filen først, og sjekk [eksempler](https://github.com/go-rod/rod/tree/master/lib/examples) mappen.
 
-For more detailed examples, please search the unit tests. Such as the usage of method `HandleAuth`, you can search all the `*_test.go` files that contain `HandleAuth`, You can also search the GitHub [issues](https://github.com/go-rod/rod/issues) or [discussions](https://github.com/go-rod/rod/discussions), a lot of usage examples are recorded there.
+For flere detaljerte eksempler, vennligst søk på enhetstestene. Slik som bruk av metode `HandleAuth`, kan du søke i alle `*_testene. o` filer som inneholder `HåndterAuth`, Du kan også søke etter GitHub [saker](https://github.com/go-rod/rod/issues) eller [diskusjoner](https://github.com/go-rod/rod/discussions), masse brukseksempler registreres der.
 
-## Comparison with Chromedp
+## Sammenligning med Chromedp
 
-For developers who are familiar with Chromedp, [here](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp) is a comparison of the examples between rod and Chromedp.
+For utviklere som er kjent med Chromedp, [her](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp) er en sammenligning av eksemplene mellom stav og Chromedp.
