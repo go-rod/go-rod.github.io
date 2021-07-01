@@ -1,78 +1,78 @@
-# Why Rod
+# Γιατί Ράβδος
 
-There are a lot of great projects, but no one is perfect, choose the best one that fits your needs is important.
+Υπάρχουν πολλά μεγάλα έργα, αλλά κανείς δεν είναι τέλειος, επιλέξτε το καλύτερο που ταιριάζει στις ανάγκες σας είναι σημαντικό.
 
-## Compared with other libs
+## Σε σύγκριση με άλλα χείλη
 
-### Chromedp
+### Χρωματισμός
 
-Theoretically, Rod should perform faster and consume less memory than Chromedp.
+Θεωρητικά, Rod θα πρέπει να εκτελέσει πιο γρήγορα και να καταναλώνουν λιγότερη μνήμη από Chromedp.
 
-[Chromedp][chromedp] uses the system's browser by default, it can cause issues if you accidentally upgrade the browser.
+[Το Chromedp][chromedp] χρησιμοποιεί τον περιηγητή του συστήματος από προεπιλογή, μπορεί να προκαλέσει προβλήματα αν αναβαθμίσετε κατά λάθος το πρόγραμμα περιήγησης.
 
-[Chromedp][chromedp] uses a [fix-sized buffer](https://github.com/chromedp/chromedp/blob/b56cd66/target.go#L69-L73) for events, it can cause dead-lock on high concurrency. Because Chromedp uses a single event-loop, the slow event handlers will block each other. Rod doesn't have these issues because it's based on [goob](https://github.com/ysmood/goob).
+[Το Chromedp][chromedp] χρησιμοποιεί ένα [fix-size buffer](https://github.com/chromedp/chromedp/blob/b56cd66/target.go#L69-L73) για εκδηλώσεις, μπορεί να προκαλέσει αδιέξοδο σε υψηλή συνάλλαγμα. Επειδή το Chromedp χρησιμοποιεί έναν βρόχο γεγονότος, οι χειριστές αργών γεγονότων θα μπλοκάρουν ο ένας τον άλλον. Το Rod δεν έχει αυτά τα ζητήματα επειδή βασίζεται στο [goob](https://github.com/ysmood/goob).
 
-Chromedp will JSON decode every message from the browser, rod is decode-on-demand, so Rod performs better, especially for heavy network events.
+Το Chromedp θα αποκωδικοποιήσει κάθε μήνυμα από το πρόγραμμα περιήγησης, η ράβδος αποκωδικοποίησης, έτσι ώστε το Rod να αποδίδει καλύτερα, ειδικά για βαριά δικτυακά συμβάντα.
 
-Chromedp uses third part WebSocket lib which has [1MB overhead](https://github.com/chromedp/chromedp/blob/b56cd66f9cebd6a1fa1283847bbf507409d48225/conn.go#L43-L54) for each cdp client, if you want to control thousands of remote browsers it can become a problem. Because of this limitation, if you evaluate a js script larger than 1MB, Chromedp will crash, here's an example of how easy you can crash Chromedp: [gist](https://gist.github.com/ysmood/0d5b2c878ecbdb598776af7d3d305b79).
+Το Chromedp χρησιμοποιεί το τρίτο μέρος WebSocket lib το οποίο έχει [1MB εναέρια γραμμή](https://github.com/chromedp/chromedp/blob/b56cd66f9cebd6a1fa1283847bbf507409d48225/conn.go#L43-L54) για κάθε πελάτη cdp, αν θέλετε να ελέγξετε χιλιάδες απομακρυσμένα προγράμματα περιήγησης μπορεί να γίνει ένα πρόβλημα. Λόγω αυτού του περιορισμού, αν αξιολογήσετε ένα js script μεγαλύτερο από 1MB, το Chromedp θα συντριβεί, εδώ είναι ένα παράδειγμα του πόσο εύκολο μπορείτε να συντριβή Chromedp: [gist](https://gist.github.com/ysmood/0d5b2c878ecbdb598776af7d3d305b79).
 
-When a crash happens, Chromedp will leave the zombie browser process on Windows and Mac.
+Όταν συμβεί μια κατάρρευση, το Chromedp θα αφήσει τη διαδικασία περιηγητή ζόμπι στα Windows και Mac.
 
-Rod is more configurable, such as you can even replace the WebSocket lib with the lib you like.
+Το Rod είναι πιο διαμορφώσιμο, όπως μπορείτε ακόμη και να αντικαταστήσετε το WebSocket lib με το lib που σας αρέσει.
 
-For direct code comparison you can check [here](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp). If you compare the example called `logic` between [rod](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp/logic/main.go) and [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go), you will find out how simpler rod is.
+Για άμεση σύγκριση κωδικών, μπορείτε να ελέγξετε [εδώ](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp). Αν συγκρίνετε το παράδειγμα που ονομάζεται `λογική` μεταξύ [ράβδου](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp/logic/main.go) και [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go), θα μάθετε πόσο απλούστερη είναι η ράβδος .
 
-With Chromedp, you have to use their verbose DSL-like tasks to handle code logic. Chromedp uses several wrappers to handle execution with context and options, which makes it very hard to understand their code when bugs happen. The heavily used interfaces make the static types useless when tracking issues. In contrast, Rod uses as few interfaces as possible.
+Με το Chromedp, πρέπει να χρησιμοποιήσετε τις αναλυτικές DSL εργασίες τους για να χειριστείτε τη λογική κώδικα. Το Chromedp χρησιμοποιεί πολλά περιτυλίγματα για να χειριστεί την εκτέλεση με συμφραζόμενα και επιλογές, γεγονός που καθιστά πολύ δύσκολο να κατανοήσει τον κώδικά τους όταν συμβαίνουν σφάλματα. Οι βαριά χρησιμοποιούμενες διεπαφές καθιστούν τους στατικούς τύπους άχρηστους κατά την παρακολούθηση ζητημάτων. Αντίθετα, το Rod χρησιμοποιεί όσο το δυνατόν λιγότερες διεπαφές.
 
-Rod has fewer dependencies, a simpler code structure, and better test automation. You should find it's easier to contribute code to Rod. Therefore compared with Chromedp, Rod has the potential to have more nice functions from the community in the future.
+Rod έχει λιγότερες εξαρτήσεις, μια απλούστερη δομή κώδικα και καλύτερη αυτοματοποίηση δοκιμών. Θα πρέπει να βρείτε ότι είναι πιο εύκολο να συνεισφέρετε κώδικα στο Rod. Ως εκ τούτου, σε σύγκριση με το Chromedp, το Rod έχει τη δυνατότητα να έχει πιο ωραίες λειτουργίες από την κοινότητα στο μέλλον.
 
-Another problem of Chromedp is their architecture is based on [DOM node id](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId), puppeteer and rod are based on [remote object id](https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId). In consequence, it's not only [slower](https://github.com/puppeteer/puppeteer/issues/2936) and also prevents Chromedp from adding high-level functions that are coupled with runtime. For example, this [ticket](https://github.com/chromedp/chromedp/issues/72) had opened for 3 years. Even after it's closed, you still can't evaluate js express on the element inside an iframe. Besides, Chromedp maintains a [copy](https://github.com/chromedp/chromedp/blob/e2970556e3d05f3259c464faeed1ec0e862f0560/target.go#L375-L376) of all the nodes in memory. It will cause race condition between local NodeID list and [DOM.documentUpdated](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated), which can cause confusing issues like [#762](https://github.com/chromedp/chromedp/issues/762).
+Ένα άλλο πρόβλημα του Chromedp είναι η αρχιτεκτονική τους βασίζεται στο [DOM node id](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId), κουκλοθέατρο και ράβδος βασίζονται σε [id απομακρυσμένου αντικειμένου](https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId). Κατά συνέπεια, δεν είναι μόνο [πιο αργό](https://github.com/puppeteer/puppeteer/issues/2936) και επίσης αποτρέπει το Chromedp από την προσθήκη λειτουργιών υψηλού επιπέδου που συνδέονται με το χρόνο εκτέλεσης. Για παράδειγμα, αυτό το [εισιτήριο](https://github.com/chromedp/chromedp/issues/72) είχε ανοίξει για 3 χρόνια. Ακόμα και όταν είναι κλειστό, ακόμα δεν μπορείτε να αξιολογήσει js express στο στοιχείο μέσα σε ένα iframe. Εκτός αυτού, το Chromedp διατηρεί ένα [αντίγραφο](https://github.com/chromedp/chromedp/blob/e2970556e3d05f3259c464faeed1ec0e862f0560/target.go#L375-L376) όλων των κόμβων στη μνήμη. Θα προκαλέσει συνθήκες ανταγωνισμού μεταξύ της τοπικής λίστας NodeID και [DOM.documentUpdated](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated), η οποία μπορεί να προκαλέσει σύγχυση σε ζητήματα όπως [#762](https://github.com/chromedp/chromedp/issues/762).
 
-### Puppeteer
+### Κουκλοθέατρο
 
-[Puppeteer][puppeteer] will JSON decode every message from the browser, Rod is decode-on-demand, so theoretically Rod will perform better, especially for heavy network events.
+[Puppeteer][puppeteer] θα αποκωδικοποιήσει JSON κάθε μήνυμα από το πρόγραμμα περιήγησης, Rod είναι αποκωδικοποιητή κατά παραγγελία, οπότε θεωρητικά ο Rod θα εκτελέσει καλύτερα, ειδικά για βαριά συμβάντα δικτύου.
 
-With puppeteer, you have to handle promise/async/await a lot, it makes elegant [fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) design very hard. End to end tests requires a lot of sync operations to simulate human inputs, because Puppeteer is based on Nodejs all IO operations are async calls, so usually, people end up typing tons of async/await. If you forget to write a `await`, it's usually painful to debug leaking Promise. The overhead grows when your project grows.
+Με το κουκλοθέατρο, πρέπει να χειριστείτε πολύ την υπόσχεση/async/περιμένετε, κάνει το κομψό [άπταιστα σχεδίαση](https://en.wikipedia.org/wiki/Fluent_interface) πολύ δύσκολο. Τέλος στις τελικές δοκιμές απαιτεί πολλές λειτουργίες συγχρονισμού για την προσομοίωση των ανθρώπινων εισροών, επειδή Puppeteer βασίζεται σε Nodejs όλες οι λειτουργίες IO είναι ασύγκριτες κλήσεις, έτσι συνήθως, οι άνθρωποι καταλήγουν πληκτρολογώντας τόνους του async/await. Αν ξεχάσετε να γράψετε ένα `περιμένετε`, είναι συνήθως οδυνηρό να αποσφαλματώσετε τη διαρροή υποσχέσεων. Το γενικό επίπεδο μεγαλώνει όταν μεγαλώνει το έργο σας.
 
-Rod is type-safe by default, and has better internal comments about how Rod itself works. It has type bindings for all endpoints in Devtools protocol.
+Ράβδος είναι τύπου ασφαλή από προεπιλογή, και έχει καλύτερα εσωτερικά σχόλια σχετικά με το πώς λειτουργεί η ίδια Rod. Διαθέτει συνδέσεις τύπου για όλα τα τελικά σημεία στο πρωτόκολλο Devtools.
 
-Rod will disable domain events whenever possible, puppeteer will always enable all the domains. It will consume a lot of resources when driving a remote browser.
+Το Rod θα απενεργοποιήσει τα domain events όποτε είναι δυνατόν, το puppeteer θα ενεργοποιεί πάντα όλους τους τομείς. Θα καταναλώνει πολλούς πόρους κατά την οδήγηση ενός απομακρυσμένου προγράμματος περιήγησης.
 
-Rod supports cancellation and timeout better, this can be critical if you want to handle thousands of pages. For example, to simulate `click` we have to send serval cdp requests, with [Promise](https://stackoverflow.com/questions/29478751/cancel-a-vanilla-ecmascript-6-promise-chain) you can't achieve something like "only send half of the cdp requests", but with the [context](https://golang.org/pkg/context/) we can.
+Ράβδος υποστηρίζει ακύρωση και το χρονικό όριο καλύτερα, αυτό μπορεί να είναι κρίσιμο αν θέλετε να χειριστεί χιλιάδες σελίδες. Για παράδειγμα, για να προσομοιώσουμε `κάντε κλικ` πρέπει να στείλουμε αιτήματα serval cdp, με [υπόσχεση](https://stackoverflow.com/questions/29478751/cancel-a-vanilla-ecmascript-6-promise-chain) δεν μπορείτε να επιτύχετε κάτι σαν "να στείλετε μόνο τα μισά από τα αιτήματα cdp", but with the [context](https://golang.org/pkg/context/) we can.
 
 ### Playwright
 
-Rod and [Playwright](https://github.com/microsoft/playwright) were first published almost at the same time. Most comparisons between Rod and Puppeteer remain true to Playwright, because both Playwright and Puppeteer are maintained by almost the same contributors.
+Η ράβδος και το [Playwright](https://github.com/microsoft/playwright) δημοσιεύθηκαν για πρώτη φορά σχεδόν ταυτόχρονα. Οι περισσότερες συγκρίσεις μεταξύ του Rod και του Puppeteer παραμένουν αληθείς στο Playwright, επειδή τόσο το Playwright όσο και το Puppeteer συντηρούνται από σχεδόν τους ίδιους συνεισφέροντες.
 
-As Playwright stated on their doc "Playwright enables reliable end-to-end testing for modern web apps.", the focus of the project is testing. But the focus for Rod is more general, for both web automation and scraping, which make the design focus more on flexibility and performance.
+Όπως δήλωσε το Playwright στο doc τους "Το Playwright επιτρέπει αξιόπιστες δοκιμές end-to-end για σύγχρονες εφαρμογές ιστού". Αλλά η εστίαση για Rod είναι πιο γενική, τόσο για web αυτοματοποίηση και απόξεση, τα οποία κάνουν το σχεδιασμό να επικεντρωθεί περισσότερο στην ευελιξία και την απόδοση.
 
-One of Rod's architectural goal is to make it easier for everyone to contribute and make it a pure community project, that's one big reason why I chose Golang and the MIT license. Typescript is a nice choice but if you check Playwright's design choices, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) and [union types](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types) are everywhere, if you try to jump to the source code of [page.click](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options), `d.ts` files will let you understand the reality of typescript. Golang is definitely not good enough, but it usually introduces less tech debt than node.js typescript, if you want me to choose which one to use for QA or Infra who's not familiar with coding to automate end-to-end test or site-monitoring, I would pick Golang.
+Ένας από τους αρχιτεκτονικούς στόχους του Rod είναι να διευκολύνει όλους να συνεισφέρουν και να το κάνουν ένα καθαρό κοινοτικό έργο, that's one bigμεγάλο reason why I chose Golang and the MIT license. Το Typescript είναι μια ωραία επιλογή αλλά αν ελέγξετε τις επιλογές σχεδιασμού του Playwright, [`οποιοιδήποτε`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) και [τύποι ένωσης](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types) είναι παντού, αν προσπαθήσετε να μεταβείτε στον πηγαίο κώδικα της σελίδας [. κάντε κλικ](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options), `d.ts` αρχεία θα σας επιτρέψουν να κατανοήσετε την πραγματικότητα της δακτυλογραφίας. Το Golang σίγουρα δεν είναι αρκετά καλό, αλλά συνήθως εισάγει λιγότερο χρέος τεχνολογίας από τον κόμβο. s typescript, if you want me to choose which one to use for QA or Infra who are not familiar with coding to automate end-to-end test or site-monitoring, Θα ήθελα να επιλέξω Golang.
 
-Their effort for cross-browser support is fabulous. But nowadays, HTML5 is well adopted by main brands, it's hard to say the complexity it brings can weight the benefits. Will the cross-browser [patches](https://github.com/microsoft/playwright/tree/master/browser_patches) become a burden in the future? Security issues for patched browsers is another concern. It also makes it tricky to test old versions of Firefox or Safari. Hope it's not over-engineering.
+Η προσπάθειά τους για υποστήριξη cross-browser είναι υπέροχη. Αλλά σήμερα, το HTML5 υιοθετείται καλά από τις κύριες μάρκες, είναι δύσκολο να πούμε την πολυπλοκότητα που φέρνει μπορεί να επιβαρύνει τα οφέλη. Θα το cross-browser [διορθώσεις](https://github.com/microsoft/playwright/tree/master/browser_patches) γίνει ένα βάρος στο μέλλον? Τα ζητήματα ασφαλείας για τους περιηγητές είναι μια άλλη ανησυχία. Καθιστά επίσης δύσκολο να δοκιμάσετε παλιές εκδόσεις του Firefox ή Safari. Η ελπίδα δεν είναι υπερ-μηχανική.
 
 ### Selenium
 
-[Selenium](https://www.selenium.dev/) is based on [webdriver protocol](https://www.w3.org/TR/webdriver/) which has much less functions compare to [devtools protocol](https://chromedevtools.github.io/devtools-protocol). Such as it can't handle [closed shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460). No way to save pages as PDF. No support for tools like [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) or [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/), etc.
+[Το Selenium](https://www.selenium.dev/) βασίζεται στο [πρωτόκολλο οδηγού ιστού](https://www.w3.org/TR/webdriver/) το οποίο έχει πολύ λιγότερες λειτουργίες σε σύγκριση με το [πρωτόκολλο devtools](https://chromedevtools.github.io/devtools-protocol). Όπως δεν μπορεί να χειριστεί [κλειστή σκιά DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460). Δεν υπάρχει τρόπος για να αποθηκεύσετε σελίδες ως PDF. Δεν υπάρχει υποστήριξη για εργαλεία όπως το [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) ή [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/), κλπ.
 
-Harder to set up and maintain because of extra dependencies like a browser driver.
+Είναι πιο δύσκολο να ρυθμίσετε και να διατηρήσετε λόγω επιπλέον εξαρτήσεων όπως ένας οδηγός περιήγησης.
 
-Though selenium sells itself for better cross-browser support, it's usually very hard to make it work for all major browsers.
+Αν και το σελήνιο πωλείται για καλύτερη υποστήριξη από διασταυρούμενο πρόγραμμα περιήγησης, είναι συνήθως πολύ δύσκολο να το κάνει να λειτουργήσει για όλα τα μεγάλα προγράμματα περιήγησης.
 
-There are plenty of articles about "selenium vs puppeteer", you can treat rod as the Golang version of Puppeteer.
+Υπάρχουν πολλά άρθρα σχετικά με το "σελήνιο εναντίον κουκλοθέατρο", μπορείτε να αντιμετωπίσετε τη ράβδο ως την έκδοση Golang του Puppeteer.
 
-### Cypress
+### Κυπαρίσσι
 
-[Cypress](https://www.cypress.io/) is very limited, for closed shadow dom or cross-domain iframes it's almost unusable. Read their [limitation doc](https://docs.cypress.io/guides/references/trade-offs.html) for more details.
+[Το Cypress](https://www.cypress.io/) είναι πολύ περιορισμένο, καθώς η κλειστή σκιά dom ή τα διατομεακά iframes είναι σχεδόν άχρηστα. Διαβάστε το [doc περιορισμού](https://docs.cypress.io/guides/references/trade-offs.html) για περισσότερες λεπτομέρειες.
 
-If you want to cooperate with us to create a testing focused framework base on Rod to overcome the limitation of cypress, please contact us.
+Αν θέλετε να συνεργαστείτε μαζί μας για να δημιουργήσετε μια βάση δοκιμών εστιασμένη στο Rod για να ξεπεραστεί ο περιορισμός του κυπαρίσσιου, παρακαλούμε επικοινωνήστε μαζί μας.
 
-## What does Rod mean
+## Τι σημαίνει Rod
 
-Rod is the name of the control device for puppetry, such as the brown stick in the image below:
+Ράβδος είναι το όνομα της συσκευής ελέγχου για κουκλοθέατρο, όπως το καφέ ραβδί στην παρακάτω εικόνα:
 
-![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png ":size=200")
+![ορ](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png ":size=200")
 
-The meaning is we are the puppeteer, the browser is the puppet, we use the rod to control the puppet.
+Το νόημα είναι ότι είμαστε το κουκλοθέατρο, το πρόγραμμα περιήγησης είναι το κουτάβι, χρησιμοποιούμε τη ράβδο για τον έλεγχο του κουταβιού.
 
 [chromedp]: https://github.com/chromedp/chromedp
 [puppeteer]: https://github.com/puppeteer/puppeteer
