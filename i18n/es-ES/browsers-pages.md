@@ -1,26 +1,26 @@
-# Browsers & Pages
+# Navegadores & páginas
 
-It's intuitive to use Rod to control multiple browsers or pages at the same time.
+Es intuitivo usar Rod para controlar múltiples navegadores o páginas al mismo tiempo.
 
-## Multiple browsers
+## Multiples navegadores
 
-To launch multiple browsers:
+Para lanzar múltiples navegadores:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
 ```
 
-All APIs are thread-safe, same works for multiple Go routines.
+Todas las APIs son seguras de hilos, las mismas obras para múltiples rutinas Go .
 
-You can also use incognito mode to launch multiple browsers:
+También puedes usar el modo incógnito para lanzar múltiples navegadores:
 
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
 ```
 
-Launch browsers with different launch arguments:
+Iniciar navegadores con diferentes argumentos de lanzamiento:
 
 ```go
 browser1 := rod.New().ControlURL(
@@ -28,13 +28,14 @@ browser1 := rod.New().ControlURL(
 ).MustConnect()
 
 browser1 := rod.New().ControlURL(
-    launcher.New().UserDataDir("path").MustLaunch()
-).MustConnect()
+    launcher.New())[video] serDataDir("ruta").MustLaunch()
+).MustConnect() 
+ ).MustConnect()
 ```
 
-## Multiple pages
+## Múltiples páginas
 
-To control multiple pages for a browser:
+Para controlar varias páginas para un navegador:
 
 ```go
 browser := rod.New().MustConnect()
@@ -42,12 +43,12 @@ page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
 ```
 
-## Page pool
+## Piscina de páginas
 
-We can use PagePool to help concurrently control and reuse pages.
+Podemos utilizar PagePool para ayudar al control y reutilización simultáneos de las páginas.
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+Revisa este [ejemplo](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
 
-## Browser pool
+## Piscina de navegadores
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Las pruebas en Rod es un buen ejemplo de la gestión de un conjunto de navegadores para ejecutar pruebas simultáneamente. Por eso las pruebas pueden terminar en segundos. Revisa el código [aquí](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
