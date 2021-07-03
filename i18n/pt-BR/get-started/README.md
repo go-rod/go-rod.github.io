@@ -2,9 +2,9 @@
 
 ## Requisitos
 
-[Golang](https://golang.org/) é o único requisito, você nem precisa saber nada sobre HTML.
+[Golang](https://golang.org/) é o único requisito, você nem precisa saber algo sobre HTML.
 
-Se você nunca usou Golang, [instale-o](https://golang.org/doc/install) e você pode dominá-lo em horas: [Um tour de Go](https://tour.golang.org/welcome).
+Se você nunca usou o Golang, [instale-o](https://golang.org/doc/install) e você poderá dominá-lo em horas: [Um tour de Go](https://tour.golang.org/welcome).
 
 ## Primeiro programa
 
@@ -21,7 +21,7 @@ func main() {
 }
 ```
 
-A função `rod.New` cria um objeto do navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. O `MustWaitLoad` espera pela página está totalmente carregada. O `Deve Screenshot` tira uma captura de tela da página.
+A função `rod.New` cria um objeto do navegador, o `MustConnect` abre e se conecta a um navegador. A função `MustPage` cria um objeto de página, é como uma aba do navegador. A função `MustWaitLoad` espera pela página estar totalmente carregada. A função `MustScreenshot` captura a tela da página.
 
 Criar um módulo:
 
@@ -34,52 +34,52 @@ go mod tidy
 Executar o módulo:
 
 ```bash
-vá correr .
+go run .
 ```
 
-O programa será criado "a.png" como o exemplo abaixo:
+O programa criará "a.png" como no exemplo abaixo:
 
 ![primeiro programa](first-program.png)
 
-## Veja o que está sob o capuz
+## Veja oque está por traz das cortinas
 
-Para desenvolvedores principais, você pode pular todos e ler este arquivo: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
+Para desenvolvedores experientes, você pode pular e ler este arquivo: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
 
-Por padrão, o Rod desativará a interface do navegador para maximizar o desempenho. Mas ao desenvolver uma tarefa de automação, geralmente nos preocupamos mais com a facilidade de depuração. Cajado fornece muitas soluções para ajudá-lo a depurar o código.
+Por padrão, o Rod desativará a interface do navegador para maximizar o desempenho. Porem ao desenvolver uma tarefa de automação, geralmente nos preocupamos mais com a facilidade de depuração. Rod fornece muitas soluções para ajudá-lo a depurar o código.
 
-Vamos criar um arquivo de configuração ".rod" dentro do diretório de trabalho atual. O conteúdo é:
+Criaremos um arquivo de configuração ".rod" dentro do diretório de trabalho atual. O conteúdo é:
 
 ```txt
 mostrar
 ```
 
-Significa "mostrar a interface do navegador em primeiro plano". Antes de executarmos o módulo novamente, vamos acrescentar `time.Sleep(time. nosso)` até o final do código para que não seja muito rápido para nossos olhos pegá-lo, o código "main. o" agora fica:
+Significa "mostrar a interface do navegador em primeiro plano". Antes de executarmos o módulo novamente, vamos acrescentar `time.Sleep(time.Hour)` ao código para que não execute muito rápido para assim podermos analizar, "main.go" ficará assim:
 
 ```go
-pacote principal
+package main
 
-importação (
+import (
     "time"
 
     "github.com/go-rod/rod"
 )
 
 func main() {
-    página := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
     page.MustWaitLoad().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
 
-Se você executar o módulo novamente, verá um navegador como este:
+Se você executar o módulo novamente, verá o navegador assim:
 
 ![mostrar](show.png)
 
 Pressione [CTRL + C](https://en.wikipedia.org/wiki/Control-C) no teclado para parar o programa.
 
-## Insira e clique
+## Escreva e clique
 
-Vamos automatizar o site para pesquisar a palavra-chave "earth". Um site pode ter muitos campos de entrada ou botões, precisamos informar ao programa qual deve manipular. Geralmente, usamos [Devtools](https://developers.google.com/web/tools/chrome-devtools/) para nos ajudar a localizar o elemento que queremos controlar. vamos adicionar uma nova configuração ao arquivo ".rod" para ativar o Devtools, agora ele se torna:
+Vamos automatizar o site para pesquisar a palavra-chave "earth". Um site pode ter muitos campos de entrada e botões, precisamos informar ao programa qual deverá manipular. Geralmente, usamos a ferramenta [Devtools](https://developers.google.com/web/tools/chrome-devtools/) para nos ajudar a localizar o elemento que queremos controlar. Vamos adicionar uma nova opção ao arquivo ".rod" para ativar o Devtools, ficará assim:
 
 ```txt
 show
