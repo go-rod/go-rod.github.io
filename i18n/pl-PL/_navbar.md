@@ -10,3 +10,4 @@
   - [:de:Deutschland](/i18n/de-DE ":ignore")
   - [:jp:日本語](/i18n/ja-JP ":ignore")
   - [:ru:<unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk>](/i18n/ru-RU ":ignore")
+  - [:pt:Portugues](/i18n/pt-PT ":ignore")

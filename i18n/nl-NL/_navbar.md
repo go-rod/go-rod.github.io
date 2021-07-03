@@ -10,3 +10,4 @@
   - [:de:Deutschland](/i18n/de-DE ":negeer")
   - [:jp:日本語](/i18n/ja-JP ":negeer")
   - [:ru:・・・・・・~](/i18n/ru-RU ":negeer")
+  - [:pt:Portugues](/i18n/pt-PT ":ignore")
