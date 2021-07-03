@@ -1,17 +1,17 @@
-# Comece com Rod
+# Introdução a Rod
 
 ## Requisitos
 
 [Golang](https://golang.org/) é o único requisito, você nem precisa saber nada sobre HTML.
 
-Se você nunca usou o Golang, [instale-o](https://golang.org/doc/install) e você pode dominá-lo em horas: [Um tour of Go](https://tour.golang.org/welcome).
+Se você nunca usou Golang, [instale-o](https://golang.org/doc/install) e você pode dominá-lo em horas: [Um tour de Go](https://tour.golang.org/welcome).
 
 ## Primeiro programa
 
-Vamos utilizar Rod para abrir uma página e tirar uma captura de tela dela, primeiro, crie um arquivo "main.go" com o conteúdo abaixo:
+Vamos utilizar Rod para abrir uma página e realizar a captura de tela da mesma, primeiro, crie um arquivo "main.go" com o conteúdo abaixo:
 
 ```go
-package principal
+package main
 
 import "github.com/go-rod/rod"
 
@@ -21,7 +21,7 @@ func main() {
 }
 ```
 
-O `rod.New` cria um objeto de navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. O `MustWaitLoad` espera pela página está totalmente carregada. O `Deve Screenshot` tira uma captura de tela da página.
+A função `rod.New` cria um objeto do navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. O `MustWaitLoad` espera pela página está totalmente carregada. O `Deve Screenshot` tira uma captura de tela da página.
 
 Criar um módulo:
 
