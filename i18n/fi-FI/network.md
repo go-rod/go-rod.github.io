@@ -1,18 +1,22 @@
 # Verkko
 
-## Hijack pyynnöt
+## Cookies
 
-Voit käyttää sauvaa kaappaamaan minkä tahansa HTTP- tai HTTPS-liikenteen.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-Koko prosessi kaappaus yksi pyyntö:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    selain --req-> sauva ---> palvelin ---> sauva --res-> selain
 ```
 
-Kun selain haluaa lähettää pyynnön palvelimelle, se lähettää pyynnön Rod ensin, sitten Rod toimii kuten välityspalvelin, joka lähettää pyynnön varsinaiselle palvelimelle ja palauttaa vastauksen selaimeen. The `--req->` and `--res->` are the parts that can be modied.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-Voit esimerkiksi korvata tiedoston `test.js` palvelimen vastauksen, voimme tehdä jotain tällaista:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 selain := rod.New().MustConnect()
@@ -32,4 +36,4 @@ page := browser.MustPage("https://test.com/")
 laajuudessa.HijackRequests()
 ```
 
-Lisätietoja varten tarkista [hijack testit](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
