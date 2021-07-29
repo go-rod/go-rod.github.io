@@ -1,18 +1,22 @@
 # الشبكة
 
-## طلبات Hijack
+## Cookies
 
-يمكنك استخدام Rod لخطف أي HTTP أو HTTPS حركة المرور.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-عملية اختطاف واحدة برمتها هي:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    المتصفح --req-> قضيب ---> خادم ---> قضيب --res-> المتصفح
 ```
 
-عندما يريد المتصفح إرسال طلب إلى خادم، سوف يرسل الطلب إلى رود أولا، ثم سيتصرف Rod مثل وكيل لإرسال الطلب إلى الخادم الفعلي وإرجاع الرد إلى المتصفح. `--req->` و `--res->` هي الأجزاء التي يمكن تعديلها.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-على سبيل المثال، لإستبدال ملف `اختبار.js` استجابة من الخادم يمكننا القيام بشيء مثل هذا:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 المتصفح := rod.New().MustConnect()
@@ -32,4 +36,4 @@ router.MustAdd("*/test.js", func(ctx *rod.Hijack) {
 page.Hijackrequests()
 ```
 
-لمزيد من المعلومات، تحقق من [اختبارات الخطف](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
