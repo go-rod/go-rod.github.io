@@ -1,18 +1,22 @@
 # Síť
 
-## Žádosti o úklon
+## Cookies
 
-Můžete použít Rod k uchytí libovolného HTTP nebo HTTPS provozu.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-Celý proces únosu jednoho požadavku:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    browser --req-> rod ---> server ---> rod --res-> prohlížeč
 ```
 
-Pokud chce prohlížeč odeslat žádost na server, nejprve zašle požadavek na mod, pak se Rod bude chovat jako proxy pro odeslání požadavku na skutečný server a vrácení odpovědi prohlížeči. The `--req->` and `--res->` are the parts that can be modified.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-Například, pro nahrazení souboru `test.js` odpovědi ze serveru můžeme udělat něco podobně:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 prohlížeč := rod.New().MustConnect()
@@ -32,4 +36,4 @@ page := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-Pro více informací se podívejte na [ústav](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
