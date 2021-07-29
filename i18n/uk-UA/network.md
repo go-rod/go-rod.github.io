@@ -1,18 +1,22 @@
 # Мережа
 
-## Запити cіджака
+## Cookies
 
-Ви можете використовувати мотузку для викрадення будь-якого HTTP або HTTPS трафіку.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-Увесь процес викрадення одного запиту:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    браузер --req-> жорстка ---> сервер ---> rod --res-> браузер
 ```
 
-Коли браузер хоче відправити запит на сервер, він спочатку відправить запит до Проза, потім Rod діятиме, як проксі-сервер для надсилання запиту на справжній сервер і повернення відповіді на браузер. `--req->` і `--res->` це частини, які можна змінити.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-Наприклад, щоб замінити файл `test.js` на сервер, ми можемо зробити щось на зразок цього:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 Браузер := rod.New().MustConnect()
@@ -32,4 +36,4 @@ go router.Run()
 page.HijackRequests()
 ```
 
-Для отримання додаткової інформації перевірте [тест](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
