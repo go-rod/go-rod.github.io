@@ -1,18 +1,22 @@
 # Sieć
 
-## Żądania Hijack
+## Cookies
 
-Możesz użyć Rod do hijack dowolnego ruchu HTTP lub HTTPS.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-Cały proces porywania jednego żądania:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    przeglądarka --req-> rod ---> serwer ---> rod --res-> przeglądarka
 ```
 
-Gdy przeglądarka chce wysłać żądanie do serwera, najpierw wyśle żądanie do Roda, wtedy Rod będzie działał jak proxy, aby wysłać żądanie do rzeczywistego serwera i zwrócić odpowiedź do przeglądarki. `--req->` i `--res->` to części, które można modyfikować.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-Na przykład, aby zastąpić odpowiedź pliku `test.js` z serwera, możemy zrobić coś takiego:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 przeglądarka := rod.New().MustConnect()
@@ -32,4 +36,4 @@ strona := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-Aby uzyskać więcej informacji sprawdź [testy hijack](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
