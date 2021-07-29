@@ -1,18 +1,22 @@
 # Netwerk
 
-## Hijack verzoeken
+## Cookies
 
-U kunt Rod gebruiken om HTTP of HTTPS verkeer te kapen.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-Het hele proces van het kapen van een verzoek:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    browser --req-> rod ---> server ---> rod --res-> browser
 ```
 
-Wanneer de browser een verzoek naar een server wil sturen, stuurt het het verzoek eerst naar Rod. dan gedraagt Rod zich als een proxy om de aanvraag naar de werkelijke server te sturen en het antwoord terug te sturen naar de browser. De `--req->` and `--res->` zijn de onderdelen die kunnen worden gewijzigd.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-Bijvoorbeeld, om een bestand `test.js` van de server te vervangen, kunnen we zoiets doen:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 browser := rod.New().MustConnect()
@@ -32,4 +36,4 @@ page := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-Voor meer info bekijk de [kapack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
