@@ -1,5 +1,9 @@
 # Network
 
+## Cookies
+
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
+
 ## Hijack requests
 
 You can use Rod to hijack any HTTP or HTTPS traffic.
