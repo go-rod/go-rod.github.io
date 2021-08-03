@@ -2,21 +2,21 @@
 
 ## Cookies
 
-The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
+`rod.Browser` and `rod.Page` 都有几种帮助方法来设置或获取 cookie。
 
-## Hijack requests
+## 劫持请求
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+你可以使用 Rod 劫持任何 HTTP 或 HTTPS 流量。
 
-The entire process of hijacking one request:
+劫持一个请求的全过程：
 
 ```text
    浏览器 --请求-> rod ---> 服务器 ---> rod --响应-> 浏览器
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+当浏览器想要向服务器发送请求时，它会先把请求发给 Rod，然后 Rod 作为代理，把请求发送给实际的服务器，并把响应返回给浏览器。 `--请求->` 和 `--响应->` 是可以篡改的部分。
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+例如，我们可以这样替换对文件 `test.js` 的请求的返回：
 
 ```go
 browser := rod.New().MustConnect()
@@ -36,4 +36,4 @@ page := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+更多信息，见[劫持相关的单元测试](https://github.com/go-rod/rod/blob/master/hijack_test.go)
