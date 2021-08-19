@@ -1,18 +1,22 @@
 # Сеть
 
-## Запросы на захват
+## Cookies
 
-Вы можете использовать Rod для захвата любого HTTP или HTTPS трафика.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-Весь процесс взлома одного запроса:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    браузер --req-> rod ---> сервер ---> rod --res-> браузер
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. `--req->` и `--res->` являются частями, которые могут быть изменены.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-Например, чтобы заменить файл `test.js` ответ от сервера, мы можем что-то сделать так:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 browser := rod.New().MustConnect()
@@ -32,4 +36,4 @@ page := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-Для получения дополнительной информации проверьте [тесты захвата](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)

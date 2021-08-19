@@ -1,5 +1,9 @@
 # 网络
 
+## Cookies
+
+`rod.Browser` and `rod.Page` 都有几种帮助方法来设置或获取 cookie。
+
 ## 劫持请求
 
 你可以使用 Rod 劫持任何 HTTP 或 HTTPS 流量。

@@ -1,18 +1,22 @@
 # Rede
 
-## Solicitações de hijack
+## Cookies
 
-Você pode usar o Rod para sequestrar qualquer tráfego HTTP ou HTTPS.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-Todo o processo de sequestro de uma solicitação:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    navegador --req-> rod ---> servidor ---> rod --res-> navegador
 ```
 
-Quando o navegador quiser enviar uma solicitação para um servidor, ele irá enviar a solicitação para Rod primeiro, então Rod atuará como um proxy para enviar a solicitação para o servidor real e retornar a resposta para o navegador. O `--req->` e `--res->` são as partes que podem ser modificadas.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-Por exemplo, para substituir um arquivo `test.js` resposta do servidor, podemos fazer algo assim:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 browser := rod.New().MustConnect()
@@ -32,4 +36,4 @@ página: = browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-Para mais informações verifique os testes de sequestro [](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)

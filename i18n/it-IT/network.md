@@ -1,18 +1,22 @@
 # Rete
 
-## Richieste di dirottamento
+## Cookies
 
-È possibile utilizzare Rod per dirottare qualsiasi traffico HTTP o HTTPS.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-L'intero processo di dirottamento di una richiesta:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    browser --req-> rod ---> server ---> rod --res-> browser
 ```
 
-Quando il browser vuole inviare una richiesta a un server, invierà la richiesta a Rod prima, quindi Rod agirà come un proxy per inviare la richiesta al server effettivo e restituire la risposta al browser. Le parti `--req->` e `--res->` sono le parti che possono essere modificate.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-Ad esempio, per sostituire un file `test.js` risposta dal server possiamo fare qualcosa come questo:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 browser := rod.New().MustConnect()
@@ -32,4 +36,4 @@ page := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-Per ulteriori informazioni controlla i [test di dirottamento](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)

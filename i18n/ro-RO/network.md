@@ -1,18 +1,22 @@
 # Rețea
 
-## Cereri de antijack
+## Cookies
 
-Puteți folosi Rod pentru a deturna orice trafic HTTP sau HTTPS.
+The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
 
-Întregul proces de deturnare a unei cereri:
+## Hijack requests
+
+You can use Rod to hijack any HTTP or HTTPS traffic.
+
+The entire process of hijacking one request:
 
 ```text
    browser --req-> rod ---> server ---> tir --res-> browser
 ```
 
-Când browser-ul dorește să trimită o cerere către un server, acesta va trimite mai întâi solicitarea pentru sunet, apoi Rod va acționa ca un proxy pentru a trimite solicitarea către serverul actual și pentru a returna răspunsul la browser. `--req->` și `--res->` sunt părțile care pot fi modificate.
+When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
 
-De exemplu, pentru a înlocui răspunsul `test.js` de la server, putem face ceva de genul acesta:
+For example, to replace a file `test.js` response from the server we can do something like this:
 
 ```go
 browser := rod.New().MustConnect()
@@ -32,4 +36,4 @@ pagina := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-Pentru mai multe informații, verificați [testele hijack](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
