@@ -37,3 +37,19 @@ sida.HijackRequests()
 ```
 
 For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+
+## Throttling
+
+You can throttle the network to simulate and test the slow network effect on your tests:
+
+```go
+    page.EnableDomain(proto.NetworkEnable{})
+
+    proto.NetworkEmulateNetworkConditions{
+        Offline:            false,
+        Latency:            300,
+        DownloadThroughput: 100,
+        UploadThroughput:   50,
+        ConnectionType:     proto.NetworkConnectionTypeCellular2g,
+    }.Call(page)
+```
