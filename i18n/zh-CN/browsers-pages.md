@@ -34,7 +34,7 @@ browser1 := rod.New().ControlURL(
 
 ## 多页面
 
-To launch multiple pages for a browser:
+在一个浏览器中开启多个页面：
 
 ```go
 browser := rod.New().MustConnect()
