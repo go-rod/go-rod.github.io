@@ -14,65 +14,63 @@ Theoretisch moet Rod sneller presteren en minder geheugen verbruiken dan Chromed
 
 Chromedp zal JSON alle berichten van de browser decode-on-demand coderen, dus Rod presteert beter, vooral voor zware netwerkgebeurtenissen.
 
-Chromedp gebruikt een derde deel van WebSocket lib dat [1 MB overhead](https://github.com/chromedp/chromedp/blob/b56cd66f9cebd6a1fa1283847bbf507409d48225/conn.go#L43-L54) heeft voor elke cdp client, als je duizenden afgelegen browsers wilt beheren, kan dat een probleem worden. Vanwege deze beperking zal Chromedp crashen als u een js script groter dan 1MB beoordeelt, Hier is een voorbeeld van hoe gemakkelijk je Chromedp: [gist](https://gist.github.com/ysmood/0d5b2c878ecbdb598776af7d3d305b79).
+When a crash happens, Chromedp will leave the zombie browser process on Windows and Mac.
 
-Wanneer een crash plaatsvindt, zal Chromedp het zombie browserproces verlaten op Windows en Mac.
+Rod is more configurable, such as you can even replace the WebSocket lib with the lib you like.
 
-Rod is meer configureerbaar, zoals je zelfs de WebSocket lib kunt vervangen door het lib dat je wilt.
+For direct code comparison you can check [here](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp). If you compare the example called `logic` between [rod](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp/logic/main.go) and [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go), you will find out how simpler rod is.
 
-Voor een directe codevergelijking kun je [hier](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp) bekijken. Als je het voorbeeld `logica` vergelijkt tussen [staaf](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp/logic/main.go) en [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go), je zult erachter komen hoe eenvoudiger stang is.
+With Chromedp, you have to use their verbose DSL-like tasks to handle code logic. Chromedp uses several wrappers to handle execution with context and options, which makes it very hard to understand their code when bugs happen. The heavily used interfaces make the static types useless when tracking issues. In contrast, Rod uses as few interfaces as possible.
 
-Met Chromedp moet je hun verbose DSL-achtige taken gebruiken om codelogica. Chromedp gebruikt verschillende wrappers om uitvoering te behandelen met context en opties, wat het erg moeilijk maakt om hun code te begrijpen als er fouten gebeuren. De zwaar gebruikte interfaces maken de statische types nutteloos bij het traceren van problemen. Rod daarentegen gebruikt zo weinig mogelijk interfaces als mogelijk.
+Rod has fewer dependencies, a simpler code structure, and better test automation. You should find it's easier to contribute code to Rod. Therefore compared with Chromedp, Rod has the potential to have more nice functions from the community in the future.
 
-Rol heeft minder afhankelijkheden, een eenvoudigere code-structuur en een betere testautomatisering. Je moet vinden dat het makkelijker is om bij te dragen aan de Rod. In vergelijking met Chromedp heeft Rod daarom het potentieel om in de toekomst meer leuke functies van de gemeenschap te hebben.
-
-Een ander Chromedp probleem is hun architectuur is gebaseerd op [DOM node id](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId), puppeteer en stang zijn gebaseerd op [remote object id](https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId). Als gevolg daarvan is het niet alleen [langzamer](https://github.com/puppeteer/puppeteer/issues/2936) en voorkomt het ook dat Chromedp hoogwaardige functies toevoegt die gekoppeld zijn aan runtime. Bijvoorbeeld, dit [ticket](https://github.com/chromedp/chromedp/issues/72) was 3 jaar geopend. Zelfs nadat het gesloten is, kun je nog steeds geen js expressies op het element binnen een iframe evalueren. Bovendien, Chromedp behoudt een [kopie](https://github.com/chromedp/chromedp/blob/e2970556e3d05f3259c464faeed1ec0e862f0560/target.go#L375-L376) van alle nodes in het geheugen. Het zal race conditie veroorzaken tussen de lokale NodeID lijst en [DOM.documentUpdated](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated), wat verwarrende problemen kan veroorzaken zoals [#762](https://github.com/chromedp/chromedp/issues/762).
+Another problem of Chromedp is their architecture is based on [DOM node id](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId), puppeteer and rod are based on [remote object id](https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId). In consequence, it's not only [slower](https://github.com/puppeteer/puppeteer/issues/2936) and also prevents Chromedp from adding high-level functions that are coupled with runtime. For example, this [ticket](https://github.com/chromedp/chromedp/issues/72) had opened for 3 years. Even after it's closed, you still can't evaluate js express on the element inside an iframe. Besides, Chromedp maintains a [copy](https://github.com/chromedp/chromedp/blob/e2970556e3d05f3259c464faeed1ec0e862f0560/target.go#L375-L376) of all the nodes in memory. It will cause race condition between local NodeID list and [DOM.documentUpdated](https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated), which can cause confusing issues like [#762](https://github.com/chromedp/chromedp/issues/762).
 
 ### Leerling
 
-[Puppeteer][puppeteer] zal JSON alle berichten uit de browser decode-on-demand coderen, dus theoretisch zal Rod beter presteren, vooral voor zware netwerkgebeurtenissen.
+[Puppeteer][puppeteer] will JSON decode every message from the browser, Rod is decode-on-demand, so theoretically Rod will perform better, especially for heavy network events.
 
-Met puppeteer, moet u veel met belofte/async/wachten doen, het maakt een elegante [vloeiende interface](https://en.wikipedia.org/wiki/Fluent_interface) ontwerp zeer moeilijk. Einde van testen vereist veel synchronisatie-operaties om menselijke input te simuleren, omdat Puppeteer is gebaseerd op Nodejs alle IO-operaties async oproepen zijn, dus meestal eindigen mensen tonnen async/wacht te typen. Als je vergeet een `wacht`te schrijven, is het meestal pijnlijk om Belofte debuggen. Het hoofd groeit als je project groeit.
+With puppeteer, you have to handle promise/async/await a lot, it makes elegant [fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) design very hard. End to end tests requires a lot of sync operations to simulate human inputs, because Puppeteer is based on Nodejs all IO operations are async calls, so usually, people end up typing tons of async/await. If you forget to write a `await`, it's usually painful to debug leaking Promise. The overhead grows when your project grows.
 
-Rod is standaard type-veilig en heeft betere interne opmerkingen over hoe Rod zelf werkt. Het heeft type bindingen voor alle eindpunten in het Devtools protocol.
+Rod is type-safe by default, and has better internal comments about how Rod itself works. It has type bindings for all endpoints in Devtools protocol.
 
-Stroming zal domein events uitschakelen wanneer mogelijk, puppeteer zal altijd alle domeinen activeren. Het verbruikt veel middelen bij het besturen van een externe browser.
+Rod will disable domain events whenever possible, puppeteer will always enable all the domains. It will consume a lot of resources when driving a remote browser.
 
-De rod ondersteunt annulering en timeout beter, dit kan cruciaal zijn als je duizenden pagina's wilt behandelen. Bijvoorbeeld, om `te simuleren klik` moeten we serval cdp verzoeken versturen, met [Belofte](https://stackoverflow.com/questions/29478751/cancel-a-vanilla-ecmascript-6-promise-chain) kun je iets niet bereiken zoals "stuur alleen de helft van de cdp verzoeken", maar met de [context](https://golang.org/pkg/context/) is dat mogelijk.
+Rod supports cancellation and timeout better, this can be critical if you want to handle thousands of pages. For example, to simulate `click` we have to send serval cdp requests, with [Promise](https://stackoverflow.com/questions/29478751/cancel-a-vanilla-ecmascript-6-promise-chain) you can't achieve something like "only send half of the cdp requests", but with the [context](https://golang.org/pkg/context/) we can.
 
 ### Speelrechts
 
-Staaf en [Playwright](https://github.com/microsoft/playwright) werden voor het eerst bijna op hetzelfde moment gepubliceerd. De meeste vergelijkingen tussen Rod en Puppeteer blijven waar voor Playwright, omdat zowel Playwright als Puppeteer door vrijwel dezelfde bijdragers worden onderhouden.
+Rod and [Playwright](https://github.com/microsoft/playwright) were first published almost at the same time. Most comparisons between Rod and Puppeteer remain true to Playwright, because both Playwright and Puppeteer are maintained by almost the same contributors.
 
-Zoals Playwright verklaarde op zijn doc "Playwright maakt betrouwbare end-to-end testen mogelijk voor moderne webapps.", is het focus van het project testen. Maar de focus voor Rod is meer algemeen, voor zowel webautomatisering als scraping, waardoor het ontwerp meer gericht is op flexibiliteit en prestatie.
+As Playwright stated on their doc "Playwright enables reliable end-to-end testing for modern web apps.", the focus of the project is testing. But the focus for Rod is more general, for both web automation and scraping, which make the design focus more on flexibility and performance.
 
-Een van de bouwkundige doelen van Rod's is om het voor iedereen gemakkelijker te maken om bij te dragen en er een puur gemeenschapsproject van te maken Dat is een grote reden waarom ik voor Gľ en de MIT-licentie heb gekozen. Typescript is een leuke keuze maar als je de ontwerpkeuzes van Playwright controleert, [`alle`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) en [vakbondstypen](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types) zijn overal, als je probeert naar de broncode van de [pagina te gaan. lick](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options), `d.ts` bestanden laten je de realiteit van het type begrijpen. Gilateraal is zeker niet goed genoeg, maar het introduceert meestal minder technische schulden dan node. s typecript, als je wilt dat ik kies welke ik moet gebruiken voor QA of Infra die niet vertrouwd zijn met codering om end-to-end te automatiseren of site-monitoring, Ik zou Golang kiezen.
+One of Rod's architectural goal is to make it easier for everyone to contribute and make it a pure community project, that's one big reason why I chose Golang and the MIT license. Typescript is a nice choice but if you check Playwright's design choices, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.htmvl#any) and [union types](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types) are everywhere, if you try to jump to the source code of [page.click](https://playwright.dev/#version=v1.6.2&path=docs%2Fapi.md&q=pageclickselector-options), `d.ts` files will let you understand the reality of typescript. Golang is definitely not good enough, but it usually introduces less tech debt than node.js typescript, if you want me to choose which one to use for QA or Infra who's not familiar with coding to automate end-to-end test or site-monitoring, I would pick Golang.
 
-Hun inspanningen voor cross-browser ondersteuning zijn fantastisch. Maar vandaag de dag wordt HTML5 goed aangenomen door hoofdmerken, het is moeilijk te zeggen dat de complexiteit ervan de voordelen kan zwaarwegen. Zal de cross-browser [patches](https://github.com/microsoft/playwright/tree/master/browser_patches) in de toekomst een last worden? Een ander punt van zorg is de veiligheidsproblemen voor gepatenteerde browsers. Het maakt het ook lastig om oude versies van Firefox of Safari te testen. Ik hoop dat het niet overtechnisch is.
+Their effort for cross-browser support is fabulous. But nowadays, HTML5 is well adopted by main brands, it's hard to say the complexity it brings can weight the benefits. Will the cross-browser [patches](https://github.com/microsoft/playwright/tree/master/browser_patches) become a burden in the future? Security issues for patched browsers is another concern. It also makes it tricky to test old versions of Firefox or Safari. Hope it's not over-engineering.
 
 ### Selenium
 
-[Selenium](https://www.selenium.dev/) is gebaseerd op [webdriver protocol](https://www.w3.org/TR/webdriver/) met veel minder functies vergeleken met [devtools protocol](https://chromedevtools.github.io/devtools-protocol). Zo kan het [gesloten schaduw DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460) niet verwerken. Pagina's opslaan als PDF is niet mogelijk. Geen ondersteuning voor tools zoals [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) of [Prestatie](https://chromedevtools.github.io/devtools-protocol/tot/Performance/), enz.
+[Selenium](https://www.selenium.dev/) is based on [webdriver protocol](https://www.w3.org/TR/webdriver/) which has much less functions compare to [devtools protocol](https://chromedevtools.github.io/devtools-protocol). Such as it can't handle [closed shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460). No way to save pages as PDF. No support for tools like [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) or [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/), etc.
 
-Het is moeilijker om op te zetten en te onderhouden vanwege extra afhankelijkheden zoals een browserdriver.
+Harder to set up and maintain because of extra dependencies like a browser driver.
 
-Hoewel selenium zichzelf verkoopt voor betere cross-browser ondersteuning, is het meestal erg moeilijk om het te laten werken voor alle grote browsers.
+Though selenium sells itself for better cross-browser support, it's usually very hard to make it work for all major browsers.
 
-Er zijn tal van artikelen over "selenium vs marippeteer", u kunt de stang van Puppeteer noemen.
+There are plenty of articles about "selenium vs puppeteer", you can treat rod as the Golang version of Puppeteer.
 
 ### Verschuif
 
-[Cypress](https://www.cypress.io/) is erg beperkt, voor gesloten schaduw of cross-domain iframes is bijna onbruikbaar. Lees hun [limitatie doc](https://docs.cypress.io/guides/references/trade-offs.html) voor meer details.
+[Cypress](https://www.cypress.io/) is very limited, for closed shadow dom or cross-domain iframes it's almost unusable. Read their [limitation doc](https://docs.cypress.io/guides/references/trade-offs.html) for more details.
 
-Als u met ons wilt samenwerken om een test-focus op Rod te creëren om de beperking van cypress te overwinnen, neem dan contact met ons op.
+If you want to cooperate with us to create a testing focused framework base on Rod to overcome the limitation of cypress, please contact us.
 
 ## Wat betekent Rod
 
-Rod is de naam van het besturingsapparaat voor puppetry, zoals de bruine stok in de afbeelding hieronder:
+Rod is the name of the control device for puppetry, such as the brown stick in the image below:
 
-![stang](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png ":size=200")
+![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png ":size=200")
 
-De betekenis is dat wij de marionet zijn, de browser is de marionet, we gebruiken de stang om de marionet te besturen.
+The meaning is we are the puppeteer, the browser is the puppet, we use the rod to control the puppet.
 
 [chromedp]: https://github.com/chromedp/chromedp
 [puppeteer]: https://github.com/puppeteer/puppeteer
