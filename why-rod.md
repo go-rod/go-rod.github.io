@@ -14,8 +14,6 @@ Theoretically, Rod should perform faster and consume less memory than Chromedp.
 
 Chromedp will JSON decode every message from the browser, rod is decode-on-demand, so Rod performs better, especially for heavy network events.
 
-Chromedp uses third part WebSocket lib which has [1MB overhead](https://github.com/chromedp/chromedp/blob/b56cd66f9cebd6a1fa1283847bbf507409d48225/conn.go#L43-L54) for each cdp client, if you want to control thousands of remote browsers it can become a problem. Because of this limitation, if you evaluate a js script larger than 1MB, Chromedp will crash, here's an example of how easy you can crash Chromedp: [gist](https://gist.github.com/ysmood/0d5b2c878ecbdb598776af7d3d305b79).
-
 When a crash happens, Chromedp will leave the zombie browser process on Windows and Mac.
 
 Rod is more configurable, such as you can even replace the WebSocket lib with the lib you like.
