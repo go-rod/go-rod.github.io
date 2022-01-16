@@ -40,7 +40,7 @@ page.HijackRequests()
 
 For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
 
-## Throttling 
+## Throttling
 
 You can throttle the network to simulate and test the slow network effect on your tests:
 
