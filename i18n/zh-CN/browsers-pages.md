@@ -42,14 +42,14 @@ page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
 ```
 
-如果浏览器已经开启了多个页面而且你没有它们的引用，你可以 [Browser.Pages()](https://pkg.go.dev/github.com/go-rod/rod#Browser.Pages) 来获取 [Pages](https://pkg.go.dev/github.com/go-rod/rod#Pages) 结构体，这是一个由标签页或窗口组成的数组，它拥有一些帮助函数，如 [Pages.Find()](https://pkg.go.dev/github.com/go-rod/rod#Pages.Find), [Pages.FindByURL()](https://pkg.go.dev/github.com/go-rod/rod#Pages.FindByURL)， [Pages.First()](https://pkg.go.dev/github.com/go-rod/rod#Pages.First)，等等。 Once you get a reference to the page you want you can use [Page.Activate()](https://pkg.go.dev/github.com/go-rod/rod#Page.Activate) to focus it. If you are clicking a link opens a new page then you can use [Page.WaitOpen](https://pkg.go.dev/github.com/go-rod/rod#Page.WaitOpen) to grab a reference to the new window as soon as it is launched.
+如果浏览器已经开启了多个页面而且你没有它们的引用，你可以 [Browser.Pages()](https://pkg.go.dev/github.com/go-rod/rod#Browser.Pages) 来获取 [Pages](https://pkg.go.dev/github.com/go-rod/rod#Pages) 结构体，这是一个由标签页或窗口组成的数组，它拥有一些帮助函数，如 [Pages.Find()](https://pkg.go.dev/github.com/go-rod/rod#Pages.Find), [Pages.FindByURL()](https://pkg.go.dev/github.com/go-rod/rod#Pages.FindByURL)， [Pages.First()](https://pkg.go.dev/github.com/go-rod/rod#Pages.First)，等等。 一旦你获得你想要的页面的引用，你可以使用 [Page.Activate()](https://pkg.go.dev/github.com/go-rod/rod#Page.Activate) 来聚焦。 如果你点击链接打开了一个新的页面，你可以使用 [Page.WaitOpen](https://pkg.go.dev/github.com/go-rod/rod#Page.WaitOpen) 以在新窗口开启后立即获取它的引用。
 
 ## 页面池
 
-We can use PagePool to help concurrently control and reuse pages.
+我们可以使用页面池来辅助同时控制和复用多个页面。
 
-Check this [example](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)
+请看这个[例子](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/examples_test.go#L533)。
 
 ## 浏览器池
 
-The tests in Rod is a good example of managing a pool of browsers to run tests concurrently. That's why the tests can finish in seconds. Check the code [here](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59).
+Rod 中测试是管理浏览器池进行并发测试的一个好例子。 这就是为什么测试可以在数秒内跑完。 请看这里的[代码](https://github.com/go-rod/rod/blob/46baf3aad803ed5cd8671aa325cbae4e297a89a4/setup_test.go#L59)。
