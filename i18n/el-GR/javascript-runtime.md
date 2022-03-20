@@ -7,7 +7,7 @@
 Για παράδειγμα, χρησιμοποιήστε το `Page.Eval` για να ορίσετε καθολική αξία:
 
 ```go
-page.MustEval(`window.a = {name: 'jack'}`)
+page.MustEval(`() => window.a = {name: 'jack'}`)
 ```
 
 Μπορούμε να χρησιμοποιήσουμε μια λειτουργία js για να περάσουμε την αξία ως json επιχειρήματα:
@@ -23,44 +23,24 @@ page.MustEval(`window.a = {name: 'jack'}`)
 Για να λάβετε την επιστρεφόμενη τιμή από το Eval:
 
 ```go
-val := page.MustEval(`a`).Get("name").Str()
-fmt.Println(val) // έξοδος: jack
+val := page.MustEval(`() => a`).Get("name").Str()
+fmt.Println(val) // output: jack
 ```
 
-## Ορισμός μιας καθολικής συνάρτησης
+## Eval on an element
 
-Η μέθοδος `Page.Evaluate` θα εκτελέσει τη συνάρτηση αν το εξόχως απόκεντρό της είναι ένας ορισμός συνάρτησης.
-
-Για παράδειγμα, η συνάρτηση `δοκιμής` παρακάτω θα εκτελεστεί αμέσως, δεν θα αντιμετωπίζεται ως ορισμός συνάρτησης:
-
-```go
-page.MustEval(`function test() {alert('ok') }`)
-
-page.MustEval(`test()`) // πανικός χωρίς να ορίζεται η δοκιμή
-```
-
-Για να ορίσετε την παγκόσμια συνάρτηση `test` μπορείτε να κάνετε κώδικα όπως αυτό, επειδή το εξόχως απόκεντρο είναι μια εκχώρηση, όχι ορισμός συνάρτησης:
-
-```go
-page.MustEval(`test = function () {alert('ok') }`)
-
-page.MustEval(`test()`)
-```
-
-## Eval σε ένα στοιχείο
-
-`Στοιχείο. Το Eval` είναι παρόμοιο με την `σελίδα.Eval`, αλλά με το `αυτό το αντικείμενο` να έχει οριστεί στο τρέχον στοιχείο. Για παράδειγμα, έχουμε μια `<button>Υποβολή</button>` στη σελίδα, μπορούμε να διαβάσουμε ή να τροποποιήσουμε το στοιχείο με JS:
+`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
 
 ```go
 el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // Τροποποιήστε το περιεχόμενο
-txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // εξόδου: Εφαρμόστε
+el.MustEval(`() => this.innerText = "Apply"`) // Modify the content
+txt := el.MustEval(`() => this.innerText`).Str()
+fmt.Println(txt) // output: Apply
 ```
 
-## Expose Πηγαίνετε συναρτήσεις στη σελίδα
+## Expose Go functions to the page
 
-Μπορούμε να χρησιμοποιήσουμε το `Page.Expose` για να εκθέσουμε τις λειτουργίες callback στη σελίδα. Για παράδειγμα, εδώ εκθέτουμε μια συνάρτηση για να βοηθήσουμε τη σελίδα να υπολογίσει md5 hash:
+We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
@@ -68,8 +48,8 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 })
 ```
 
-Τώρα η σελίδα μπορεί να επικαλεστεί αυτή τη μέθοδο στο αντικείμενο του παραθύρου:
+Now the page can invoke this method on the window object:
 
 ```go
-hash := page.MustEval(`window.md5 ("test")`).Str()
+hash := page.MustEval(`() => window.md5("test")`).Str()
 ```
