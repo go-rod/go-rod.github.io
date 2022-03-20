@@ -7,7 +7,7 @@
 على سبيل المثال، استخدم `Page.Eval` لتعيين القيمة العالمية:
 
 ```go
-page.MustEval(`window.a = {name: 'jack'}`)
+page.MustEval(`() => window.a = {name: 'jack'}`)
 ```
 
 يمكننا استخدام دالة js لتمرير القيمة كحجج json :
@@ -23,53 +23,33 @@ page.MustEval(`(kval) => {
 للحصول على القيمة المرتجعة من Eval:
 
 ```go
-val := page.MustEval(`a`).Get("name").Str()
-fmt.Println(val) // خرج: jack
+val := page.MustEval(`() => a`).Get("name").Str()
+fmt.Println(val) // output: jack
 ```
 
-## تعريف دالة عالمية
+## Eval on an element
 
-طريقة `Page.Evaluate` ستنفذ الدالة إذا كان أقصى ما في الخارج هو تعريف الدالة.
-
-على سبيل المثال، سيتم تنفيذ دالة `اختبار` أدناه على الفور، ولن يتم التعامل معها كتعريف للدالة:
+`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
 
 ```go
-page.MustEval('اختبار الدالة () { alert('ok') }`)
-
-page.MustEval('test()`) // الذعر مع عدم تعريف الاختبار
+el := page.MustElement("button")
+el.MustEval(`() => this.innerText = "Apply"`) // Modify the content
+txt := el.MustEval(`() => this.innerText`).Str()
+fmt.Println(txt) // output: Apply
 ```
 
-لتعريف الدالة العالمية `اختبار` يمكنك برمجة هكذا ، لأن الجزء الخارجي هو مهمة ، وليس تعريف دالة :
+## Expose Go functions to the page
 
-```go
-page.MustEval('اختبار = وظيفة () { alert('ok') }`)
-
-page.MustEval('test()`)
-```
-
-## الفترة على العنصر
-
-`Element.Eval` مماثل مع `Page.Eval`، ولكن مع `تعيين هذا الكائن` إلى العنصر الحالي. على سبيل المثال، لدينا `<button>إرسال</button>` على الصفحة، يمكننا قراءة أو تعديل العنصر باستخدام JS:
-
-```go
-el := page.MustElement("زر")
-el.MustEval(`this.innerText = "Apply"`) // تعديل المحتوى
-txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // خرج: تطبيق
-```
-
-## عرض دوال الذهاب إلى الصفحة
-
-يمكننا استخدام `Page.Expose` لفضح وظائف رد الاتصال إلى الصفحة. على سبيل المثال، هنا نحن نعرض دالة لمساعدة الصفحة على حساب تجزئة md5:
+We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
-    return md5.Sum([]byte(g.Str()))، صفر
+    return md5.Sum([]byte(g.Str())), nil
 })
 ```
 
-الآن يمكن للصفحة أن تحتج بهذه الطريقة على كائن النافذة:
+Now the page can invoke this method on the window object:
 
 ```go
-هاش := page.MustEval(`window.md5("الاختبار")`).Str()
+hash := page.MustEval(`() => window.md5("test")`).Str()
 ```
