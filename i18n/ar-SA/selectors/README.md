@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 إذا كان لديك استعلام معقد أو تريد استخدام محرك استعلام عالي المستوى، مثل [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`jQuery('option:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 في الواقع، إذا قمت بالتحقق من شفرة المصدر الخاصة بالمحددات الأخرى، مثل `العنصر` أو `العنصر R`، جميعها مبنية على `عنصر ByJS`و و `عنصر ByJS` مبني على صفحة `. تقييم`، لمزيد من التفاصيل حول كيفية تقييم js، تحقق من [Javascript Runtime](/javascript-runtime.md). عادةً ما تستخدم `ElementByJS` لإنشاء محدد خاص بك لتمديد رود.
