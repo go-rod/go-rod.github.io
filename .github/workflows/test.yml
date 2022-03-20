@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
   
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
 
       - uses: actions/setup-go@v2
         with:
@@ -21,4 +21,4 @@ jobs:
 
       - run: |
           go run ./bin/patch-crowdin
-          npx markdownlint-cli --fix '**/*.md'
+          npx --yes markdownlint-cli --fix '**/*.md'

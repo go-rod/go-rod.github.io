@@ -44,7 +44,7 @@ page.MustElementX("//h2")
 If you have a complex query or you want to use a high-level query engine, such as [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`jQuery('option:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 Actually, if you check the source code of other selectors, such as `Element` or `ElementR`, they are all based on `ElementByJS`,
