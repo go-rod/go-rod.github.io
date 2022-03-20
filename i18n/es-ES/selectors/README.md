@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 Si tiene una consulta compleja o desea utilizar un motor de consulta de alto nivel, como [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`jQuery('option:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 En realidad, si comprueba el código fuente de otros selectores, como `Element` o `ElementR`, están basados en `ElementByJS`, y `ElementByJS` se basa en `Page. valuate`, para más detalles sobre cómo evaluar js, compruebe el [Javascript Runtime](/javascript-runtime.md). Generalmente, usas `ElementByJS` para crear tu propio selector para extender Rod.
