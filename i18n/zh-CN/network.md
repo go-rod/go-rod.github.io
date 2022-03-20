@@ -38,9 +38,9 @@ page.HijackRequests()
 
 更多信息，见[劫持相关的单元测试](https://github.com/go-rod/rod/blob/master/hijack_test.go)
 
-## Throttling
+## 节流
 
-You can throttle the network to simulate and test the slow network effect on your tests:
+您可以通过节流网络来模拟和测试慢网络：
 
 ```go
     page.EnableDomain(proto.NetworkEnable{})

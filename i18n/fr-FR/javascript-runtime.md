@@ -7,7 +7,7 @@ We can use Rod to evaluate random javascript code on the page. Such as use it to
 For example use `Page.Eval` to set global value:
 
 ```go
-page.MustEval(`window.a = {name: 'jack'}`)
+page.MustEval(`() => window.a = {name: 'jack'}`)
 ```
 
 We can use a js function to pass value as json arguments:
@@ -23,28 +23,8 @@ page.MustEval(`(k, val) => {
 To get the returned value from Eval:
 
 ```go
-val := page.MustEval(`a`).Get("name").Str()
+val := page.MustEval(`() => a`).Get("name").Str()
 fmt.Println(val) // output: jack
-```
-
-## Define a global function
-
-The `Page.Evaluate` method will execute the function if its outermost is a function definition.
-
-For example, the `test` function below will be executed immediately, it will not be treated as a function definition:
-
-```go
-page.MustEval(`function test() { alert('ok') }`)
-
-page.MustEval(`test()`) // panic with test not defined
-```
-
-To define the global function `test` you can code like this, because the outermost is an assignment, not a function definition:
-
-```go
-page.MustEval(`test = function () { alert('ok') }`)
-
-page.MustEval(`test()`)
 ```
 
 ## Eval on an element
@@ -53,8 +33,8 @@ page.MustEval(`test()`)
 
 ```go
 el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // Modify the content
-txt := el.MustEval(`this.innerText`).Str()
+el.MustEval(`() => this.innerText = "Apply"`) // Modify the content
+txt := el.MustEval(`() => this.innerText`).Str()
 fmt.Println(txt) // output: Apply
 ```
 
@@ -71,5 +51,5 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 Now the page can invoke this method on the window object:
 
 ```go
-hash := page.MustEval(`window.md5("test")`).Str()
+hash := page.MustEval(`() => window.md5("test")`).Str()
 ```

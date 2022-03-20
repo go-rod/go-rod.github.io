@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 如果你的查询很复杂，或者如果你想使用一个类似于 [jQuery](https://jquery.com/) 的高级查询引擎：
 
 ```go
-page.MustElementByJS(`jQuery('option:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 如果你看一下其他选择器（比如 `Element` 和 `ElementR`）的源码，你会发现他们实际上都基于 `ElementByJS`，而 `ElementByJS` 则基于 `Page.Evaluate`。有关如何运行 js 代码，见 [JavaScript 运行时](/javascript-runtime.md)。 通常会使用 `ElementByJS` 自行创建选择器来扩展 Rod。
