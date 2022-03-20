@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 Якщо у вас є складний запит або ви хочете використовувати двигун запиту високого рівня, наприклад [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`jQuery('option:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 Насправді, якщо ви перевіряєте вихідний код інших селекторів, таких як `елемент` або `елемент`, всі вони засновані на `ElementByJS`, та `ElementByJS` засновані на `Сторінці. оцініть`, для більш детальної інформації про те, як обчислити js, перевірте [JavaScript Runtime](/javascript-runtime.md). Зазвичай ви використовуєте `ElementByJS` для створення власного селектора для розширення роду.
