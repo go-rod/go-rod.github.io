@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 Hvis du har en kompleks forespørgsel, eller du ønsker at bruge en høj-niveau forespørgselsmotor, såsom [jQuery](https://jquery.com/):
 
 ```go
-side.MustElementByJS(`jQuery('mulighed:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 Faktisk, hvis du tjekker kildekoden for andre vælgere, såsom `Element` eller `ElementR`, de er alle baseret på `ElementByJS`, og `ElementByJS` er baseret på `side. værdsætte`, for flere detaljer om hvordan man evaluerer js, tjek [Javascript Runtime](/javascript-runtime.md). Normalt bruger du `ElementByJS` til at oprette din egen selector for at udvide Rod.
