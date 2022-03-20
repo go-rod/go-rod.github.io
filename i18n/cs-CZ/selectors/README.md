@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 Pokud máte složitý dotaz nebo chcete použít dotaz na vysoké úrovni, jako je [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`jQuery('option:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 Pokud kontrolujete zdrojový kód jiných selektorů, jako je `Element` nebo `ElementR`, všechny jsou založeny na `ElementByJS`, a `ElementByJS` je založeno na `stránce. hodnoťte`, pro více podrobností o hodnocení js, podívejte se na Javascript Runtime [](/javascript-runtime.md). Obvykle používáte `ElementByJS` k vytvoření vlastního selektoru pro rozšíření Rod.
