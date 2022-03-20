@@ -2,6 +2,7 @@ files:
   - source: '**/*'
     ignore:
       - .*
+      - go.mod
       - .*/
       - i18n/
       - '*.css'
