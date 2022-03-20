@@ -7,7 +7,7 @@ Putem folosi Rod pentru a evalua codul de javascript aleatoriu de pe pagină. A�
 Folosiți de exemplu `Page.Eval` pentru a seta valoarea globală:
 
 ```go
-page.MustEval(`window.a = {name: 'jack'}`)
+page.MustEval(`() => window.a = {name: 'jack'}`)
 ```
 
 Putem folosi o functie js pentru a pasa valoarea ca argumente json:
@@ -23,44 +23,24 @@ page.MustEval(`(k, val) => {
 Pentru a obține valoarea returnată de la Eval:
 
 ```go
-val := page.MustEval(`a`).Get("name").Str()
+val := page.MustEval(`() => a`).Get("name").Str()
 fmt.Println(val) // output: jack
 ```
 
-## Definește o funcție globală
+## Eval on an element
 
-Metoda `Page.Evaluează` va executa funcția în cazul în care ultraperiferica sa este o definiție a funcției.
-
-De exemplu, funcția `test` de mai jos va fi executată imediat, nu va fi tratată ca o definiție a funcției:
-
-```go
-page.MustEval(`function test() { alert('ok') }`)
-
-page.MustEval(`test()`) // panică cu test nedefinit
-```
-
-Pentru a defini testul funcției globale `` poți codifica așa, deoarece ultraperifericitatea este o atribuire, nu o definiție a funcției:
-
-```go
-page.MustEval(`test = function () { alert('ok') }`)
-
-page.MustEval(`test()`)
-```
-
-## Eval pe un element
-
-`Element.Eval` este similar cu `Page.Eval`, dar cu `acest obiect` setat pe elementul curent. De exemplu, avem un `<button>Trimiteți</button>` pe pagină, putem citi sau modifica elementul cu JS:
+`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
 
 ```go
 el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // Modifică conţinutul
-txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // output: Aplică
+el.MustEval(`() => this.innerText = "Apply"`) // Modify the content
+txt := el.MustEval(`() => this.innerText`).Str()
+fmt.Println(txt) // output: Apply
 ```
 
-## Expune funcţii de acces la pagină
+## Expose Go functions to the page
 
-Putem folosi `Page.Expune` pentru a expune funcțiile de apel invers la pagină. For example, here we expose a function to help the page to calculate md5 hash:
+We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
@@ -68,8 +48,8 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 })
 ```
 
-Acum, pagina poate invoca această metodă în obiectul fereastră:
+Now the page can invoke this method on the window object:
 
 ```go
-hash := page.MustEval(`window.md5("test")`).Str()
+hash := page.MustEval(`() => window.md5("test")`).Str()
 ```
