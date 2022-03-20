@@ -7,7 +7,7 @@ Voimme käyttää sauva arvioida satunnaista javascript koodi sivulla. Kuten kä
 Esimerkiksi käytä `Page.Eval` asettaaksesi globaalin arvon:
 
 ```go
-sivu.MustEval(`window.a = {name: 'jack'}`)
+page.MustEval(`() => window.a = {name: 'jack'}`)
 ```
 
 Voimme käyttää js toiminto siirtää arvon json argumentit:
@@ -23,53 +23,33 @@ sivu.MustEval(`(k, val) => {
 Saadaksesi palautetun arvon Eval:
 
 ```go
-val := sivu.MustEval(`a`).Get("nimi").Str()
+val := page.MustEval(`() => a`).Get("name").Str()
 fmt.Println(val) // output: jack
 ```
 
-## Määritä globaali funktio
+## Eval on an element
 
-The `Page.Evaluate` -menetelmä suorittaa funktion, jos sen uloin on funktion määritelmä.
-
-Esimerkiksi jäljempänä oleva `testi` -toiminto suoritetaan välittömästi, sitä ei käsitellä funktion määritelmänä:
+`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
 
 ```go
-sivu.MustEval(`function test() { alert('ok') }`)
-
-sivu.MustEval(`test()`) // panic testiä ei ole määritelty
+el := page.MustElement("button")
+el.MustEval(`() => this.innerText = "Apply"`) // Modify the content
+txt := el.MustEval(`() => this.innerText`).Str()
+fmt.Println(txt) // output: Apply
 ```
 
-Globaalin funktion `testin` määrittämiseksi voit koodata näin, koska uloin on tehtävä, ei funktion määritelmä:
+## Expose Go functions to the page
+
+We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
 
 ```go
-sivu.MustEval(`test = toiminto () { alert('ok') }`)
-
-sivu.MustEval(`test()`)
-```
-
-## Tunnista elementti
-
-`Element.Eval` on samanlainen `Page.Eval`, mutta `tämä` objekti on asetettu nykyiseen elementtiin. Esimerkiksi, meillä on `<button>Lähetä</button>` sivulla, voimme lukea tai muokata elementin JS: llä:
-
-```go
-el := sivu.MustElement("painike")
-el.MustEval(`this.innerText = "Apply"`) // Muokkaa sisältöä
-txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // Tutkimustuotos: Lisää
-```
-
-## Alenna Go-funktiot sivulle
-
-Voimme käyttää `Page.Expose` altistaa callback toiminnot sivulle. Esimerkiksi, tässä me paljastaa funktion auttaa sivua laskea md5 hash:
-
-```go
-page.MustExpose("md5", funktio(g gson.JSON) (interface{}, error) {
-    return md5.Sum([]byte(g.Str()), nil
+page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
+    return md5.Sum([]byte(g.Str())), nil
 })
 ```
 
-Nyt sivu voi vedota tähän menetelmään ikkunan objektissa:
+Now the page can invoke this method on the window object:
 
 ```go
-hash := sivu.MustEval(`window.md5 ("testi")`).Str()
+hash := page.MustEval(`() => window.md5("test")`).Str()
 ```
