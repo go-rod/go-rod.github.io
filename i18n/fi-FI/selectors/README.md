@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 Jos sinulla on monimutkainen kysely tai haluat käyttää korkean tason kysely moottori, kuten [jQuery](https://jquery.com/):
 
 ```go
-sivu.MustElementByJS(`jQuery('option:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 Todellisuudessa jos tarkistat muiden valitsimien lähdekoodin, kuten `Element` tai `ElementR`, Ne kaikki perustuvat `ElementByJS`, ja `ElementByJS` perustuu `sivuun. arvostaa`, lisätietoja kuinka arvioida js, tarkista [Javascript Runtime](/javascript-runtime.md). Yleensä käytät `ElementByJS` luodaksesi oman valitsimesi pidentämään sauvaa.
