@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 Dacă aveţi o interogare complexă sau doriţi să utilizaţi un motor de interogare la nivel înalt, cum ar fi [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`jQuery('option:selected')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 De fapt, dacă verifici codul sursă al altor selectori, cum ar fi `Element` sau `ElementR`, toate sunt bazate pe `ElementByJS`, și `ElementByJS` se bazează pe pagina `. evaluați`, pentru mai multe detalii despre cum să evaluați j, verificați [Javascript Runtime](/javascript-runtime.md). De obicei, folosești `ElementByJS` pentru a-ți crea propriul selector pentru a extinde Dumnezeu.
