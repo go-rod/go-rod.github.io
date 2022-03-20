@@ -7,7 +7,7 @@ Podemos usar Rod para evaluar código javascript aleatorio en la página. Tal co
 Por ejemplo, utilice `Page.Eval` para establecer el valor global:
 
 ```go
-page.MustEval(`window.a = {name: 'jack'}`)
+page.MustEval(`() => window.a = {name: 'jack'}`)
 ```
 
 Podemos usar una función js para pasar el valor como argumentos json:
@@ -23,44 +23,24 @@ page.MustEval(`(k, val) => {
 Para obtener el valor devuelto de Eval:
 
 ```go
-val := page.MustEval(`a`).Get("name").Str()
-fmt.Println(val) // salida: jack
+val := page.MustEval(`() => a`).Get("name").Str()
+fmt.Println(val) // output: jack
 ```
 
-## Definir una función global
+## Eval on an element
 
-El método `Page.Evaluate` ejecutará la función si su ultraperiférica es una definición de función.
-
-Por ejemplo, la función `test` a continuación se ejecutará inmediatamente, no será tratada como una definición de función:
-
-```go
-page.MustEval(`function test() { alert('ok') }`)
-
-page.MustEval(`test()`) // Con prueba no definida
-```
-
-Para definir la función global `test` se puede codificar de este modo, porque la función ultraperiférica es una asignación, no una definición de función:
-
-```go
-page.MustEval(`test = function () { alert('ok') }`)
-
-page.MustEval(`test()`)
-```
-
-## Evento en un elemento
-
-`Element.Eval` es similar con `Page.Eval`, pero con el `este` objeto establecido en el elemento actual. Por ejemplo, tenemos un `<button>Enviar</button>` en la página, podemos leer o modificar el elemento con JS:
+`Element.Eval` is similar with `Page.Eval`, but with the `this` object set to the current element. For example, we have a `<button>Submit</button>` on the page, we can read or modify the element with JS:
 
 ```go
 el := page.MustElement("button")
-el.MustEval(`this.innerText = "Apply"`) // Modifica el contenido
-txt := el.MustEval(`this.innerText`).Str()
-fmt.Println(txt) // Salida: Aplicar
+el.MustEval(`() => this.innerText = "Apply"`) // Modify the content
+txt := el.MustEval(`() => this.innerText`).Str()
+fmt.Println(txt) // output: Apply
 ```
 
-## Exponer funciones de Ir a la página
+## Expose Go functions to the page
 
-Podemos usar `Page.Expose` para exponer las funciones de callback a la página. Por ejemplo, aquí exponemos una función para ayudar a la página a calcular hash md5:
+We can use `Page.Expose` to expose callback functions to the page. For example, here we expose a function to help the page to calculate md5 hash:
 
 ```go
 page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
@@ -68,8 +48,8 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 })
 ```
 
-Ahora la página puede invocar este método en el objeto ventana:
+Now the page can invoke this method on the window object:
 
 ```go
-hash := page.MustEval(`window.md5("test")`).Str()
+hash := page.MustEval(`() => window.md5("test")`).Str()
 ```
