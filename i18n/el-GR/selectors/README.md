@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 Αν έχετε ένα σύνθετο ερώτημα ή θέλετε να χρησιμοποιήσετε μια μηχανή ερωτήματος υψηλού επιπέδου, όπως [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`jQuery('επιλογή:επιλεγμένο')[0]`)
+page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 Στην πραγματικότητα, αν ελέγξετε τον πηγαίο κώδικα άλλων επιλογέων, όπως `Στοιχείο` ή `ElementR`, όλα βασίζονται σε `ElementByJS`, και `Τα ElementByJS` βασίζονται στη Σελίδα `. valuate`, for more details about how to evaluate js, check the [Javascript Runtime](/javascript-runtime.md). Συνήθως, χρησιμοποιείτε το `ElementByJS` για να δημιουργήσετε τον δικό σας επιλογέα για να επεκτείνετε το Rod.
