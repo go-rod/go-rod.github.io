@@ -6,9 +6,11 @@ There are a lot of great projects, but no one is perfect, choose the best one th
 
 ### Chromedp
 
-Theoretically, Rod should perform faster and consume less memory than Chromedp.
+Theoretically, Rod should perform faster and consume less memory than Chromedp, the architecture of Rod is more stable and consistent.
 
 [Chromedp][chromedp] uses the system's browser by default, it can cause issues if you accidentally upgrade the browser.
+[Chromedp][chromedp] uses different Go module to manage devtools protocol version which can cause issues like [this](https://github.com/chromedp/chromedp/issues/1031).
+Each Rod version will ship with a specific Chromium version and its devtools protocol version with full unit test against them.
 
 [Chromedp][chromedp] uses a [fix-sized buffer](https://github.com/chromedp/chromedp/blob/b56cd66/target.go#L69-L73) for events, it can cause dead-lock on high concurrency. Because Chromedp uses a single event-loop, the slow event handlers will block each other. Rod doesn't have these issues because it's based on [goob](https://github.com/ysmood/goob).
 
