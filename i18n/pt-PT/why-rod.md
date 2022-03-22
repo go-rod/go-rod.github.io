@@ -6,9 +6,9 @@ Existem muitos grandes projetos, mas ninguém é perfeito, escolher o melhor que
 
 ### Chromedp
 
-Teoricamente, Rod deve executar mais rápido e consumir menos memória que Chromedp.
+Theoretically, Rod should perform faster and consume less memory than Chromedp, the architecture of Rod is more stable and consistent.
 
-[Chromedp][chromedp] usa o navegador do sistema por padrão, isso pode causar problemas se você acidentalmente atualizar o navegador.
+[Chromedp][chromedp] uses the system's browser by default, it can cause issues if you accidentally upgrade the browser. [Chromedp][chromedp] uses different Go module to manage devtools protocol version which can cause issues like [this](https://github.com/chromedp/chromedp/issues/1031). Each Rod version will ship with a specific Chromium version and its devtools protocol version with full unit test against them.
 
 [Chromedp][chromedp] usa um [buffer de tamanho fixo](https://github.com/chromedp/chromedp/blob/b56cd66/target.go#L69-L73) para eventos, pode causar bloqueio na alta conmoeda. Como Chromedp usa um único loop de eventos, os manipuladores de eventos lentos vão bloquear um ao outro. Rod não tem estes problemas porque é baseado em [goob](https://github.com/ysmood/goob).
 
