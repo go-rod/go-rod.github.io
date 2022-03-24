@@ -18,6 +18,12 @@
     const chapterNav = document.querySelector('#chapter-nav')
 
     hook.doneEach(() => {
+      gtag('set', 'page_path', vm.route.path)
+      gtag('event', 'page_view')
+      if (vm.route.path === '/get-started/README') {
+        gtag('event', 'conversion', { path: vm.route.path })
+      }
+
       const list = Array.from(document.querySelectorAll(`.sidebar-nav a:not(.section-link)`))
       const i = list.findIndex(e => e.getAttribute('href') === '#' + vm.route.path)
 
