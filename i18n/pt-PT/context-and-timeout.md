@@ -16,20 +16,22 @@ page.MustNavigate("http://github.com")
 Agora, suponha que queiramos cancelar o `MustNavigate` se demorar mais de 2 segundos. No Cajado podemos fazer algo como isto:
 
 ```go
-página := rod.New().MustConnect().MustPage()
+page := rod.New().MustConnect().MustPage()
 
 ctx, cancel := context.WithCancel(context.Background())
-pageCancel:= page.Context(ctx)
+pageWithCancel := page.Context(ctx)
 
 go func() {
-    vez. leep(2 * time.Segundo)
+    time.Sleep(2 * time.Second)
     cancel()
 }()
 
-pageWithCancel.MustNavigate("http://github.com") // será cancelada após 2 segundos
+// The 2 lines below share the same context, they will be canceled after 2 seconds in total
+pageWithCancel.MustNavigate("http://github.com") 
+pageWithCancel.MustElement("body")  
 ```
 
-Usamos o `page.Context` para criar um clone superficial da página ``. Sempre que ligarmos para `cancelar`, as operações disparadas pela `páginaWithCancel` serão canceladas, pode ser qualquer operação, não apenas `MustNavigate`. A página `de origem` não será afetada, se usarmos para chamar operações, elas não serão canceladas.
+Usamos o `page.Context` para criar um clone superficial da página ``. Whenever we call the `cancel`, the all sub operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. A página `de origem` não será afetada, se usarmos para chamar operações, elas não serão canceladas.
 
 Este estilo não é especial para Varda, pode encontrar APIs semelhantes a [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) na biblioteca padrão.
 
