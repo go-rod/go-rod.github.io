@@ -29,10 +29,12 @@ go func() {
     cancel()
 }()
 
-pageWithCancel.MustNavigate("http://github.com") // will be canceled after 2 seconds
+// The 2 lines below share the same context, they will be canceled after 2 seconds in total
+pageWithCancel.MustNavigate("http://github.com") 
+pageWithCancel.MustElement("body")  
 ```
 
-We use the `page.Context` to create a shallow clone of the `page`. Whenever we call the `cancel`, the operations
+We use the `page.Context` to create a shallow clone of the `page`. Whenever we call the `cancel`, the all sub operations
 triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`.
 The origin `page` won't be affected, if we use it to call operations they won't be cancelled.
 
