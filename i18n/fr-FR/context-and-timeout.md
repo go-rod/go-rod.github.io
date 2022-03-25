@@ -22,14 +22,16 @@ ctx, cancel := context.WithCancel(context.Background())
 pageWithCancel := page.Context(ctx)
 
 go func() {
-    time. leep(2 * time.Second)
+    time.Sleep(2 * time.Second)
     cancel()
 }()
 
-pageWithCancel.MustNavigate("http://github.com") // sera annulé après 2 secondes
+// The 2 lines below share the same context, they will be canceled after 2 seconds in total
+pageWithCancel.MustNavigate("http://github.com") 
+pageWithCancel.MustElement("body")  
 ```
 
-Nous utilisons la `page.Context` pour créer un clone peu profond de la `page`. Chaque fois que nous appelons le `annuler`, les opérations déclenchées par la `pageWithCancel` seront annulées, elle peut être n'importe quelle opération, pas seulement `MustNavigate`. La page d'origine `` ne sera pas affectée, si nous l'utilisons pour les opérations d'appel, elles ne seront pas annulées.
+Nous utilisons la `page.Context` pour créer un clone peu profond de la `page`. Whenever we call the `cancel`, the all sub operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. La page d'origine `` ne sera pas affectée, si nous l'utilisons pour les opérations d'appel, elles ne seront pas annulées.
 
 Ce style n'est pas spécial pour Rod, vous pouvez trouver des API similaires comme [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) dans la bibliothèque standard.
 
