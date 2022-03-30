@@ -20,9 +20,6 @@
     hook.doneEach(() => {
       gtag('set', 'page_path', vm.route.path)
       gtag('event', 'page_view')
-      if (vm.route.path === '/get-started/README') {
-        gtag('event', 'conversion', { path: vm.route.path })
-      }
 
       const list = Array.from(document.querySelectorAll(`.sidebar-nav a:not(.section-link)`))
       const i = list.findIndex(e => e.getAttribute('href') === '#' + vm.route.path)
@@ -63,7 +60,16 @@
   }
 
   function analytics(hook, vm) {
-    hook.ready(function () {
+    // If stay on any page for more than 30s, we count it as a conversion
+    let id 
+    hook.doneEach(() => {
+      clearTimeout(id)
+      id = setTimeout(() => {
+        gtag('event', 'conversion', { path: vm.route.path })
+      }, 30*1000);
+    })
+  
+    hook.mounted(function() {
       ;(function (c, l, a, r, i, t, y) {
         c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
         t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
