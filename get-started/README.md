@@ -120,7 +120,8 @@ import (
 )
 
 func main() {
-	page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
+	browser := rod.New().MustConnect().NoDefaultDevice()
+	page := browser.MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
 
     page.MustElement("#searchInput").MustInput("earth")
 
@@ -129,7 +130,7 @@ func main() {
 }
 ```
 
-The `MustWindowFullscreen` resizes the browser window to make it easier to debug.
+The `NoDefaultDevice` and `MustWindowFullscreen` maximize the page viewport and browser window to make it easier to debug.
 We use `MustElement` and the selector we copied from the Devtools panel
 to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears,
 so we don't need to use `MustWaitLoad` before it.
