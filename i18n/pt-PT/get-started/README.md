@@ -97,16 +97,17 @@ Você deve ver o `<input id="searchInput` como abaixo:
 Clique com o botão direito para copiar o [seletor css](css-selector.md) como a imagem acima. O conteúdo na sua área de transferência será "#searchInput". Vamos usá-lo para localizar o elemento para inserir a palavra-chave. Agora o "main.go" se torna:
 
 ```go
-pacote principal
+package main
 
 import (
     "time"
 
-    "github. om/go-rod/rod"
+    "github.com/go-rod/rod"
 )
 
 func main() {
-    página := rod.New().MustConnect().MustPage("https://www.wikipedia. rg/").MustWindowFullscreen()
+    browser := rod.New().MustConnect().NoDefaultDevice()
+    page := browser.MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
 
     page.MustElement("#searchInput").MustInput("earth")
 
@@ -115,7 +116,7 @@ func main() {
 }
 ```
 
-O `MustWindowFullscreen` redimensiona a janela do navegador para facilitar a depuração. Nós usamos `MustElement` e o seletor que copiamos do painel Devtools para obter o elemento que queremos manipular. O `Elemento` irá esperar automaticamente até que o elemento apareça, então não precisamos usar `MustWaitLoad` antes dele. Então chamamos o `MustInput` para inserir a palavra-chave "earth" nele. Se você executar novamente o "main.go", você deverá ver o resultado se parece com o resultado abaixo:
+The `NoDefaultDevice` and `MustWindowFullscreen` maximize the page viewport and browser window to make it easier to debug. Nós usamos `MustElement` e o seletor que copiamos do painel Devtools para obter o elemento que queremos manipular. O `Elemento` irá esperar automaticamente até que o elemento apareça, então não precisamos usar `MustWaitLoad` antes dele. Então chamamos o `MustInput` para inserir a palavra-chave "earth" nele. Se você executar novamente o "main.go", você deverá ver o resultado se parece com o resultado abaixo:
 
 ![depois](after-input.png)
 
