@@ -96,16 +96,17 @@ Vous devriez voir le `<entrée id="searchInput` comme ci-dessous:
 Faites un clic droit pour copier le sélecteur [css](css-selector.md) comme l'image ci-dessus. Le contenu de votre presse-papiers sera "#searchInput". Nous l'utiliserons pour localiser l'élément pour entrer le mot clé. Maintenant le "main.go" devient :
 
 ```go
-import de
+package main
 
-principal du paquet (
+import (
     "time"
 
-    "github. om/go-rod/rod"
+    "github.com/go-rod/rod"
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia. rg/").MustWindowFullscreen()
+    browser := rod.New().MustConnect().NoDefaultDevice()
+    page := browser.MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
 
     page.MustElement("#searchInput").MustInput("earth")
 
@@ -114,7 +115,7 @@ func main() {
 }
 ```
 
-Le `MustWindowFullscreen` redimensionne la fenêtre du navigateur pour faciliter le débogage. Nous utilisons `MustElement` et le sélecteur que nous avons copié depuis le panneau Devtools pour obtenir l'élément que nous voulons manipuler. Le `MustElement` attend automatiquement jusqu'à ce que l'élément apparaisse, donc nous n'avons pas besoin d'utiliser `MustWaitLoad` avant lui. Puis nous appelons le `MustInput` pour entrer le mot clé "earth" dedans. Si vous relancez le "main.go", vous devriez voir le résultat comme ci-dessous:
+The `NoDefaultDevice` and `MustWindowFullscreen` maximize the page viewport and browser window to make it easier to debug. Nous utilisons `MustElement` et le sélecteur que nous avons copié depuis le panneau Devtools pour obtenir l'élément que nous voulons manipuler. Le `MustElement` attend automatiquement jusqu'à ce que l'élément apparaisse, donc nous n'avons pas besoin d'utiliser `MustWaitLoad` avant lui. Puis nous appelons le `MustInput` pour entrer le mot clé "earth" dedans. Si vous relancez le "main.go", vous devriez voir le résultat comme ci-dessous:
 
 ![après-entrée](after-input.png)
 
