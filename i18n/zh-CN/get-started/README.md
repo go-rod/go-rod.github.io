@@ -116,7 +116,7 @@ func main() {
 }
 ```
 
-The `NoDefaultDevice` and `MustWindowFullscreen` maximize the page viewport and browser window to make it easier to debug. 我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitLoad`。 然后我们调用 `MustInput` 来输入关键词 "earth"。 再次运行 "main.go" 后你会看到如下的结果：
+`NodefaultDevide` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitLoad`。 然后我们调用 `MustInput` 来输入关键词 "earth"。 再次运行 "main.go" 后你会看到如下的结果：
 
 ![after-input](after-input.png)
 
