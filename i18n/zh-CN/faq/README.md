@@ -1,13 +1,17 @@
 # 常见问题
 
-## 如何在注释或文档中搜索符号？
+## Why choose Rod over other libraries?
 
-比如截图中显示的符号 `Page.Element`
+Check [Why Rod](../why-rod.md).
+
+## How to search symbols in the comments or doc?
+
+Such as the symbol `Page.Element` shown in the screenshot:
 
 ![symbol-in-doc](symbol-in-doc.png)
 
-可以通过从这里搜索跳转到它(键盘快捷键是 `F`):
+You can jump to it by searching it from here (keyboard shortcut is `F`):
 
 ![search-symbol-in-doc](search-symbol-in-doc.png)
 
-对于经验丰富的开发人员，请查看 [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology)。
+For experienced developers please check [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
