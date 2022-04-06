@@ -11,7 +11,7 @@
 劫持一个请求的全过程：
 
 ```text
-   浏览器 --请求-> rod ---> 服务器 ---> rod --响应-> 浏览器
+浏览器 --请求-> rod ---> 服务器 ---> rod --响应-> 浏览器
 ```
 
 当浏览器想要向服务器发送请求时，它会先把请求发给 Rod，然后 Rod 作为代理，把请求发送给实际的服务器，并把响应返回给浏览器。 `--请求->` 和 `--响应->` 是可以篡改的部分。
@@ -43,13 +43,42 @@ page.HijackRequests()
 您可以通过节流网络来模拟和测试慢网络：
 
 ```go
-    page.EnableDomain(proto.NetworkEnable{})
+page.EnableDomain(proto.NetworkEnable{})
 
-    proto.NetworkEmulateNetworkConditions{
-        Offline:            false,
-        Latency:            300,
-        DownloadThroughput: 100,
-        UploadThroughput:   50,
-        ConnectionType:     proto.NetworkConnectionTypeCellular2g,
-    }.Call(page)
+proto.NetworkEmulateNetworkConditions{
+    Offline:            false,
+    Latency:            300,
+    DownloadThroughput: 100,
+    UploadThroughput:   50,
+    ConnectionType:     proto.NetworkConnectionTypeCellular2g,
+}.Call(page)
+```
+
+## Blocking certain resources from loading
+
+If needed, you can block certain resources (like images or fonts) from loading using the `Page.HijackRequests`.
+
+This is useful if you want to improve page loading times, especially if you're running on Headless Mode, since there is no point on loading fonts/css. Example below:
+
+```go
+func main() {
+    page := rod.New().MustConnect().MustPage("")
+
+    router := page.HijackRequests()
+
+    router.MustAdd("*.png", func(ctx *rod.Hijack) {
+        // There're a lot of types you can use in this enum, like NetworkResourceTypeScript for javascript files
+        // In this case we're using NetworkResourceTypeImage to block images
+        if ctx.Request.Type() == proto.NetworkResourceTypeImage {
+            ctx.Response.Fail(proto.NetworkErrorReasonBlockedByClient)
+            return
+        }
+        ctx.ContinueRequest(&proto.FetchContinueRequest{})
+    })
+
+    // since we are only hijacking a specific page, even using the "*" won't affect much of the performance
+    go router.Run()
+
+    page.MustNavigate("https://github.com/").MustWaitLoad().MustScreenshot("")
+}
 ```
