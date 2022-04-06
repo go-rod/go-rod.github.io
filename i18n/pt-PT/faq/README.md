@@ -1,13 +1,17 @@
 # Perguntas Frequentes
 
-## Como pesquisar símbolos nos comentários ou documentos?
+## Why choose Rod over other libraries?
 
-Como o símbolo `Página.Elemento` mostrado na captura de tela:
+Check [Why Rod](../why-rod.md).
 
-![símbolo-doc](symbol-in-doc.png)
+## How to search symbols in the comments or doc?
 
-Você pode pular para ela procurando daqui (o atalho do teclado é `F`:
+Such as the symbol `Page.Element` shown in the screenshot:
 
-![símbolo-pesquisado em doc](search-symbol-in-doc.png)
+![symbol-in-doc](symbol-in-doc.png)
 
-Para desenvolvedores experientes, por favor verifique o [Terminologia](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
+You can jump to it by searching it from here (keyboard shortcut is `F`):
+
+![search-symbol-in-doc](search-symbol-in-doc.png)
+
+For experienced developers please check [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
