@@ -52,23 +52,34 @@ page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 
 O `page.Timeout(2 * vez.Segundo)` é a `página anterior, WithCancel`. Não apenas `Páginas`, `Navegador` e `Elemento` também têm os mesmos auxiliares de contexto.
 
-## Detectar tempo limite
+## Cancel timeout
 
-Como eu sei se uma operação excede o tempo limite ou não? Em Golang, o tempo limite é geralmente um tipo de erro. Não é especial para a Vara. Para o código acima podemos fazer isso para detectar o tempo limite:
+If you want to keep using the same instance after some operation, you can use the `Page.CancelTimeout` helper to cancel the timeout:
 
 ```go
-página := rod.New().MustConnect().MustPage()
+page.
+    Timeout(2 * time.Second).MustElement("a").
+    CancelTimeout().
+    MustElement("b") // This line won't be affected by the 2 seconds timeout.
+```
+
+## Detect timeout
+
+How do I know if an operation is timed out or not? In Golang, timeout is usually a type of error. It's not special for Rod. For the code above we can do this to detect timeout:
+
+```go
+page := rod.New().MustConnect().MustPage()
 
 err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
-se erros. s(err, contexto. eadlineExceeded) {
-    // código para erro de timeout
-} else se err ! nil {
-    // código para outros tipos de erro
+if errors.Is(err, context.DeadlineExceeded) {
+    // code for timeout error
+} else if err != nil {
+    // code for other types of error
 }
 ```
 
-Aqui usamos `rod.Tente` para encapsular a função que pode executar um erro de timeout.
+Here we use `rod.Try` to wrap the function that may throw a timeout error.
 
-Falaremos mais sobre a manipulação de erros em [Erro de tratamento](error-handling.md).
+We will talk more about error handing at [Error Handling](error-handling.md).
