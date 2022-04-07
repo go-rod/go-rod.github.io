@@ -59,6 +59,17 @@ page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 The `page.Timeout(2 * time.Second)` is the previous `pageWithCancel`.
 Not just `Page`, `Browser` and `Element` also have the same context helpers.
 
+## Cancel timeout
+
+If you want to keep using the same instance after some operation, you can use the `Page.CancelTimeout` helper to cancel the timeout:
+
+```go
+page.
+    Timeout(2 * time.Second).MustElement("a").
+    CancelTimeout().
+    MustElement("b") // This line won't be affected by the 2 seconds timeout.
+```
+
 ## Detect timeout
 
 How do I know if an operation is timed out or not? In Golang, timeout is usually a type of error. It's not special for Rod.
