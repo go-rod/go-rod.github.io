@@ -52,9 +52,20 @@ page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 
 La `page.Timeout(2 * time.Second)` est la `pageWithCancel` précédente. Pas seulement `Page`, `Browser` et `Elément` ont les mêmes aides de contexte.
 
-## Détecter le délai d'attente
+## Cancel timeout
 
-Comment savoir si une opération est expirée ou non? Dans Golang, le délai est généralement un type d'erreur. Ce n'est pas spécial pour Rod. Pour le code ci-dessus, nous pouvons le faire pour détecter le timeout:
+If you want to keep using the same instance after some operation, you can use the `Page.CancelTimeout` helper to cancel the timeout:
+
+```go
+page.
+    Timeout(2 * time.Second).MustElement("a").
+    CancelTimeout().
+    MustElement("b") // This line won't be affected by the 2 seconds timeout.
+```
+
+## Detect timeout
+
+How do I know if an operation is timed out or not? In Golang, timeout is usually a type of error. It's not special for Rod. For the code above we can do this to detect timeout:
 
 ```go
 page := rod.New().MustConnect().MustPage()
@@ -62,13 +73,13 @@ page := rod.New().MustConnect().MustPage()
 err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
-si des erreurs. s(err, contexte. eadlineExceeded) {
+if errors.Is(err, context.DeadlineExceeded) {
     // code for timeout error
-} else if err ! nl {
-    // code pour les autres types d'erreur
+} else if err != nil {
+    // code for other types of error
 }
 ```
 
-Ici, nous utilisons `rod.Essayez` pour envelopper la fonction qui peut déclencher une erreur de délai.
+Here we use `rod.Try` to wrap the function that may throw a timeout error.
 
-Nous parlerons plus de la gestion des erreurs à [Gestion des erreurs](error-handling.md).
+We will talk more about error handing at [Error Handling](error-handling.md).
