@@ -52,15 +52,15 @@ page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 
 `page.Timeout(2 * time.Second)` 相当于之前的 `pageWithCancel`。 不只是 `Page`，`Browser` 和 `Element` 也都有相同的 context 帮助函数。
 
-## Cancel timeout
+## 取消超时
 
-If you want to keep using the same instance after some operation, you can use the `Page.CancelTimeout` helper to cancel the timeout:
+如果你想在操作后继续使用相同的实例, 你可以使用 `Page.CancelTimeout` 函数来取消超时：
 
 ```go
 page.
     Timeout(2 * time.Second).MustElement("a").
     CancelTimeout().
-    MustElement("b") // This line won't be affected by the 2 seconds timeout.
+    MustElement("b") // 这一行不会受到 2 秒超时的影响
 ```
 
 ## 判断超时
@@ -74,12 +74,12 @@ err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
 if errors.Is(err, context.DeadlineExceeded) {
-    // code for timeout error
+    // 对于超时异常的代码
 } else if err != nil {
-    // code for other types of error
+    // 对于其他异常的代码
 }
 ```
 
-Here we use `rod.Try` to wrap the function that may throw a timeout error.
+这里我们使用了 `rod.Try` 来包裹可能抛出超时异常的函数。
 
-We will talk more about error handing at [Error Handling](error-handling.md).
+我们在[异常处理](error-handling.md)里有更多这方面的讲解。
