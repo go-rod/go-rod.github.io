@@ -54,11 +54,11 @@ proto.NetworkEmulateNetworkConditions{
 }.Call(page)
 ```
 
-## Blocking certain resources from loading
+## 阻止某些资源的加载
 
-If needed, you can block certain resources (like images or fonts) from loading using the `Page.HijackRequests`.
+如果需要，您可以使用 `Page.HijackRequest` 屏蔽某些资源 (如图片或字体) 。
 
-This is useful if you want to improve page loading times, especially if you're running on Headless Mode, since there is no point on loading fonts/css. Example below:
+如果您想要改进页面加载时间，特别是当您在无头模式下运行时，这将是非常有用。 因为加载 字体 / css 上没意义。 下面示例：
 
 ```go
 func main() {
@@ -67,8 +67,8 @@ func main() {
     router := page.HijackRequests()
 
     router.MustAdd("*.png", func(ctx *rod.Hijack) {
-        // There're a lot of types you can use in this enum, like NetworkResourceTypeScript for javascript files
-        // In this case we're using NetworkResourceTypeImage to block images
+        // 你可以使用很多其他 enum 类型，比如 NetworkResourceTypeScript 用于 javascript
+        // 这个例子里我们使用 NetworkResourceTypeImage 来阻止图片
         if ctx.Request.Type() == proto.NetworkResourceTypeImage {
             ctx.Response.Fail(proto.NetworkErrorReasonBlockedByClient)
             return
@@ -76,7 +76,7 @@ func main() {
         ctx.ContinueRequest(&proto.FetchContinueRequest{})
     })
 
-    // since we are only hijacking a specific page, even using the "*" won't affect much of the performance
+    // 因为我们只劫持特定页面，即便不使用 "*" 也不会太多性能影响
     go router.Run()
 
     page.MustNavigate("https://github.com/").MustWaitLoad().MustScreenshot("")

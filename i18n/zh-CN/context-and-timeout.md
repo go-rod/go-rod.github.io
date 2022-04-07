@@ -52,6 +52,17 @@ page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 
 `page.Timeout(2 * time.Second)` 相当于之前的 `pageWithCancel`。 不只是 `Page`，`Browser` 和 `Element` 也都有相同的 context 帮助函数。
 
+## Cancel timeout
+
+If you want to keep using the same instance after some operation, you can use the `Page.CancelTimeout` helper to cancel the timeout:
+
+```go
+page.
+    Timeout(2 * time.Second).MustElement("a").
+    CancelTimeout().
+    MustElement("b") // This line won't be affected by the 2 seconds timeout.
+```
+
 ## 判断超时
 
 那么我们如何知晓一个失败的操作是否是因为超时了呢？ 在 Golang 中超时通常是一种异常。 这并不是 Rod 特有的。 对于先前的代码，我们可以像这样判断超时：
@@ -63,12 +74,12 @@ err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
 if errors.Is(err, context.DeadlineExceeded) {
-    // 对于超时异常的代码
+    // code for timeout error
 } else if err != nil {
-    // 对于其他异常的代码
+    // code for other types of error
 }
 ```
 
-这里我们使用了 `rod.Try` 来包裹可能抛出超时异常的函数。
+Here we use `rod.Try` to wrap the function that may throw a timeout error.
 
-我们在[异常处理](error-handling.md)里有更多这方面的讲解。
+We will talk more about error handing at [Error Handling](error-handling.md).
