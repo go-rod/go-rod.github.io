@@ -2,7 +2,7 @@
 
 ## 为什么选择 Rod 而不是其他库？
 
-Check [Why Rod](../why-rod.md).
+请看 [为什么 Rod ](../why-rod.md)。
 
 ## 如何在注释或文档中搜索符号？
 
