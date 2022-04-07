@@ -3,7 +3,8 @@
 ## OS
 
 You should be able to compile and run Rod seamlessly on all main platforms that Golang supports.
-On some platforms, you might need to install the browser manually, Rod can't guarantee the auto-downloaded browser will always work,
+This [docker way](/custom-launch.md?id=remotely-manage-the-launcher) is recommended to run Rod on a server.
+On some platforms, you might need to install the browser manually, Rod can't guarantee the auto-downloaded browser will always work.
 If you want Rod to support a platform, please raise an issue for it.
 
 It's very easy to google how to install the browser on your system, for example,

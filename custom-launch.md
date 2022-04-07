@@ -108,7 +108,7 @@ Here are the available flags: [link](https://peter.sh/experiments/chromium-comma
 
 Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
-## Remotely manage the launcher
+## Remotely manage the launcher :id=remotely-manage-the-launcher
 
 For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that
 they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely.
