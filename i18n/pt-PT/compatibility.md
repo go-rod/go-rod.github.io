@@ -2,7 +2,7 @@
 
 ## S.O.
 
-Você deve ser capaz de compilar e executar Rod sem problemas em todas as plataformas principais que Golang suporta. Em algumas plataformas, talvez você precise instalar o navegador manualmente, o Rod não pode garantir que o navegador baixado automaticamente funcionará. Se você deseja que o Rod suporte uma plataforma, por favor, crie um problema para ela.
+Você deve ser capaz de compilar e executar Rod sem problemas em todas as plataformas principais que Golang suporta. This [docker way](/custom-launch.md?id=remotely-manage-the-launcher) is recommended to run Rod on a server. On some platforms, you might need to install the browser manually, Rod can't guarantee the auto-downloaded browser will always work. If you want Rod to support a platform, please raise an issue for it.
 
 É muito fácil google como instalar o navegador no seu sistema, por exemplo, no Ubuntu ou Debian você vai encontrar algo assim para instalar o navegador:
 

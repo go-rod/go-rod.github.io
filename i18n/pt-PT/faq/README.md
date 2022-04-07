@@ -2,7 +2,7 @@
 
 ## Why choose Rod over other libraries?
 
-Check [Why Rod](../why-rod.md).
+Check [Why Rod](/why-rod.md).
 
 ## How to search symbols in the comments or doc?
 

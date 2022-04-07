@@ -103,7 +103,7 @@ Aqui estão as bandeiras disponíveis: [link](https://peter.sh/experiments/chrom
 
 Leia o documento de API para mais informações: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
-## Gerenciar o lançador remotamente
+## Remotely manage the launcher :id=remotely-manage-the-launcher
 
 Para o sistema de remoção de produção, usualmente, vamos separar os sucatas e navegadores em diferentes clusters para que eles possam escalar separadamente. Rod fornece o módulo `launcher.Manager` para gerenciar o launcher remotamente. Com isso, podemos iniciar um navegador remotamente com bandeiras de inicialização personalizadas. O exemplo a ser usado é [aqui](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
 
