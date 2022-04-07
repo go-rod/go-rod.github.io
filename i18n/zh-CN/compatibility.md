@@ -2,7 +2,7 @@
 
 ## OS
 
-一般来说你可以在 Golang 支持的所有主要平台上无感知地编译和运行 Rod。 在某些平台上，你可能需要手动安装浏览器。Rod 无法保证总是能成功自动下载浏览器。如果想要 Rod 支持某一平台，请发起一个 issue。
+一般来说你可以在 Golang 支持的所有主要平台上无感知地编译和运行 Rod。 This [docker way](/custom-launch.md?id=remotely-manage-the-launcher) is recommended to run Rod on a server. On some platforms, you might need to install the browser manually, Rod can't guarantee the auto-downloaded browser will always work. If you want Rod to support a platform, please raise an issue for it.
 
 在网上可以很轻松地搜索到如何在你的系统中安装浏览器。比如说，对于 Ubuntu 或 Debian，可以搜索到这种安装浏览器的方法：
 
