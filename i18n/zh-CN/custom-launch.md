@@ -103,7 +103,7 @@ func main() {
 
 阅读 API 文档以获取更多信息：[链接](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher)。
 
-## Remotely manage the launcher :id=remotely-manage-the-launcher
+## 远程管理启动器 :id=remotely-manage-the-launcher
 
 对于生产环境的爬虫系统拆，我们通常会把爬虫和浏览器拆分到不同的集群，从而使它们能够独立扩容。 Rod 提供模块 `launcher.Manager` 来远程管理启动器。 通过它我们可以远程启动用自定义启动参数浏览器。 它的用例在 [这里](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go)。
 
