@@ -55,3 +55,21 @@ Now the page can invoke this method on the window object:
 ```go
 hash := page.MustEval(`() => window.md5("test")`).Str()
 ```
+
+
+## Listen for the button click event specified by the page
+
+For example, use the 'Page.MustExpose' global method to set up
+
+```go
+page.MustExpose("ListenClick", func(v gson.JSON) (interface{}, error) {
+    fmt.Println("Click the button------------")
+    return nil, nil
+})
+```
+
+The 'ListenClick' method is called when the button is clicked
+
+```go
+page.MustElement("#su").MustEval(`() => this.addEventListener('click', ListenClick)`)
+```

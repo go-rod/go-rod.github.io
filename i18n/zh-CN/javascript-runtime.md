@@ -54,19 +54,3 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 hash := page.MustEval(`() => window.md5("test")`).Str()
 ```
 
-## 监听页面指定的按钮被点击事件
-
-例如，使用 `Page.MustExpose` 设置全局方法：
-
-```go
-page.MustExpose("ListenClick", func(v gson.JSON) (interface{}, error) {
-    fmt.Println("点击按钮了------------")
-    return nil, nil
-})
-```
-
-按钮被点击时候调用ListenClick方法：
-
-```go
-page.MustElement("#su").MustEval(`() => this.addEventListener('click', ListenClick)`)
-```
