@@ -66,15 +66,15 @@ func main() {
 }
 ```
 
-`NodefaultDevide` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 We added `time.Sleep(time.Hour)` at the end the code so that it won't be too fast for our eyes to catch it before the program exits.
+`NodefaultDevide` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 我们在代码结尾添加了 `time.Sleep(time.Hour)` ，这样程序就不会在肉眼能察觉前太快退出。
 
-Let's run the module again with the `-rod` command line flag:
+让我们用 `-rod` 命令行参数再次运行模块：
 
 ```bash
 go run . -rod=show
 ```
 
-The `show` option means "show the browser UI on the foreground". Now you should see a browser like this:
+`show` 选项的意思是“在前景中显示浏览器界面”。 现在你应该像这样看到浏览器：
 
 ![show](show.png)
 
