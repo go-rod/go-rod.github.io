@@ -1,3 +1,3 @@
 # Teste de ponta a ponta
 
-Verifique o projeto de exemplo [](https://github.com/go-rod/rod-e2e-example)
+Check the [example project](https://github.com/go-rod/rod/tree/master/lib/examples/e2e-testing)
