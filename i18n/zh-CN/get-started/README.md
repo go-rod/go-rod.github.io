@@ -45,15 +45,9 @@ go run .
 
 对于有经验的开发者，可以跳过这里的所有内容、阅读[这个文件](https://github.com/go-rod/rod/blob/master/examples_test.go)。
 
-默认情况下，Rod 会禁用浏览器的 UI 来最大化性能。 但开发自动化任务时我们通常更加关心调试的难易程度。 Rod 为你提供了许多调试代码的方案。
+默认情况下，Rod 会禁用浏览器的 UI 来最大化性能。 但开发自动化任务时我们通常更加关心调试的难易程度。 Rod 提供了很多用于提升调试体验帮助函数。
 
-让我们在当前工作目录下创建一个“.rod”配置文件， 内容为：
-
-```txt
-show
-```
-
-意思是“显示浏览器 UI”。 再次运行这个 module 之前，让我们在代码最后加上 `time.Sleep(time.Hour)`，这样可以保证程序不会太快结束，让我们可以看到程序的运行结果。“main.go”的代码现在变成了：
+在我们再次运行模块之前，让我们稍微修改代码，以便于调试：
 
 ```go
 package main
@@ -65,28 +59,36 @@ import (
 )
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    page := rod.New().NoDefaultDevice().MustConnect().MustPage("https://www.wikipedia.org/")
+    page.MustWindowFullscreen()
     page.MustWaitLoad().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
 
-如果再次运行这个 module，你可以看到像这样的一个浏览器：
+`NodefaultDevide` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 我们在代码结尾添加了 `time.Sleep(time.Hour)` ，这样程序就不会在肉眼能察觉前太快退出。
+
+让我们用 `-rod` 命令行参数再次运行模块：
+
+```bash
+go run . -rod=show
+```
+
+`show` 选项的意思是“在前景中显示浏览器界面”。 现在你应该像这样看到浏览器：
 
 ![show](show.png)
 
-在键盘上按 [CTRL + C](https://en.wikipedia.org/wiki/Control-C) 停止程序。
+要停止程序，让我们回到终端，然后按键盘上的 [CTRL + C](https://en.wikipedia.org/wiki/Control-C)。
 
 ## 输入与点击
 
-让我们控制浏览器来搜索关键词 "earth"。 一个网站可能有许多输入框和按钮。我们需要告诉程序它需要操控其中的哪一个。 通常我们会使用 [Devtools](https://developers.google.com/web/tools/chrome-devtools/) 来帮助定位我们想要控制的元素。 让我们在 ".rod" 文件中新增一行配置来启用 Devtools。现在配置文件变成了：
+让我们控制浏览器来搜索关键词“earth”。 一个网站可能有许多输入框和按钮。我们需要告诉程序它需要操控其中的哪一个。 通常我们会使用 [Devtools](https://developers.google.com/web/tools/chrome-devtools/) 来帮助定位我们想要控制的元素。 让我们在 `-rod` 参数重添加一个新的配置来启用 Devtools，现在命令变成了：
 
-```txt
-show
-devtools
+```bash
+go run . -rod=show,devtools
 ```
 
-再次运行“main.go”。将鼠标移动到输入框，在上面右击，然后在弹出的菜单中点击“审查元素”：
+运行上面的命令，将鼠标移动到输入框，在上面点击右键，然后在弹出的菜单中点击“审查元素”：
 
 ![inspect](inspect.png)
 
@@ -94,7 +96,7 @@ devtools
 
 ![input](input.png)
 
-如上图所示，右击复制 [css 选择器](css-selector.md)。 剪贴板中的内容会变成 "#searchInput"。 我们之后会使用它来定位用于输入关键字的元素。 现在“main.go”中的内容变为：
+如上图所示，右击复制 [css 选择器](css-selector.md)。 剪贴板中的内容会变成“#searchInput”。 我们之后会使用它来定位用于输入关键字的元素。 现在“main.go”中的内容变为：
 
 ```go
 package main
@@ -116,7 +118,7 @@ func main() {
 }
 ```
 
-`NodefaultDevide` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitLoad`。 然后我们调用 `MustInput` 来输入关键词 "earth"。 再次运行 "main.go" 后你会看到如下的结果：
+我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitLoad`。 然后我们调用 `MustInput` 来输入关键词“earth”。 再次运行“main.go”后你会看到如下的结果：
 
 ![after-input](after-input.png)
 
@@ -126,38 +128,42 @@ func main() {
 
 ![search-btn-selector](search-btn-selector.png)
 
-然后添加代码来点击这个搜索按钮。现在 "main.go" 的内容是：
+然后添加代码来点击这个搜索按钮。现在“main.go”的内容是：
 
 ```go
 package main
 
-import "github.com/go-rod/rod"
+import (
+    "time"
+
+    "github.com/go-rod/rod"
+)
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
+    browser := rod.New().MustConnect().NoDefaultDevice()
+    page := browser.MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
 
     page.MustElement("#searchInput").MustInput("earth")
     page.MustElement("#search-form > fieldset > button").MustClick()
 
     page.MustWaitLoad().MustScreenshot("a.png")
+    time.Sleep(time.Hour)
 }
 ```
 
-重新运行这个 module，"a.png" 会显示搜索结果：
+如果我们重新运行这个模块，“a.png”会显示搜索结果：
 
 ![earth-page](earth-page.png)
 
 ## 慢动作和可视化跟踪
 
-自动化操作对人眼来说太快了，调试时我们通常会启用慢动作和可视化跟踪。让我们修改 ".rod" 文件：
+自动化操作对人眼来说太快了，调试时我们通常会启用慢动作和可视化跟踪。让我们用些额外的配置来运行这个模块：
 
-```txt
-show
-slow=1s
-trace
+```bash
+go run . -rod="show,slow=1s,trace"
 ```
 
-然后重新运行模块。现在每次操作都会在执行前等待 1 秒。 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
+现在每次操作都会在执行前等待 1 秒。 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
 
 ![trace](trace.png)
 
@@ -176,15 +182,15 @@ trace
 [rod] 2020/11/11 11:11:11 [input] left click
 ```
 
-## 除 ".rod" 文件之外
+## 不只有命令行参数
 
-".rod" 文件只是一些常用 API 的快捷方式。你也可以在代码中手动设置，比如 "slow" 可以通过 `rod.New().SlowMotion(2 * time.Second)` 这样的代码来实现。 你也可以使用环境变量来设置，比如在 Mac 或者 Linux 上：`rod=show go main.go`。
+命令行参数只是一些常用方法的快捷方式。你也可以在代码中手动设置，比如“slow”可以通过 `rod.New().SlowMotion(2 * time.Second)` 这样的代码来实现。
 
 ## 获取文本内容
 
 Rod 提供了许多方便的方法来获取页面中的内容。
 
-让我们试着来获取关于 Earth 的说明，依然和先前一样通过 Devtools 来复制 css 选择器：
+让我们试着来获取关于 Earth 的说明，依然和先前一样通过 Devtools 来复制 CSS 选择器：
 
 ![get-text](get-text.png)
 
@@ -219,7 +225,7 @@ Earth is the third planet from the Sun and the only astronomical object known to
 
 ## 获取图片内容
 
-与获取文本内容一样，我们也可以从页面中获取图像。让我们找到 Earth 图像的选择器，并使用 `MustResource` 获取图像的二进制数据：
+与获取文本内容一样，我们也可以从页面中获取图像。让我们找到 Earth 图像的 CSS 选择器，并使用 `MustResource` 获取图像的二进制数据：
 
 ![get-image](get-image.png)
 
@@ -244,6 +250,6 @@ func main() {
 }
 ```
 
-输出的文件 "b.png" 如下：
+输出文件“b.png”应为：
 
 ![earth](earth.png)
