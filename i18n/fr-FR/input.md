@@ -43,6 +43,28 @@ The supported input types are [date](https://developer.mozilla.org/en-US/docs/We
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
+## Input key combinations
+
+For example, the complete actions to input the uppercase 'a' like a human include:
+
+1. press and hold a `Shift` key
+1. press and release the `A` key
+1. release the `Shift` key
+
+You can use the `Page.KeyActions` or `Element.KeyActions` helpers to do it:
+
+```go
+page.KeyActions().Press(input.ShiftLeft).Type('A').MustDo()
+```
+
+The `KeyActions` helper will automatically release all pressed keys, here the `input.ShiftLeft` will be released automatically.
+
+To simulate shortcuts input like `CTRL + Enter`, you can do like this:
+
+```go
+page.KeyActions().Press(input.ControlLeft).Type(input.Enter).MustDo()
+```
+
 ## Checkbox
 
 Just click it like a human:
