@@ -43,46 +43,68 @@ Os tipos de entrada suportados são [data](https://developer.mozilla.org/en-US/d
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
+## Input key combinations
+
+For example, the complete actions input the uppercase 'a' like a human, you have to:
+
+1. press and hold a `Shift` key
+1. press and release the `A` key
+1. release the `Shift` key
+
+To simulate it you can use the `Page.KeyActions` or `Element.KeyActions` helpers:
+
+```go
+page.KeyActions().Press(input.ShiftLeft).Type('A').MustDo()
+```
+
+The `KeyActions` helper will automatically release all pressed keys, here the `input.ShiftLeft` will be released automatically.
+
+To simulate shortcuts input like `CTRL + Enter`, you can do like this:
+
+```go
+page.KeyActions().Press(input.ControlLeft).Type(input.Enter).MustDo()
+```
+
 ## Checkbox
 
-Basta clicar nele como um humano:
+Just click it like a human:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// verifique-o se não estiver marcado
-se !el.MustProperty("verificado").Bool() {
+// check it if not checked
+if !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## Selecionar opções
+## Select options
 
-Selecione as opções em [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-O código abaixo selecionará as opções que contêm o texto "B" ou "C":
+The code below will select options that contains text "B" or "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-Você também pode usar seletor regex ou css para selecionar opções:
+You can also use regex or css selector to select options:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// definiu como falso para desmarcar
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeSSector)
+// set false to deselect
+page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Definir arquivos
+## Set files
 
-Use `SetFiles` para definir os arquivos para a entrada de arquivo [](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, teclado e toque
+## Mouse, keyboard, and touch
 
-Você também pode usar a `page.Mouse`, `page.Keyboard`, ou `page.Touch` para simular entradas de baixo nível. Tal como você pode pesquisar o teste de unidade por arrastar e aprender como simular arrastamento.
+You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
