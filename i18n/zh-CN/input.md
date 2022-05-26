@@ -45,29 +45,29 @@ page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 
 ## 输入按键组合
 
-For example, the complete actions to input the uppercase 'a' like a human include:
+例如，像人类一样输入大写 “a” 的完整动作包括：
 
-1. press and hold a `Shift` key
-1. press and release the `A` key
-1. release the `Shift` key
+1. 按住 `Shift` 键
+1. 按住然后松开 `A` 键
+1. 松开 `Shift` 键
 
-You can use the `Page.KeyActions` or `Element.KeyActions` helpers to do it:
+可以使用 `Page.KeyAction` 或 `Element.KeyActions` 帮助函数：
 
 ```go
 page.KeyActions().Press(input.ShiftLeft).Type('A').MustDo()
 ```
 
-The `KeyActions` helper will automatically release all pressed keys, here the `input.ShiftLeft` will be released automatically.
+`KeyActions` 帮助函数将自动松开所有按键，此处 `input.ShiftLeft` 将被自动松开。
 
-To simulate shortcuts input like `CTRL + Enter`, you can do like this:
+要模拟诸如 `CTRL + Enter` 等快捷键，可以这样做：
 
 ```go
 page.KeyActions().Press(input.ControlLeft).Type(input.Enter).MustDo()
 ```
 
-## Checkbox
+## 复选框
 
-Just click it like a human:
+像真人一样点击即可：
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
@@ -78,33 +78,33 @@ if !el.MustProperty("checked").Bool() {
 }
 ```
 
-## Select options
+## 选择选项
 
-Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+选择 [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) 中的选项。
 
-The code below will select options that contains text "B" or "C":
+下面的代码会选择包含文本 "B" 或 "C" 的选项：
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-You can also use regex or css selector to select options:
+也可以使用正则表达式或 CSS 选择器来选择选项：
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
+// 设置为 false 来取消选择
 page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## Set files
+## 设置文件
 
-Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
+使用 `SetFiles` 为[文件输入元素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)设置文件：
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## Mouse, keyboard, and touch
+## 鼠标、键盘和触摸
 
-You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
+也可以使用 `page.Mouse`、`page.Keyboard` 或 `page.Touch` 模拟底层输入。 例如，可以在 Rod 的单元测试中搜索 drag 来了解如何模拟拖动。
