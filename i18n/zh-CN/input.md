@@ -43,46 +43,68 @@ page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")
 page.MustElement(`[type="date"]`).MustInputTime(time.Now())
 ```
 
-## 复选框
+## 输入按键组合
 
-像真人一样点击即可：
+For example, the complete actions to input the uppercase 'a' like a human include:
+
+1. press and hold a `Shift` key
+1. press and release the `A` key
+1. release the `Shift` key
+
+You can use the `Page.KeyActions` or `Element.KeyActions` helpers to do it:
+
+```go
+page.KeyActions().Press(input.ShiftLeft).Type('A').MustDo()
+```
+
+The `KeyActions` helper will automatically release all pressed keys, here the `input.ShiftLeft` will be released automatically.
+
+To simulate shortcuts input like `CTRL + Enter`, you can do like this:
+
+```go
+page.KeyActions().Press(input.ControlLeft).Type(input.Enter).MustDo()
+```
+
+## Checkbox
+
+Just click it like a human:
 
 ```go
 el := page.MustElement(`[type="checkbox"]`)
 
-// 如果未选中，则选中
+// check it if not checked
 if !el.MustProperty("checked").Bool() {
     el.MustClick()
 }
 ```
 
-## 选择选项
+## Select options
 
-选择 [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) 中的选项。
+Select options in [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
 
-下面的代码会选择包含文本 "B" 或 "C" 的选项：
+The code below will select options that contains text "B" or "C":
 
 ```go
 page.MustElement("select").MustSelect("B", "C")
 ```
 
-也可以使用正则表达式或 CSS 选择器来选择选项：
+You can also use regex or css selector to select options:
 
 ```go
 page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// 设置为 false 来取消选择
+// set false to deselect
 page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
-## 设置文件
+## Set files
 
-使用 `SetFiles` 为[文件输入元素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)设置文件：
+Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
 pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
-## 鼠标、键盘和触摸
+## Mouse, keyboard, and touch
 
-也可以使用 `page.Mouse`、`page.Keyboard` 或 `page.Touch` 模拟底层输入。 例如，可以在 Rod 的单元测试中搜索 drag 来了解如何模拟拖动。
+You can also use the `page.Mouse`, `page.Keyboard`, or `page.Touch` to simulate low-level inputs. Such as you can search the unit test for dragging to learn how to simulate dragging.
