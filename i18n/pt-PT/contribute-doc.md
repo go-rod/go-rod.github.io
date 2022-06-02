@@ -1,6 +1,6 @@
 # Doc Contribua
 
-## Depurar e visualizar
+## Debug
 
 Instale o [docsify-cli](https://docsify.js.org/#/quickstart).
 
