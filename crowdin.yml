@@ -3,6 +3,8 @@ files:
     ignore:
       - .*
       - go.mod
+      - go.sum
+      - '*.go'
       - .*/
       - i18n/
       - '*.css'
