@@ -1,6 +1,6 @@
 # 贡献文档
 
-## 调试和预览
+## Debug
 
 安装 [docsify-cli](https://docsify.js.org/#/quickstart)。
 
