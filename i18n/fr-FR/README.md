@@ -9,4 +9,6 @@ Rod est un driver de haut niveau pour [le protocole DevTools](https://chromedevt
 - Demandes de Hijack
 - Et plus encore
 
-Pour contribuer au doc, [cliquez ici](contribute-doc.md).
+To read the doc on your local, run `go run github.com/go-rod/go-rod.github.io@latest`
+
+To contribute doc, [check here](contribute-doc.md).
