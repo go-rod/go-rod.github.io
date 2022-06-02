@@ -1,6 +1,6 @@
 # Contribute Doc
 
-## Debug and preview
+## Debug
 
 Install [docsify-cli](https://docsify.js.org/#/quickstart).
 

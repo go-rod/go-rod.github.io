@@ -10,4 +10,6 @@ It's widely used for web automation and scraping. Rod can automate most things i
 - Hijack requests
 - And more
 
+To read the doc on your local, run `go run github.com/go-rod/go-rod.github.io@latest`
+
 To contribute doc, [check here](contribute-doc.md).
