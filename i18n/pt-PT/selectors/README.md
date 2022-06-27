@@ -113,7 +113,7 @@ func main() {
     página := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
     page.MustElement("#id_login").MustInput("username")
-    page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
+    page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
 
     time.Sleep(10 * time.Second) // Por favor, evite o uso do time.Sleep!
 
@@ -134,7 +134,7 @@ func main() {
     página := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
     page.MustElement("#id_login").MustInput("nome")
-    página. ustElement("#id_password").MustInput("senha").MustPress(input.Enter)
+    página. ustElement("#id_password").MustInput("senha").MustType(input.Enter)
 
     // Continuará fazendo sondagem até que um seletor tenha encontrado uma correspondência
     page.Race().Element(". av-icone-usuário-base").Manutenção(função(e *rod. lement) {

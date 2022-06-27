@@ -113,7 +113,7 @@ func main() {
     page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
     page.MustElement("#id_login").MustInput("username")
-    page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
+    page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
 
     time.Sleep(10 * time.Second) // 请避免使用 time.Sleep！
 
@@ -134,7 +134,7 @@ func main() {
     page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
     page.MustElement("#id_login").MustInput("username")
-    page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
+    page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
 
     // 轮询，直到匹配到一个选择器
     page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {

@@ -129,7 +129,7 @@ func main() {
 	page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
 	page.MustElement("#id_login").MustInput("username")
-	page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
+	page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
 
 	time.Sleep(10 * time.Second) // Please avoid the use of time.Sleep!
 
@@ -150,7 +150,7 @@ func main() {
 	page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
 
 	page.MustElement("#id_login").MustInput("username")
-	page.MustElement("#id_password").MustInput("password").MustPress(input.Enter)
+	page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
 
 	// It will keep polling until one selector has found a match
 	page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
