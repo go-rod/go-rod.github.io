@@ -97,7 +97,7 @@ The code will look like:
 
 ```go
 frame01 := page.MustElement("iframe").MustFrame()
-iframe02 := iframe01.MustElement("iframe").MustFrame()
+frame02 := frame01.MustElement("iframe").MustFrame()
 frame02.MustElement("button")
 ```
 
