@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - '**'
+
+  pull_request:
+
+  schedule:
+    - cron: '17 5 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
+
+      - uses: actions/checkout@v2
+
+      - run: |
+          go get -u
+          go mod tidy
+          go test
