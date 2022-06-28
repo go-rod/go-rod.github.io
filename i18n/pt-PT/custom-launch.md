@@ -121,7 +121,7 @@ Quando você faz login na sua conta do github e deseja reutilizar a sessão de l
 
 ```go
 wsURL := launcher.NewUserMode().MustLaunch()
-navegador := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
 ```
 
 Aqui está um exemplo mais detalhado: [exemplo de código](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
