@@ -74,9 +74,9 @@ err := rod.Try(func() {
     page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 })
 if errors.Is(err, context.DeadlineExceeded) {
-    // 对于超时异常的代码
+    fmt.Println("timeout error")
 } else if err != nil {
-    // 对于其他异常的代码
+    fmt.Println("other types of error")
 }
 ```
 
