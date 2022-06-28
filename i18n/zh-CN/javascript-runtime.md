@@ -52,6 +52,7 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 
 ```go
 hash := page.MustEval(`() => window.md5("test")`).Str()
+fmt.Println(hash)
 ```
 
 Here's another example to get button click event on the page:
