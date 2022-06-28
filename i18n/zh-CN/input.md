@@ -7,11 +7,11 @@ Rod 提供了很多方法来模拟人工输入，比如鼠标点击或者键盘�
 模拟鼠标点击一个元素：
 
 ```go
-// 左击
+// left click
 page.MustElement("button").MustClick()
 
-// 右击
-page.MustElement("button").Click(proto.InputMouseButtonRight)
+// right click
+_ = page.MustElement("button").Click(proto.InputMouseButtonRight)
 ```
 
 ## 文本输入
@@ -91,10 +91,10 @@ page.MustElement("select").MustSelect("B", "C")
 也可以使用正则表达式或 CSS 选择器来选择选项：
 
 ```go
-page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
+_ = page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// 设置为 false 来取消选择
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+// set false to deselect
+_ = page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
 ## 设置文件
@@ -102,7 +102,7 @@ page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTy
 使用 `SetFiles` 为[文件输入元素](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)设置文件：
 
 ```go
-pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
+page.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
 ## 鼠标、键盘和触摸
