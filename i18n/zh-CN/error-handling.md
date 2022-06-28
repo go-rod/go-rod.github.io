@@ -7,8 +7,12 @@
 带前缀的版本只是无前缀版本加上异常检查。 下面是 `MustElement` 的源代码。可以看到，它只是调用了 `Element`，并多加了几行代码，在 `err` 不是 nil 时 panic。
 
 ```go
-func (p *Page) MustElement(selectors ...string) *Element {
-    el, err := p.Element(selectors...)
+// Page ...
+type Page rod.Page
+
+// MustElement ...
+func (p *Page) MustElement(selector string) *rod.Element {
+    el, err := (*rod.Page)(p).Element(selector)
     if err != nil {
         panic(err)
     }
@@ -27,13 +31,11 @@ page := rod.New().MustConnect().MustPage("https://example.com")
 
 el, err := page.Element("a")
 if err != nil {
-    handleError(err)
-    return
+    panic(err)
 }
 html, err := el.HTML()
 if err != nil {
-    handleError(err)
-    return
+    panic(err)
 }
 fmt.Println(html)
 ```
@@ -46,21 +48,26 @@ page := rod.New().MustConnect().MustPage("https://example.com")
 err := rod.Try(func() {
     fmt.Println(page.MustElement("a").MustHTML())
 })
-handleError(err)
+panic(err)
 ```
 
 ## 检查异常类型
 
 我们使用 Go 的标准方法来检查异常类型（没有魔法）。
 
-上面代码中的 `handleError` 可以是这样：
+Replace the `panic` in the above code with `handleError`:
 
 ```go
+func main() {
+    _, err := page.Element("a")
+    handleError(err)
+}
+
 func handleError(err error) {
     var evalErr *rod.ErrEval
-    if errors.Is(err, context.DeadlineExceeded) { // 超时异常
+    if errors.Is(err, context.DeadlineExceeded) { // timeout error
         fmt.Println("timeout err")
-    } else if errors.As(err, &evalErr) { // eval 异常
+    } else if errors.As(err, &evalErr) { // eval error
         fmt.Println(evalErr.LineNumber)
     } else if err != nil {
         fmt.Println("can't handle", err)
