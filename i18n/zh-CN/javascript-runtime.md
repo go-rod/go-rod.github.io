@@ -53,3 +53,18 @@ page.MustExpose("md5", func(g gson.JSON) (interface{}, error) {
 ```go
 hash := page.MustEval(`() => window.md5("test")`).Str()
 ```
+
+Here's another example to get button click event on the page:
+
+```go
+page.MustExpose("myClick", func(v gson.JSON) (interface{}, error) {
+    fmt.Println("Clicked")
+    return nil, nil
+})
+```
+
+Call the 'myClick' method when a button is clicked:
+
+```go
+page.MustElement("button").MustEval(`() => this.onclick = myClick`)
+```
