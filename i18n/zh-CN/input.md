@@ -7,10 +7,10 @@ Rod 提供了很多方法来模拟人工输入，比如鼠标点击或者键盘�
 模拟鼠标点击一个元素：
 
 ```go
-// left click
+// 左击
 page.MustElement("button").MustClick()
 
-// right click
+// 右击
 _ = page.MustElement("button").Click(proto.InputMouseButtonRight)
 ```
 
@@ -93,7 +93,7 @@ page.MustElement("select").MustSelect("B", "C")
 ```go
 _ = page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
-// set false to deselect
+// 设置为 false 来取消
 _ = page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
