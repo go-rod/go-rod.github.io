@@ -55,7 +55,7 @@ panic(err)
 
 我们使用 Go 的标准方法来检查异常类型（没有魔法）。
 
-Replace the `panic` in the above code with `handleError`:
+将上面代码中的 `panic` 替换为 `handleError` ：
 
 ```go
 func main() {
@@ -65,12 +65,12 @@ func main() {
 
 func handleError(err error) {
     var evalErr *rod.ErrEval
-    if errors.Is(err, context.DeadlineExceeded) { // timeout error
-        fmt.Println("timeout err")
-    } else if errors.As(err, &evalErr) { // eval error
+    if errors.Is(err, context.DeadlineExceeded) { // 超时错误
+        fmt.Println("超时错误")
+    } else if errors.As(err, &evalErr) { // eval 错误
         fmt.Println(evalErr.LineNumber)
     } else if err != nil {
-        fmt.Println("can't handle", err)
+        fmt.Println("无法处理", err)
     }
 }
 ```
