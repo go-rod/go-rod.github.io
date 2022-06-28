@@ -9,4 +9,6 @@ Rod 是 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol) �
 - 劫持请求
 - 以及更多功能
 
-有关如何贡献文档，[见此](contribute-doc.md)。
+To read the doc on your local, run `go run github.com/go-rod/go-rod.github.io@latest`
+
+To contribute doc, [check here](contribute-doc.md).
