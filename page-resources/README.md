@@ -7,7 +7,8 @@ You can use the `Page.GetResource` method to get files from here:
 Such as get an image:
 
 ```go
-bin, err := page.GetResource("https://test.com/a.png")
+bin, _ := page.GetResource("https://test.com/a.png")
+fmt.Println(bin)
 ```
 
 ## Element resource
@@ -17,4 +18,5 @@ Such as for element `<img src="a.jpg">`, you can use code like this to get the `
 
 ```go
 bin := page.MustElement("img").MustResource()
+fmt.Println(bin)
 ```

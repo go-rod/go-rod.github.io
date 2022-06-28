@@ -135,10 +135,10 @@ func main() {
 
 	if page.MustHas(".nav-user-icon-base") {
 		// print the username after successful login
-		fmt.Println(*el.MustAttribute("title"))
+		fmt.Println(page.MustElement(".nav-user-icon-base").MustAttribute("title"))
 	} else if page.MustHas("[data-cy=sign-in-error]") {
 		// when wrong username or password
-		fmt.Println(el.MustText())
+		fmt.Println(page.MustElement("[data-cy=sign-in-error]").MustText())
 	}
 }
 ```
@@ -155,7 +155,7 @@ func main() {
 	// It will keep polling until one selector has found a match
 	page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
 		// print the username after successful login
-		fmt.Println(*e.MustAttribute("title"))
+		fmt.Println(e.MustAttribute("title"))
 	}).Element("[data-cy=sign-in-error]").MustHandle(func(e *rod.Element) {
 		// when wrong username or password
 		panic(e.MustText())
