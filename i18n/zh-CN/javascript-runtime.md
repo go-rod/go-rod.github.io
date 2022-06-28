@@ -55,16 +55,16 @@ hash := page.MustEval(`() => window.md5("test")`).Str()
 fmt.Println(hash)
 ```
 
-Here's another example to get button click event on the page:
+下面是另一个例子来获取页面上的按钮事件：
 
 ```go
 page.MustExpose("myClick", func(v gson.JSON) (interface{}, error) {
-    fmt.Println("Clicked")
+    fmt.Println("点击了")
     return nil, nil
 })
 ```
 
-Call the 'myClick' method when a button is clicked:
+点击按钮时调用 'myClick' 方法：
 
 ```go
 page.MustElement("button").MustEval(`() => this.onclick = myClick`)
