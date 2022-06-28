@@ -9,6 +9,7 @@
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := rod.New().MustConnect()
+fmt.Println(browser1, browser2)
 ```
 
 所有 API 都是线程安全的，同样适用于多个 Go routines。
@@ -18,18 +19,20 @@ browser2 := rod.New().MustConnect()
 ```go
 browser1 := rod.New().MustConnect()
 browser2 := browser1.MustIncognito()
+fmt.Println(browser1, browser2)
 ```
 
 使用不同的启动参数启动浏览器：
 
 ```go
 browser1 := rod.New().ControlURL(
-    launcher.New().Headless(false).MustLaunch()
+    launcher.New().Headless(false).MustLaunch(),
 ).MustConnect()
 
-browser1 := rod.New().ControlURL(
-    launcher.New().UserDataDir("path").MustLaunch()
+browser2 := rod.New().ControlURL(
+    launcher.New().UserDataDir("path").MustLaunch(),
 ).MustConnect()
+fmt.Println(browser1, browser2)
 ```
 
 ## 多页面
@@ -40,6 +43,7 @@ browser1 := rod.New().ControlURL(
 browser := rod.New().MustConnect()
 page1 := browser.MustPage("http://a.com")
 page2 := browser.MustPage("http://b.com")
+fmt.Println(page1, page2)
 ```
 
 如果浏览器已经开启了多个页面而且你没有它们的引用，你可以 [Browser.Pages()](https://pkg.go.dev/github.com/go-rod/rod#Browser.Pages) 来获取 [Pages](https://pkg.go.dev/github.com/go-rod/rod#Pages) 结构体，这是一个由标签页或窗口组成的数组，它拥有一些帮助函数，如 [Pages.Find()](https://pkg.go.dev/github.com/go-rod/rod#Pages.Find), [Pages.FindByURL()](https://pkg.go.dev/github.com/go-rod/rod#Pages.FindByURL)， [Pages.First()](https://pkg.go.dev/github.com/go-rod/rod#Pages.First)，等等。 一旦你获得你想要的页面的引用，你可以使用 [Page.Activate()](https://pkg.go.dev/github.com/go-rod/rod#Page.Activate) 来聚焦。 如果你点击链接打开了一个新的页面，你可以使用 [Page.WaitOpen](https://pkg.go.dev/github.com/go-rod/rod#Page.WaitOpen) 以在新窗口开启后立即获取它的引用。
