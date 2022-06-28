@@ -121,7 +121,7 @@ func main() {
 
 ```go
 wsURL := launcher.NewUserMode().MustLaunch()
-browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
 ```
 
 这里是一个更详细的示例： [代码示例](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go)。
