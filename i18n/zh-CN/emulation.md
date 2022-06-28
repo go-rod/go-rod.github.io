@@ -59,14 +59,15 @@ browser.DefaultDevice(devices.Clear)
 可以使用 launch env 为所有页面设置：
 
 ```go
-u := launcher.New().Env("TZ=America/New_York").MustConnect()
-browser := rod.New().ControlURL(u).MustConnect()
+u := launcher.New().Env(append(os.Environ(), "TZ=America/New_York")...).MustLaunch()
+rod.New().ControlURL(u).MustConnect()
 ```
 
 或者可以使用 [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) 或 [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) 为特定页面设置：
 
 ```go
-proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
+page := browser.MustPage()
+_ = proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
 ```
 
 ## 权限
@@ -82,10 +83,11 @@ proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
 使用 [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
 
 ```go
-proto.EmulationSetEmulatedMedia{
+page := browser.MustPage()
+_ = proto.EmulationSetEmulatedMedia{
     Media: "screen",
     Features: []*proto.EmulationMediaFeature{
-        {"prefers-color-scheme", "dark"},
+        {Name: "prefers-color-scheme", Value: "dark"},
     },
 }.Call(page)
 ```
