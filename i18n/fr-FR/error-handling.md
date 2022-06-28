@@ -7,10 +7,14 @@ Les méthodes comme `MustNavigate` et `MustElement` sont couramment utilisées d
 La version préfixée est juste la version non préfixée avec un vérificateur d'erreur. Voici le code source du `MustElement`, comme vous pouvez le voir il appelle juste l'élément `` avec plusieurs lignes supplémentaires pour paniquer si l'erreur n'est pas `nil`:
 
 ```go
-func (p *Page) MustElement(selectors ...string) *Element {
-    el, err := p.Element(selectors...)
+// Page ...
+type Page rod.Page
+
+// MustElement ...
+func (p *Page) MustElement(selector string) *rod.Element {
+    el, err := (*rod.Page)(p).Element(selector)
     if err != nil {
-        panique(err)
+        panic(err)
     }
     return el
 }
@@ -25,15 +29,13 @@ Le style ci-dessous est le moyen standard pour gérer les erreurs:
 ```go
 page := rod.New().MustConnect().MustPage("https://example.com")
 
-el, err := page. lement("a")
-si erreur! nil {
-    handleError(err)
-    return
-}
-html, err := el. TML()
+el, err := page.Element("a")
 if err != nil {
-    handleError(err)
-    return
+    panic(err)
+}
+html, err := el.HTML()
+if err != nil {
+    panic(err)
 }
 fmt.Println(html)
 ```
@@ -46,22 +48,29 @@ page := rod.New().MustConnect().MustPage("https://example.com")
 err := rod.Try(func() {
     fmt.Println(page.MustElement("a").MustHTML())
 })
-handleError(err)
+panic(err)
 ```
 
 ## Vérifier le type d'erreur
 
 Nous utilisons la méthode standard de Go's pour vérifier les types d'erreurs, pas de magie.
 
-Le code `handleError` dans le code ci-dessus peut ressembler à :
+Replace the `panic` in the above code with `handleError`:
 
 ```go
-func handleError(errr error) {
+func main() {
+    _, err := page.Element("a")
+    handleError(err)
+}
+
+func handleError(err error) {
     var evalErr *rod.ErrEval
-    if errors.Is(err, contexte. eadlineExceeded) { // erreur timeout
-        fmt.Println("timeout error")
-    } sinon si erreurs. s(err, &evalErr) { // erreur eval
-        fmt.Println(evalErr. ineNumber)
-    } sinon si err != nil {
-        fmt.
+    if errors.Is(err, context.DeadlineExceeded) { // timeout error
+        fmt.Println("timeout err")
+    } else if errors.As(err, &evalErr) { // eval error
+        fmt.Println(evalErr.LineNumber)
+    } else if err != nil {
+        fmt.Println("can't handle", err)
+    }
+}
 ```
