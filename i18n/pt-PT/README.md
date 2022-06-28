@@ -9,4 +9,4 @@ Roda é um driver de alto nível para [DevTools Protocol](https://chromedevtools
 - Solicitações de hijack
 - E mais
 
-Para contribuir com a documentação, [verifique aqui](contribute-doc.md).
+To contribute doc, [check here](contribute-doc.md).

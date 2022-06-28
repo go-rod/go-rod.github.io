@@ -7,7 +7,8 @@
 比如说获取图片：
 
 ```go
-bin, err := page.GetResource("https://test.com/a.png")
+bin, _ := page.GetResource("https://test.com/a.png")
+fmt.Println(bin)
 ```
 
 ## 元素资源
@@ -16,4 +17,5 @@ bin, err := page.GetResource("https://test.com/a.png")
 
 ```go
 bin := page.MustElement("img").MustResource()
+fmt.Println(bin)
 ```

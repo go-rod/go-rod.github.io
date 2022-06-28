@@ -11,7 +11,7 @@ To simulate the mouse click an element:
 page.MustElement("button").MustClick()
 
 // right click
-page.MustElement("button").Click(proto.InputMouseButtonRight)
+_ = page.MustElement("button").Click(proto.InputMouseButtonRight)
 ```
 
 ## Text input
@@ -91,10 +91,10 @@ page.MustElement("select").MustSelect("B", "C")
 You can also use regex or css selector to select options:
 
 ```go
-page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
+_ = page.MustElement("select").Select([]string{`^B$`}, true, rod.SelectorTypeRegex)
 
 // set false to deselect
-page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
+_ = page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTypeCSSSector)
 ```
 
 ## Set files
@@ -102,7 +102,7 @@ page.MustElement("select").Select([]string{`[value="c"]`}, false, rod.SelectorTy
 Use `SetFiles` to set files for the [file input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file):
 
 ```go
-pag.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
+page.MustElement(`[type=file]`).MustSetFiles("a.jpg", "b.pdf")
 ```
 
 ## Mouse, keyboard, and touch

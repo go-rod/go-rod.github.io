@@ -45,7 +45,7 @@ page.HijackRequests()
 ```go
 page.EnableDomain(proto.NetworkEnable{})
 
-proto.NetworkEmulateNetworkConditions{
+_ = proto.NetworkEmulateNetworkConditions{
     Offline:            false,
     Latency:            300,
     DownloadThroughput: 100,

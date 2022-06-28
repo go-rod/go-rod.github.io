@@ -17,6 +17,8 @@ docsify serve -o go-rod.github.io
 
 只需为此 [repo](https://github.com/go-rod/go-rod.github.io.git) 创建一个 [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)。
 
+请仅为英文提交 PR。 对于其他语言，请检查本文档的其余部分，我们不使用 github 来管理翻译。
+
 ## 翻译
 
 我们使用 [crowdin](https://crowdin.com/) 管理翻译。

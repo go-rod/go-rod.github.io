@@ -45,7 +45,7 @@ You can throttle the network to simulate and test the slow network effect on you
 ```go
 page.EnableDomain(proto.NetworkEnable{})
 
-proto.NetworkEmulateNetworkConditions{
+_ = proto.NetworkEmulateNetworkConditions{
     Offline:            false,
     Latency:            300,
     DownloadThroughput: 100,

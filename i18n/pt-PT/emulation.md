@@ -59,14 +59,15 @@ Se você deseja especificar a janela de visualização para uma página específ
 Você pode usar o env de lançamento para definir para todas as páginas:
 
 ```go
-u := launcher.New().Env("TZ=América/New_York").MustConnect()
-browser := rod.New().ControlURL(u).MustConnect()
+u := launcher.New().Env(append(os.Environ(), "TZ=America/New_York")...).MustLaunch()
+rod.New().ControlURL(u).MustConnect()
 ```
 
 Ou você pode usar [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) ou [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) para definir para uma página específica:
 
 ```go
-proto.EmulationSetTimezoneOverride{TimezoneID: "América/New_York"}.Call(página)
+page := browser.MustPage()
+_ = proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
 ```
 
 ## Permissões
@@ -82,12 +83,13 @@ Usar [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod/
 Use [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
 
 ```go
-proto.EmulationSetEmulatedMedia{
-    Mídia: "tela",
-    Recursos: []*proto.EmulationMediaFeature{
-        {"prefers-color-scheme", "dark"},
+page := browser.MustPage()
+_ = proto.EmulationSetEmulatedMedia{
+    Media: "screen",
+    Features: []*proto.EmulationMediaFeature{
+        {Name: "prefers-color-scheme", Value: "dark"},
     },
-}.Call(página)
+}.Call(page)
 ```
 
 ## Impedir detecção de bots
