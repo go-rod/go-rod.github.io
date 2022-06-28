@@ -118,11 +118,11 @@ func main() {
     time.Sleep(10 * time.Second) // Please avoid the use of time.Sleep!
 
     if page.MustHas(".nav-user-icon-base") {
-        // 成功登录后打印用户名
-        fmt.Println(*el.MustAttribute("title"))
+        // print the username after successful login
+        fmt.Println(page.MustElement(".nav-user-icon-base").MustAttribute("title"))
     } else if page.MustHas("[data-cy=sign-in-error]") {
-        // 当用户名或密码错误时
-        fmt.Println(el.MustText())
+        // when wrong username or password
+        fmt.Println(page.MustElement("[data-cy=sign-in-error]").MustText())
     }
 }
 ```
@@ -139,7 +139,7 @@ func main() {
     // It will keep polling until one selector has found a match
     page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
         // print the username after successful login
-        fmt.Println(*e.MustAttribute("title"))
+        fmt.Println(e.MustAttribute("title"))
     }).Element("[data-cy=sign-in-error]").MustHandle(func(e *rod.Element) {
         // when wrong username or password
         panic(e.MustText())
