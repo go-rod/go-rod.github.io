@@ -13,11 +13,15 @@ Here's the source code of the `MustElement`, as you can see it just calls the `E
 several extra lines to panic if err is not `nil`:
 
 ```go
-func (p *Page) MustElement(selectors ...string) *Element {
-    el, err := p.Element(selectors...)
-    if err != nil {
-        panic(err)
-    }
+// Page ...
+type Page rod.Page
+
+// MustElement ...
+func (p *Page) MustElement(selector string) *rod.Element {
+	el, err := (*rod.Page)(p).Element(selector)
+	if err != nil {
+		panic(err)
+	}
 	return el
 }
 ```
@@ -33,13 +37,11 @@ page := rod.New().MustConnect().MustPage("https://example.com")
 
 el, err := page.Element("a")
 if err != nil {
-    handleError(err)
-    return
+    panic(err)
 }
 html, err := el.HTML()
 if err != nil {
-    handleError(err)
-    return
+    panic(err)
 }
 fmt.Println(html)
 ```
@@ -53,16 +55,21 @@ page := rod.New().MustConnect().MustPage("https://example.com")
 err := rod.Try(func() {
     fmt.Println(page.MustElement("a").MustHTML())
 })
-handleError(err)
+panic(err)
 ```
 
 ## Check the error type
 
 We use Go's standard way to check error types, no magic.
 
-The `handleError` in the above code may look like:
+Replace the `panic` in the above code with `handleError`:
 
 ```go
+func main() {
+    _, err := page.Element("a")
+    handleError(err)
+}
+
 func handleError(err error) {
     var evalErr *rod.ErrEval
     if errors.Is(err, context.DeadlineExceeded) { // timeout error

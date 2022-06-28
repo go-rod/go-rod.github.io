@@ -54,6 +54,7 @@ Now the page can invoke this method on the window object:
 
 ```go
 hash := page.MustEval(`() => window.md5("test")`).Str()
+fmt.Println(hash)
 ```
 
 Here's another example to get button click event on the page:

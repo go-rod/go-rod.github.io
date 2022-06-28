@@ -133,7 +133,7 @@ You can use the `launcher.NewUserMode` to launch your regular user browser. Rod 
 
 ```go
 wsURL := launcher.NewUserMode().MustLaunch()
-browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
 ```
 
 Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
