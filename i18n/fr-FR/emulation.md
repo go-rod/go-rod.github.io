@@ -59,14 +59,15 @@ If you want to specify the viewport for a specific page, use [Page.SetViewport](
 You can use the launch env to set for all pages:
 
 ```go
-u := launcher.New().Env("TZ=America/New_York").MustConnect()
-browser := rod.New().ControlURL(u).MustConnect()
+u := launcher.New().Env(append(os.Environ(), "TZ=America/New_York")...).MustLaunch()
+rod.New().ControlURL(u).MustConnect()
 ```
 
 Or you can use [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) or [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) to set for a specific page:
 
 ```go
-proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
+page := browser.MustPage()
+_ = proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
 ```
 
 ## Permissions
@@ -82,10 +83,11 @@ Use [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod/l
 Use [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
 
 ```go
-proto.EmulationSetEmulatedMedia{
+page := browser.MustPage()
+_ = proto.EmulationSetEmulatedMedia{
     Media: "screen",
     Features: []*proto.EmulationMediaFeature{
-        {"prefers-color-scheme", "dark"},
+        {Name: "prefers-color-scheme", Value: "dark"},
     },
 }.Call(page)
 ```
