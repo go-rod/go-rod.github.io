@@ -78,6 +78,13 @@ The `rod.Browser` and `rod.Page` both has several helper methods for setting or 
 
 You can use Rod to hijack any HTTP or HTTPS traffic.
 
+> Beware that hijacking requests is not a replacement for proxy. If you try to
+> use hijacking instead of proxy you will get issues with HTTP headers.
+> While it is possible to rewrite hijacked **HTTP** request headers and use
+> proxy with those, it seems that currently it is impossible to do so for
+> **HTTPS** requests. If you need to proxy requests
+> [use MustHandleAuth instead](/network?id=proxy).
+
 The entire process of hijacking one request:
 
 ```text
