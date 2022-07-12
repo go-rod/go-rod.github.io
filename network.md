@@ -38,21 +38,15 @@ Once you have proxy started, launch a browser and load a page through the proxy.
 Below is a complete example on how to do this:
 
 ```go
-import (
-	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/launcher"
-	"github.com/go-rod/rod/lib/launcher/flags"
-)
-
 // Create a browser launcher
 l := launcher.New()
 // Pass '--proxy-server=127.0.0.1:8081' argument to the browser on launch
 l = l.Set(flags.ProxyServer, "127.0.0.1:8080")
 // Launch the browser and get debug URL
-controlUrl, _ := l.Launch()
+controlURL, _ := l.Launch()
 
 // Connect to the newly launched browser
-browser := rod.New().ControlURL(controlUrl).MustConnect()
+browser := rod.New().ControlURL(controlURL).MustConnect()
 
 // Handle proxy authentication pop-up
 go browser.MustHandleAuth("user", "password")() // <-- Notice how HandleAuth returns
