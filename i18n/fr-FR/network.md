@@ -1,5 +1,63 @@
 # Network
 
+## Proxy
+
+You can set a browser instance to use use a proxy server. For that you must launch a browser with a `--proxy-server` argument.
+
+> **NOTE**: Single browser can only use a single proxy. If you need to use multiple proxies you will have to create multiple browser connections.
+
+An important bit to make proxy actually work is that you must handle authentication pop-up that chromium presents to the user:
+
+![Proxy Auth Dialog](network/proxy-auth-dialog.png)
+
+go-rod makes it easy to handle this pop-up using `browser.MustHandleAuth()` function:
+
+```go
+// Handle proxy authentication pop-up
+go browser.MustHandleAuth("user", "password")()
+```
+
+Notice how `browser.MustHandleAuth()` returns a **function** that you must call as a goroutine. This makes sure your program can execute normally while handling authentication pop-ups asynchronously.
+
+---
+
+You can use [mitmproxy](https://mitmproxy.org/) in order to test if your code works with a proxy:
+
+```bash
+docker run --rm -it -p 8080:8080 mitmproxy/mitmproxy mitmdump -p 8080 --proxyauth user:password
+```
+
+Once you have proxy started, launch a browser and load a page through the proxy.
+
+Below is a complete example on how to do this:
+
+```go
+// Create a browser launcher
+l := launcher.New()
+// Pass '--proxy-server=127.0.0.1:8081' argument to the browser on launch
+l = l.Set(flags.ProxyServer, "127.0.0.1:8080")
+// Launch the browser and get debug URL
+controlURL, _ := l.Launch()
+
+// Connect to the newly launched browser
+browser := rod.New().ControlURL(controlURL).MustConnect()
+
+// Handle proxy authentication pop-up
+go browser.MustHandleAuth("user", "password")() // <-- Notice how HandleAuth returns
+                                                //     a function that must be
+                                                //     started as a goroutine!
+
+// Ignore certificate errors since we are using local insecure proxy
+browser.MustIgnoreCertErrors(true)
+
+// Navigate to the page that prints IP address
+page := browser.MustPage("http://api.ipify.org")
+
+// IP address should be the same, since we are using local
+// proxy, however the response signals that the proxy works
+println(page.MustElement("html").MustText())
+```
+
 ## Cookies
 
 The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
@@ -7,6 +65,8 @@ The `rod.Browser` and `rod.Page` both has several helper methods for setting or 
 ## Hijack requests
 
 You can use Rod to hijack any HTTP or HTTPS traffic.
+
+> Beware that hijacking requests is not a replacement for proxy. If you try to use hijacking instead of proxy you will get issues with HTTP headers. While it is possible to rewrite hijacked **HTTP** request headers and use proxy with those, it seems that currently it is impossible to do so for **HTTPS** requests. If you need to proxy requests [use MustHandleAuth instead](/network?id=proxy).
 
 The entire process of hijacking one request:
 
