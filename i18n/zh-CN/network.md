@@ -8,7 +8,7 @@
 
 要代理确实工作的重要一点是，您必须处理 chromium 向用户弹出的 认证对话框：
 
-![Proxy Auth Dialog](network/proxy-auth-dialog.png)
+![代理认证对话框](network/proxy-auth-dialog.png)
 
 go-rod 可以轻松使用 `browser.MustHandleAuth()` 函数处理此弹出窗口：
 
@@ -27,56 +27,56 @@ go browser.MustHandleAuth("user", "password")()
 docker run --rm -it -p 8080:8080 mitmproxy/mitmproxy mitmdump -p 8080 --proxyauth user:password
 ```
 
-Once you have proxy started, launch a browser and load a page through the proxy.
+代理启动后，启动浏览器，通过代理服务器加载页面。
 
-Below is a complete example on how to do this:
+下面是一个完整的示例来说明如何这样做：
 
 ```go
-// Create a browser launcher
+// 创建浏览器启动器
 l := launcher.New()
 // Pass '--proxy-server=127.0.0.1:8081' argument to the browser on launch
 l = l.Set(flags.ProxyServer, "127.0.0.1:8080")
-// Launch the browser and get debug URL
+// 获取调试链接
 controlURL, _ := l.Launch()
 
-// Connect to the newly launched browser
+// 连接到浏览器
 browser := rod.New().ControlURL(controlURL).MustConnect()
 
-// Handle proxy authentication pop-up
-go browser.MustHandleAuth("user", "password")() // <-- Notice how HandleAuth returns
-                                                //     a function that must be
-                                                //     started as a goroutine!
+// 处理认证弹窗
+go browser.MustHandleAuth("user", "password")() // <-- 注意 HandleAuth 返回的
+                                                //     函数必须要
+                                                //     以 goroutine 的形式运行
 
-// Ignore certificate errors since we are using local insecure proxy
+// 无视证书错误，因为我们是本地调试
 browser.MustIgnoreCertErrors(true)
 
-// Navigate to the page that prints IP address
+// 导航到能看 ip 地址的页面
 page := browser.MustPage("http://api.ipify.org")
 
-// IP address should be the same, since we are using local
-// proxy, however the response signals that the proxy works
+// IP 应该不变，因为我们用的本地代理
+// 但是返回的内容可以证明我们的测试没有问题
 println(page.MustElement("html").MustText())
 ```
 
 ## Cookies
 
-The `rod.Browser` and `rod.Page` both has several helper methods for setting or getting cookies.
+`rod.Browser` and `rod.Page` 都有几种帮助方法来设置或获取 cookie。
 
-## Hijack requests
+## 劫持请求
 
-You can use Rod to hijack any HTTP or HTTPS traffic.
+你可以使用 Rod 劫持任何 HTTP 或 HTTPS 流量。
 
-> Beware that hijacking requests is not a replacement for proxy. If you try to use hijacking instead of proxy you will get issues with HTTP headers. While it is possible to rewrite hijacked **HTTP** request headers and use proxy with those, it seems that currently it is impossible to do so for **HTTPS** requests. If you need to proxy requests [use MustHandleAuth instead](/network?id=proxy).
+> 请注意，劫持请求无法替代代理。 如果你试图使用 hijacking 而不是代理，你将会遇到HTTP 头问题。 虽然有可能重写被劫持的 **HTTP** 请求头并代理他们，但 **HTTPS** 请求目前似乎无法这样做。 如果您需要代理请求 [，请使用 MustHandleAuth 代替](/network?id=proxy)
 
-The entire process of hijacking one request:
+劫持一个请求的全过程：
 
 ```text
-browser --req-> rod ---> server ---> rod --res-> browser
+浏览器 --请求-> rod ---> 服务器 ---> rod --响应-> 浏览器
 ```
 
-When the browser wants to send a request to a server, it will send the request to Rod first, then Rod will act like a proxy to send the request to the actual server and return the response to the browser. The `--req->` and `--res->` are the parts that can be modified.
+当浏览器想要向服务器发送请求时，它会先把请求发给 Rod，然后 Rod 作为代理，把请求发送给实际的服务器，并把响应返回给浏览器。 `--请求->` 和 `--响应->` 是可以篡改的部分。
 
-For example, to replace a file `test.js` response from the server we can do something like this:
+例如，我们可以这样替换对文件 `test.js` 的请求的返回：
 
 ```go
 browser := rod.New().MustConnect()
@@ -92,15 +92,15 @@ go router.Run()
 
 page := browser.MustPage("https://test.com/")
 
-// Hijack requests under the scope of a page
+// 仅劫持某个页面的请求
 page.HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+更多信息，见[劫持相关的单元测试](https://github.com/go-rod/rod/blob/master/hijack_test.go)
 
-## Throttling
+## 节流
 
-You can throttle the network to simulate and test the slow network effect on your tests:
+您可以通过节流网络来模拟和测试慢网络：
 
 ```go
 page.EnableDomain(proto.NetworkEnable{})
@@ -114,11 +114,11 @@ _ = proto.NetworkEmulateNetworkConditions{
 }.Call(page)
 ```
 
-## Blocking certain resources from loading
+## 阻止某些资源的加载
 
-If needed, you can block certain resources (like images or fonts) from loading using the `Page.HijackRequests`.
+如果需要，您可以使用 `Page.HijackRequest` 屏蔽某些资源 (如图片或字体) 。
 
-This is useful if you want to improve page loading times, especially if you're running on Headless Mode, since there is no point on loading fonts/css. Example below:
+如果您想要改进页面加载时间，特别是当您在无头模式下运行时，这将是非常有用。 因为加载 字体 / css 上没意义。 下面示例：
 
 ```go
 func main() {
@@ -127,8 +127,8 @@ func main() {
     router := page.HijackRequests()
 
     router.MustAdd("*.png", func(ctx *rod.Hijack) {
-        // There're a lot of types you can use in this enum, like NetworkResourceTypeScript for javascript files
-        // In this case we're using NetworkResourceTypeImage to block images
+        // 你可以使用很多其他 enum 类型，比如 NetworkResourceTypeScript 用于 javascript
+        // 这个例子里我们使用 NetworkResourceTypeImage 来阻止图片
         if ctx.Request.Type() == proto.NetworkResourceTypeImage {
             ctx.Response.Fail(proto.NetworkErrorReasonBlockedByClient)
             return
@@ -136,7 +136,7 @@ func main() {
         ctx.ContinueRequest(&proto.FetchContinueRequest{})
     })
 
-    // since we are only hijacking a specific page, even using the "*" won't affect much of the performance
+    // 因为我们只劫持特定页面，即便不使用 "*" 也不会太多性能影响
     go router.Run()
 
     page.MustNavigate("https://github.com/").MustWaitLoad().MustScreenshot("")
