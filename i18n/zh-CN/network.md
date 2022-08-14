@@ -1,27 +1,27 @@
 # 网络
 
-## Proxy
+## 代理
 
-You can set a browser instance to use use a proxy server. For that you must launch a browser with a `--proxy-server` argument.
+您可以设置一个浏览器实例使用代理服务器。 为此，您必须用参数 `--proxy-server` 来启动浏览器浏览器。
 
-> **NOTE**: Single browser can only use a single proxy. If you need to use multiple proxies you will have to create multiple browser connections.
+> **备注**: 单个浏览器只能使用单个代理。 如果您需要使用多个 代理，您将需要创建多个浏览器连接。
 
-An important bit to make proxy actually work is that you must handle authentication pop-up that chromium presents to the user:
+要代理确实工作的重要一点是，您必须处理 chromium 向用户弹出的 认证对话框：
 
 ![Proxy Auth Dialog](network/proxy-auth-dialog.png)
 
-go-rod makes it easy to handle this pop-up using `browser.MustHandleAuth()` function:
+go-rod 可以轻松使用 `browser.MustHandleAuth()` 函数处理此弹出窗口：
 
 ```go
-// Handle proxy authentication pop-up
+// 处理认证弹框
 go browser.MustHandleAuth("user", "password")()
 ```
 
-Notice how `browser.MustHandleAuth()` returns a **function** that you must call as a goroutine. This makes sure your program can execute normally while handling authentication pop-ups asynchronously.
+请注意 `browser.MustHandleAuth()` 返回一个 **function** ，您必须以 用 goroutine 调用它。 这将确保您的程序能够在处理 认证弹框的同时异步运行其他代码。
 
 ---
 
-You can use [mitmproxy](https://mitmproxy.org/) in order to test if your code works with a proxy:
+您可以使用 [mitmproxy](https://mitmproxy.org/) 来测试您的代码 是否能成功使用代理：
 
 ```bash
 docker run --rm -it -p 8080:8080 mitmproxy/mitmproxy mitmdump -p 8080 --proxyauth user:password
