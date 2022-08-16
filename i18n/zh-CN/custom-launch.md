@@ -105,7 +105,7 @@ func main() {
 
 ## 远程管理启动器 :id=remotely-manage-the-launcher
 
-对于生产环境的爬虫系统拆，我们通常会把爬虫和浏览器拆分到不同的集群，从而使它们能够独立扩容。 Rod 提供模块 `launcher.Manager` 来远程管理启动器。 通过它我们可以远程启动用自定义启动参数浏览器。 它的用例在 [这里](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go)。
+对于生产环境的爬虫系统，我们通常会把爬虫和浏览器拆分到不同的集群，从而使它们能够独立扩容。 Rod 提供模块 `launcher.Manager` 来远程管理启动器。 通过它我们可以远程启动用自定义启动参数浏览器。 它的用例在 [这里](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go)。
 
 因为很难在某些Linux发行版上正确安装chromium， Rod 提供了一个 docker image 来支持跨平台。 下面是一个用例：
 
