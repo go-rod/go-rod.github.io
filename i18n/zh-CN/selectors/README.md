@@ -136,7 +136,7 @@ func main() {
     page.MustElement("#id_login").MustInput("username")
     page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
 
-    // 轮询，知道匹配到一个选择器
+    // 轮询，直到匹配到一个选择器
     page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
         // 在成功登陆后打印用户名
         fmt.Println(e.MustAttribute("title"))
