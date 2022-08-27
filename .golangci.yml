@@ -16,3 +16,7 @@ gocyclo:
 issues:
   exclude-use-default: false
 
+  exclude-rules:
+    - linters:
+        - revive
+      text: "package-comments: should have a package comment"
