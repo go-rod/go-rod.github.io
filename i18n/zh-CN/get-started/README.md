@@ -66,7 +66,7 @@ func main() {
 }
 ```
 
-`NodefaultDevide` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 我们在代码结尾添加了 `time.Sleep(time.Hour)` ，这样程序就不会在肉眼能察觉前太快退出。
+` NoDefaultDevice` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 我们在代码结尾添加了 `time.Sleep(time.Hour)` ，这样程序就不会在肉眼能察觉前太快退出。
 
 让我们用 `-rod` 命令行参数再次运行模块：
 
