@@ -78,7 +78,7 @@ func main() {
 
 ## Obter elementos de iframes
 
-Por exemplo, queremos obter o botão dos iframe aninhados:
+For example, to get the button from the nested iframes:
 
 ![Iframes](iframes.png)
 
