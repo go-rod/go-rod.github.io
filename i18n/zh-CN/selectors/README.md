@@ -78,7 +78,7 @@ func main() {
 
 ## 从 iframe 中获取元素
 
-For example, to get the button from the nested iframes:
+例如，从如下的多层嵌套的 iframe 中选择按钮：
 
 ![iframes](iframes.png)
 
