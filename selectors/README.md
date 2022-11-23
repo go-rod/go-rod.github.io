@@ -89,7 +89,7 @@ func main() {
 
 ## Get elements from iframes
 
-For example we have want to get the button from the nested iframes:
+For example, to get the button from the nested iframes:
 
 ![iframes](iframes.png)
 
