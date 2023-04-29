@@ -233,7 +233,7 @@ func main() {
 	page.MustElement("#searchInput").MustInput("earth")
 	page.MustElement("#search-form > fieldset > button").MustClick()
 
-	el := page.MustElement("#mw-content-text > div.mw-parser-output > p:nth-child(6)")
+	el := page.MustElement("#mw-content-text > div.mw-parser-output > p:nth-child(7)")
 	fmt.Println(el.MustText())
 }
 ```
