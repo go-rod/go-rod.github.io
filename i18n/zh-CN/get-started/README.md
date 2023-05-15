@@ -85,7 +85,7 @@ go run . -rod=show
 让我们控制浏览器来搜索关键词“earth”。 一个网站可能有许多输入框和按钮。 我们需要告诉程序它需要操控其中的哪一个。 通常我们会使用 [Devtools](https://developers.google.com/web/tools/chrome-devtools/) 来帮助定位我们想要控制的元素。 让我们在 `-rod` 参数重添加一个新的配置来启用 Devtools，现在命令变成了：
 
 ```bash
-go run . -rod=show go run . -rod=show,devtools
+go run . -rod=show,devtools
 ```
 
 运行上面的命令，将鼠标移动到输入框，在上面点击右键，然后在弹出的菜单中点击“审查元素”：
@@ -160,7 +160,7 @@ func main() {
 自动化操作对人眼来说太快了，调试时我们通常会启用慢动作和可视化跟踪。 让我们用些额外的配置来运行这个模块：
 
 ```bash
-go run . -rod=show go run . -rod="show,slow=1s,trace"
+go run . -rod="show,slow=1s,trace"
 ```
 
 现在每次操作都会在执行前等待 1 秒。 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
