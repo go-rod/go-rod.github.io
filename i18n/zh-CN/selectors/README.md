@@ -12,7 +12,7 @@ Rod 提供了很多获取元素的方法。 它们的名称都以 `MustElement` 
 
 ## 通过文本内容
 
-使用 `ElementR` ，通过文本内容来匹配元素。例如选择下图中的搜索输入框：
+使用 `ElementR` ，通过文本内容来匹配元素。 例如选择下图中的搜索输入框：
 
 ![match-text](match-text.png)
 
@@ -21,7 +21,7 @@ page.MustElementR("input", "Search or jump")
 page.MustElementR("input", "/click/i") // 使用大小写不敏感标志 "i"
 ```
 
-因为使用了 [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), 所以我们不需要匹配文本的整个上下文。 要匹配的文本是在网站上实际看到的，而不是源代码。试比较下图中的 1 和 2。 你可以使用 Devtools 的 `copy` 帮助函数将文本复制到剪贴板（见 4）:
+因为使用了 [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), 所以我们不需要匹配文本的整个上下文。 要匹配的文本是在网站上实际看到的，而不是源代码。 试比较下图中的 1 和 2。 你可以使用 Devtools 的 `copy` 帮助函数将文本复制到剪贴板（见 4）:
 
 ![copy-text](copy-text.png)
 
@@ -41,7 +41,7 @@ page.MustElementX("//h2")
 page.MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
-如果你看一下其他选择器（比如 `Element` 和 `ElementR`）的源码，你会发现他们实际上都基于 `ElementByJS`，而 `ElementByJS` 则基于 `Page.Evaluate`。有关如何运行 js 代码，见 [JavaScript 运行时](/javascript-runtime.md)。 通常会使用 `ElementByJS` 自行创建选择器来扩展 Rod。
+如果你看一下其他选择器（比如 `Element` 和 `ElementR`）的源码，你会发现他们实际上都基于 `ElementByJS`，而 `ElementByJS` 则基于 `Page.Evaluate`。 有关如何运行 js 代码，见 [JavaScript 运行时](/javascript-runtime.md)。 通常会使用 `ElementByJS` 自行创建选择器来扩展 Rod。
 
 ## 选择多个元素
 
@@ -94,7 +94,7 @@ frame02.MustElement("button")
 
 还有另一个强大的帮助函数可以获取元素，那就是 `MustSearch`。 它不如上面提到的选择器精确，但是如果你想从深层嵌套的 iframe 或 shadow dom 中获取元素，使用它就会很方便。
 
-这一功能和 [Devtools 中的 Search for nodes](https://developers.google.com/web/tools/chrome-devtools/dom#search) 是一样的。你可以使用 Devtools 的这一功能来调试出用什么关键字来选择你想要的元素，如下图所示：
+这一功能和 [Devtools 中的 Search for nodes](https://developers.google.com/web/tools/chrome-devtools/dom#search) 是一样的。 你可以使用 Devtools 的这一功能来调试出用什么关键字来选择你想要的元素，如下图所示：
 
 ![search](search.png)
 
@@ -115,7 +115,7 @@ func main() {
     page.MustElement("#id_login").MustInput("username")
     page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
 
-    time.Sleep(10 * time.Second) // 请避免使用 time.Sleep!
+    time.Sleep(10 * time.Second) // Please avoid the use of time.Sleep!
 
     if page.MustHas(".nav-user-icon-base") {
         // 在成功登陆后打印用户名

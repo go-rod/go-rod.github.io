@@ -11,7 +11,7 @@ Rod 提供了很多方法来模拟人工输入，比如鼠标点击或者键盘�
 page.MustElement("button").MustClick()
 
 // 右击
-_ = page.MustElement("button").Click(proto.InputMouseButtonRight)
+_ = page.MustElement("button").Click(proto.InputMouseButtonRight, 1)
 ```
 
 ## 文本输入
@@ -27,7 +27,7 @@ fmt.Println(el.MustText()) // 使用 MustText 来获取文本
 
 ## 删除输入框中的文本
 
-模拟人的行为即可。选中所有文本，用一个空字符串替换：
+模拟人的行为即可。 选中所有文本，用一个空字符串替换：
 
 ```go
 page.MustElement(`[type="text"]`).MustSelectAllText().MustInput("")

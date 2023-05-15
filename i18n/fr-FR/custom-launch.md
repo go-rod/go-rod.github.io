@@ -2,7 +2,7 @@
 
 ## Connect to an running browser
 
-You can use `launcher` lib to custom the launch of browsers, such as add or delete the browser executable command-line arguments, custom the auto-download-browser mirrors.
+Find the executable path of your browser, such as on macOS run:
 
 ```bash
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --remote-debugging-port=9222
@@ -14,7 +14,7 @@ It will output something like:
 DevTools listening on ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913
 ```
 
-The `--` prefix is optional, such as `headless` and `--headless` are the same.
+The above `ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913` is the interface to control the browser:
 
 ```go
 package main
@@ -83,7 +83,7 @@ func main() {
 }
 ```
 
-If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser, check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
+The `--` prefix is optional, such as `headless` and `--headless` are the same.
 
 Because options like `user-data-dir`, `proxy-server`, `headless` are so often used, we added some helpers for them, so the above code can become like this:
 

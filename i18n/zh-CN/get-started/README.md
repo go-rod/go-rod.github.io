@@ -8,7 +8,7 @@
 
 ## 第一个程序
 
-让我们使用 Rod 来打开一个网页并获取它的截图。首先创建 "main.go"，并在其中输入以下内容：
+让我们使用 Rod 来打开一个网页并获取它的截图。 首先创建 "main.go"，并在其中输入以下内容：
 
 ```go
 package main
@@ -66,7 +66,7 @@ func main() {
 }
 ```
 
-` NoDefaultDevice` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 我们在代码结尾添加了 `time.Sleep(time.Hour)` ，这样程序就不会在肉眼能察觉前太快退出。
+`NoDefaultDevice` 和 `MustWindowFullscreen` 将最大化页面视图和浏览器窗口，使其更容易调试。 我们在代码结尾添加了 `time.Sleep(time.Hour)` ，这样程序就不会在肉眼能察觉前太快退出。
 
 让我们用 `-rod` 命令行参数再次运行模块：
 
@@ -82,7 +82,7 @@ go run . -rod=show
 
 ## 输入与点击
 
-让我们控制浏览器来搜索关键词“earth”。 一个网站可能有许多输入框和按钮。我们需要告诉程序它需要操控其中的哪一个。 通常我们会使用 [Devtools](https://developers.google.com/web/tools/chrome-devtools/) 来帮助定位我们想要控制的元素。 让我们在 `-rod` 参数重添加一个新的配置来启用 Devtools，现在命令变成了：
+让我们控制浏览器来搜索关键词“earth”。 一个网站可能有许多输入框和按钮。 我们需要告诉程序它需要操控其中的哪一个。 通常我们会使用 [Devtools](https://developers.google.com/web/tools/chrome-devtools/) 来帮助定位我们想要控制的元素。 让我们在 `-rod` 参数重添加一个新的配置来启用 Devtools，现在命令变成了：
 
 ```bash
 go run . -rod=show,devtools
@@ -128,7 +128,7 @@ func main() {
 
 ![search-btn-selector](search-btn-selector.png)
 
-然后添加代码来点击这个搜索按钮。现在“main.go”的内容是：
+然后添加代码来点击这个搜索按钮。 现在“main.go”的内容是：
 
 ```go
 package main
@@ -157,7 +157,7 @@ func main() {
 
 ## 慢动作和可视化跟踪
 
-自动化操作对人眼来说太快了，调试时我们通常会启用慢动作和可视化跟踪。让我们用些额外的配置来运行这个模块：
+自动化操作对人眼来说太快了，调试时我们通常会启用慢动作和可视化跟踪。 让我们用些额外的配置来运行这个模块：
 
 ```bash
 go run . -rod="show,slow=1s,trace"
@@ -182,9 +182,9 @@ go run . -rod="show,slow=1s,trace"
 [rod] 2020/11/11 11:11:11 [input] left click
 ```
 
-## 不只有命令行参数
+## 命令行选项以外的其它选项
 
-命令行参数只是一些常用方法的快捷方式。你也可以在代码中手动设置，比如“slow”可以通过 `rod.New().SlowMotion(2 * time.Second)` 这样的代码来实现。
+命令行参数只是一些常用方法的快捷方式。 你也可以在代码中手动设置，比如“slow”可以通过 `rod.New().SlowMotion(2 * time.Second)` 这样的代码来实现。
 
 ## 获取文本内容
 
@@ -216,16 +216,17 @@ func main() {
 }
 ```
 
-重新运行，正常情况下，我们会在控制台中看到如下输出：
+如果我们重新运行该模块，我们应该看到控制台输出类似：
 
 ```txt
 Earth is the third planet from the Sun and the only astronomical object known to harbor life.
+...
 ...
 ```
 
 ## 获取图片内容
 
-与获取文本内容一样，我们也可以从页面中获取图像。让我们找到 Earth 图像的 CSS 选择器，并使用 `MustResource` 获取图像的二进制数据：
+与获取文本内容一样，我们也可以从页面中获取图像。 让我们找到 Earth 图像的 CSS 选择器，并使用 `MustResource` 获取图像的二进制数据：
 
 ![get-image](get-image.png)
 

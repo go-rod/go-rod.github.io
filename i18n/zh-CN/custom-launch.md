@@ -31,7 +31,7 @@ func main() {
 
 ## launcher 库
 
-由于上面的工作流经常被使用，我们抽象出 ` launcher ` 库来简化浏览器的启动。 例如自动下载或搜索浏览器可执行程序， 添加或删除浏览器可执行程序的命令行参数等。
+由于上面的工作流经常被使用，我们抽象出 `launcher` 库来简化浏览器的启动。 例如自动下载或搜索浏览器可执行程序， 添加或删除浏览器可执行程序的命令行参数等。
 
 因此，上述的手动启动和代码变成：
 
@@ -52,7 +52,7 @@ func main() {
 }
 ```
 
-如果 `ControlURL` 未设置， `MustConnect` 将自动运行 `launcher.New().MustLaunch()` 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。 所以您可以将上述代码简化为：
+如果 `ControlURL` 未设置， `MustConnect` 将自动运行 `launcher.New().MustLaunch()`。 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。 所以您可以将上述代码简化为：
 
 ```go
 func main() {
@@ -83,7 +83,7 @@ func main() {
 }
 ```
 
-`--` 前缀可选，例如 `headless` 和 `--headless` 相同。
+前缀可选，例如 `headless` 和 `--headless` 相同。
 
 由于类似 `user-data-dir`、`proxy-server`、`headless` 的选项经常会用到，我们为它们写了一些 helper，所以上面的代码可以改成这样：
 

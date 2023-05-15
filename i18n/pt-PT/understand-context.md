@@ -48,16 +48,14 @@ func heartbeat(pare chan struct{}) {
         caso <-stop:
             return
         }
-        fmt. rintln("batida")
-    }
-}
+        fmt.
 ```
 
 Como esse tipo de código é tão frequentemente usado, Golang abstraiu um pacote auxiliar para lidar com ele, é chamado de [Contexto](https://golang.org/pkg/context/). Se utilizarmos Contexto, o código acima será algo como isto:
 
 ```go
 func main() {
-    ctx, stop := context.WithCancel(contexto. ackground())
+    ctx, stop := context. WithCancel(contexto. ackground())
     go func() {
         fmt. canln()
         stop()
@@ -75,7 +73,5 @@ func heartbeat(ctx context. ontext) {
         case <-ctx. um():
             retornos
         }
-        mt. rintln("batida")
-    }
-}
+        mt.
 ```

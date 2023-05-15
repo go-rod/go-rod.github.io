@@ -16,12 +16,12 @@ package principal
 import "github.com/go-rod/rod"
 
 func main() {
-    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page := rod. New(). MustConnect(). MustPage("https://www.wikipedia.org/")
+    page. MustWaitLoad(). MustScreenshot("a.png")
 }
 ```
 
-O `rod.New` cria um objeto de navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. O `MustWaitLoad` espera pela página está totalmente carregada. O `Deve Screenshot` tira uma captura de tela da página.
+O `rod. New` cria um objeto de navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. O `MustWaitLoad` espera pela página está totalmente carregada. O `Deve Screenshot` tira uma captura de tela da página.
 
 Criar um módulo:
 
@@ -59,14 +59,14 @@ import (
 )
 
 func main() {
-    page := rod.New().NoDefaultDevice().MustConnect().MustPage("https://www.wikipedia.org/")
-    page.MustWindowFullscreen()
-    page.MustWaitLoad().MustScreenshot("a.png")
-    time.Sleep(time.Hour)
+    page := rod. New(). NoDefaultDevice(). MustConnect(). MustPage("https://www.wikipedia.org/")
+    page. MustWindowFullscreen()
+    page. MustWaitLoad(). MustScreenshot("a.png")
+    time. Sleep(time. Hour)
 }
 ```
 
-The `NoDefaultDevice` and `MustWindowFullscreen` maximize the page viewport and browser window to make it more comfortable to overview the page. We added `time.Sleep(time.Hour)` at the end the code so that it won't be too fast for our eyes to catch it before the program exits.
+The `NoDefaultDevice` and `MustWindowFullscreen` maximize the page viewport and browser window to make it more comfortable to overview the page. We added `time. Sleep(time. Hour)` at the end the code so that it won't be too fast for our eyes to catch it before the program exits.
 
 Let's run the module again with the `-rod` command line flag:
 
@@ -108,13 +108,13 @@ import (
 )
 
 func main() {
-    browser := rod.New().MustConnect().NoDefaultDevice()
-    page := browser.MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
+    browser := rod. New(). MustConnect(). NoDefaultDevice()
+    page := browser. MustPage("https://www.wikipedia.org/"). MustWindowFullscreen()
 
-    page.MustElement("#searchInput").MustInput("earth")
+    page. MustElement("#searchInput"). MustInput("earth")
 
-    page.MustWaitLoad().MustScreenshot("a.png")
-    time.Sleep(time.Hour)
+    page. MustWaitLoad(). MustScreenshot("a.png")
+    time. Sleep(time. Hour)
 }
 ```
 
@@ -140,14 +140,14 @@ import (
 )
 
 func main() {
-    browser := rod.New().MustConnect().NoDefaultDevice()
-    page := browser.MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
+    browser := rod. New(). MustConnect(). NoDefaultDevice()
+    page := browser. MustPage("https://www.wikipedia.org/"). MustWindowFullscreen()
 
-    page.MustElement("#searchInput").MustInput("earth")
-    page.MustElement("#search-form > fieldset > button").MustClick()
+    page. MustElement("#searchInput"). MustInput("earth")
+    page. MustElement("#search-form > fieldset > button"). MustClick()
 
-    page.MustWaitLoad().MustScreenshot("a.png")
-    time.Sleep(time.Hour)
+    page. MustWaitLoad(). MustScreenshot("a.png")
+    time. Sleep(time. Hour)
 }
 ```
 
@@ -184,7 +184,7 @@ On console you will see the trace log like below:
 
 ## Other than the command line options
 
-The the command line options is just a shortcut for some commonly used methods, you can also manually set them with code, such as the "slow", the code to set it is like `rod.New().SlowMotion(2 * time.Second)`.
+The the command line options is just a shortcut for some commonly used methods, you can also manually set them with code, such as the "slow", the code to set it is like `rod. New(). SlowMotion(2 * time. Second)`.
 
 ## Obter conteúdo de texto
 
@@ -206,14 +206,13 @@ importação (
 )
 
 func main() {
-    página := rod. ew().MustConnect().MustPage("https://www.wikipedia.org/")
+    página := rod. ew(). MustConnect(). MustPage("https://www.wikipedia.org/")
 
-    page.MustElement("#searchInput"). ustInput("earth")
-    page.MustElement("#search-form > fieldset > button").MustClick()
+    page. MustElement("#searchInput"). ustInput("earth")
+    page. MustElement("#search-form > fieldset > button"). MustClick()
 
     el := page. ustElement("#mw-content-text > div.mw-parser-output > p:nth-child(6)")
-    fmt.Println(el.MustText())
-}
+    fmt. Println(el.
 ```
 
 If we rerun the module, we should see the console outputs something like:
@@ -240,13 +239,13 @@ import (
 )
 
 func main() {
-    página: = rod. ew().MustConnect().MustPage("https://www.wikipedia.org/")
+    página: = rod. ew(). MustConnect(). MustPage("https://www.wikipedia.org/")
 
-    page.MustElement("#searchInput").MustInput("earth")
-    página. ustElement("#search-form > fieldset > button").MustClick()
+    page. MustElement("#searchInput"). MustInput("earth")
+    página. ustElement("#search-form > fieldset > button"). MustClick()
 
-    el := page.MustElement("#mw-content-text > div.mw-parser-output > tabela. nfobox > tbody > tr:nth-child(1) > td > a > img")
-    _ = utils. utputFile("b.png", el.MustResource())
+    el := page. MustElement("#mw-content-text > div.mw-parser-output > tabela. nfobox > tbody > tr:nth-child(1) > td > a > img")
+    _ = utils. utputFile("b.png", el. MustResource())
 }
 ```
 

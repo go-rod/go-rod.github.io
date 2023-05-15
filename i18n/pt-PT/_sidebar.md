@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD041 -->
 
 - Introdução
 
@@ -17,7 +18,7 @@
   - [Runtime Javascript](javascript-runtime.md)
   - [Navegadores & Páginas](browsers-pages.md)
   - [WebSocket Personalizado](custom-websocket.md)
-  - [Teste de ponta a ponta](end-to-end-testing.md)
+  - [End-to-end testing](end-to-end-testing.md)
 
 - Recursos
 
