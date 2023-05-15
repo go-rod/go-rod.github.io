@@ -8,10 +8,10 @@ Vamos tentar navegar para uma página e esperar até que a rede da página estej
 
 ```go
 func main() {
-    página := rod.New().MustConnect().MustPage()
+    página := rod. New(). MustConnect(). MustPage()
 
-    wait := page.MustWaitNavigation()
-    page.MustNavigate("https://www.wikipedia.org/")
+    wait := page. MustWaitNavigation()
+    page. MustNavigate("https://www.wikipedia.org/")
     wait()
 }
 ```
@@ -26,14 +26,14 @@ Alguns tipos de evento carregam detalhes sobre o próprio evento. Como vamos nav
 
 ```go
 func main() {
-    página := rod.New().MustConnect().MustPage()
+    página := rod. New(). MustConnect(). MustPage()
 
-    e := proto.NetworkResponseReceived{}
-    espere := page.WaitEvent(&e)
-    page.MustNavigate("https://www.wikipedia.org/
+    e := proto. NetworkResponseReceived{}
+    espere := page. WaitEvent(&e)
+    page. MustNavigate("https://www.wikipedia.org/
     wait()
 
-    fmt.Println(e.Response.Status)
+    fmt. Println(e. Response. Status)
 }
 ```
 
@@ -42,18 +42,18 @@ func main() {
 Se você quiser lidar com todos os eventos de um tipo, tal como escutar por todos os eventos da saída do console da página, nós podemos fazer algo parecido com isto:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
-    fmt.Println(page.MustObjectsToJSON(e.Args))
+go page. EachEvent(func(e *proto. RuntimeConsoleAPICalled) {
+    fmt. Println(page. MustObjectsToJSON(e. Args))
 })()
 ```
 
 Para inscrever vários tipos de eventos ao mesmo tempo, como assinar `RuntimeConsoleAPIChamado` e `PageLoadEventFired`:
 
 ```go
-go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
-    fmt.Println(page.MustObjectsToJSON(e.Args))
-}, func(e *proto.PageLoadEventFired) {
-    fmt.Println("loaded")
+go page. EachEvent(func(e *proto. RuntimeConsoleAPICalled) {
+    fmt. Println(page. MustObjectsToJSON(e. Args))
+}, func(e *proto. PageLoadEventFired) {
+    fmt. Println("loaded")
 })()
 ```
 
@@ -62,18 +62,18 @@ go page.EachEvent(func(e *proto.RuntimeConsoleAPICalled) {
 Qualquer função no Cajado que possa ser cancelada com o contexto [](context-and-timeout.md), não é especial para eventos. Além disso, você também pode parar o evento, retornando verdadeiro do manipulador de eventos, por exemplo:
 
 ```go
-espe:= page.EachEvent(func(e *proto.PageLoadEventFired) (stop bool) {
+espe:= page. EachEvent(func(e *proto. PageLoadEventFired) (stop bool) {
     return true
 })
-page.MustNavigate("https://example.com")
+page. MustNavigate("https://example.com")
 wait()
 ```
 
-Se não retornarmos verdadeiro, a espera continuará esperando pelos eventos `PageLoadEventred` e bloqueará o programa para sempre. Isso é realmente o código de como `page.WaitEvent` funciona.
+Se não retornarmos verdadeiro, a espera continuará esperando pelos eventos `PageLoadEventred` e bloqueará o programa para sempre. Isso é realmente o código de como `page. WaitEvent` funciona.
 
 ## Eventos disponíveis
 
-Todos os tipos de evento implementam a interface do `proto.Event` , você pode usá-la para encontrar todos os eventos. Geralmente, o IDE será filtrado automaticamente pela interface. Assim como nós queremos ver todos os eventos sob o domínio da Página, podemos criar um objeto de página vazio e usar o `WaitEvent(proto. vent)` para listar e filtrar todos os tipos de eventos, como a imagem abaixo:
+Todos os tipos de evento implementam a interface do `proto. Event` , você pode usá-la para encontrar todos os eventos. Geralmente, o IDE será filtrado automaticamente pela interface. Assim como nós queremos ver todos os eventos sob o domínio da Página, podemos criar um objeto de página vazio e usar o `WaitEvent(proto. vent)` para listar e filtrar todos os tipos de eventos, como a imagem abaixo:
 
 ![eventos-lista](event-list.png)
 
