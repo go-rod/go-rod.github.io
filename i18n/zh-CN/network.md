@@ -57,14 +57,14 @@ page := browser.MustPage("http://api.ipify.org")
 // 但是返回的内容可以证明我们的测试没有问题
 println(page.MustElement("html").MustText())
 
-// Ignore certificate errors since we are using local insecure proxy
+// 无视证书错误，因为我们是本地调试
 browser.MustIgnoreCertErrors(true)
 
-// Navigate to the page that prints IP address
+// 导航到能看 ip 地址的页面
 page := browser.MustPage("http://api.ipify.org")
 
-// IP address should be the same, since we are using local
-// proxy, however the response signals that the proxy works
+// IP 应该不变，因为我们用的本地代理
+// 但是返回的内容可以证明我们的测试没有问题
 println(page.MustElement("html").MustText())
 ```
 
@@ -108,7 +108,7 @@ page.HijackRequests()
 
 更多信息，见[劫持相关的单元测试](https://github.com/go-rod/rod/blob/master/hijack_test.go)
 
-## Throttling
+## 节流
 
 您可以通过节流网络来模拟和测试慢网络：
 
