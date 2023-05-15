@@ -1,4 +1,4 @@
-# Error Handling
+# 异常处理
 
 在前面的章节中，我们看到了很多带 `Must` 前缀的方法，如 `MustNavigate`、`MustElement` 等。 它们都有不带前缀的版本，比如 `Navigate`、`Element` 等。 它们之间的主要区别在于如何处理异常。 这不是 Rod 特有的，你可以在标准库中找到类似设计，如 [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile)。
 
