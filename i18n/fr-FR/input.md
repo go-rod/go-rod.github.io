@@ -11,7 +11,7 @@ To simulate the mouse click an element:
 page.MustElement("button").MustClick()
 
 // right click
-_ = page.MustElement("button").Click(proto.InputMouseButtonRight)
+_ = page.MustElement("button").Click(proto.InputMouseButtonRight, 1)
 ```
 
 ## Text input
