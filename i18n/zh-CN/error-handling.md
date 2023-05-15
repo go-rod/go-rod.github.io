@@ -1,12 +1,16 @@
-# 异常处理
+# Error Handling
 
 在前面的章节中，我们看到了很多带 `Must` 前缀的方法，如 `MustNavigate`、`MustElement` 等。 它们都有不带前缀的版本，比如 `Navigate`、`Element` 等。 它们之间的主要区别在于如何处理异常。 这不是 Rod 特有的，你可以在标准库中找到类似设计，如 [regex.MustCompile](https://golang.org/pkg/regexp/#MustCompile)。
 
 形如 `MustNavigate` 与 `MustElement` 的方法通常在示例代码或快速脚本中使用。 它们适用于冒烟测试、站点监控、端到端测试等任务。 对于有很多不确定性的任务，比如网络抓取，无前缀版本将是一个更好的选择。
 
-带前缀的版本只是无前缀版本加上异常检查。 下面是 `MustElement` 的源代码。可以看到，它只是调用了 `Element`，并多加了几行代码，在 `err` 不是 nil 时 panic。
+带前缀的版本只是无前缀版本加上异常检查。 下面是 `MustElement` 的源代码。 可以看到，它只是调用了 `Element`，并多加了几行代码，在 `err` 不是 nil 时 panic。
 
 ```go
+// Page ...
+type Page rod.Page
+
+// MustElement ...
 // Page ...
 type Page rod.Page
 
