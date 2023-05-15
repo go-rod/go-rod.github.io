@@ -2,9 +2,9 @@
 
 - 入门
 
-  - [Get Started](get-started/README.md)
+  - [入门指南](get-started/README.md)
   - [上下文与超时](context-and-timeout.md)
-  - [Error Handling](error-handling.md)
+  - [异常处理](error-handling.md)
 
 - 使用手册
 
