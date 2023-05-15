@@ -1,6 +1,6 @@
 # 兼容性
 
-## OS
+## 操作系统
 
 一般来说你可以在 Golang 支持的所有主要平台上无感知地编译和运行 Rod。 推荐使用 [docker 方式](/custom-launch.md?id=remotely-manage-the-launcher) 在服务器上运行 Rod 。 在某些平台上，您可能需要手动安装浏览器。 Rod 无法保证自动下载的浏览器能够正常工作。 如果您想要Rod 支持一个平台，请为此提出问题。
 
