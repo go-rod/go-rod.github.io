@@ -60,7 +60,7 @@ page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 page.
     Timeout(2 * time.Second).MustElement("a").
     CancelTimeout().
-    MustElement("b") // This line won't be affected by the 2 seconds timeout.
+    MustElement("b") // 这一行不会受到 2 秒超时的影响
 ```
 
 ## 判断超时
