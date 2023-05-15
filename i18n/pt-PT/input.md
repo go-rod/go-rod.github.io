@@ -8,10 +8,10 @@ Para simular o mouse clique em um elemento:
 
 ```go
 // left click
-page.MustElement("button").MustClick()
+page. MustElement("button"). MustClick()
 
 // right click
-_ = page.MustElement("button").Click(proto.InputMouseButtonRight, 1)
+_ = page. MustElement("button"). Click(proto. InputMouseButtonRight)
 ```
 
 ## Text input
