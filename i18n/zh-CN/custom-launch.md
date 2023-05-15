@@ -81,13 +81,6 @@ func main() {
 
     rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
 }
-        Set("user-data-dir", "path").
-        Set("headless").
-        Delete("--headless").
-        MustLaunch()
-
-    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
-}
 ```
 
 前缀可选，例如 `headless` 和 `--headless` 相同。
@@ -96,11 +89,6 @@ func main() {
 
 ```go
 func main() {
-    u := launcher.New().
-        UserDataDir("path").
-        Headless(true).
-        Headless(false).
-        func main() {
     u := launcher.New().
         UserDataDir("path").
         Headless(true).
