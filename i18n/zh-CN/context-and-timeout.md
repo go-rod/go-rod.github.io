@@ -43,7 +43,7 @@ page.MustNavigate("http://github.com") // 不会在 2 秒钟后取消
 
 ## 超时
 
-上面的示例只是给操作设置超时的一种方式。 在 Golang 中，超时通常只是取消的一种特例。 鉴于它十分实用，所以我们提供了一个简单的方法来实现它，也就是 `Timeout`。上面的代码可以简化为：
+上面的示例只是给操作设置超时的一种方式。 在 Golang 中，超时通常只是取消的一种特例。 鉴于它十分实用，所以我们提供了一个简单的方法来实现它，也就是 `Timeout`。 上面的代码可以简化为：
 
 ```go
 page := rod.New().MustConnect().MustPage()
@@ -58,6 +58,9 @@ page.Timeout(2 * time.Second).MustNavigate("http://github.com")
 
 ```go
 page.
+    Timeout(2 * time.Second).MustElement("a").
+    CancelTimeout().
+    page.
     Timeout(2 * time.Second).MustElement("a").
     CancelTimeout().
     MustElement("b") // 这一行不会受到 2 秒超时的影响
