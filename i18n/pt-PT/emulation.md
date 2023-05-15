@@ -7,13 +7,13 @@ Rod fornece várias maneiras de imitar o ambiente para as páginas.
 Para definir o viewport, user-agent, orientação, etc. ao mesmo tempo para uma página, você pode usar os dispositivos predefinidos:
 
 ```go
-page.MustEmulate(dispositivos.IPhone6or7or8Plus)
+page. MustEmulate(dispositivos.IPhone6or7or8Plus)
 ```
 
 Ou defina seu próprio dispositivo:
 
 ```go
-page.MustEmulate(dispositivos. evice{
+page. MustEmulate(dispositivos. evice{
   Título: "iPhone 4",
   Capacidades: []string{"touch", "mobile"},
   UserAgent: "Mozilla/5. (iPhone; CPU iPhone OS 7_1_2 como Mac OS X)",
@@ -24,53 +24,48 @@ page.MustEmulate(dispositivos. evice{
       Width:  480,
       Height: 320,
     },
-    Vertical: dispositivos.Tamanho da tela{
-      Width:  320,
-      Height: 480,
-    },
-  },
-})
+    Vertical: dispositivos.
 ```
 
 Verifique o código-fonte dos dispositivos predefinidos, os campos devem auto-explicar-se.
 
-Você também pode definir o dispositivo padrão para todas as páginas usando [Browser.DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice).
+Você também pode definir o dispositivo padrão para todas as páginas usando [Browser. DefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.DefaultDevice).
 
 A emulação está ativada por padrão (usando os dispositivos [. aptopWithMDPIScreen](https://github.com/go-rod/rod/blob/bc44c39c9b4352c15d00bef6f6a1071205d2c388/lib/devices/list.go#L616) device), que substitui algumas das configurações padrão do navegador, o que é melhor em termos de coerência (ou seja, ajuda a reproduzir testes).
 
-Você pode desativar o recurso de emulação do dispositivo passando o dispositivo especial _Limpe_ no `Browser.DefaultDevice`.
+Você pode desativar o recurso de emulação do dispositivo passando o dispositivo especial _Limpe_ no `Browser. DefaultDevice`.
 
 ```go
-browser.DefaultDevice(devices.Clear)
+browser. DefaultDevice(devices. Clear)
 ```
 
-Ou você pode apenas usar o [Browser.NoDefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.NoDefaultDevice) ajudante.
+Ou você pode apenas usar o [Browser. NoDefaultDevice](https://pkg.go.dev/github.com/go-rod/rod#Browser.NoDefaultDevice) ajudante.
 
 ## Agente de usuário
 
-Se você deseja especificar um user-agent para uma página específica, use [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent).
+Se você deseja especificar um user-agent para uma página específica, use [Page. SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent).
 
 ## Visualizar
 
-Se você deseja especificar a janela de visualização para uma página específica, use [Page.SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport).
+Se você deseja especificar a janela de visualização para uma página específica, use [Page. SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport).
 
 ## Localidade e fuso horário
 
 Você pode usar o env de lançamento para definir para todas as páginas:
 
 ```go
-u := launcher.New().Env(append(os.Environ(), "TZ=America/New_York")...).MustLaunch()
-rod.New().ControlURL(u).MustConnect()
+u := launcher. New(). Env(append(os. Environ(), "TZ=America/New_York")...). MustLaunch()
+rod. New(). ControlURL(u). MustConnect()
 ```
 
 Ou você pode usar [EmulationSetTimezoneOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetTimezoneOverride) ou [EmulationSetLocaleOverride](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetLocaleOverride) para definir para uma página específica:
 
 ```go
-page := browser.MustPage()
-_ = proto.EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}.Call(page)
+page := browser. MustPage()
+_ = proto. EmulationSetTimezoneOverride{TimezoneID: "America/New_York"}. Call(page)
 ```
 
-## Permissões
+## Permissions
 
 Usar [BrowserGrantPermissions](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#BrowserGrantPermissions)
 
@@ -83,13 +78,13 @@ Usar [EmulationSetGeolocationOverride](https://pkg.go.dev/github.com/go-rod/rod/
 Use [EmulationSetEmulatedMedia](https://pkg.go.dev/github.com/go-rod/rod/lib/proto#EmulationSetEmulatedMedia)
 
 ```go
-page := browser.MustPage()
-_ = proto.EmulationSetEmulatedMedia{
+page := browser. MustPage()
+_ = proto. EmulationSetEmulatedMedia{
     Media: "screen",
-    Features: []*proto.EmulationMediaFeature{
+    Features: []*proto. EmulationMediaFeature{
         {Name: "prefers-color-scheme", Value: "dark"},
     },
-}.Call(page)
+}. Call(page)
 ```
 
 ## Impedir detecção de bots
