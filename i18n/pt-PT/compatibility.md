@@ -1,6 +1,6 @@
 # Compatibilidade
 
-## S.O.
+## OS
 
 Você deve ser capaz de compilar e executar Rod sem problemas em todas as plataformas principais que Golang suporta. This [docker way](/custom-launch.md?id=remotely-manage-the-launcher) is recommended to run Rod on a server. On some platforms, you might need to install the browser manually, Rod can't guarantee the auto-downloaded browser will always work. If you want Rod to support a platform, please raise an issue for it.
 
@@ -35,9 +35,9 @@ Cajado deve funcionar com qualquer navegador que suporte o [DevTools Protocol](h
 
 ## Versão do protocolo cdp e navegador
 
-O protocolo cdp é sempre o mesmo que o [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision). Se Rod não conseguir encontrar seu navegador local, ele baixará a versão do navegador do `launcher.DefaultRevision`.
+O protocolo cdp é sempre o mesmo que o [launcher. DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision). Se Rod não conseguir encontrar seu navegador local, ele baixará a versão do navegador do `launcher. DefaultRevision`.
 
-Cada versão de Rod só garante trabalhar com seu `launcher.DefaultRevision` do navegador.
+Cada versão de Rod só garante trabalhar com seu `launcher. DefaultRevision` do navegador.
 
 ## API Versioning
 
@@ -51,7 +51,7 @@ Você pode usar a versão de comparação do Github para ver o changelog automat
 
 Vá para [aqui](https://pkg.go.dev/github.com/go-rod/rod?tab=versions).
 
-## Verso do documento
+## Doc site versioning
 
 Nós usamos o github para gerenciar a documentação, é fácil de ver qualquer versão da documentação:
 
