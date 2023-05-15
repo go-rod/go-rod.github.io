@@ -50,7 +50,7 @@ browser.DefaultDevice(devices.Clear)
 
 使用 [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent) 为特定页面指定 User Agent。
 
-## 视区
+## Viewport
 
 使用 [Page.SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport) 为特定页面指定视区。
 
@@ -96,7 +96,7 @@ _ = proto.EmulationSetEmulatedMedia{
 
 通常最好让无头浏览器对页面完全透明，以使页面无法判断它是被人或机器人控制的。 在某些情况下，某些页面可以使用客户端 js 检测页面是否由人或机器人控制， 此 web WebGL 、WebDriver 或 http 请求头。 您可以手工写一个 js lib 来隐藏所有的痕迹，或者使用 [stealth](https://github.com/go-rod/stealth) 库: [代码示例](https://github.com/go-rod/stealth/blob/master/examples_test.go)。
 
-如果 ` stealth ` 库不起作用，您可以用 `launcher.NewUserMode`: [用户模式](custom-launch.md?id=user-mode)
+如果 `stealth` 库不起作用，您可以用 `launcher.NewUserMode`: [用户模式](custom-launch.md?id=user-mode)
 
 您可以使用诸如 [https://bot.sannysoft.com](https://bot.sannysoft.com) 等工具来测试您的配置。
 
