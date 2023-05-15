@@ -1,6 +1,6 @@
 # 开始使用 Rod
 
-## Requirements
+## 依赖
 
 [Golang](https://golang.org/) 是唯一的依赖，你甚至完全不需要了解 HTML。
 
@@ -41,7 +41,7 @@ go run .
 
 ![first-program](first-program.png)
 
-## See what's under the hood
+## 了解发生了什么
 
 对于有经验的开发者，可以跳过这里的所有内容、阅读[这个文件](https://github.com/go-rod/rod/blob/master/examples_test.go)。
 
@@ -88,7 +88,7 @@ go run . -rod=show
 go run . -rod=show go run . -rod=show,devtools
 ```
 
-Run the command above, move your mouse to the input field and right-click above it, you will see the context menu, then click the "inspect":
+运行上面的命令，将鼠标移动到输入框，在上面点击右键，然后在弹出的菜单中点击“审查元素”：
 
 ![inspect](inspect.png)
 
@@ -182,7 +182,7 @@ go run . -rod=show go run . -rod="show,slow=1s,trace"
 [rod] 2020/11/11 11:11:11 [input] left click
 ```
 
-## Other than the command line options
+## 命令行选项以外的其它选项
 
 命令行参数只是一些常用方法的快捷方式。 你也可以在代码中手动设置，比如“slow”可以通过 `rod.New().SlowMotion(2 * time.Second)` 这样的代码来实现。
 
@@ -216,7 +216,7 @@ func main() {
 }
 ```
 
-If we rerun the module, we should see the console outputs something like:
+如果我们重新运行该模块，我们应该看到控制台输出类似：
 
 ```txt
 Earth is the third planet from the Sun and the only astronomical object known to harbor life.
