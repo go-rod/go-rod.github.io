@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD041 -->
 
 - [API](api-reference.md)
 - [Exemplos](examples.md)
