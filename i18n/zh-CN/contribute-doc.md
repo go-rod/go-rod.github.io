@@ -23,7 +23,7 @@ docsify serve -o go-rod.github.io
 
 我们使用 [crowdin](https://crowdin.com/) 管理翻译。
 
-首先：
+To get started:
 
 1. 到[项目页面](https://crowdin.com/project/go-rod)
 2. 点击目标语言的图标
