@@ -27,7 +27,9 @@ func TestCheckCode(t *testing.T) {
 
 		b, err := os.ReadFile(path)
 		g.E(err)
-		return checkGoCode(g, path, string(b))
+		checkGoCode(g, path, string(b))
+
+		return nil
 	}))
 
 	defer func() {
@@ -42,12 +44,13 @@ func TestCheckCode(t *testing.T) {
 
 var count = 0
 
-func checkGoCode(g got.G, path, body string) error {
+func checkGoCode(g got.G, path, body string) {
 	reg := regexp.MustCompile("(?s)```go\r?\n(.+?)```")
 
 	for _, m := range reg.FindAllStringSubmatch(body, -1) {
 		code := strings.TrimSpace(m[1])
 		if strings.HasPrefix(code, "package ") {
+			noop()
 		} else if strings.Contains(code, "func ") {
 			code = "package main\n" + vars(code) + code
 		} else {
@@ -58,10 +61,9 @@ func checkGoCode(g got.G, path, body string) error {
 
 		code = "// Source markdown file: " + path + "\n\n" + code
 
-		g.WriteFile(p, []byte(code))
+		g.E(os.MkdirAll(filepath.Dir(p), 0o755))
+		g.E(os.WriteFile(p, []byte(code), 0o755))
 	}
-
-	return nil
 }
 
 func vars(code string) string {
@@ -72,5 +74,9 @@ func vars(code string) string {
 	if strings.Contains(code, "browser.") && !strings.Contains(code, "browser :=") {
 		vars += "var browser *rod.Browser\n"
 	}
+
 	return vars
+}
+
+func noop() {
 }

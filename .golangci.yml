@@ -1,22 +1,41 @@
-
 run:
   skip-dirs-use-default: false
 
 linters:
-  enable:
-    - gofmt
+  enable-all: true
+  disable:
+    - gochecknoinits
+    - paralleltest
+    - wrapcheck
+    - gosec
+    - gochecknoglobals
+    - musttag
+    - wsl
+    - gocritic
+    - varnamelen
+    - forbidigo
+    - lll
     - revive
-    - gocyclo
-    - misspell
-    - bodyclose
+    - gomnd
+    - nlreturn
+    - exhaustruct
+    - nilnil
+    - nonamedreturns
+
+    # Deprecated ones:
+    - structcheck
+    - interfacer
+    - deadcode
+    - varcheck
+    - ifshort
+    - exhaustivestruct
+    - golint
+    - maligned
+    - nosnakecase
+    - scopelint
 
 gocyclo:
   min-complexity: 15
 
 issues:
   exclude-use-default: false
-
-  exclude-rules:
-    - linters:
-        - revive
-      text: "package-comments: should have a package comment"
