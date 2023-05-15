@@ -6,7 +6,7 @@ Check [Why Rod](/why-rod.md).
 
 ## How to search symbols in the comments or doc?
 
-Such as the symbol `Page.Element` shown in the screenshot:
+Such as the symbol `Page. Element` shown in the screenshot:
 
 ![symbol-in-doc](symbol-in-doc.png)
 
