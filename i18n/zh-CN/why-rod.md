@@ -50,7 +50,7 @@ Rod 的架构目标之一是让每个人都能更轻松的为社区贡献力量�
 
 ### Selenium
 
-[Selenium](https://www.selenium.dev/) 基于 [webdriver 协议](https://www.w3.org/TR/webdriver/) ，这一协议的功能比 [devtools 协议](https://chromedevtools.github.io/devtools-protocol)少得多。 比如说它不能处理[闭合的 shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460)， 不能把页面另存为 PDF， 不支持 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/) 之类的工具，等等。 无法将页面保存为 PDF。 不支持诸如 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/)等工具。
+[Selenium](https://www.selenium.dev/) 基于 [webdriver 协议](https://www.w3.org/TR/webdriver/) ，这一协议的功能比 [devtools 协议](https://chromedevtools.github.io/devtools-protocol)少得多。 比如说它不能处理[闭合的 shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460)。 无法将页面保存为 PDF。 不支持诸如 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/)等工具。
 
 由于像浏览器驱动之类的额外依赖，Selenium 更难配置与维护。
 
