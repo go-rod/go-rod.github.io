@@ -11,10 +11,6 @@
 type Page rod.Page
 
 // MustElement ...
-// Page ...
-type Page rod.Page
-
-// MustElement ...
 func (p *Page) MustElement(selector string) *rod.Element {
     el, err := (*rod.Page)(p).Element(selector)
     if err != nil {
