@@ -30,7 +30,7 @@ Chromedp 的另一个问题是，他们的架构基于 [DOM 节点 id](https://c
 
 [Puppeteer][puppeteer] 会对浏览器传回的每条消息进行 JSON 解码，而 Rod 则按需解码，因此理论上 Rod 性能更好，尤其是大量用到网络的事件时。
 
-使用 puppeteer 时必须大量处理 promise/async/await，而这让设计优雅的[流式接口](https://en.wikipedia.org/wiki/Fluent_interface)变得非常困难。 端对端测试需要用到许多同步操作来模拟真人输入。 由于 Puppeteer 基于 Nodejs，所有 IO 操作都是异步的，所以通常人们会不得不输入成堆的 async/await。 忘记写 `await` 的话，调试 Promise 泄露通常会非常痛苦。 The overhead grows when your project grows.
+使用 puppeteer 时必须大量处理 promise/async/await，而这让设计优雅的[流式接口](https://en.wikipedia.org/wiki/Fluent_interface)变得非常困难。 端对端测试需要用到许多同步操作来模拟真人输入。 由于 Puppeteer 基于 Nodejs，所有 IO 操作都是异步的，所以通常人们会不得不输入成堆的 async/await。 忘记写 `await` 的话，调试 Promise 泄露通常会非常痛苦。 你的项目越大，这种开销就越大。
 
 Rod 默认类型安全，且有更好的注释。 它对于 Devtools 协议中的所有 endpoint 都有类型绑定。
 
@@ -50,7 +50,7 @@ Rod 的架构目标之一是让每个人都能更轻松的为社区贡献力量�
 
 ### Selenium
 
-[Selenium](https://www.selenium.dev/) 基于 [webdriver 协议](https://www.w3.org/TR/webdriver/) ，这一协议的功能比 [devtools 协议](https://chromedevtools.github.io/devtools-protocol)少得多。 比如说它不能处理[闭合的 shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460)， 不能把页面另存为 PDF， 不支持 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/) 之类的工具，等等。 No way to save pages as PDF. No support for tools like [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) or [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/), etc.
+[Selenium](https://www.selenium.dev/) 基于 [webdriver 协议](https://www.w3.org/TR/webdriver/) ，这一协议的功能比 [devtools 协议](https://chromedevtools.github.io/devtools-protocol)少得多。 比如说它不能处理[闭合的 shadow DOM](https://github.com/sukgu/shadow-automation-selenium/issues/7#issuecomment-563062460)， 不能把页面另存为 PDF， 不支持 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/) 之类的工具，等等。 无法将页面保存为 PDF。 不支持诸如 [Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 或 [Performance](https://chromedevtools.github.io/devtools-protocol/tot/Performance/)等工具。
 
 由于像浏览器驱动之类的额外依赖，Selenium 更难配置与维护。
 
