@@ -11,7 +11,7 @@ Rod 提供了很多方法来模拟人工输入，比如鼠标点击或者键盘�
 page.MustElement("button").MustClick()
 
 // 右击
-_ = page.MustElement("button").Click(proto.InputMouseButtonRight)
+_ = page.MustElement("button").Click(proto.InputMouseButtonRight, 1)
 ```
 
 ## 文本输入
