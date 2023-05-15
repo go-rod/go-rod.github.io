@@ -113,7 +113,7 @@ Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/
 For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that
 they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely.
 With it we can remotely launch a browser with custom launch flags.
-The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+The example to use it is [here](https://github.com/go-rod/rod/blob/main/lib/launcher/rod-manager/main.go).
 
 Because it's very hard to install chromium correctly on some linux distributions,
 Rod provides a docker image to make it consistent cross platforms.
@@ -121,9 +121,9 @@ Here's an example to use it:
 
 1. Run the rod image `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
-2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
+2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/main/lib/examples/launch-managed/main.go)
 
-The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages.
+The image is [tuned](https://github.com/go-rod/rod/blob/main/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages.
 Each container can launch multiple browsers at the same time.
 
 ## User mode :id=user-mode
@@ -136,9 +136,9 @@ wsURL := launcher.NewUserMode().MustLaunch()
 rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
 ```
 
-Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
+Here's a more detailed example: [code example](https://github.com/go-rod/rod/blob/main/lib/examples/use-rod-like-chrome-extension/main.go).
 
 ## Low-level API
 
 If you want to control every step of the launch process, such as disable the auto-download and use the system's default browser,
-check the [example file](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
+check the [example file](https://github.com/go-rod/rod/blob/main/lib/launcher/example_test.go).

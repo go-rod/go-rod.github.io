@@ -45,7 +45,7 @@ The program will output a screenshot "a.png" like the one below:
 
 ## See what's under the hood
 
-For senior developers, you can skip all and read this file: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
+For senior developers, you can skip all and read this file: [link](https://github.com/go-rod/rod/blob/main/examples_test.go).
 
 By default, Rod will disable the browser's UI to maximize the performance.
 But when developing an automation task we usually care more about the ease of debugging.

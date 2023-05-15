@@ -20,7 +20,7 @@ When a crash happens, Chromedp will leave the zombie browser process on Windows 
 
 Rod is more configurable, such as you can even replace the WebSocket lib with the lib you like.
 
-For direct code comparison you can check [here](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp). If you compare the example called `logic` between [rod](https://github.com/go-rod/rod/tree/master/lib/examples/compare-chromedp/logic/main.go) and [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go), you will find out how simpler rod is.
+For direct code comparison you can check [here](https://github.com/go-rod/rod/tree/main/lib/examples/compare-chromedp). If you compare the example called `logic` between [rod](https://github.com/go-rod/rod/tree/main/lib/examples/compare-chromedp/logic/main.go) and [chromedp](https://github.com/chromedp/examples/blob/master/logic/main.go), you will find out how simpler rod is.
 
 With Chromedp, you have to use their verbose DSL-like tasks to handle code logic. Chromedp uses several wrappers to handle execution with context and options, which makes it very hard to understand their code when bugs happen. The heavily used interfaces make the static types useless when tracking issues. In contrast, Rod uses as few interfaces as possible.
 
@@ -76,7 +76,7 @@ If you want to cooperate with us to create a testing focused framework base on R
 
 Rod is the name of the control device for puppetry, such as the brown stick in the image below:
 
-![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png ':size=200')
+![rod](https://user-images.githubusercontent.com/1415488/80178856-31cd8880-863a-11ea-83e9-64f84be3282d.png ":size=200")
 
 The meaning is we are the puppeteer, the browser is the puppet, we use the rod to control the puppet.
 

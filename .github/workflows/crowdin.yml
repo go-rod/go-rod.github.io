@@ -2,7 +2,7 @@ name: Rebase l10n_master Daily
 
 on:
   schedule:
-    - cron: '31 3 * * *'
+    - cron: "31 3 * * *"
 
 jobs:
   linux:
@@ -20,4 +20,4 @@ jobs:
             exit 0
           fi
           git merge origin/l10n_master
-          git push origin master
+          git push origin main

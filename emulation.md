@@ -99,7 +99,7 @@ _ = proto.EmulationSetEmulatedMedia{
 Usually it's better to make the headless browser completely transparent for the page so that the page cannot tell if it's controlled by a human or robot.
 In some cases, some page could use client js to detect if the page is control by a human or a robot, such web WebGL, WebDriver, or http request headers.
 You can handcraft a js lib to hide all the traces, or just use lib [stealth](https://github.com/go-rod/stealth):
-[code example](https://github.com/go-rod/stealth/blob/master/examples_test.go).
+[code example](https://github.com/go-rod/stealth/blob/main/examples_test.go).
 
 If `stealth` lib doesn't work for you, you can just launch the regular user browser with `launcher.NewUserMode`: [User mode](custom-launch.md?id=user-mode).
 
