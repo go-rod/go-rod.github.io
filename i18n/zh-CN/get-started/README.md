@@ -160,7 +160,7 @@ func main() {
 自动化操作对人眼来说太快了，调试时我们通常会启用慢动作和可视化跟踪。 让我们用些额外的配置来运行这个模块：
 
 ```bash
-go run . go run . -rod="show,slow=1s,trace"
+go run . -rod=show go run . -rod="show,slow=1s,trace"
 ```
 
 现在每次操作都会在执行前等待 1 秒。 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
