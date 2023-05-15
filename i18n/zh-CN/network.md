@@ -56,16 +56,6 @@ page := browser.MustPage("http://api.ipify.org")
 // IP 应该不变，因为我们用的本地代理
 // 但是返回的内容可以证明我们的测试没有问题
 println(page.MustElement("html").MustText())
-
-// 无视证书错误，因为我们是本地调试
-browser.MustIgnoreCertErrors(true)
-
-// 导航到能看 ip 地址的页面
-page := browser.MustPage("http://api.ipify.org")
-
-// IP 应该不变，因为我们用的本地代理
-// 但是返回的内容可以证明我们的测试没有问题
-println(page.MustElement("html").MustText())
 ```
 
 ## Cookies
