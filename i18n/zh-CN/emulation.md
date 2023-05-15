@@ -50,7 +50,7 @@ browser.DefaultDevice(devices.Clear)
 
 使用 [Page.SetUserAgent](https://pkg.go.dev/github.com/go-rod/rod#Page.SetUserAgent) 为特定页面指定 User Agent。
 
-## Viewport
+## 视区
 
 使用 [Page.SetViewport](https://pkg.go.dev/github.com/go-rod/rod#Page.SetViewport) 为特定页面指定视区。
 
