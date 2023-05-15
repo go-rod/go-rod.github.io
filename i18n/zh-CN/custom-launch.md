@@ -52,7 +52,7 @@ func main() {
 }
 ```
 
-如果 `ControlURL` 未设置， `MustConnect` 将自动运行 `launcher.New().MustLaunch()` 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。 By default, the launcher will automatically download and use a statically versioned browser so that the browser behavior is consistent. 所以您可以将上述代码简化为：
+如果 `ControlURL` 未设置， `MustConnect` 将自动运行 `launcher.New().MustLaunch()` 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。 默认情况下，launcher 将自动下载并使用固定版本的浏览器，以保证浏览器 的行为一致性。 所以您可以将上述代码简化为：
 
 ```go
 func main() {
