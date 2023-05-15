@@ -25,7 +25,7 @@ import (
 
 func main() {
     u := "ws://127.0.0.1:9222/devtools/browser/4dcf09f2-ba2b-463a-8ff5-90d27c6cc913"
-    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
+    rod. New(). ControlURL(u). MustConnect(). MustPage("https://example.com")
 }
 ```
 
@@ -37,26 +37,26 @@ Portanto, o código e a inicialização manual acima se tornam:
 
 ```go
 func main() {
-    u := launcher.New().Bin("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").MustLaunch()
-    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
+    u := launcher. New(). Bin("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"). MustLaunch()
+    rod. New(). ControlURL(u). MustConnect(). MustPage("https://example.com")
 }
 ```
 
-Podemos usar a função auxiliar `launcher.LookPath` para obter o caminho do executável do navegador, o código acima é o mesmo como:
+Podemos usar a função auxiliar `launcher. LookPath` para obter o caminho do executável do navegador, o código acima é o mesmo como:
 
 ```go
 func main() {
-    caminho, _ := launcher.LookPath()
-    u := launcher.New().Bin(path).MustLaunch()
-    rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
+    caminho, _ := launcher. LookPath()
+    u := launcher. New(). Bin(path). MustLaunch()
+    rod. New(). ControlURL(u). MustConnect(). MustPage("https://example.com")
 }
 ```
 
-Se o `ControlURL` não estiver definido, o `MustConnect` executará automaticamente o `launcher.New().MustLaunch`. Por padrão, o launcher fará o download e usará automaticamente um navegador versionado estaticamente para que o comportamento do navegador seja consistente. Então você pode simplificar o código acima em:
+Se o `ControlURL` não estiver definido, o `MustConnect` executará automaticamente o `launcher. New(). MustLaunch`. Por padrão, o launcher fará o download e usará automaticamente um navegador versionado estaticamente para que o comportamento do navegador seja consistente. Então você pode simplificar o código acima em:
 
 ```go
 func main() {
-    rod.New().MustConnect().MustPage("https://example.com")
+    rod. New(). MustConnect(). MustPage("https://example.com")
 }
 ```
 
@@ -73,9 +73,9 @@ import (
 )
 
 func main() {
-    u := launcher.New().
+    u := launcher. New().
         Definir("user-data-dir", "path").
-        Definir("não-interativo").
+        Set("headless").
         Deletar("--headless").
         MustLaunch()
 
@@ -89,9 +89,9 @@ Como `user-data-dir`, `proxy-server`, `headless` são tão frequentemente utiliz
 
 ```go
 func main() {
-    u := launcher.New().
+    u := launcher. New().
         UserDataDir("caminho").
-        Não-interna(verdadeiro).
+        Headless(true).
         Não-interna(falso).
         MustLaunch()
 
@@ -105,7 +105,7 @@ Leia o documento de API para mais informações: [link](https://pkg.go.dev/githu
 
 ## Remotely manage the launcher :id=remotely-manage-the-launcher
 
-Para o sistema de remoção de produção, usualmente, vamos separar os sucatas e navegadores em diferentes clusters para que eles possam escalar separadamente. Rod fornece o módulo `launcher.Manager` para gerenciar o launcher remotamente. Com isso, podemos iniciar um navegador remotamente com bandeiras de inicialização personalizadas. O exemplo a ser usado é [aqui](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+Para o sistema de remoção de produção, usualmente, vamos separar os sucatas e navegadores em diferentes clusters para que eles possam escalar separadamente. Rod fornece o módulo `launcher. Manager` para gerenciar o launcher remotamente. Com isso, podemos iniciar um navegador remotamente com bandeiras de inicialização personalizadas. O exemplo a ser usado é [aqui](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
 
 Por ser muito difícil instalar o crómio corretamente em algumas distribuições linux, Rod fornece uma imagem docker para torná-lo uma plataforma cruzada consistente. Aqui está um exemplo para usá-lo:
 
@@ -117,11 +117,11 @@ A imagem está [ajustada](https://github.com/go-rod/rod/blob/master/lib/docker/D
 
 ## Modo de usuário :id=user-mode
 
-Quando você faz login na sua conta do github e deseja reutilizar a sessão de login para tarefa de automação. Você pode usar o `launcher.NewUserMode` para iniciar seu navegador normal. Cajado será como uma extensão de navegador:
+Quando você faz login na sua conta do github e deseja reutilizar a sessão de login para tarefa de automação. Você pode usar o `launcher. NewUserMode` para iniciar seu navegador normal. Cajado será como uma extensão de navegador:
 
 ```go
-wsURL := launcher.NewUserMode().MustLaunch()
-rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+wsURL := launcher. NewUserMode(). MustLaunch()
+rod. New(). ControlURL(wsURL). MustConnect(). NoDefaultDevice()
 ```
 
 Aqui está um exemplo mais detalhado: [exemplo de código](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
