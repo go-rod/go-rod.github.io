@@ -115,16 +115,7 @@ func main() {
     page.MustElement("#id_login").MustInput("username")
     page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
 
-    time.Sleep(10 * time.Second) // 请避免使用 time.Sleep!
-
-    if page.MustHas(".nav-user-icon-base") {
-        // 在成功登陆后打印用户名
-        fmt.Println(page.MustElement(".nav-user-icon-base").MustAttribute("title"))
-    } else if page.MustHas("[data-cy=sign-in-error]") {
-        // 当用户名或密码错误
-        fmt.Println(page.MustElement("[data-cy=sign-in-error]").MustText())
-    }
-}
+    time.Sleep(10 * time.Second) // Please avoid the use of time.Sleep!
 
     if page.MustHas(".nav-user-icon-base") {
         // 在成功登陆后打印用户名
