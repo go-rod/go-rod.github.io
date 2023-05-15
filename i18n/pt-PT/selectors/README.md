@@ -17,8 +17,8 @@ Use o `ElementR` para combinar elementos com conteúdo de texto específico, com
 ![resultado-texto](match-text.png)
 
 ```go
-page.MustElementR("input", "Search or jump")
-page.MustElementR("input", "/click/i") // use a flag insensível ao caso "i"
+page. MustElementR("input", "Search or jump")
+page. MustElementR("input", "/click/i") // use a flag insensível ao caso "i"
 ```
 
 Como usamos [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp), não precisamos corresponder ao contexto do texto inteiro. O texto correspondente é o que você realmente vê no site, não o código-fonte, compare 1 e 2 na captura de tela abaixo. Você pode usar o `copiar` auxiliar em Devtools para copiar o texto para a sua área de transferência (veja o 4):
@@ -30,7 +30,7 @@ Como usamos [js regex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/R
 O seletor CSS é a forma recomendada para os elementos seletores, como você não pode usar XPath para selecionar [renderizado texto](https://stackoverflow.com/questions/51992258/xpath-to-find-pseudo-element-after-in-side-a-div-element-with-out-any-content/51993454). Mas às vezes o XPath pode ser um handier para programadores que vêm de outras línguas. Use o `ElementX` para XPath:
 
 ```go
-page.MustElementX("//h2")
+page. MustElementX("//h2")
 ```
 
 ## Por Javascript
@@ -38,7 +38,7 @@ page.MustElementX("//h2")
 Se você tem uma consulta complexa ou quer usar um mecanismo de consulta de alto nível, como [jQuery](https://jquery.com/):
 
 ```go
-page.MustElementByJS(`() => jQuery('option:selected')[0]`)
+page. MustElementByJS(`() => jQuery('option:selected')[0]`)
 ```
 
 Na verdade, se você verificar o código-fonte de outros seletores, como `Elemento` ou `ElementR`, todos eles são baseados em `ElementByJS`, e `ElementByJS` é baseado na página `. avalie`, para mais detalhes sobre como avaliar js, verifique o [Runtime Javascript](/javascript-runtime.md). Geralmente, você usa `ElementByJS` para criar seu próprio seletor para estender a Rod.
@@ -57,9 +57,9 @@ Aqui está um exemplo de como usamos vários seletores para recuperar o conteúd
 // Na página awesome-go, encontrando o setor de seção especificado,
 // e recuperando os projetos associados da página.
 func main() {
-    página := rod.New().MustConnect().MustPage("https://github.com/avelino/awesome-go")
+    página := rod. New(). MustConnect(). MustPage("https://github.com/avelino/awesome-go")
 
-    seção := page.MustElementR("p", "Selenium e ferramentas de controle do navegador"). ustNext()
+    seção := page. MustElementR("p", "Selenium e ferramentas de controle do navegador"). ustNext()
 
     // Obtém elementos filhos de um elemento
     projetos := seção. ustElements("li")
@@ -85,9 +85,9 @@ For example, to get the button from the nested iframes:
 O código vai se parecer com:
 
 ```go
-frame01 := page.MustElement("iframe").MustFrame()
-frame02 := frame01.MustElement("iframe").MustFrame()
-frame02.MustElement("button")
+frame01 := page. MustElement("iframe"). MustFrame()
+frame02 := frame01. MustElement("iframe"). MustFrame()
+frame02. MustElement("button")
 ```
 
 ## Elementos de pesquisa
@@ -101,7 +101,7 @@ A funcionalidade é a mesma que a [Busca por nós do Devtools,](https://develope
 Para obter o mesmo elemento do [Obter elementos de iframes](#get-elements-from-iframes), podemos simplesmente codificar assim:
 
 ```go
-page.MustSearch("botão")
+page. MustSearch("botão")
 ```
 
 ## Seletores de corrida
@@ -110,39 +110,37 @@ Rod encoraja automação sem sono para reduzir a bondade. Quando uma ação tem 
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
+    page := rod. New(). MustConnect(). MustPage("https://leetcode.com/accounts/login/")
 
-    page.MustElement("#id_login").MustInput("username")
-    page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
+    page. MustElement("#id_login"). MustInput("username")
+    page. MustElement("#id_password"). MustInput("password"). MustType(input. Enter)
 
-    time.Sleep(10 * time.Second) // Please avoid the use of time.Sleep!
+    time. Sleep(10 * time. Second) // Please avoid the use of time. Sleep!
 
-    if page.MustHas(".nav-user-icon-base") {
+    if page. MustHas(".nav-user-icon-base") {
         // print the username after successful login
-        fmt.Println(page.MustElement(".nav-user-icon-base").MustAttribute("title"))
-    } else if page.MustHas("[data-cy=sign-in-error]") {
+        fmt. Println(page. MustElement(".nav-user-icon-base"). MustAttribute("title"))
+    } else if page. MustHas("[data-cy=sign-in-error]") {
         // when wrong username or password
-        fmt.Println(page.MustElement("[data-cy=sign-in-error]").MustText())
-    }
-}
+        fmt. Println(page. MustElement("[data-cy=sign-in-error]").
 ```
 
 Em vez disso, devemos programar isto:
 
 ```go
 func main() {
-    page := rod.New().MustConnect().MustPage("https://leetcode.com/accounts/login/")
+    page := rod. New(). MustConnect(). MustPage("https://leetcode.com/accounts/login/")
 
-    page.MustElement("#id_login").MustInput("username")
-    page.MustElement("#id_password").MustInput("password").MustType(input.Enter)
+    page. MustElement("#id_login"). MustInput("username")
+    page. MustElement("#id_password"). MustInput("password"). MustType(input. Enter)
 
     // It will keep polling until one selector has found a match
-    page.Race().Element(".nav-user-icon-base").MustHandle(func(e *rod.Element) {
+    page. Race(). Element(".nav-user-icon-base"). MustHandle(func(e *rod. Element) {
         // print the username after successful login
-        fmt.Println(e.MustAttribute("title"))
-    }).Element("[data-cy=sign-in-error]").MustHandle(func(e *rod.Element) {
+        fmt. Println(e. MustAttribute("title"))
+    }). Element("[data-cy=sign-in-error]"). MustHandle(func(e *rod. Element) {
         // when wrong username or password
-        panic(e.MustText())
-    }).MustDo()
+        panic(e. MustText())
+    }). MustDo()
 }
 ```
