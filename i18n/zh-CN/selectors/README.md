@@ -127,10 +127,10 @@ func main() {
 }
 
     if page.MustHas(".nav-user-icon-base") {
-        // print the username after successful login
+        // 在成功登陆后打印用户名
         fmt.Println(page.MustElement(".nav-user-icon-base").MustAttribute("title"))
     } else if page.MustHas("[data-cy=sign-in-error]") {
-        // when wrong username or password
+        // 当用户名或密码错误
         fmt.Println(page.MustElement("[data-cy=sign-in-error]").MustText())
     }
 }
