@@ -21,7 +21,7 @@ func main() {
 }
 ```
 
-`rod.New` 用于创建浏览器对象，而 `MustConnect` 则会启动并连接到浏览器。 `MustPage` 会创建一个页面对象（类似于浏览器中的一个标签页）。 The `MustWaitStable` waits until the page rarely changes. `MustScreenshot` 会获取页面的截图。
+`rod.New` 用于创建浏览器对象，而 `MustConnect` 则会启动并连接到浏览器。 `MustPage` 会创建一个页面对象（类似于浏览器中的一个标签页）。 `MustWaitStable` 等到页面几乎没有变化。 `MustScreenshot` 会获取页面的截图。
 
 创建一个 module：
 
@@ -118,7 +118,7 @@ func main() {
 }
 ```
 
-我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitStable` before it. 然后我们调用 `MustInput` 来输入关键词“earth”。 再次运行“main.go”后你会看到如下的结果：
+我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitStable`。 然后我们调用 `MustInput` 来输入关键词“earth”。 再次运行“main.go”后你会看到如下的结果：
 
 ![after-input](after-input.png)
 
