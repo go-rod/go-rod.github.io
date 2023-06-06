@@ -23,7 +23,7 @@ func main() {
 
 The `rod.New` creates a browser object, the `MustConnect` launches and connects to a browser.
 The `MustPage` creates a page object, it's like a page tab in the browser. The `MustWaitStable`
-waits until the page rarely change. The `MustScreenshot` takes a screenshot of the page.
+waits until the page rarely changes. The `MustScreenshot` takes a screenshot of the page.
 
 Create a module:
 
