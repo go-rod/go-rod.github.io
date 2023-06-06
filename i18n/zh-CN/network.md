@@ -127,8 +127,8 @@ func main() {
     router := page.HijackRequests()
 
     router.MustAdd("*.png", func(ctx *rod.Hijack) {
-        // There're a lot of types you can use in this enum, like NetworkResourceTypeScript for javascript files
-        // In this case we're using NetworkResourceTypeImage to block images
+        // 你可以使用很多其他 enum 类型，比如 NetworkResourceTypeScript 用于 javascript
+        // 这个例子里我们使用 NetworkResourceTypeImage 来阻止图片
         if ctx.Request.Type() == proto.NetworkResourceTypeImage {
             ctx.Response.Fail(proto.NetworkErrorReasonBlockedByClient)
             return
@@ -136,7 +136,7 @@ func main() {
         ctx.ContinueRequest(&proto.FetchContinueRequest{})
     })
 
-    // since we are only hijacking a specific page, even using the "*" won't affect much of the performance
+    // 因为我们只劫持特定页面，即便不使用 "*" 也不会太多性能影响
     go router.Run()
 
     page.MustNavigate("https://github.com/").MustWaitStable().MustScreenshot("")
