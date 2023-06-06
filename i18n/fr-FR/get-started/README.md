@@ -17,11 +17,11 @@ import "github.com/go-rod/rod"
 
 func main() {
     page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
 }
 ```
 
-Le `rod.New` crée un objet de navigateur, le `MustConnect` se lance et se connecte à un navigateur. Le `MustPage` crée un objet de page, c'est comme un onglet de page dans le navigateur. Le `MustWaitLoad` attend que la page soit complètement chargée. La `MustScreenshot` prend une capture d'écran de la page.
+Le `rod.New` crée un objet de navigateur, le `MustConnect` se lance et se connecte à un navigateur. Le `MustPage` crée un objet de page, c'est comme un onglet de page dans le navigateur. The `MustWaitStable` waits until the page rarely change. La `MustScreenshot` prend une capture d'écran de la page.
 
 Créer un module :
 
@@ -61,7 +61,7 @@ import (
 func main() {
     page := rod.New().NoDefaultDevice().MustConnect().MustPage("https://www.wikipedia.org/")
     page.MustWindowFullscreen()
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
@@ -113,12 +113,12 @@ func main() {
 
     page.MustElement("#searchInput").MustInput("earth")
 
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
 
-We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitLoad` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
+We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitStable` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
 
 ![after-input](after-input.png)
 
@@ -146,7 +146,7 @@ func main() {
     page.MustElement("#searchInput").MustInput("earth")
     page.MustElement("#search-form > fieldset > button").MustClick()
 
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
