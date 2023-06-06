@@ -21,7 +21,7 @@ func main() {
 }
 ```
 
-`rod.New` 用于创建浏览器对象，而 `MustConnect` 则会启动并连接到浏览器。 `MustPage` 会创建一个页面对象（类似于浏览器中的一个标签页）。 The `MustWaitStable` waits until the page rarely change. `MustScreenshot` 会获取页面的截图。
+`rod.New` 用于创建浏览器对象，而 `MustConnect` 则会启动并连接到浏览器。 `MustPage` 会创建一个页面对象（类似于浏览器中的一个标签页）。 The `MustWaitStable` waits until the page rarely changes. `MustScreenshot` 会获取页面的截图。
 
 创建一个 module：
 
