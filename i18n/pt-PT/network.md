@@ -122,23 +122,23 @@ This is useful if you want to improve page loading times, especially if you're r
 
 ```go
 func main() {
-    page := rod. New(). MustConnect(). MustPage("")
+    page := rod.New().MustConnect().MustPage("")
 
-    router := page. HijackRequests()
+    router := page.HijackRequests()
 
-    router. MustAdd("*.png", func(ctx *rod. Hijack) {
+    router.MustAdd("*.png", func(ctx *rod.Hijack) {
         // There're a lot of types you can use in this enum, like NetworkResourceTypeScript for javascript files
         // In this case we're using NetworkResourceTypeImage to block images
-        if ctx. Request. Type() == proto. NetworkResourceTypeImage {
-            ctx. Response. Fail(proto. NetworkErrorReasonBlockedByClient)
+        if ctx.Request.Type() == proto.NetworkResourceTypeImage {
+            ctx.Response.Fail(proto.NetworkErrorReasonBlockedByClient)
             return
         }
-        ctx. ContinueRequest(&proto. FetchContinueRequest{})
+        ctx.ContinueRequest(&proto.FetchContinueRequest{})
     })
 
     // since we are only hijacking a specific page, even using the "*" won't affect much of the performance
-    go router. Run()
+    go router.Run()
 
-    page. MustNavigate("https://github.com/"). MustWaitLoad(). MustScreenshot("")
+    page.MustNavigate("https://github.com/").MustWaitStable().MustScreenshot("")
 }
 ```

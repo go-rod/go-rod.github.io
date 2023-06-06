@@ -139,6 +139,6 @@ func main() {
     // 因为我们只劫持特定页面，即便不使用 "*" 也不会太多性能影响
     go router.Run()
 
-    page.MustNavigate("https://github.com/").MustWaitLoad().MustScreenshot("")
+    page.MustNavigate("https://github.com/").MustWaitStable().MustScreenshot("")
 }
 ```

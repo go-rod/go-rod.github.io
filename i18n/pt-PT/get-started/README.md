@@ -11,17 +11,17 @@ Se você nunca usou o Golang, [instale-o](https://golang.org/doc/install) e voc�
 Vamos utilizar Rod para abrir uma página e tirar uma captura de tela dela, primeiro, crie um arquivo "main.go" com o conteúdo abaixo:
 
 ```go
-package principal
+package main
 
 import "github.com/go-rod/rod"
 
 func main() {
-    page := rod. New(). MustConnect(). MustPage("https://www.wikipedia.org/")
-    page. MustWaitLoad(). MustScreenshot("a.png")
+    page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
+    page.MustWaitStable().MustScreenshot("a.png")
 }
 ```
 
-O `rod. New` cria um objeto de navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. O `MustWaitLoad` espera pela página está totalmente carregada. O `Deve Screenshot` tira uma captura de tela da página.
+O `rod. New` cria um objeto de navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. The `MustWaitStable` waits until the page rarely changes. O `Deve Screenshot` tira uma captura de tela da página.
 
 Criar um módulo:
 
@@ -59,10 +59,10 @@ import (
 )
 
 func main() {
-    page := rod. New(). NoDefaultDevice(). MustConnect(). MustPage("https://www.wikipedia.org/")
-    page. MustWindowFullscreen()
-    page. MustWaitLoad(). MustScreenshot("a.png")
-    time. Sleep(time. Hour)
+    page := rod.New().NoDefaultDevice().MustConnect().MustPage("https://www.wikipedia.org/")
+    page.MustWindowFullscreen()
+    page.MustWaitStable().MustScreenshot("a.png")
+    time.Sleep(time.Hour)
 }
 ```
 
@@ -108,17 +108,17 @@ import (
 )
 
 func main() {
-    browser := rod. New(). MustConnect(). NoDefaultDevice()
-    page := browser. MustPage("https://www.wikipedia.org/"). MustWindowFullscreen()
+    browser := rod.New().MustConnect().NoDefaultDevice()
+    page := browser.MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
 
-    page. MustElement("#searchInput"). MustInput("earth")
+    page.MustElement("#searchInput").MustInput("earth")
 
-    page. MustWaitLoad(). MustScreenshot("a.png")
-    time. Sleep(time. Hour)
+    page.MustWaitStable().MustScreenshot("a.png")
+    time.Sleep(time.Hour)
 }
 ```
 
-We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitLoad` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
+We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitStable` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
 
 ![after-input](after-input.png)
 
@@ -140,14 +140,14 @@ import (
 )
 
 func main() {
-    browser := rod. New(). MustConnect(). NoDefaultDevice()
-    page := browser. MustPage("https://www.wikipedia.org/"). MustWindowFullscreen()
+    browser := rod.New().MustConnect().NoDefaultDevice()
+    page := browser.MustPage("https://www.wikipedia.org/").MustWindowFullscreen()
 
-    page. MustElement("#searchInput"). MustInput("earth")
-    page. MustElement("#search-form > fieldset > button"). MustClick()
+    page.MustElement("#searchInput").MustInput("earth")
+    page.MustElement("#search-form > fieldset > button").MustClick()
 
-    page. MustWaitLoad(). MustScreenshot("a.png")
-    time. Sleep(time. Hour)
+    page.MustWaitStable().MustScreenshot("a.png")
+    time.Sleep(time.Hour)
 }
 ```
 

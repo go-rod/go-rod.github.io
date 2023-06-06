@@ -139,6 +139,6 @@ func main() {
     // since we are only hijacking a specific page, even using the "*" won't affect much of the performance
     go router.Run()
 
-    page.MustNavigate("https://github.com/").MustWaitLoad().MustScreenshot("")
+    page.MustNavigate("https://github.com/").MustWaitStable().MustScreenshot("")
 }
 ```

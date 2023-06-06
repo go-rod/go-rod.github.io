@@ -17,11 +17,11 @@ import "github.com/go-rod/rod"
 
 func main() {
     page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
 }
 ```
 
-`rod.New` 用于创建浏览器对象，而 `MustConnect` 则会启动并连接到浏览器。 `MustPage` 会创建一个页面对象（类似于浏览器中的一个标签页）。 `MustWaitLoad` 表示会一直等待直到页面加载完毕。 `MustScreenshot` 会获取页面的截图。
+`rod.New` 用于创建浏览器对象，而 `MustConnect` 则会启动并连接到浏览器。 `MustPage` 会创建一个页面对象（类似于浏览器中的一个标签页）。 `MustWaitStable` 等到页面几乎没有变化。 `MustScreenshot` 会获取页面的截图。
 
 创建一个 module：
 
@@ -61,7 +61,7 @@ import (
 func main() {
     page := rod.New().NoDefaultDevice().MustConnect().MustPage("https://www.wikipedia.org/")
     page.MustWindowFullscreen()
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
@@ -113,12 +113,12 @@ func main() {
 
     page.MustElement("#searchInput").MustInput("earth")
 
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
 
-我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitLoad`。 然后我们调用 `MustInput` 来输入关键词“earth”。 再次运行“main.go”后你会看到如下的结果：
+我们使用 `MustElement` 与先前从 Devtools 面板复制的选择器来获取我们想要控制的元素。 `MustElement` 会自动等待直到元素出现为止，所以我们不需要在它之前使用 `MustWaitStable`。 然后我们调用 `MustInput` 来输入关键词“earth”。 再次运行“main.go”后你会看到如下的结果：
 
 ![after-input](after-input.png)
 
@@ -146,7 +146,7 @@ func main() {
     page.MustElement("#searchInput").MustInput("earth")
     page.MustElement("#search-form > fieldset > button").MustClick()
 
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
     time.Sleep(time.Hour)
 }
 ```
@@ -220,7 +220,6 @@ func main() {
 
 ```txt
 Earth is the third planet from the Sun and the only astronomical object known to harbor life.
-...
 ...
 ```
 
