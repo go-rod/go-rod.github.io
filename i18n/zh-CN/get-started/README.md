@@ -221,7 +221,6 @@ func main() {
 ```txt
 Earth is the third planet from the Sun and the only astronomical object known to harbor life.
 ...
-...
 ```
 
 ## 获取图片内容
