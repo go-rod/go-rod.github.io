@@ -17,12 +17,12 @@ import "github.com/go-rod/rod"
 
 func main() {
     page := rod.New().MustConnect().MustPage("https://www.wikipedia.org/")
-    page.MustWaitLoad().MustScreenshot("a.png")
+    page.MustWaitStable().MustScreenshot("a.png")
 }
 ```
 
 The `rod.New` creates a browser object, the `MustConnect` launches and connects to a browser.
-The `MustPage` creates a page object, it's like a page tab in the browser. The `MustWaitLoad`
+The `MustPage` creates a page object, it's like a page tab in the browser. The `MustWaitStable`
 waits for the page is fully loaded. The `MustScreenshot` takes a screenshot of the page.
 
 Create a module:
@@ -65,7 +65,7 @@ import (
 func main() {
 	page := rod.New().NoDefaultDevice().MustConnect().MustPage("https://www.wikipedia.org/")
 	page.MustWindowFullscreen()
-	page.MustWaitLoad().MustScreenshot("a.png")
+	page.MustWaitStable().MustScreenshot("a.png")
 	time.Sleep(time.Hour)
 }
 ```
@@ -126,14 +126,14 @@ func main() {
 
     page.MustElement("#searchInput").MustInput("earth")
 
-	page.MustWaitLoad().MustScreenshot("a.png")
+	page.MustWaitStable().MustScreenshot("a.png")
 	time.Sleep(time.Hour)
 }
 ```
 
 We use `MustElement` and the selector we copied from the Devtools panel
 to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears,
-so we don't need to use `MustWaitLoad` before it.
+so we don't need to use `MustWaitStable` before it.
 Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go",
 you should see the result looks like below:
 
@@ -164,7 +164,7 @@ func main() {
 	page.MustElement("#searchInput").MustInput("earth")
 	page.MustElement("#search-form > fieldset > button").MustClick()
 
-	page.MustWaitLoad().MustScreenshot("a.png")
+	page.MustWaitStable().MustScreenshot("a.png")
 	time.Sleep(time.Hour)
 }
 ```
