@@ -21,7 +21,7 @@ func main() {
 }
 ```
 
-Le `rod.New` crée un objet de navigateur, le `MustConnect` se lance et se connecte à un navigateur. Le `MustPage` crée un objet de page, c'est comme un onglet de page dans le navigateur. The `MustWaitStable` waits until the page rarely change. La `MustScreenshot` prend une capture d'écran de la page.
+Le `rod.New` crée un objet de navigateur, le `MustConnect` se lance et se connecte à un navigateur. Le `MustPage` crée un objet de page, c'est comme un onglet de page dans le navigateur. The `MustWaitStable` waits until the page rarely changes. La `MustScreenshot` prend une capture d'écran de la page.
 
 Créer un module :
 
