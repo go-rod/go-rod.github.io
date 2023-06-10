@@ -10,4 +10,6 @@ files:
       - '*.css'
       - '*.js'
       - bin/
+      - '*.yml'
+      - '*.json'
     translation: /i18n/%locale%/%original_path%/%original_file_name%
