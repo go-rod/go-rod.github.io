@@ -1,10 +1,10 @@
-<!-- markdownlint-disable MD041 -->
+<!-- markdownlint-disable MD041 MD033 -->
 
 - [API](api-reference.md)
 - [Examples](examples.md)
 - [Chat](chat-room.md)
 
-- ![langues](langues.svg) Langues
+- <img alt="" src="/_images/langues.svg" /> Langues
   - [🇬🇧 English](/ ":ignore")
   - [🇨🇳 中文](/i18n/zh-CN ":ignore")
   - [🇫🇷 Français](/i18n/fr-FR ":ignore")
