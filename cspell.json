@@ -1,0 +1,42 @@
+// cSpell Settings
+{
+  // Version of the setting file.  Always 0.2
+  "version": "0.2",
+  // language - current active spelling language
+  "language": "en",
+  "ignorePaths": ["i18n/**", "**/tmp/**", "go.mod", "go.sum"],
+  // words - list of words to be always considered correct
+  "words": [
+    "jsdelivr",
+    "themeable",
+    "Chromedp",
+    "docsify",
+    "Fullscreen",
+    "Geolocation",
+    "goimports",
+    "golangci",
+    "goob",
+    "GOPROXY",
+    "Goroutines",
+    "gson",
+    "iframes",
+    "infobox",
+    "localinstall",
+    "MDPI",
+    "mitmdump",
+    "mitmproxy",
+    "Português",
+    "Println",
+    "proto",
+    "proxyauth",
+    "Scanln",
+    "Smood",
+    "struct",
+    "TWLQ",
+    "ysmood"
+  ],
+  // flagWords - list of words to be always considered incorrect
+  // This is useful for offensive words and common spelling errors.
+  // For example "hte" should be "the"
+  "flagWords": []
+}

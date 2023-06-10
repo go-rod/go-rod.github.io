@@ -30,3 +30,4 @@ jobs:
           go mod tidy
           go test
           npx markdownlint-cli -i 'i18n/' .
+          npx cspell --no-progress '**'
