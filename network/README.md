@@ -11,7 +11,7 @@ For that you must launch a browser with a `--proxy-server` argument.
 An important bit to make proxy actually work is that you must handle
 authentication pop-up that chromium presents to the user:
 
-![Proxy Auth Dialog](network/proxy-auth-dialog.png)
+![Proxy Auth Dialog](proxy-auth-dialog.png)
 
 go-rod makes it easy to handle this pop-up using `browser.MustHandleAuth()` function:
 
