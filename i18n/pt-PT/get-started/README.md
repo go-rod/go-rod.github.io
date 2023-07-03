@@ -43,7 +43,7 @@ O programa será criado "a.png" como o exemplo abaixo:
 
 ## Veja o que está sob o capuz
 
-Para desenvolvedores principais, você pode pular todos e ler este arquivo: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
+Para desenvolvedores principais, você pode pular todos e ler este arquivo: [link](https://github.com/go-rod/rod/blob/main/examples_test.go).
 
 Por padrão, o Rod desativará a interface do navegador para maximizar o desempenho. Mas ao desenvolver uma tarefa de automação, geralmente nos preocupamos mais com a facilidade de depuração. Rod provides a lot of helpers to make your debugging experience great.
 

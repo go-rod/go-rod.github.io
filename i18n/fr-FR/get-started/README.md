@@ -43,7 +43,7 @@ Le programme affichera une capture d'écran "a.png" comme celle ci-dessous:
 
 ## Voir ce qui est sous la capuche
 
-Pour les développeurs seniors, vous pouvez sauter tout et lire ce fichier : [lien](https://github.com/go-rod/rod/blob/master/examples_test.go).
+Pour les développeurs seniors, vous pouvez sauter tout et lire ce fichier : [lien](https://github.com/go-rod/rod/blob/main/examples_test.go).
 
 Par défaut, Rod désactivera l'interface utilisateur du navigateur pour maximiser les performances. Mais lors du développement d'une tâche d'automatisation, nous nous soucions plus de la facilité de débogage. Rod provides a lot of helpers to make your debugging experience great.
 

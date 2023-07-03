@@ -105,15 +105,15 @@ Leia o documento de API para mais informações: [link](https://pkg.go.dev/githu
 
 ## Remotely manage the launcher :id=remotely-manage-the-launcher
 
-Para o sistema de remoção de produção, usualmente, vamos separar os sucatas e navegadores em diferentes clusters para que eles possam escalar separadamente. Rod fornece o módulo `launcher. Manager` para gerenciar o launcher remotamente. Com isso, podemos iniciar um navegador remotamente com bandeiras de inicialização personalizadas. O exemplo a ser usado é [aqui](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
+Para o sistema de remoção de produção, usualmente, vamos separar os sucatas e navegadores em diferentes clusters para que eles possam escalar separadamente. Rod fornece o módulo `launcher. Manager` para gerenciar o launcher remotamente. Com isso, podemos iniciar um navegador remotamente com bandeiras de inicialização personalizadas. O exemplo a ser usado é [aqui](https://github.com/go-rod/rod/blob/main/lib/launcher/rod-manager/main.go).
 
 Por ser muito difícil instalar o crómio corretamente em algumas distribuições linux, Rod fornece uma imagem docker para torná-lo uma plataforma cruzada consistente. Aqui está um exemplo para usá-lo:
 
 1. Execute a imagem da vara `docker run -p 7317:7317 ghcr.io/go-rod/rod`
 
-2. Abra outro terminal e execute um código como este [exemplo](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
+2. Abra outro terminal e execute um código como este [exemplo](https://github.com/go-rod/rod/blob/main/lib/examples/launch-managed/main.go)
 
-A imagem está [ajustada](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) para capturas de tela e fontes entre os idiomas naturais populares. Cada contêiner pode executar vários navegadores ao mesmo tempo.
+A imagem está [ajustada](https://github.com/go-rod/rod/blob/main/lib/docker/Dockerfile) para capturas de tela e fontes entre os idiomas naturais populares. Cada contêiner pode executar vários navegadores ao mesmo tempo.
 
 ## Modo de usuário :id=user-mode
 
@@ -124,8 +124,8 @@ wsURL := launcher. NewUserMode(). MustLaunch()
 rod. New(). ControlURL(wsURL). MustConnect(). NoDefaultDevice()
 ```
 
-Aqui está um exemplo mais detalhado: [exemplo de código](https://github.com/go-rod/rod/blob/master/lib/examples/use-rod-like-chrome-extension/main.go).
+Aqui está um exemplo mais detalhado: [exemplo de código](https://github.com/go-rod/rod/blob/main/lib/examples/use-rod-like-chrome-extension/main.go).
 
 ## API de nível baixo
 
-Se você deseja controlar cada etapa do processo de inicialização, como desativar o download automático e usar o navegador padrão do sistema, verifique o [arquivo de exemplo](https://github.com/go-rod/rod/blob/master/lib/launcher/example_test.go).
+Se você deseja controlar cada etapa do processo de inicialização, como desativar o download automático e usar o navegador padrão do sistema, verifique o [arquivo de exemplo](https://github.com/go-rod/rod/blob/main/lib/launcher/example_test.go).

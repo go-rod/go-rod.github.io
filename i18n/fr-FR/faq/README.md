@@ -14,4 +14,4 @@ You can jump to it by searching it from here (keyboard shortcut is `F`):
 
 ![search-symbol-in-doc](search-symbol-in-doc.png)
 
-For experienced developers please check [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology).
+For experienced developers please check [Terminology](https://github.com/go-rod/rod/blob/main/.github/CONTRIBUTING.md#terminology).

@@ -96,7 +96,7 @@ page := browser.MustPage("https://test.com/")
 page.HijackRequests()
 ```
 
-更多信息，见[劫持相关的单元测试](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+更多信息，见[劫持相关的单元测试](https://github.com/go-rod/rod/blob/main/hijack_test.go)
 
 ## 节流
 

@@ -96,7 +96,7 @@ page := browser. MustPage("https://test.com/")
 page. HijackRequests()
 ```
 
-For more info check the [hijack tests](https://github.com/go-rod/rod/blob/master/hijack_test.go)
+For more info check the [hijack tests](https://github.com/go-rod/rod/blob/main/hijack_test.go)
 
 ## Throttling
 
