@@ -6,4 +6,4 @@
 
 我们使用 Github Projects 来管理任务，你可以 [在这里](https://github.com/orgs/go-rod/projects/1) 看到 issue 的优先级和进度。
 
-如果你想为这个项目贡献代码，请阅读 [贡献者指南](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md)
+如果你想为这个项目贡献代码，请阅读 [贡献者指南](https://github.com/go-rod/rod/blob/main/.github/CONTRIBUTING.md)
