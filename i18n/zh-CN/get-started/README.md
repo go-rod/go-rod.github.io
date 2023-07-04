@@ -43,7 +43,7 @@ go run .
 
 ## 了解发生了什么
 
-对于有经验的开发者，可以跳过这里的所有内容、阅读[这个文件](https://github.com/go-rod/rod/blob/master/examples_test.go)。
+对于有经验的开发者，可以跳过这里的所有内容、阅读[这个文件](https://github.com/go-rod/rod/blob/main/examples_test.go)。
 
 默认情况下，Rod 会禁用浏览器的 UI 来最大化性能。 但开发自动化任务时我们通常更加关心调试的难易程度。 Rod 提供了很多用于提升调试体验帮助函数。
 
