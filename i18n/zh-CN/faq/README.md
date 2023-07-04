@@ -14,4 +14,4 @@
 
 ![search-symbol-in-doc](search-symbol-in-doc.png)
 
-对于经验丰富的开发人员，请查看 [Terminology](https://github.com/go-rod/rod/blob/master/.github/CONTRIBUTING.md#terminology)。
+对于经验丰富的开发人员，请查看 [Terminology](https://github.com/go-rod/rod/blob/main/.github/CONTRIBUTING.md#terminology)。
