@@ -13,7 +13,7 @@
   - [事件 / Events](events/README.md)
   - [输入 / Input](input.md)
   - [模拟 / Emulation](emulation.md)
-  - [网络 / Network](network/README.md.md)
+  - [网络 / Network](network/README.md)
   - [页面资源](page-resources/README.md)
   - [JavaScript 运行时](javascript-runtime.md)
   - [多浏览器与多页面](browsers-pages.md)
