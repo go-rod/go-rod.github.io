@@ -13,7 +13,7 @@
   - [Évènements](events/README.md)
   - [Input](input.md)
   - [Émulation](emulation.md)
-  - [Réseau](network/README.md.md)
+  - [Réseau](network/README.md)
   - [Ressources de la page](page-resources/README.md)
   - [Exécution Javascript](javascript-runtime.md)
   - [Navigateurs & Pages](browsers-pages.md)
