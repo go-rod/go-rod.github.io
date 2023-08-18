@@ -10,7 +10,7 @@
 page.MustEval(`() => window.a = {name: 'jack'}`)
 ```
 
-我们可以使用 js 函数来把值作为 json 参数传递：
+We can use the arguments of the js function to receive golang variables, here's how we get the `key` and `data` from golang and set it to the page's window object `k`:
 
 ```go
 key := "a"
@@ -25,6 +25,12 @@ page.MustEval(`(k, val) => {
 ```go
 val := page.MustEval(`() => a`).Get("name").Str()
 fmt.Println(val) // output: jack
+```
+
+`Eval` only accepts js function, code like below won't work:
+
+```go
+page.MustEval(`a`) // will fail
 ```
 
 ## 在元素上 eval
