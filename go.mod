@@ -3,8 +3,8 @@ module github.com/go-rod/go-rod.github.io
 go 1.17
 
 require (
-	github.com/go-rod/rod v0.113.1
-	github.com/ysmood/got v0.34.1
+	github.com/go-rod/rod v0.114.2
+	github.com/ysmood/got v0.34.2
 	github.com/ysmood/gson v0.7.3
 )
 
