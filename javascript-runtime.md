@@ -10,7 +10,8 @@ For example use `Page.Eval` to set global value:
 page.MustEval(`() => window.a = {name: 'jack'}`)
 ```
 
-We can use a js function to pass value as json arguments:
+We can use the arguments of the js function to receive golang variables,
+here's how we get the `key` and `data` from golang and set it to the page's window object `k`:
 
 ```go
 key := "a"
@@ -25,6 +26,12 @@ To get the returned value from Eval:
 ```go
 val := page.MustEval(`() => a`).Get("name").Str()
 fmt.Println(val) // output: jack
+```
+
+`Eval` only accepts js function, code like below won't work:
+
+```go
+page.MustEval(`a`) // will fail
 ```
 
 ## Eval on an element
