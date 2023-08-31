@@ -103,6 +103,20 @@ Here are the available flags: [link](https://peter.sh/experiments/chromium-comma
 
 Read the API doc for more info: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
+## Cleanup
+
+By default, the browser will create a [user-data-dir](https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md) to store the user data, such as cookies, cache, etc. Rod provides a helper function `Cleanup` to remove it after the browser is fully closed:
+
+```go
+func main() {
+    l := launcher.New().
+        Headless(false).
+        Devtools(true)
+
+    defer l.Cleanup()
+}
+```
+
 ## Remotely manage the launcher :id=remotely-manage-the-launcher
 
 For production scraping system, usually, we will separate the scrapers and browsers into different clusters so that they can scale separately. Rod provides the module `launcher.Manager` to manage the launcher remotely. With it we can remotely launch a browser with custom launch flags. The example to use it is [here](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
@@ -113,7 +127,7 @@ Because it's very hard to install chromium correctly on some linux distributions
 
 2. Open another terminal and run code like this [example](https://github.com/go-rod/rod/blob/master/lib/examples/remote-launch/main.go)
 
-The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time.
+The image is [tuned](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) for screenshots and fonts among popular natural languages. Each container can launch multiple browsers at the same time. The manager will automatically remove the [user-data-dir](https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md) when the control connection is closed.
 
 ## User mode :id=user-mode
 
