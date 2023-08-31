@@ -103,6 +103,20 @@ func main() {
 
 阅读 API 文档以获取更多信息：[链接](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher)。
 
+## Cleanup
+
+By default, the browser will create a [user-data-dir](https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md) to store the user data, such as cookies, cache, etc. Rod provides a helper function `Cleanup` to remove it after the browser is fully closed:
+
+```go
+func main() {
+    l := launcher.New().
+        Headless(false).
+        Devtools(true)
+
+    defer l.Cleanup()
+}
+```
+
 ## 远程管理启动器 :id=remotely-manage-the-launcher
 
 对于生产环境的爬虫系统，我们通常会把爬虫和浏览器拆分到不同的集群，从而使它们能够独立扩容。 Rod 提供模块 `launcher.Manager` 来远程管理启动器。 通过它我们可以远程启动用自定义启动参数浏览器。 它的用例在 [这里](https://github.com/go-rod/rod/blob/main/lib/launcher/rod-manager/main.go)。
@@ -113,7 +127,7 @@ func main() {
 
 2. 打开另一个终端，并运行类似这个[示例](https://github.com/go-rod/rod/blob/main/lib/examples/launch-managed/main.go)中的代码
 
-它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/main/lib/docker/Dockerfile)。 每个容器可以同时启动多个浏览器。
+它对于常见的自然语言的截图和字体进行过[调优](https://github.com/go-rod/rod/blob/main/lib/docker/Dockerfile)。 每个容器可以同时启动多个浏览器。 The manager will automatically remove the [user-data-dir](https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md) when the control connection is closed.
 
 ## 用户模式 :id=user-mode
 
