@@ -103,6 +103,20 @@ Aqui estão as bandeiras disponíveis: [link](https://peter.sh/experiments/chrom
 
 Leia o documento de API para mais informações: [link](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#Launcher).
 
+## Cleanup
+
+By default, the browser will create a [user-data-dir](https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md) to store the user data, such as cookies, cache, etc. Rod provides a helper function `Cleanup` to remove it after the browser is fully closed:
+
+```go
+func main() {
+    l := launcher.New().
+        Headless(false).
+        Devtools(true)
+
+    defer l.Cleanup()
+}
+```
+
 ## Remotely manage the launcher :id=remotely-manage-the-launcher
 
 Para o sistema de remoção de produção, usualmente, vamos separar os sucatas e navegadores em diferentes clusters para que eles possam escalar separadamente. Rod fornece o módulo `launcher. Manager` para gerenciar o launcher remotamente. Com isso, podemos iniciar um navegador remotamente com bandeiras de inicialização personalizadas. O exemplo a ser usado é [aqui](https://github.com/go-rod/rod/blob/master/lib/launcher/rod-manager/main.go).
@@ -113,7 +127,7 @@ Por ser muito difícil instalar o crómio corretamente em algumas distribuiçõe
 
 2. Abra outro terminal e execute um código como este [exemplo](https://github.com/go-rod/rod/blob/master/lib/examples/launch-managed/main.go)
 
-A imagem está [ajustada](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) para capturas de tela e fontes entre os idiomas naturais populares. Cada contêiner pode executar vários navegadores ao mesmo tempo.
+A imagem está [ajustada](https://github.com/go-rod/rod/blob/master/lib/docker/Dockerfile) para capturas de tela e fontes entre os idiomas naturais populares. Cada contêiner pode executar vários navegadores ao mesmo tempo. The manager will automatically remove the [user-data-dir](https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md) when the control connection is closed.
 
 ## Modo de usuário :id=user-mode
 
