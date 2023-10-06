@@ -10,4 +10,6 @@ It's widely used for web automation and scraping. Rod can automate most things i
 - Hijack requests
 - And more
 
+Here are some popular projects that are using Rod: [link](https://github.com/go-rod/rod/discussions/412)
+
 To contribute doc, [check here](contribute-doc.md).
