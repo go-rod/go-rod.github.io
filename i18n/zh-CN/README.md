@@ -9,4 +9,6 @@ Rod 是 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol) �
 - 劫持请求
 - 以及更多功能
 
+Here are some popular projects that are using Rod: [link](https://github.com/go-rod/rod/discussions/412)
+
 有关如何贡献文档，[见此](contribute-doc.md)。
