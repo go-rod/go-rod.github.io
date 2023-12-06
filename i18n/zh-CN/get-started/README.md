@@ -163,7 +163,7 @@ func main() {
 go run . -rod="show,slow=1s,trace"
 ```
 
-现在每次操作都会在执行前等待 1 秒。 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
+Now every action will wait for 1 second before its execution. 在页面上，你会看到 Rod 生成的如下的可视化跟踪：
 
 ![trace](trace.png)
 
