@@ -8,7 +8,7 @@
 
 理论上，Rod 应该比 Chromedp 更快，消耗更少的内存，Rod 的架构更稳定和一致。
 
-[Chromedp][chromedp] 默认使用系统浏览器，如果意外升级了浏览器，这可能会导致问题。 [Chromedp][chromedp] 使用不同的 Go 模块 来管理 devtools 协议版本，这可能会导致诸如 [这种问题](https://github.com/chromedp/chromedp/issues/1031)。 每个Rod 版本都将配备一个特定的 Chromium 版本及其 devtools 协议版本，并对其进行完整的单位测试。
+[Chromedp][chromedp] 默认使用系统浏览器，如果意外升级了浏览器，这可能会导致问题。 [Chromedp][chromedp] 使用不同的 Go 模块 来管理 devtools 协议版本，这可能会导致诸如 [这种问题](https://github.com/chromedp/chromedp/issues/1031)。 每个Rod 版本都将配备一个特定的 Chromium 版本及其 devtools 协议版本，并对其进行完整的单元测试。
 
 [Chromedp][chromedp] 为事件使用[固定大小的缓冲](https://github.com/chromedp/chromedp/blob/b56cd66/target.go#L69-L73)，这可能会在高并发情况下导致死锁。 由于 Chromedp 只使用一个事件循环，缓慢的事件处理程序可能会互相阻塞。 Rod 没有这些问题，因为它基于 [goob](https://github.com/ysmood/goob)。
 
