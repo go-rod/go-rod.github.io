@@ -37,7 +37,7 @@ Rod 支持任何使用 [DevTools 协议](https://chromedevtools.github.io/devtoo
 
 cdp 协议总是与 [launcher.DefaultRevision](https://pkg.go.dev/github.com/go-rod/rod/lib/launcher#DefaultRevision) 相同。 如果 Rod 找不到本地浏览器，它会下载 `launcher.DefaultRevision` 版本的浏览器。
 
-每个版本的 Rod 指保证支持它的 `launcher.DefaultRevision` 版本的浏览器。
+每个版本的 Rod 只保证支持它的 `launcher.DefaultRevision` 版本的浏览器。
 
 ## API 版本号
 
