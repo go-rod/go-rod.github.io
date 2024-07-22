@@ -31,7 +31,7 @@ pageWithCancel.MustNavigate("http://github.com")
 pageWithCancel.MustElement("body")  
 ```
 
-我们使用 `page.Context` 创建了 `page` 的一个浅克隆。 Whenever we call the `cancel`, all the sub operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. 原 `page` 不会受到影响，如果我们使用它来调用操作，它们将不会被取消。
+我们使用 `page.Context` 创建了 `page` 的一个浅克隆。 当我们调用 `cancel` 时，由 `pageWithCancel` 发起的所有子操作都会被取消，不仅仅是 `MustNavigate`。 原 `page` 不会受到影响，如果我们使用它来调用操作，它们将不会被取消。
 
 Rod 的此种风格和 Golang 标准库中的 [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) 很类似。
 
