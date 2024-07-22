@@ -59,16 +59,18 @@ Replace the `panic` in the above code with `handleError`:
 
 ```go
 func main() {
-    _, err := page. Element("a")
+    _, err := page.Element("a")
     handleError(err)
 }
 
 func handleError(err error) {
-    var evalErr *rod. ErrEval
-    if errors. Is(err, context. DeadlineExceeded) { // timeout error
-        fmt. Println("timeout err")
-    } else if errors. As(err, &evalErr) { // eval error
-        fmt. Println(evalErr. LineNumber)
+    var evalErr *rod.EvalError
+    if errors.Is(err, context.DeadlineExceeded) { // timeout error
+        fmt.Println("timeout err")
+    } else if errors.As(err, &evalErr) { // eval error
+        fmt.Println(evalErr.LineNumber)
     } else if err != nil {
-        fmt.
+        fmt.Println("can't handle", err)
+    }
+}
 ```
