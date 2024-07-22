@@ -65,9 +65,9 @@ func main() {
 
 func handleError(err error) {
     var evalErr *rod.EvalError
-    if errors.Is(err, context.DeadlineExceeded) { // timeout error
+    if errors.Is(err, context.DeadlineExceeded) { // 超时错误
         fmt.Println("timeout err")
-    } else if errors.As(err, &evalErr) { // eval error
+    } else if errors.As(err, &evalErr) { // eval 错误
         fmt.Println(evalErr.LineNumber)
     } else if err != nil {
         fmt.Println("can't handle", err)
