@@ -64,7 +64,7 @@ func main() {
 }
 
 func handleError(err error) {
-    var evalErr *rod.ErrEval
+    var evalErr *rod.EvalError
     if errors.Is(err, context.DeadlineExceeded) { // timeout error
         fmt.Println("timeout err")
     } else if errors.As(err, &evalErr) { // eval error
