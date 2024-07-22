@@ -64,13 +64,13 @@ func main() {
 }
 
 func handleError(err error) {
-    var evalErr *rod.ErrEval
+    var evalErr *rod.EvalError
     if errors.Is(err, context.DeadlineExceeded) { // 超时错误
-        fmt.Println("超时错误")
+        fmt.Println("timeout err")
     } else if errors.As(err, &evalErr) { // eval 错误
         fmt.Println(evalErr.LineNumber)
     } else if err != nil {
-        fmt.Println("无法处理", err)
+        fmt.Println("can't handle", err)
     }
 }
 ```

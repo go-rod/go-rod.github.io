@@ -31,7 +31,7 @@ pageWithCancel. MustNavigate("http://github.com")
 pageWithCancel.  
 ```
 
-Usamos o `page. Context` para criar um clone superficial da página ``. Whenever we call the `cancel`, the all sub operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. A página `de origem` não será afetada, se usarmos para chamar operações, elas não serão canceladas.
+Usamos o `page. Context` para criar um clone superficial da página ``. Whenever we call the `cancel`, all the sub operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. A página `de origem` não será afetada, se usarmos para chamar operações, elas não serão canceladas.
 
 Este estilo não é especial para Varda, pode encontrar APIs semelhantes a [Request. WithContext](https://golang.org/pkg/net/http/#Request.WithContext) na biblioteca padrão.
 

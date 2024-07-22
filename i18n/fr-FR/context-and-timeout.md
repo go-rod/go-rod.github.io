@@ -31,7 +31,7 @@ pageWithCancel.MustNavigate("http://github.com")
 pageWithCancel.MustElement("body")  
 ```
 
-Nous utilisons la `page.Context` pour créer un clone peu profond de la `page`. Whenever we call the `cancel`, the all sub operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. La page d'origine `` ne sera pas affectée, si nous l'utilisons pour les opérations d'appel, elles ne seront pas annulées.
+Nous utilisons la `page.Context` pour créer un clone peu profond de la `page`. Whenever we call the `cancel`, all the sub operations triggered by the `pageWithCancel` will be canceled, it can be any operation, not just `MustNavigate`. La page d'origine `` ne sera pas affectée, si nous l'utilisons pour les opérations d'appel, elles ne seront pas annulées.
 
 Ce style n'est pas spécial pour Rod, vous pouvez trouver des API similaires comme [Request.WithContext](https://golang.org/pkg/net/http/#Request.WithContext) dans la bibliothèque standard.
 
