@@ -1,6 +1,3 @@
-run:
-  skip-dirs-use-default: false
-
 linters:
   enable-all: true
   disable:
@@ -22,8 +19,12 @@ linters:
     - exhaustruct
     - nilnil
     - nonamedreturns
+    - mnd
 
     # Deprecated ones:
+    - copyloopvar
+    - intrange
+    - execinquery
     - structcheck
     - interfacer
     - deadcode
@@ -35,8 +36,9 @@ linters:
     - nosnakecase
     - scopelint
 
-gocyclo:
-  min-complexity: 15
+linters-settings:
+  gocyclo:
+    min-complexity: 15
 
 issues:
   exclude-use-default: false
