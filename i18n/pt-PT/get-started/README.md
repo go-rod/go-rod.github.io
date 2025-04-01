@@ -21,7 +21,7 @@ func main() {
 }
 ```
 
-O `rod. New` cria um objeto de navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. The `MustWaitStable` waits until the page rarely changes. O `Deve Screenshot` tira uma captura de tela da página.
+O `rod. New` cria um objeto de navegador, o `MustConnect` abre e se conecta a um navegador. O `MustPage` cria um objeto de página, é como uma aba de página no navegador. O <0>MustWaitStable</0> espera até que a página raramente mude. O `Deve Screenshot` tira uma captura de tela da página.
 
 Criar um módulo:
 
@@ -45,9 +45,9 @@ O programa será criado "a.png" como o exemplo abaixo:
 
 Para desenvolvedores principais, você pode pular todos e ler este arquivo: [link](https://github.com/go-rod/rod/blob/master/examples_test.go).
 
-Por padrão, o Rod desativará a interface do navegador para maximizar o desempenho. Mas ao desenvolver uma tarefa de automação, geralmente nos preocupamos mais com a facilidade de depuração. Rod provides a lot of helpers to make your debugging experience great.
+Por padrão, o Rod desativará a interface do navegador para maximizar o desempenho. Mas ao desenvolver uma tarefa de automação, geralmente nos preocupamos mais com a facilidade de depuração. Rod fornece muitos auxiliares para fazer a sua experiência de depuração ser ótima.
 
-Before we run the module again, let's modify the code a little bit to make it easy to debug:
+Antes de executarmos o módulo novamente, vamos modificar o código um pouco para facilitar a depuração:
 
 ```go
 package main
@@ -66,23 +66,23 @@ func main() {
 }
 ```
 
-The `NoDefaultDevice` and `MustWindowFullscreen` maximize the page viewport and browser window to make it more comfortable to overview the page. We added `time. Sleep(time. Hour)` at the end the code so that it won't be too fast for our eyes to catch it before the program exits.
+O `NoDefaultDevice` e `MustWindowFullscreen` maximizam a janela de visualização da página e do navegador para torná mais confortável a visão geral da página. We added `time. Sleep(time. Hour)` at the end the code so that it won't be too fast for our eyes to catch it before the program exits.
 
-Let's run the module again with the `-rod` command line flag:
+Vamos executar o módulo novamente com a flag de linha de comando `-rod`:
 
 ```bash
 go run . -rod=show
 ```
 
-The `show` option means "show the browser UI on the foreground". Now you should see a browser like this:
+A opção `mostrar` significa "mostrar a interface do usuário do navegador em primeiro plano". Agora você deve ver um navegador como este:
 
 ![show](show.png)
 
-To stop the program, let's go back to the terminal and press [CTRL + C](https://en.wikipedia.org/wiki/Control-C) on the keyboard.
+Para interromper o programa, vamos voltar para o terminal e pressionar [CTRL + C](https://en.wikipedia.org/wiki/Control-C) no teclado.
 
 ## Insira e clique
 
-Let's automate the website to search the keyword "earth". A website may have many input fields or buttons, we need to tell the program which one to manipulate. Usually, we use [Devtools](https://developers.google.com/web/tools/chrome-devtools/) to help us locate the element we want to control. Let's append a new config to the `-rod` flag to enable the Devtools, now the command becomes:
+Vamos automatizar o site para pesquisar a palavra-chave "earth". Um site pode ter muitos campos de entrada ou botões, precisamos informar ao programa qual campo deve ser manipulado. Usually, we use [Devtools](https://developers.google.com/web/tools/chrome-devtools/) to help us locate the element we want to control. Vamos adicionar uma nova configuração à flag  <0>-rod</0> para habilitar o Devtools, agora o comando fica assim:
 
 ```bash
 go run . -rod=show,devtools
@@ -92,11 +92,11 @@ Run the command above, move your mouse to the input field and right-click above 
 
 ![inspect](inspect.png)
 
-You should see the `<input id="searchInput` like below:
+Você deverá ver o `<input id="searchInput` como abaixo:
 
 ![input](input.png)
 
-Right-click to copy the [css selector](css-selector.md) like the image above. The content on your clipboard will be "#searchInput". We will use it to locate the element to input the keyword. Now the "main.go" becomes:
+Clique com o botão direito para copiar o seletor [css](css-selector.md) como a imagem acima. The content on your clipboard will be "#searchInput". We will use it to locate the element to input the keyword. Agora o "main.go" ficou assim:
 
 ```go
 package main
@@ -118,7 +118,7 @@ func main() {
 }
 ```
 
-We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. The `MustElement` will automatically wait until the element appears, so we don't need to use `MustWaitStable` before it. Then we call the `MustInput` to input the keyword "earth" into it. If you rerun the "main.go", you should see the result looks like below:
+We use `MustElement` and the selector we copied from the Devtools panel to get the element we want to manipulate. O `MustElement` irá esperar automaticamente até que o elemento apareça, então não precisamos usar `MustWaitStable` antes dele. Em seguida, chamamos o `MustInput` para inserir a palavra-chave "earth" nele. If you rerun the "main.go", you should see the result looks like below:
 
 ![after-input](after-input.png)
 
@@ -128,7 +128,7 @@ Similar to the input field let's right-click the search button to copy the selec
 
 ![search-btn-selector](search-btn-selector.png)
 
-Then add code to click the search button, now the "main.go" looks like:
+Em seguida, adicione código para clicar no botão de pesquisa, agora o "main.go" ficou assim:
 
 ```go
 package main
@@ -151,7 +151,7 @@ func main() {
 }
 ```
 
-If we rerun the module, the "a.png" will show the search result:
+Se reexecutarmos o módulo, o "a.png" mostrará o resultado da pesquisa:
 
 ![earth-page](earth-page.png)
 
@@ -163,13 +163,13 @@ The automated operations are too fast for human eyes to catch, to debug them we 
 go run . -rod="show,slow=1s,trace"
 ```
 
-Now every action will wait for 1 second before its execution. On the page, you will see the debug trace generated by Rod like below:
+Agora, cada ação vai esperar 1 segundo antes da sua execução. Na página, você verá o log de depuração gerado pelo Rod como abaixo:
 
 ![trace](trace.png)
 
-As you can see on the search button, Rod will create a mock mouse cursor.
+Como você pode ver no botão de busca, o Rod criará um cursor de mouse simulado.
 
-On console you will see the trace log like below:
+No console você verá o log abaixo:
 
 ```txt
 [rod] 2020/11/11 11:11:11 [eval] {"js":"rod.element","params":["#searchInput"]}
@@ -182,19 +182,19 @@ On console you will see the trace log like below:
 [rod] 2020/11/11 11:11:11 [input] clique esquerdo
 ```
 
-## Other than the command line options
+## Além das opções de linha de comando
 
 The the command line options is just a shortcut for some commonly used methods, you can also manually set them with code, such as the "slow", the code to set it is like `rod. New(). SlowMotion(2 * time. Second)`.
 
 ## Obter conteúdo de texto
 
-Rod provides lots of handy methods to retrieve the contents from the page.
+Rod fornece muitos métodos úteis para recuperar o conteúdo da página.
 
 Let's try to get the description of the Earth, use the same technique we previously used to copy the selector from the Devtools:
 
 ![get-text](get-text.png)
 
-The method we use is `MustText`, here's the full code of it:
+O método que usamos é `MustText`, aqui está o código completo dele:
 
 ```go
 pacote principal
@@ -215,7 +215,7 @@ func main() {
     fmt. Println(el.
 ```
 
-If we rerun the module, we should see the console outputs something like:
+Se executarmos o módulo novamente, veremos que o console produz algo como:
 
 ```txt
 A Terra é o terceiro planeta do Sol e o único objeto astronômico conhecido por abrigar a vida.
@@ -228,7 +228,7 @@ Same as get text, we can also get images from the page, let's get the selector o
 
 ![get-image](get-image.png)
 
-The full code is:
+O código completo é:
 
 ```go
 pacote principal
@@ -249,6 +249,6 @@ func main() {
 }
 ```
 
-The output file "b.png" should be:
+O arquivo de saída "b.png" deverá ser:
 
 ![earth](earth.png)
