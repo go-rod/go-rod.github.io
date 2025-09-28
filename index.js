@@ -1,4 +1,4 @@
-;(() => {
+; (() => {
 
   window.$docsify = {
     name: 'Rod',
@@ -51,7 +51,7 @@
     hook.doneEach(() => {
       new Zooming({
         bgColor: 'rgba(28, 35, 37, 0.9)',
-      }).listen('article img')
+      }).listen('article img:not(.no-zoom)')
     })
   }
 
@@ -61,12 +61,12 @@
 
   function analytics(hook, vm) {
     // If stay on any page for more than 30s, we count it as a conversion
-    let id 
+    let id
     hook.doneEach(() => {
       clearTimeout(id)
       id = setTimeout(() => {
         gtag('event', 'conversion', { path: vm.route.path })
-      }, 30*1000);
+      }, 30 * 1000);
     })
   }
 })()
