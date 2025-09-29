@@ -9,6 +9,34 @@ Rod 是 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol) �
 - 劫持请求
 - 以及更多功能
 
-这是一些正在使用 Rod的热门项目： [链接](https://github.com/go-rod/rod/discussions/412)
+Here are some popular [projects that are using Rod](https://github.com/go-rod/rod/discussions/412).
 
 有关如何贡献文档，[见此](contribute-doc.md)。
+
+## Sponsors
+
+Rod is sponsored by many organizations and individuals, thank you for your support!
+
+Please contact [yad@ysmood.org](mailto:yad@ysmood.org) if you want to be listed here.
+
+<!-- markdownlint-disable MD033 -->
+
+<table style="border-collapse: collapse">
+  <tr>
+    <td>
+      <p>Browser testing via</p>
+      <a href="https://www.lambdatest.com/" target="_blank">
+        <img
+          class="no-zoom"
+          src="https://www.lambdatest.com/blue-logo.png"
+          alt="LambdaTest Logo"
+          width="250"
+          height="45"
+          style="max-width: unset;"
+        />
+      </a>
+    </td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable MD033 -->
