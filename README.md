@@ -26,14 +26,13 @@ Please contact [yad@ysmood.org](mailto:yad@ysmood.org) if you want to be listed 
   <tr>
     <td>
       <p>Browser testing via</p>
-      <a href="https://www.lambdatest.com/" target="_blank">
+      <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=go-rod" target="_blank">
         <img
-		  class="no-zoom"
-          src="https://www.lambdatest.com/blue-logo.png"
+          class="no-zoom"
+          src="https://testmuai.com/support/img/logo_dark.svg"
           alt="LambdaTest Logo"
-		  width="250"
-          height="45"
-		  style="max-width: unset;"
+          width="300"
+          style="max-width: unset;"
         />
       </a>
     </td>
