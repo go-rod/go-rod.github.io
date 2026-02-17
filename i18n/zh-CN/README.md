@@ -25,13 +25,15 @@ Please contact [yad@ysmood.org](mailto:yad@ysmood.org) if you want to be listed 
   <tr>
     <td>
       <p>Browser testing via</p>
-     <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=go-rod" target="_blank">
+      <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=go-rod" target="_blank">
         <img
-          src="https://github.com/user-attachments/assets/3efebe85-726b-49f1-b4c9-7c0103b192f3"
-          alt="TestMu AI Logo"
-          height="90"
+          class="no-zoom"
+          src="https://testmuai.com/support/img/logo_dark.svg"
+          alt="LambdaTest Logo"
+          width="300"
+          style="max-width: unset;"
         />
-      </a> 
+      </a>
     </td>
   </tr>
 </table>
