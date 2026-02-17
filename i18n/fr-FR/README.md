@@ -25,7 +25,7 @@ Please contact [yad@ysmood.org](mailto:yad@ysmood.org) if you want to be listed 
   <tr>
     <td>
       <p>Browser testing via</p>
-     <a href="https://www.testmu.ai/" target="_blank">
+     <a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=go-rod" target="_blank">
         <img
           src="https://github.com/user-attachments/assets/3efebe85-726b-49f1-b4c9-7c0103b192f3"
           alt="TestMu AI Logo"
