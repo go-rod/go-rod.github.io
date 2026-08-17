@@ -97,7 +97,7 @@ func main() {
 	u := launcher.New().
 		UserDataDir("path").
 		Headless(true).
-		Headless(false).
+		Proxy("127.0.0.1:8080").
 		MustLaunch()
 
 	rod.New().ControlURL(u).MustConnect().MustPage("https://example.com")
